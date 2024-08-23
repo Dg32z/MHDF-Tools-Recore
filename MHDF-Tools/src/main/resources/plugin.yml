@@ -2,6 +2,7 @@ name: MHDF-Tools
 version: '${project.version}'
 main: cn.ChengZhiYa.MHDFTools.MHDFTools
 api-version: '1.17'
+folia-supported: true
 authoendrs: [ ChengZhiYa, Dg32z_ ]
 softdepend: [ Vault, PlaceholderAPI ]
 permissions:
@@ -100,4 +101,8 @@ permissions:
   MHDFTools.QuitMessage:
     default: true
   MHDFTools.Broadcast:
+    default: true
+  MHDFTools.Command.Freeze:
+    default: true
+  MHDFTools.Command.UnFreeze:
     default: true

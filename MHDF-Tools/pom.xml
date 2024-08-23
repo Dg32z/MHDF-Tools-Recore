@@ -6,7 +6,7 @@
 
     <groupId>MHDF-Tools</groupId>
     <artifactId>MHDF-Tools</artifactId>
-    <version>2.0.7</version>
+    <version>2.1.0</version>
     <packaging>jar</packaging>
 
     <name>MHDF-Tools</name>
@@ -78,10 +78,6 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
@@ -119,8 +115,9 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.11.3</version>
-            <scope>provided</scope>
+            <version>2.11.7</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/[P]PlaceholderAPI.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
