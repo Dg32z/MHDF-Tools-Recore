@@ -1,7 +1,6 @@
 package cn.ChengZhiYa.MHDFTools;
 
 import cn.ChengZhiYa.MHDFTools.manager.init.*;
-import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,8 +8,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
     public static BukkitAudiences adventure;
-    private final ConfigManager configManager = new ConfigManager();
-    private final LibrariesManager librariesManager = new LibrariesManager();
+    @Getter
+    private ConfigManager configManager;
+    @Getter
+    private LibrariesManager librariesManager;
     @Getter
     private DatabaseManager databaseManager;
     @Getter
@@ -26,26 +27,30 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
+        this.configManager = new ConfigManager();
         this.configManager.init();
-        this.librariesManager.init();
 
-        this.databaseManager = new DatabaseManager();
-        this.commandManager = new CommandManager();
-        this.listenerManager = new ListenerManager();
-        this.pluginHookManager = new PluginHookManager();
-        this.taskManager = new TaskManager();
+        this.librariesManager = new LibrariesManager();
+        this.librariesManager.init();
     }
 
     @Override
     public void onEnable() {
         adventure = BukkitAudiences.create(this);
 
+        this.pluginHookManager = new PluginHookManager();
         this.pluginHookManager.hook();
 
+        this.databaseManager = new DatabaseManager();
         this.databaseManager.init();
 
+        this.commandManager = new CommandManager();
         this.commandManager.init();
+
+        this.listenerManager = new ListenerManager();
         this.listenerManager.init();
+
+        this.taskManager = new TaskManager();
         this.taskManager.init();
     }
 
@@ -53,8 +58,6 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         this.pluginHookManager.unhook();
         this.databaseManager.close();
-
-        UniversalScheduler.getScheduler(this).cancelTasks();
 
         instance = null;
         if (adventure != null) {

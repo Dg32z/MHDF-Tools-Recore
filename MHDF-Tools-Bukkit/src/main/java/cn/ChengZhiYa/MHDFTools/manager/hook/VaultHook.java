@@ -3,7 +3,10 @@ package cn.ChengZhiYa.MHDFTools.manager.hook;
 import cn.ChengZhiYa.MHDFTools.manager.AbstractHook;
 import org.bukkit.Bukkit;
 
-public class VaultHook extends AbstractHook {
+public final class VaultHook extends AbstractHook {
+    /**
+     * 初始化Vault的API
+     */
     @Override
     public void hook() {
         if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
@@ -11,6 +14,9 @@ public class VaultHook extends AbstractHook {
         }
     }
 
+    /**
+     * 卸载Vault的API
+     */
     @Override
     public void unhook() {
         super.enable = false;

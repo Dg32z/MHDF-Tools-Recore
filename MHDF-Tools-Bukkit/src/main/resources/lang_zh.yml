@@ -93,3 +93,6 @@ commands:
     kickMessage: |-
       &e-------------=&6梦之工具&6=&e-------------
       {message}
+
+fastuse:
+  shulkerBox: "&b快速使用-潜影盒"

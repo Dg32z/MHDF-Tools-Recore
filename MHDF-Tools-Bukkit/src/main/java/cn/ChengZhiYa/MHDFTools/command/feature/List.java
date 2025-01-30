@@ -10,9 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import static cn.ChengZhiYa.MHDFTools.util.config.LangUtil.i18n;
-
-@SuppressWarnings("unused")
 public final class List extends AbstractCommand {
     private final Runtime runtime = Runtime.getRuntime();
 
@@ -30,7 +27,7 @@ public final class List extends AbstractCommand {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
             sender.sendMessage(
-                    i18n("commands.list.message")
+                    LangUtil.i18n("commands.list.message")
                             .replace("{tps}", String.valueOf(getTps()))
                             .replace("{memory}", String.valueOf(getUsedMemory()))
                             .replace("{maxMemory}", String.valueOf(getTotalMemory()))
@@ -63,7 +60,7 @@ public final class List extends AbstractCommand {
         } else {
             tps = SpigotReflectionUtil.getTPS();
         }
-       return Double.parseDouble(String.format("%.2f", tps));
+        return Double.parseDouble(String.format("%.2f", tps));
     }
 
     /**

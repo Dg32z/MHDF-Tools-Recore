@@ -1,12 +1,12 @@
 package cn.ChengZhiYa.MHDFTools.task;
 
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import com.github.Anon8281.universalScheduler.UniversalRunnable;
+import cn.ChengZhiYa.MHDFTools.util.runnable.MHDFRunnable;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
-public abstract class AbstractTask extends UniversalRunnable {
+public abstract class AbstractTask extends MHDFRunnable {
     private final boolean enable;
     private final Long time;
 

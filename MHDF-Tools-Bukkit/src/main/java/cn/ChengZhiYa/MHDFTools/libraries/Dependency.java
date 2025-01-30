@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Dependency {
+    // 依赖处理
     ASM(
             "org.ow2.asm",
             "asm",
@@ -28,7 +29,7 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
-
+    // JSON处理
     FAST_JSON(
             "com.alibaba",
             "fastjson",
@@ -36,6 +37,7 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
+    // 反射处理
     REFLECTIONS(
             "org.reflections",
             "reflections",
@@ -49,6 +51,7 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
+    // packetevents-api
     PACKETEVENTS_API(
             "com.github.retrooper",
             "packetevents-api",
@@ -68,6 +71,7 @@ public enum Dependency {
             Repository.CODE_MC
     ),
 
+    // item-nbt-api
     ITEM_NBT_API(
             "de.tr7zw",
             "item-nbt-api",
@@ -75,6 +79,7 @@ public enum Dependency {
             Repository.CODE_MC
     ),
 
+    // 数据库
     ORMLITE_CORE(
             "com.j256.ormlite",
             "ormlite-core",
@@ -106,6 +111,7 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
+    // adventure-api
     EXAMINATION_API(
             "net.kyori",
             "examination-api",
@@ -130,7 +136,6 @@ public enum Dependency {
             "4.17.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
-
     ADVENTURE_TEXT_SERIALIZER_LEGACY(
             "net.kyori",
             "adventure-text-serializer-legacy",
@@ -184,8 +189,15 @@ public enum Dependency {
             "adventure-platform-bukkit",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
-    );
+    ),
 
+    // 调度器
+    UNIVERSAL_SCHEDULER(
+            "com.github.Anon8281",
+            "UniversalScheduler",
+            "0.1.6",
+            Repository.JITPACK
+    );
 
     private final String artifact;
     private final String version;

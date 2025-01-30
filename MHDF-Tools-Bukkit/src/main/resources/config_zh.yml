@@ -93,3 +93,50 @@ stopSettings:
   # 命令
   commands:
     - "stop"
+
+# 快速使用
+fastUseSettings:
+  # 开关
+  enable: true
+  # 潜影盒(权限: mhdftools.fastuse.shulkerbox)
+  shulkerBox: true
+  # 末影箱(权限: mhdftools.fastuse.enderchest)
+  enderChest: true
+  # 工作台(权限: mhdftools.fastuse.craftingtable)
+  craftingTable: true
+
+# 进服消息
+joinMessageSettings:
+  # 开关
+  enable: true
+  # 默认
+  default:
+    # 权重
+    weight: 0
+    # 提示消息
+    message: "&a[+] &e{player}"
+  # 拥有 mhdftools.group.joinmessage.<名字> 权限的提示
+  # 例如 mhdftools.group.joinmessage.admin
+  admin:
+    # 权重
+    weight: 1
+    # 提示消息
+    message: "&a[+] &c{player}"
+
+# 退服消息
+quitMessageSettings:
+  # 开关
+  enable: true
+  # 默认
+  default:
+    # 权重
+    weight: 0
+    # 提示消息
+    message: "&c[-] &e{player}"
+  # 拥有 mhdftools.group.quitmessage.<名字> 权限的提示
+  # 例如 mhdftools.group.quitmessage.admin
+  admin:
+    # 权重
+    weight: 1
+    # 提示消息
+    message: "&c[-] &c{player}"

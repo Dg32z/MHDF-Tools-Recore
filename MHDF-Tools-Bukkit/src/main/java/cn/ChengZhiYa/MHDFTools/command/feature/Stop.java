@@ -4,7 +4,7 @@ import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
-import com.github.Anon8281.universalScheduler.UniversalRunnable;
+import cn.ChengZhiYa.MHDFTools.util.runnable.MHDFRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,7 +31,7 @@ public final class Stop extends AbstractCommand {
         String message = args.length >= 2 ? ColorUtil.color(args[1]) :
                 i18n("commands.stop.defaultMessage");
 
-        new UniversalRunnable() {
+        new MHDFRunnable() {
             private int countdown = time;
 
             @Override

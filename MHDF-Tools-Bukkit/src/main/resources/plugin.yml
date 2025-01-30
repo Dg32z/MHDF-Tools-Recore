@@ -5,10 +5,3 @@ api-version: '1.20'
 folia-supported: true
 authoendrs: [ ChengZhiYa, Dg32z_ ]
 softdepend: [ Vault, PlaceholderAPI ]
-permissions:
-  mhdftools.commands.mhdftools.version:
-    default: op
-  mhdftools.commands.mhdftools.reload:
-    default: op
-  mhdftools.commands.crash:
-    default: op

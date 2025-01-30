@@ -32,7 +32,7 @@ public final class PacketEventsHook extends AbstractHook {
         PacketEvents.getAPI().load();
 
         PacketEvents.getAPI().init();
-        serverManager = PacketEvents.getAPI().getServerManager();
+        this.serverManager = PacketEvents.getAPI().getServerManager();
         super.enable = true;
     }
 
@@ -52,7 +52,7 @@ public final class PacketEventsHook extends AbstractHook {
      * @param packet 发送的数据包
      */
     public void sendPacket(Player player, PacketWrapper<?> packet) {
-        if (enable) {
+        if (super.enable) {
             PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
         }
     }
