@@ -6,28 +6,29 @@ import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.util.List;
 
-public final class JoinMessage extends AbstractListener {
-    public JoinMessage() {
+public final class QuitMessage extends AbstractListener {
+    public QuitMessage() {
         super(
-                "joinMessageSettings.enable"
+                "quitMessageSettings.enable"
         );
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        if (ConfigUtil.getConfig().getBoolean("joinMessageSettings.enable")) {
+        if (ConfigUtil.getConfig().getBoolean("quitMessageSettings.enable")) {
             return;
         }
 
-        String message = ConfigUtil.getConfig().getString("joinMessageSettings." + getGroup(player) + ".message");
+        String message = ConfigUtil.getConfig().getString("quitMessageSettings." + getGroup(player) + ".message");
 
-        event.setJoinMessage(message);
+        event.setQuitMessage(message);
     }
 
     /**
@@ -39,15 +40,15 @@ public final class JoinMessage extends AbstractListener {
     private String getGroup(Player player) {
         List<String> groupList = player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
-                .filter(permission -> permission.startsWith("mhdftools.group.joinmessage."))
-                .map(permission -> permission.replace("mhdftools.group.joinmessage.", ""))
+                .filter(permission -> permission.startsWith("mhdftools.group.quitmessage."))
+                .map(permission -> permission.replace("mhdftools.group.quitmessage.", ""))
                 .toList();
 
         int maxWeight = 0;
         String maxWeightGroup = "default";
 
         for (String group : groupList) {
-            int weight = Main.instance.getConfig().getInt("joinMessageSettings." + group + ".weight");
+            int weight = Main.instance.getConfig().getInt("quitMessageSettings." + group + ".weight");
 
             if (weight > maxWeight) {
                 maxWeight = weight;
