@@ -8,7 +8,6 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -90,7 +89,7 @@ public final class VanishUtil {
     public static void deleteVanishStatus(Player player) {
         deleteVanishStatus(player.getUniqueId());
     }
-    
+
     /**
      * 给指定目标实例发送切换影身的提示
      *
@@ -118,7 +117,7 @@ public final class VanishUtil {
             if (PluginHookManager.getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
                 onlinePlayer.hidePlayer(Main.instance, player);
-            }else {
+            } else {
                 onlinePlayer.hidePlayer(player);
             }
         }
@@ -134,7 +133,7 @@ public final class VanishUtil {
             if (PluginHookManager.getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
                 onlinePlayer.showPlayer(Main.instance, player);
-            }else {
+            } else {
                 onlinePlayer.showPlayer(player);
             }
         }

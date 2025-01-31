@@ -5,7 +5,6 @@ import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 

@@ -1,12 +1,10 @@
 package cn.ChengZhiYa.MHDFTools.command.feature;
 
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
-import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
 import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.VanishUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
