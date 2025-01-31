@@ -18,11 +18,11 @@ import java.util.List;
 public final class Vanish extends AbstractCommand {
     public Vanish() {
         super(
-                "flySettings.enable",
-                "飞行",
-                "mhdftools.commands.fly",
+                "vanishSettings.enable",
+                "影身",
+                "mhdftools.commands.vanish",
                 false,
-                ConfigUtil.getConfig().getStringList("flySettings.commands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("vanishSettings.commands").toArray(new String[0])
         );
     }
 
