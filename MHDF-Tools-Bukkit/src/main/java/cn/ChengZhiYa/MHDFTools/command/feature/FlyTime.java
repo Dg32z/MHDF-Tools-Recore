@@ -51,7 +51,7 @@ public final class FlyTime extends AbstractCommand {
 
             // 增加飞行时间
             if (args[0].equalsIgnoreCase("add")) {
-                FlyStatus flyStatus = FlyUtil.getFlyStatusDao(player.getUniqueId());
+                FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
 
                 long time = flyStatus.getTime() + inputTime;
                 FlyUtil.setFlyTime(player, time);
@@ -67,7 +67,7 @@ public final class FlyTime extends AbstractCommand {
 
             // 减少飞行时间
             if (args[0].equalsIgnoreCase("take")) {
-                FlyStatus flyStatus = FlyUtil.getFlyStatusDao(player.getUniqueId());
+                FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
 
                 long time = flyStatus.getTime() - inputTime;
                 FlyUtil.setFlyTime(player, flyStatus.getTime() - inputTime);

@@ -63,6 +63,10 @@ commands:
       2: "{prefix} &6飞行时长还有&b2秒|&f即将关闭飞行!|10|70|20"
       1: "{prefix} &6飞行时长还有&b1秒|&f即将关闭飞行!|10|70|20"
       0: "{prefix} &6飞行已关闭|&f迫降中!|10|70|20"
+  vanish:
+    usage: "/{command} [玩家]"
+    description: "影身"
+    message: "{prefix} &6{player}的飞行模式已{change}"
   flytime:
     subCommands:
       help:

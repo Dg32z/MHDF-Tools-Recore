@@ -94,7 +94,7 @@ public final class AutoChangeFly extends AbstractListener {
      * @param player 玩家实例
      */
     private boolean allowChange(Player player) {
-        FlyStatus flyStatus = FlyUtil.getFlyStatusDao(player.getUniqueId());
+        FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
 
         // 不处理没有开启飞行的玩家
         if (!flyStatus.isEnable()) {

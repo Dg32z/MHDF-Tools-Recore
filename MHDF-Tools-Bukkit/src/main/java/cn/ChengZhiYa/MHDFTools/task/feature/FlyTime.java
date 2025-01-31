@@ -23,7 +23,7 @@ public final class FlyTime extends AbstractTask {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getAllowFlight() && !FlyUtil.isAllowedFlyingGameMode(player)) {
-                FlyStatus flyStatus = FlyUtil.getFlyStatusDao(player.getUniqueId());
+                FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
                 // 不处理永久飞行的玩家
                 if (!player.hasPermission("mhdftools.commands.fly.infinite")) {
                     // 发送迫题提示

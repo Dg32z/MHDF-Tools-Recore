@@ -82,6 +82,16 @@ flySettings:
   flyTimeCommands:
     - "flytime"
 
+# 隐身
+vanishSettings:
+  # 开关
+  enable: true
+  # 从补全中移除
+  tabRemove: true
+  # 命令
+  commands:
+    - "vanish"
+
 # 更好的关服
 stopSettings:
   # 开关

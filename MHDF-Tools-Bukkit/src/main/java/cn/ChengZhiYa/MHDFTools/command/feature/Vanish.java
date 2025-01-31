@@ -2,10 +2,12 @@ package cn.ChengZhiYa.MHDFTools.command.feature;
 
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
+import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
+import cn.ChengZhiYa.MHDFTools.util.feature.VanishUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public final class Fly extends AbstractCommand {
-    public Fly() {
+public final class Vanish extends AbstractCommand {
+    public Vanish() {
         super(
                 "flySettings.enable",
                 "飞行",
@@ -31,19 +33,13 @@ public final class Fly extends AbstractCommand {
         Player player = null;
         boolean sendToSender = true;
 
-        // 切换玩家自己的飞行模式
+        // 切换玩家自己的隐身模式
         if (args.length == 0 && sender instanceof Player) {
             sendToSender = false;
             player = (Player) sender;
-
-            FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
-            if (!sender.hasPermission("mhdftools.commands.fly.infinite") && flyStatus.getTime() <= 0) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
-                return;
-            }
         }
 
-        // 切换其他玩家的飞行模式
+        // 切换其他玩家的隐身模式
         if (args.length == 1) {
             if (Bukkit.getPlayer(args[0]) == null) {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));
@@ -51,27 +47,27 @@ public final class Fly extends AbstractCommand {
             }
             player = Bukkit.getPlayer(args[0]);
 
-            if (!sender.hasPermission("mhdftools.commands.fly.give")) {
+            if (!sender.hasPermission("mhdftools.commands.vanish.give")) {
                 sender.sendMessage(LangUtil.i18n("noPermission"));
                 return;
             }
         }
 
-        // 切换飞行
+        // 切换影身
         if (player != null) {
-            FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
-            if (!flyStatus.isEnable()) {
-                FlyUtil.enableFly(player);
+            VanishStatus vanishStatus = VanishUtil.getVanishStatus(player);
+            if (!vanishStatus.isEnable()) {
+                VanishUtil.enableVanish(player);
                 if (sendToSender) {
-                    FlyUtil.sendChangeFlyMessage(sender, player, true);
+                    VanishUtil.sendChangeVanishMessage(sender, player, true);
                 }
-                FlyUtil.sendChangeFlyMessage(player, player, true);
+                VanishUtil.sendChangeVanishMessage(player, player, true);
             } else {
-                FlyUtil.disableFly(player);
+                VanishUtil.disableVanish(player);
                 if (sendToSender) {
-                    FlyUtil.sendChangeFlyMessage(sender, player, false);
+                    VanishUtil.sendChangeVanishMessage(sender, player, false);
                 }
-                FlyUtil.sendChangeFlyMessage(player, player, false);
+                VanishUtil.sendChangeVanishMessage(player, player, false);
             }
             return;
         }
@@ -80,7 +76,7 @@ public final class Fly extends AbstractCommand {
         {
             sender.sendMessage(
                     LangUtil.i18n("usageError")
-                            .replace("{usage}", LangUtil.i18n("commands.fly.usage"))
+                            .replace("{usage}", LangUtil.i18n("commands.vanish.usage"))
                             .replace("{command}", label)
             );
         }

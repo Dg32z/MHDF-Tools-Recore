@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import java.sql.SQLException;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public final class FlyUtil {
     private static final Dao<FlyStatus, UUID> flyStatusDao;
 
@@ -24,12 +25,12 @@ public final class FlyUtil {
     }
 
     /**
-     * 获取指定玩家的飞行状态数据
+     * 获取指定玩家UUID的飞行状态实例
      *
      * @param uuid 玩家UUID
      * @return 飞行状态实例
      */
-    public static FlyStatus getFlyStatusDao(UUID uuid) {
+    public static FlyStatus getFlyStatus(UUID uuid) {
         try {
             FlyStatus flyStatus = flyStatusDao.queryForId(uuid);
             if (flyStatus == null) {
@@ -43,11 +44,21 @@ public final class FlyUtil {
     }
 
     /**
-     * 设置指定玩家的飞行状态数据
+     * 获取指定玩家实例的飞行状态实例
+     *
+     * @param player 玩家实例
+     * @return 飞行状态实例
+     */
+    public static FlyStatus getFlyStatus(Player player) {
+        return getFlyStatus(player.getUniqueId());
+    }
+
+    /**
+     * 设置指定玩家的飞行状态实例
      *
      * @param flyStatus 飞行状态实例
      */
-    public static void setFlyStatusDao(FlyStatus flyStatus) {
+    public static void setFlyStatus(FlyStatus flyStatus) {
         try {
             flyStatusDao.createOrUpdate(flyStatus);
         } catch (SQLException e) {
@@ -56,11 +67,11 @@ public final class FlyUtil {
     }
 
     /**
-     * 删除指定玩家的飞行状态数据
+     * 删除指定玩家UUID的飞行状态实例
      *
      * @param uuid 玩家UUID
      */
-    public static void deleteFlyStatusDao(UUID uuid) {
+    public static void deleteFlyStatus(UUID uuid) {
         try {
             flyStatusDao.deleteById(uuid);
         } catch (SQLException e) {
@@ -69,47 +80,41 @@ public final class FlyUtil {
     }
 
     /**
-     * 开启指定玩家的飞行模式
+     * 删除指定玩家实例的飞行状态实例
      *
      * @param player 玩家实例
      */
-    public static void enableFly(Player player) {
-        FlyStatus flyStatus = getFlyStatusDao(player.getUniqueId());
-        flyStatus.setEnable(true);
-        setFlyStatusDao(flyStatus);
-
-        player.setAllowFlight(true);
+    public static void deleteFlyStatus(Player player) {
+        deleteFlyStatus(player.getUniqueId());
     }
 
     /**
-     * 关闭指定玩家的飞行模式
+     * 设置指定玩家UUID的限时飞行时间
      *
-     * @param player 玩家实例
+     * @param uuid 玩家UUID
+     * @param time 飞行时间
      */
-    public static void disableFly(Player player) {
-        FlyStatus flyStatus = getFlyStatusDao(player.getUniqueId());
-        flyStatus.setEnable(false);
-        setFlyStatusDao(flyStatus);
-        player.setAllowFlight(false);
+    public static void setFlyTime(UUID uuid, Long time) {
+        FlyStatus flyStatus = getFlyStatus(uuid);
+        flyStatus.setTime(time);
+        setFlyStatus(flyStatus);
     }
 
     /**
-     * 设置指定玩家的限时飞行时间
+     * 设置指定玩家实例的限时飞行时间
      *
      * @param player 玩家实例
      * @param time   飞行时间
      */
     public static void setFlyTime(Player player, Long time) {
-        FlyStatus flyStatus = getFlyStatusDao(player.getUniqueId());
-        flyStatus.setTime(time);
-        setFlyStatusDao(flyStatus);
+        setFlyTime(player.getUniqueId(), time);
     }
 
     /**
-     * 给指定玩家发送切换飞行的提示
+     * 给指定目标实例发送切换飞行的提示
      *
-     * @param sender 接收信息的玩家
-     * @param player 开启飞行的玩家
+     * @param sender 接收信息的目标实例
+     * @param player 开启飞行的玩家实例
      * @param enable 是否开启飞行
      */
     public static void sendChangeFlyMessage(CommandSender sender, Player player, boolean enable) {
@@ -130,5 +135,31 @@ public final class FlyUtil {
     public static boolean isAllowedFlyingGameMode(Player player) {
         return player.getGameMode() == GameMode.CREATIVE ||
                 player.getGameMode() == GameMode.SPECTATOR;
+    }
+
+    /**
+     * 开启指定玩家实例的飞行模式
+     *
+     * @param player 玩家实例
+     */
+    public static void enableFly(Player player) {
+        FlyStatus flyStatus = getFlyStatus(player);
+        flyStatus.setEnable(true);
+        setFlyStatus(flyStatus);
+
+        player.setAllowFlight(true);
+    }
+
+    /**
+     * 关闭指定玩家实例的飞行模式
+     *
+     * @param player 玩家实例
+     */
+    public static void disableFly(Player player) {
+        FlyStatus flyStatus = getFlyStatus(player);
+        flyStatus.setEnable(false);
+        setFlyStatus(flyStatus);
+
+        player.setAllowFlight(false);
     }
 }
