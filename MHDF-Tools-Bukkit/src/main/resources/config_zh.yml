@@ -93,7 +93,7 @@ flySettings:
   commands:
     - "fly"
   # 限时飞行命令
-  flyTimeCommands:
+  flytimeCommands:
     - "flytime"
 
 # 隐身
@@ -117,6 +117,137 @@ stopSettings:
   # 命令
   commands:
     - "stop"
+
+# 传送到玩家
+tpaSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "tpa"
+
+# 传送玩家过来
+tpahereSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "tpahere"
+
+# 家系统
+homeSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "home"
+  # 设置家命令
+  sethomeCommands:
+    - "sethome"
+  # 删除家命令
+  delhomeCommands:
+    - "delhome"
+
+# 返回死亡点
+backSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "back"
+
+# 返回传送前的位置
+tpbackSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "tpback"
+
+# 出生点
+spawnSettings:
+  # 开关
+  enable: true
+  # 位置
+  location:
+    # 服务器
+    server: "无"
+    # 世界
+    world: "world"
+    # x轴坐标
+    x: 0.0
+    # y轴坐标
+    y: 60.0
+    # z轴坐标
+    z: 0.0
+    # yaw角度
+    yaw: 0.0
+    # pitch角度
+    pitch: 0.0
+  # 命令
+  commands:
+    - "spawn"
+  setspawnCommands:
+    - "setspawn"
+
+# 修改名称
+nickSettings:
+  # 开关
+  enable: true
+  # 屏蔽词
+  blackWord:
+    - "傻逼"
+  # 命令
+  commands:
+    - "nick"
+
+# 查询IP信息
+ipSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "ip"
+    - "ipinfo"
+
+# 切换游戏模式
+gamemodeSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "gamemode"
+    - "gm"
+
+# 回到床的位置
+bedSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "bed"
+
+# 自杀
+suicideSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "suicide"
+
+# 传送点系统
+warpSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "warp"
+  # 设置传送点命令
+  setwarpCommands:
+    - "setwarp"
+  # 删除传送点命令
+  delwarpCommands:
+    - "delwarp"
 
 # 快速使用
 fastUseSettings:
