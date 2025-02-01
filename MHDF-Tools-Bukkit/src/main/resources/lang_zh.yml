@@ -101,6 +101,20 @@ commands:
     kickMessage: |-
       &e-------------=&6梦之工具&6=&e-------------
       {message}
-
+  tpa:
+    usage: "/{command} <目标玩家>"
+    description: "请求传送至指定玩家"
+    message: "{prefix} &6你向{target}发送了传送请求!"
+    requestMessage: |-
+      &e-------------=&6梦之工具&6=&e-------------
+      玩家{player}想来你这里看看!
+      {accept}   {reject}
+      &e-------------=&6梦之工具&6=&e-------------
+    accept:
+      message: "&a[接受]"
+      hover: "&6点击接受{player}的传送请求"
+    reject:
+      message: "&c[拒绝]"
+      hover: "&6点击拒绝{player}的传送请求"
 fastuse:
   shulkerBox: "&b快速使用-潜影盒"

@@ -76,7 +76,7 @@ public final class TellawJsonBuilder {
         return this;
     }
 
-    public void sendTo(CommandSender sender) {
+    public void send(CommandSender sender) {
         if (sender instanceof Player player) {
             player.spigot().sendMessage(components);
         } else {
@@ -85,7 +85,7 @@ public final class TellawJsonBuilder {
     }
 
     public void broadcast() {
-        Bukkit.getOnlinePlayers().forEach(this::sendTo);
+        Bukkit.getOnlinePlayers().forEach(this::send);
         LogUtil.log(toString());
     }
 }
