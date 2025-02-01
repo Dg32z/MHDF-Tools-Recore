@@ -6,6 +6,10 @@ playerOffline: "{prefix} &c你指定的玩家并没有在线!"
 enable: "&a开启"
 disable: "&c关闭"
 
+menu:
+  fastuse:
+    title: "&b隐身打开容器"
+
 commands:
   mhdftools:
     subCommands:

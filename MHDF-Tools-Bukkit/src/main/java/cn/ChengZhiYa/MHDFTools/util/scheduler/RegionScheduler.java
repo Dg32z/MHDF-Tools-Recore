@@ -14,7 +14,7 @@ public final class RegionScheduler {
     private BukkitScheduler bukkitScheduler;
     private io.papermc.paper.threadedregions.scheduler.RegionScheduler regionScheduler;
 
-    RegionScheduler() {
+    public RegionScheduler() {
         if (MHDFScheduler.isFolia()) {
             regionScheduler = Bukkit.getRegionScheduler();
         } else {

@@ -12,7 +12,7 @@ public final class GlobalRegionScheduler {
     private BukkitScheduler bukkitScheduler;
     private io.papermc.paper.threadedregions.scheduler.GlobalRegionScheduler globalRegionScheduler;
 
-    GlobalRegionScheduler() {
+    public GlobalRegionScheduler() {
         if (MHDFScheduler.isFolia()) {
             globalRegionScheduler = Bukkit.getGlobalRegionScheduler();
         } else {

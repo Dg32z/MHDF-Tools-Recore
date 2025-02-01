@@ -1,9 +1,9 @@
 package cn.ChengZhiYa.MHDFTools.manager.init;
 
+import cn.ChengZhiYa.MHDFTools.interfaces.Hook;
 import cn.ChengZhiYa.MHDFTools.manager.hook.PacketEventsHook;
 import cn.ChengZhiYa.MHDFTools.manager.hook.PlaceholderAPIHook;
 import cn.ChengZhiYa.MHDFTools.manager.hook.VaultHook;
-import cn.ChengZhiYa.MHDFTools.manager.interfaces.Hook;
 import lombok.Getter;
 
 @Getter

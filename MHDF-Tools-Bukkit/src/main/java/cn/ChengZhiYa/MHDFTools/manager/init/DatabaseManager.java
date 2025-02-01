@@ -1,7 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.manager.init;
 
 import cn.ChengZhiYa.MHDFTools.entity.AbstractDao;
-import cn.ChengZhiYa.MHDFTools.manager.interfaces.Init;
+import cn.ChengZhiYa.MHDFTools.interfaces.Init;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
 import com.j256.ormlite.table.TableUtils;

@@ -1,7 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.manager.init;
 
 import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.manager.interfaces.Init;
+import cn.ChengZhiYa.MHDFTools.interfaces.Init;
 import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
 import org.reflections.Reflections;
 

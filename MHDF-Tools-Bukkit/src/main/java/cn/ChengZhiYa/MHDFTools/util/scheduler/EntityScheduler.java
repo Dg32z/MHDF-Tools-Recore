@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public final class EntityScheduler {
     private BukkitScheduler bukkitScheduler;
 
-    EntityScheduler() {
+    public EntityScheduler() {
         if (!MHDFScheduler.isFolia()) {
             bukkitScheduler = Bukkit.getScheduler();
         }

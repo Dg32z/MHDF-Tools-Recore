@@ -1,11 +1,11 @@
 package cn.ChengZhiYa.MHDFTools.manager.init;
 
 import cn.ChengZhiYa.MHDFTools.Main;
+import cn.ChengZhiYa.MHDFTools.interfaces.Init;
 import cn.ChengZhiYa.MHDFTools.libraries.Dependency;
 import cn.ChengZhiYa.MHDFTools.libraries.DependencyManager;
 import cn.ChengZhiYa.MHDFTools.libraries.DependencyManagerImpl;
 import cn.ChengZhiYa.MHDFTools.libraries.classpath.ReflectionClassPathAppender;
-import cn.ChengZhiYa.MHDFTools.manager.interfaces.Init;
 
 import java.util.Arrays;
 

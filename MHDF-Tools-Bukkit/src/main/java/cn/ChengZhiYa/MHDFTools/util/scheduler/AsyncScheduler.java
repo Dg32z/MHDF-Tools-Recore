@@ -13,7 +13,7 @@ public final class AsyncScheduler {
     private BukkitScheduler bukkitScheduler;
     private io.papermc.paper.threadedregions.scheduler.AsyncScheduler asyncScheduler;
 
-    AsyncScheduler() {
+    public AsyncScheduler() {
         if (MHDFScheduler.isFolia()) {
             asyncScheduler = Bukkit.getAsyncScheduler();
         } else {
