@@ -26,7 +26,7 @@ public final class ChestMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(getPlayer(), chest.getInventory().getSize(), ColorUtil.color("menu.fastuse.title"));
+        Inventory inventory = Bukkit.createInventory(getPlayer(), chest.getInventory().getSize(), ColorUtil.color("menu.vanish.title"));
         inventory.setContents(chest.getInventory().getContents());
 
         return inventory;

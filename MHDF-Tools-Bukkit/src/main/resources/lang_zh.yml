@@ -8,7 +8,16 @@ disable: "&c关闭"
 
 menu:
   fastuse:
+    shulkerBox:
+      title: "&b快速使用-潜影盒"
+  vanish:
     title: "&b隐身打开容器"
+
+gamemode:
+  survival: "生存模式"
+  adventure: "冒险模式"
+  creative: "创造模式"
+  spectator: "旁观模式"
 
 commands:
   mhdftools:
@@ -116,5 +125,85 @@ commands:
     reject:
       message: "&c[拒绝]"
       hover: "&6点击拒绝{player}的传送请求"
-fastuse:
-  shulkerBox: "&b快速使用-潜影盒"
+  tpahere:
+    usage: "/{command} <目标玩家>"
+    description: "请求指定玩家传送到你这"
+    message: "{prefix} &6你向{target}发送了传送请求!"
+    requestMessage: |-
+      &e-------------=&6梦之工具&6=&e-------------
+      玩家{player}想你到他那里看看!
+      {accept}   {reject}
+      &e-------------=&6梦之工具&6=&e-------------
+    accept:
+      message: "&a[接受]"
+      hover: "&6点击接受{player}的传送请求"
+    reject:
+      message: "&c[拒绝]"
+      hover: "&6点击拒绝{player}的传送请求"
+  home:
+    usage: "/{command} [家名称]"
+    description: "返回到指定家"
+    openMenuMessage: "{prefix} &6你打开了家列表"
+    teleportMessage: "{prefix} &6你传送到了{home}!"
+  sethome:
+    usage: "/{command} <家名称>"
+    description: "设置家"
+    message: "{prefix} &6你设置了<home>!"
+  delhome:
+    usage: "/{command} <家名称>"
+    description: "删除家"
+    message: "{prefix} &6你删除了<home>!"
+  back:
+    usage: "/{command}"
+    description: "返回死亡点"
+    message: "{prefix} &6你来到了死亡点,输入&e/tpback&6返回传送前的位置!"
+  tpback:
+    usage: "/{command}"
+    description: "返回传送前的位置"
+    message: "{prefix} &6你来到了传送前的位置,输入&e/tpback&6返回传送前的位置!"
+  spawn:
+    usage: "/{command}"
+    description: "返回出生点"
+    message: "{prefix} &6你回到了出生点!"
+  setspawn:
+    usage: "/{command}"
+    description: "设置出生点"
+    message: "{prefix} &6你成功将此处设置为出生点!"
+  nick:
+    usage: "/{command} <名称> [玩家]"
+    description: "修改玩家名称"
+    message: "{prefix} &6{player}的名称现在为{name}!"
+    blackWord: "{prefix} &c名称中不能包含{word}!"
+  ip:
+    usage: "/{command} <玩家>"
+    description: "查询一个玩家的IP信息"
+    message: |-
+      &e-------------=&6梦之工具&6=&e-------------
+      &e玩家: &6{player}
+      &eIP: &6{ip}
+      &e归属地: &6{location}
+      &e-------------=&6梦之工具&6=&e-------------
+  gamemode:
+    usage: "/{command} <游戏模式> [玩家]"
+    description: "修改玩家游戏模式"
+    message: "{prefix} &6{player}的游戏模式已被更新为{gamemode}!"
+  bed:
+    usage: "/{command}"
+    description: "回到床的位置"
+    message: "{prefix} &6你回到了床的旁边!"
+  suicide:
+    usage: "/{command}"
+    description: "自杀"
+    message: "{prefix} &6你自杀了!"
+  warp:
+    usage: "/{command} <传送点>"
+    description: "传送到指定传送点"
+    message: "{prefix} &6你来到了{warp}!"
+  setwarp:
+    usage: "/{command} <传送点>"
+    description: "设置传送点"
+    message: "{prefix} &6你设置了{warp}!"
+  delwarp:
+    usage: "/{command} <传送点>"
+    description: "删除传送点"
+    message: "{prefix} &6你删除了{warp}!"

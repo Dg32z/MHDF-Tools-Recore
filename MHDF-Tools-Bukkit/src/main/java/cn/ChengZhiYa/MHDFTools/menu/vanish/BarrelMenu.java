@@ -24,7 +24,7 @@ public final class BarrelMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(getPlayer(), InventoryType.BARREL, ColorUtil.color("menu.fastuse.title"));
+        Inventory inventory = Bukkit.createInventory(getPlayer(), InventoryType.BARREL, ColorUtil.color("menu.vanish.title"));
         inventory.setContents(barrel.getInventory().getContents());
 
         return inventory;
