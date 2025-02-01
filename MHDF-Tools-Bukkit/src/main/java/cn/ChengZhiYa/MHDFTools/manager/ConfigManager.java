@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.manager.init;
+package cn.ChengZhiYa.MHDFTools.manager;
 
 import cn.ChengZhiYa.MHDFTools.exception.FileException;
 import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
@@ -8,6 +8,7 @@ import cn.ChengZhiYa.MHDFTools.util.config.FileUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.SoundUtil;
 
+@SuppressWarnings("unused")
 public final class ConfigManager implements Init {
     /**
      * 初始化默认配置文件

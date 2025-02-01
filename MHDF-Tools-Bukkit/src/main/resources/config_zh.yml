@@ -8,7 +8,7 @@ databaseSettings:
   type: "h2"
   # MySQL数据库设置
   mysql:
-    # 数据库地址
+    # 地址
     host: "127.0.0.1:3306"
     # 数据库
     database: "mhdf_tools"
@@ -20,6 +20,20 @@ databaseSettings:
   h2:
     # 数据库文件
     file: "database.db"
+
+# 缓存设置
+cacheSettings:
+  # 存储类型
+  # (map redis)
+  type: "map"
+  # Redis数据库设置
+  redis:
+    # 地址
+    host: "localhost:6379"
+    # 用户
+    user: ""
+    # 密码
+    password: ""
 
 # 崩溃玩家客户端
 crashSettings:

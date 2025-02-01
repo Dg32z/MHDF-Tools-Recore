@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.manager.init;
+package cn.ChengZhiYa.MHDFTools.manager;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
@@ -12,7 +12,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "unused"})
 public final class CommandManager implements Init {
     /**
      * 注册所有启用的命令

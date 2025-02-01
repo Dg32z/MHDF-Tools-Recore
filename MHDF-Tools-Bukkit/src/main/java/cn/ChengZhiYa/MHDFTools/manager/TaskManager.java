@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.manager.init;
+package cn.ChengZhiYa.MHDFTools.manager;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.interfaces.Init;
@@ -7,6 +7,7 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;
 
+@SuppressWarnings("unused")
 public final class TaskManager implements Init {
     /**
      * 注册所有启用的计划任务

@@ -1,7 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.command.feature;
 
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
-import cn.ChengZhiYa.MHDFTools.manager.init.PluginHookManager;
+import cn.ChengZhiYa.MHDFTools.manager.PluginHookManager;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;

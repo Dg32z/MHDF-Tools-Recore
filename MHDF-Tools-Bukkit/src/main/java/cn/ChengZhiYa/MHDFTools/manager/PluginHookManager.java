@@ -1,12 +1,13 @@
-package cn.ChengZhiYa.MHDFTools.manager.init;
+package cn.ChengZhiYa.MHDFTools.manager;
 
+import cn.ChengZhiYa.MHDFTools.hook.PacketEventsHook;
+import cn.ChengZhiYa.MHDFTools.hook.PlaceholderAPIHook;
+import cn.ChengZhiYa.MHDFTools.hook.VaultHook;
 import cn.ChengZhiYa.MHDFTools.interfaces.Hook;
-import cn.ChengZhiYa.MHDFTools.manager.hook.PacketEventsHook;
-import cn.ChengZhiYa.MHDFTools.manager.hook.PlaceholderAPIHook;
-import cn.ChengZhiYa.MHDFTools.manager.hook.VaultHook;
 import lombok.Getter;
 
 @Getter
+@SuppressWarnings("unused")
 public final class PluginHookManager implements Hook {
     @Getter
     private static final PacketEventsHook packetEventsHook = new PacketEventsHook();

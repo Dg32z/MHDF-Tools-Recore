@@ -1,6 +1,6 @@
 package cn.ChengZhiYa.MHDFTools.util.message;
 
-import cn.ChengZhiYa.MHDFTools.manager.init.PluginHookManager;
+import cn.ChengZhiYa.MHDFTools.manager.PluginHookManager;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import me.clip.placeholderapi.PlaceholderAPI;

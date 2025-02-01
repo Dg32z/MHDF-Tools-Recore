@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.manager.init;
+package cn.ChengZhiYa.MHDFTools.manager;
 
 import cn.ChengZhiYa.MHDFTools.entity.AbstractDao;
 import cn.ChengZhiYa.MHDFTools.interfaces.Init;
@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 @Getter
+@SuppressWarnings("unused")
 public final class DatabaseManager implements Init {
     private String type = "none";
     private String databaseUrl = "";
@@ -37,9 +38,13 @@ public final class DatabaseManager implements Init {
             throw new RuntimeException("数据库驱动加载失败");
         }
 
-        if (type != null) {
+        if (type == null) {
+            throw new RuntimeException("数据库类型未设置");
+        }
+
+        switch (type) {
             // 初始化MySQL数据库的连接
-            if (type.equalsIgnoreCase("mysql")) {
+            case "mysql" -> {
                 this.type = "mysql";
 
                 databaseUrl = "jdbc:mysql://" +
@@ -52,11 +57,9 @@ public final class DatabaseManager implements Init {
 
                 this.connectionSource = initDataSource(config);
                 initTable();
-                return;
             }
-
             // 初始化H2数据库的连接
-            if (type.equalsIgnoreCase("h2")) {
+            case "h2" -> {
                 this.type = "h2";
 
                 String fileName = ConfigUtil.getConfig().getString("databaseSettings.h2.file");
@@ -65,11 +68,8 @@ public final class DatabaseManager implements Init {
 
                 this.connectionSource = initDataSource(getHikariConfig(this.databaseUrl));
                 initTable();
-                return;
             }
-            throw new RuntimeException("不支持的数据库类型: " + type);
-        } else {
-            throw new RuntimeException("数据库类型未设置");
+            default -> throw new RuntimeException("不支持的数据库类型: " + type);
         }
     }
 

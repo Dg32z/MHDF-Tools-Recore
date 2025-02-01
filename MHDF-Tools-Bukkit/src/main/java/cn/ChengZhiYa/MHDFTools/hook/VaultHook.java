@@ -1,6 +1,5 @@
-package cn.ChengZhiYa.MHDFTools.manager.hook;
+package cn.ChengZhiYa.MHDFTools.hook;
 
-import cn.ChengZhiYa.MHDFTools.manager.AbstractHook;
 import org.bukkit.Bukkit;
 
 public final class VaultHook extends AbstractHook {

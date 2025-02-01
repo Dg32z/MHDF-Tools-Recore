@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.manager.init;
+package cn.ChengZhiYa.MHDFTools.manager;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.interfaces.Init;
@@ -9,6 +9,7 @@ import cn.ChengZhiYa.MHDFTools.libraries.classpath.ReflectionClassPathAppender;
 
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public final class LibrariesManager implements Init {
     /**
      * 下载并加载所有所需依赖

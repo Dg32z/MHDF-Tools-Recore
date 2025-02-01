@@ -1,6 +1,5 @@
-package cn.ChengZhiYa.MHDFTools.manager.hook;
+package cn.ChengZhiYa.MHDFTools.hook;
 
-import cn.ChengZhiYa.MHDFTools.manager.AbstractHook;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
