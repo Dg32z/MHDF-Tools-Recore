@@ -71,11 +71,11 @@ public final class CacheManager implements Init {
      * @param value 写入的值
      */
     public void put(String key, String value) {
-        if (this.jedis != null) {
-            this.jedis.set("mhdf-tools:" + key, value);
-        }
         if (this.map != null) {
             this.map.put(key, value);
+        }
+        if (this.jedis != null) {
+            this.jedis.set("mhdf-tools:" + key, value);
         }
     }
 
@@ -86,11 +86,11 @@ public final class CacheManager implements Init {
      * @return 缓存数据
      */
     public String get(String key) {
-        if (this.jedis != null) {
-            return this.map.get("mhdf-tools:" + key);
-        }
         if (this.map != null) {
             this.map.get(key);
+        }
+        if (this.jedis != null) {
+            return this.jedis.get("mhdf-tools:" + key);
         }
         return null;
     }
