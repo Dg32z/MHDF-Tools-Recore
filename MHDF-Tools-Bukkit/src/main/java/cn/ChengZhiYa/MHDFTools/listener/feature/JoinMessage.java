@@ -47,7 +47,7 @@ public final class JoinMessage extends AbstractListener {
         String maxWeightGroup = "default";
 
         for (String group : groupList) {
-            int weight = Main.instance.getConfig().getInt("joinMessageSettings." + group + ".weight");
+            int weight = ConfigUtil.getConfig().getInt("joinMessageSettings." + group + ".weight");
 
             if (weight > maxWeight) {
                 maxWeight = weight;

@@ -1,7 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.manager;
 
-import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.interfaces.Init;
+import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import redis.clients.jedis.JedisClientConfig;
 import redis.clients.jedis.UnifiedJedis;
 
@@ -18,7 +18,7 @@ public final class CacheManager implements Init {
      */
     @Override
     public void init() {
-        String type = Main.instance.getConfig().getString("cacheSettings.type");
+        String type = ConfigUtil.getConfig().getString("cacheSettings.type");
 
         if (type == null) {
             throw new RuntimeException("数据库类型未设置");
@@ -27,7 +27,7 @@ public final class CacheManager implements Init {
         switch (type) {
             case "map" -> this.map = new HashMap<>();
             case "redis" -> {
-                String host = Main.instance.getConfig().getString("cacheSettings.redis.host");
+                String host = ConfigUtil.getConfig().getString("cacheSettings.redis.host");
                 if (host == null) {
                     return;
                 }
@@ -35,12 +35,12 @@ public final class CacheManager implements Init {
                 JedisClientConfig config = new JedisClientConfig() {
                     @Override
                     public String getUser() {
-                        return Main.instance.getConfig().getString("cacheSettings.redis.user");
+                        return ConfigUtil.getConfig().getString("cacheSettings.redis.user");
                     }
 
                     @Override
                     public String getPassword() {
-                        return Main.instance.getConfig().getString("cacheSettings.redis.password");
+                        return ConfigUtil.getConfig().getString("cacheSettings.redis.password");
                     }
                 };
 

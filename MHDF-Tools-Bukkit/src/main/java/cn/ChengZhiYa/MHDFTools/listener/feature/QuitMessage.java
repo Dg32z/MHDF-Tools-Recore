@@ -47,7 +47,7 @@ public final class QuitMessage extends AbstractListener {
         String maxWeightGroup = "default";
 
         for (String group : groupList) {
-            int weight = Main.instance.getConfig().getInt("quitMessageSettings." + group + ".weight");
+            int weight = ConfigUtil.getConfig().getInt("quitMessageSettings." + group + ".weight");
 
             if (weight > maxWeight) {
                 maxWeight = weight;

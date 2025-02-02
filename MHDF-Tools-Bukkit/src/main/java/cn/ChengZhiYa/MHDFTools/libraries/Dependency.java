@@ -111,6 +111,13 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
+    JEDIS(
+            "redis.clients",
+            "jedis",
+            "5.2.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+
     // adventure-api
     EXAMINATION_API(
             "net.kyori",
