@@ -111,10 +111,10 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
-    JEDIS(
-            "redis.clients",
-            "jedis",
-            "5.2.0",
+    LETTUCE_CORE(
+            "io.lettuce",
+            "lettuce-core",
+            "6.5.3.RELEASE",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 

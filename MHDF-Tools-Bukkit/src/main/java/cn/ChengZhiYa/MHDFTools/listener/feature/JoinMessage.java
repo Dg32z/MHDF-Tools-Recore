@@ -1,6 +1,5 @@
 package cn.ChengZhiYa.MHDFTools.listener.feature;
 
-import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;

@@ -1,22 +1,22 @@
 package cn.ChengZhiYa.MHDFTools.manager;
 
-import cn.ChengZhiYa.MHDFTools.interfaces.Init;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import redis.clients.jedis.JedisClientConfig;
-import redis.clients.jedis.UnifiedJedis;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisStringCommands;
 
-import java.net.URI;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
-public final class CacheManager implements Init {
+public final class CacheManager {
     private HashMap<String, String> map = null;
-    private UnifiedJedis jedis = null;
+    private RedisClient redisClient = null;
+    private StatefulRedisConnection<String, String> redisConnection = null;
 
     /**
      * 初始化缓存
      */
-    @Override
     public void init() {
         String type = ConfigUtil.getConfig().getString("cacheSettings.type");
 
@@ -28,23 +28,24 @@ public final class CacheManager implements Init {
             case "map" -> this.map = new HashMap<>();
             case "redis" -> {
                 String host = ConfigUtil.getConfig().getString("cacheSettings.redis.host");
+                String user = ConfigUtil.getConfig().getString("cacheSettings.redis.user");
+                String password = ConfigUtil.getConfig().getString("cacheSettings.redis.password");
                 if (host == null) {
                     return;
                 }
 
-                JedisClientConfig config = new JedisClientConfig() {
-                    @Override
-                    public String getUser() {
-                        return ConfigUtil.getConfig().getString("cacheSettings.redis.user");
-                    }
+                String[] hostSplit = host.split(":");
 
-                    @Override
-                    public String getPassword() {
-                        return ConfigUtil.getConfig().getString("cacheSettings.redis.password");
-                    }
-                };
+                RedisURI.Builder uriBuilder = RedisURI.Builder
+                        .redis(hostSplit[0])
+                        .withPort(Integer.parseInt(hostSplit[1]));
 
-                this.jedis = new UnifiedJedis(URI.create("redis://" + host), config);
+                if (user != null && !user.isEmpty() && password != null && !password.isEmpty()) {
+                    uriBuilder.withAuthentication(user, password.toCharArray());
+                }
+
+                this.redisClient = RedisClient.create(uriBuilder.build());
+                this.redisConnection = this.redisClient.connect();
             }
             default -> throw new RuntimeException("不支持的数据库类型: " + type);
         }
@@ -58,9 +59,13 @@ public final class CacheManager implements Init {
             map.clear();
             map = null;
         }
-        if (jedis != null) {
-            jedis.close();
-            jedis = null;
+        if (redisConnection != null) {
+            redisConnection.close();
+            redisConnection = null;
+        }
+        if (redisClient != null) {
+            redisClient.shutdown();
+            redisClient = null;
         }
     }
 
@@ -74,8 +79,9 @@ public final class CacheManager implements Init {
         if (this.map != null) {
             this.map.put(key, value);
         }
-        if (this.jedis != null) {
-            this.jedis.set("mhdf-tools:" + key, value);
+        if (this.redisConnection != null) {
+            RedisStringCommands<String, String> sync = this.redisConnection.sync();
+            sync.set("mhdf-luckcreate:" + key, value);
         }
     }
 
@@ -89,8 +95,9 @@ public final class CacheManager implements Init {
         if (this.map != null) {
             this.map.get(key);
         }
-        if (this.jedis != null) {
-            return this.jedis.get("mhdf-tools:" + key);
+        if (this.redisClient != null) {
+            RedisStringCommands<String, String> sync = this.redisConnection.sync();
+            return sync.get("mhdf-luckcreate:" + key);
         }
         return null;
     }
