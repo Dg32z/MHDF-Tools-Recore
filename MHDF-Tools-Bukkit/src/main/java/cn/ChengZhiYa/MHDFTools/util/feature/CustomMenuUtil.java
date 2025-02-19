@@ -1,5 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.util.feature;
 
+import cn.ChengZhiYa.MHDFTools.exception.FileException;
+import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
 import cn.ChengZhiYa.MHDFTools.menu.fastuse.CustomMenu;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.FileUtil;
@@ -10,6 +12,21 @@ import java.io.File;
 import java.util.List;
 
 public final class CustomMenuUtil {
+    /**
+     * 保存初始自定义菜单
+     */
+    public static void saveDefaultCustomMenu() throws ResourceException, FileException {
+        if (!ConfigUtil.getConfig().getBoolean("customMenuSettings.enable")) {
+            return;
+        }
+        if (getCustomMenuFolder().exists()) {
+            return;
+        }
+
+        FileUtil.createFolder(getCustomMenuFolder());
+        FileUtil.saveResource("customMenu/example.yml", "customMenu/example.yml", false);
+    }
+
     /**
      * 获取自定义菜单目录实例
      *

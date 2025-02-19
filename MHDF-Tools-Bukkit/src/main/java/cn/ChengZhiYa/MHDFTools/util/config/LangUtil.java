@@ -20,7 +20,6 @@ public final class LangUtil {
      */
     public static void saveDefaultLang() throws ResourceException {
         FileUtil.saveResource("lang.yml", "lang_zh.yml", false);
-        reloadLang();
     }
 
     /**
@@ -32,6 +31,8 @@ public final class LangUtil {
 
     /**
      * 根据指定key获取语言文件对应文本
+     *
+     * @return 文本
      */
     public static @NotNull String getString(String key) {
         if (lang == null) {
@@ -43,6 +44,8 @@ public final class LangUtil {
 
     /**
      * 根据指定key获取语言文件对应文本并处理颜色
+     *
+     * @return 文本
      */
     public static @NotNull String i18n(String key) {
         if (lang == null) {
@@ -52,7 +55,9 @@ public final class LangUtil {
     }
 
     /**
-     * 获取指定key下的keys
+     * 获取指定key下的项列表
+     *
+     * @return 项列表
      */
     public static @NotNull Set<String> getKeys(String key) {
         if (lang == null) {

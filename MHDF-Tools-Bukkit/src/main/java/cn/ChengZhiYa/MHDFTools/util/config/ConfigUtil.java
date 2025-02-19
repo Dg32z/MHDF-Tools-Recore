@@ -16,6 +16,8 @@ public final class ConfigUtil {
 
     /**
      * 获取配置文件实例
+     *
+     * @return 配置文件实例
      */
     public static FileConfiguration getConfig() {
         return Main.instance.getConfig();
@@ -33,6 +35,5 @@ public final class ConfigUtil {
      */
     public static void saveDefaultConfig() throws ResourceException {
         FileUtil.saveResource("config.yml", "config_zh.yml", false);
-        reloadConfig();
     }
 }
