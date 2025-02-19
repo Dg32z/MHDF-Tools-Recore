@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public final class FileUtil {
     /**
@@ -85,5 +88,24 @@ public final class FileUtil {
         } catch (IOException e) {
             throw new ResourceException("无法保存资源", e);
         }
+    }
+
+    /**
+     * 获取一个目录下所有的文件实例列表
+     *
+     * @param directory 目录实例
+     * @return 文件实例列表
+     */
+    public static List<File> listFiles(File directory) {
+        List<File> files = new ArrayList<>();
+        for (File file : Objects.requireNonNull(directory.listFiles())) {
+            if (file.isFile()) {
+                files.add(file);
+            } else if (file.isDirectory()) {
+                files.addAll(listFiles(file));
+            }
+        }
+
+        return files;
     }
 }

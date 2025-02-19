@@ -74,7 +74,7 @@ public final class AutoChangeFly extends AbstractListener {
     /**
      * 受伤 自动关闭飞行
      */
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player player) {
             // 不处理功能未开启的情况

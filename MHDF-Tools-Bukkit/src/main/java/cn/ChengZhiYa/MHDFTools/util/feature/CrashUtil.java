@@ -14,7 +14,7 @@ public final class CrashUtil {
     /**
      * 崩溃指定玩家实例的客户端
      *
-     * @param player 玩家实例
+     * @param player    玩家实例
      * @param crashType 崩溃类型
      * @return 崩溃类型是否存在
      */

@@ -24,7 +24,10 @@ public final class KnockBack extends AbstractCommand {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(LangUtil.i18n("commands.knockback.usage"));
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.knockback.usage"))
+                    .replace("{command}", label)
+            );
             return;
         }
 

@@ -40,7 +40,9 @@ public final class Crash extends AbstractCommand {
                     : args[1];
 
             if (crashType != null && CrashUtil.crashPlayerClient(player, crashType)) {
-                sender.sendMessage(LangUtil.i18n("commands.crash.done"));
+                sender.sendMessage(LangUtil.i18n("commands.crash.message")
+                        .replace("{type}", LangUtil.i18n("commands.crash.types." + crashType))
+                );
             } else {
                 sender.sendMessage(LangUtil.i18n("commands.crash.typeNotExists"));
             }

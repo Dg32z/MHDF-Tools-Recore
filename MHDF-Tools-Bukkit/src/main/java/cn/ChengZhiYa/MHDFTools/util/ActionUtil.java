@@ -1,6 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.util;
 
 import cn.ChengZhiYa.MHDFTools.Main;
+import cn.ChengZhiYa.MHDFTools.util.feature.CustomMenuUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
@@ -214,6 +215,11 @@ public final class ActionUtil {
                             Float.valueOf(args[2]),
                             Float.valueOf(args[3])
                     );
+                }
+            }
+            case "[menu]" -> {
+                if (sender instanceof Player player) {
+                    CustomMenuUtil.openCustomMenu(player, args[1]);
                 }
             }
             case "[close]" -> {
