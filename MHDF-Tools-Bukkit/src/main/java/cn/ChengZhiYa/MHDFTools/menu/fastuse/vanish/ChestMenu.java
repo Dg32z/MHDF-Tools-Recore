@@ -1,6 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.menu.vanish;
+package cn.ChengZhiYa.MHDFTools.menu.fastuse.vanish;
 
 import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
+import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Chest;
@@ -26,19 +27,19 @@ public final class ChestMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(getPlayer(), chest.getInventory().getSize(), ColorUtil.color("menu.vanish.title"));
+        Inventory inventory = Bukkit.createInventory(getPlayer(), chest.getInventory().getSize(), ColorUtil.color(LangUtil.i18n("menu.vanish.title")));
         inventory.setContents(chest.getInventory().getContents());
 
         return inventory;
     }
 
     @Override
-    public void onClick(InventoryClickEvent event) {
+    public void click(InventoryClickEvent event) {
         saveInventory(event.getInventory());
     }
 
     @Override
-    public void onClose(InventoryCloseEvent event) {
+    public void close(InventoryCloseEvent event) {
         saveInventory(event.getInventory());
     }
 

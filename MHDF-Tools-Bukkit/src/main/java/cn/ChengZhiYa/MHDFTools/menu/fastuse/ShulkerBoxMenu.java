@@ -1,7 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.menu.fastuse;
 
 import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.menu.MenuUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
@@ -31,18 +31,14 @@ public final class ShulkerBoxMenu extends AbstractMenu {
         BlockStateMeta blockMate = (BlockStateMeta) meta;
         ShulkerBox box = (ShulkerBox) blockMate.getBlockState();
 
-        Inventory inventory = Bukkit.createInventory(getPlayer(), InventoryType.BARREL, ColorUtil.color("menu.fastuse.shulkerBox.title"));
+        Inventory inventory = Bukkit.createInventory(getPlayer(), InventoryType.BARREL, ColorUtil.color(LangUtil.i18n("menu.fastuse.shulkerBox.title")));
         inventory.setContents(box.getInventory().getContents());
 
         return inventory;
     }
 
     @Override
-    public void onClick(InventoryClickEvent event) {
-        if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.shulkerBox")) {
-            return;
-        }
-
+    public void click(InventoryClickEvent event) {
         ItemStack item = MenuUtil.getClickItem(event);
 
         if (item == null) {
@@ -58,11 +54,7 @@ public final class ShulkerBoxMenu extends AbstractMenu {
     }
 
     @Override
-    public void onClose(InventoryCloseEvent event) {
-        if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.shulkerBox")) {
-            return;
-        }
-
+    public void close(InventoryCloseEvent event) {
         updateShulker(getPlayer(), event.getInventory());
     }
 

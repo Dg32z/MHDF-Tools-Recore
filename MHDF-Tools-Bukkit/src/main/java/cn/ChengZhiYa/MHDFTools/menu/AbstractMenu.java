@@ -6,6 +6,8 @@ import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
 import lombok.Getter;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -21,6 +23,22 @@ public abstract class AbstractMenu implements InventoryHolder, Menu {
             this.enable = true;
         }
         this.player = player;
+    }
+
+    public void onClick(InventoryClickEvent event) {
+        if (!isEnable()) {
+            return;
+        }
+
+        click(event);
+    }
+
+    public void onClose(InventoryCloseEvent event) {
+        if (!isEnable()) {
+            return;
+        }
+
+        close(event);
     }
 
     public void openMenu() {

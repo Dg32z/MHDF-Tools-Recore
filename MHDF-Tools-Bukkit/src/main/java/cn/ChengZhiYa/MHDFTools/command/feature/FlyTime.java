@@ -41,10 +41,9 @@ public final class FlyTime extends AbstractCommand {
             if (args[0].equalsIgnoreCase("set")) {
                 FlyUtil.setFlyTime(player, inputTime);
 
-                sender.sendMessage(
-                        LangUtil.i18n("commands.flytime.subCommands.set.message")
-                                .replace("{player}", player.getName())
-                                .replace("{time}", args[2])
+                sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.set.message")
+                        .replace("{player}", player.getName())
+                        .replace("{time}", args[2])
                 );
                 return;
             }
@@ -56,11 +55,10 @@ public final class FlyTime extends AbstractCommand {
                 long time = flyStatus.getTime() + inputTime;
                 FlyUtil.setFlyTime(player, time);
 
-                sender.sendMessage(
-                        LangUtil.i18n("commands.flytime.subCommands.add.message")
-                                .replace("{player}", player.getName())
-                                .replace("{add}", args[2])
-                                .replace("{time}", String.valueOf(time))
+                sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.add.message")
+                        .replace("{player}", player.getName())
+                        .replace("{add}", args[2])
+                        .replace("{time}", String.valueOf(time))
                 );
                 return;
             }
@@ -72,21 +70,19 @@ public final class FlyTime extends AbstractCommand {
                 long time = flyStatus.getTime() - inputTime;
                 FlyUtil.setFlyTime(player, flyStatus.getTime() - inputTime);
 
-                sender.sendMessage(
-                        LangUtil.i18n("commands.flytime.subCommands.take.message")
-                                .replace("{player}", player.getName())
-                                .replace("{take}", args[2])
-                                .replace("{time}", String.valueOf(time))
+                sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.take.message")
+                        .replace("{player}", player.getName())
+                        .replace("{take}", args[2])
+                        .replace("{time}", String.valueOf(time))
                 );
                 return;
             }
         }
 
         {
-            sender.sendMessage(
-                    LangUtil.i18n("commands.flytime.subCommands.help.message")
-                            .replace("{helpList}", LangUtil.getHelpList("flytime"))
-                            .replace("{command}", label)
+            sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.help.message")
+                    .replace("{helpList}", LangUtil.getHelpList("flytime"))
+                    .replace("{command}", label)
             );
         }
     }

@@ -78,10 +78,9 @@ public final class Fly extends AbstractCommand {
 
         // 输出帮助信息
         {
-            sender.sendMessage(
-                    LangUtil.i18n("usageError")
-                            .replace("{usage}", LangUtil.i18n("commands.fly.usage"))
-                            .replace("{command}", label)
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.fly.usage"))
+                    .replace("{command}", label)
             );
         }
     }

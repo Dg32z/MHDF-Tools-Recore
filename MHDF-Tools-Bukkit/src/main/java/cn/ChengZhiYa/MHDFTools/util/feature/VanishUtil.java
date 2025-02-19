@@ -2,7 +2,6 @@ package cn.ChengZhiYa.MHDFTools.util.feature;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
-import cn.ChengZhiYa.MHDFTools.manager.PluginHookManager;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.j256.ormlite.dao.Dao;
@@ -114,7 +113,7 @@ public final class VanishUtil {
      */
     public static void enableVanish(Player player) {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (PluginHookManager.getPacketEventsHook().getServerManager().getVersion()
+            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
                 onlinePlayer.hidePlayer(Main.instance, player);
             } else {
@@ -130,7 +129,7 @@ public final class VanishUtil {
      */
     public static void disableVanish(Player player) {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (PluginHookManager.getPacketEventsHook().getServerManager().getVersion()
+            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
                 onlinePlayer.showPlayer(Main.instance, player);
             } else {

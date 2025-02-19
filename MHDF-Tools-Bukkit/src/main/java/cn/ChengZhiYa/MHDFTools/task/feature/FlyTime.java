@@ -4,11 +4,10 @@ import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
 import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
 import cn.ChengZhiYa.MHDFTools.util.ActionUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.SoundUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import static cn.ChengZhiYa.MHDFTools.util.config.SoundUtil.getSound;
 
 @SuppressWarnings("unused")
 public final class FlyTime extends AbstractTask {
@@ -29,13 +28,15 @@ public final class FlyTime extends AbstractTask {
                     // 发送迫题提示
                     String title = LangUtil.i18n("commands.fly.fallMessage." + flyStatus.getTime());
                     if (!title.isEmpty()) {
-                        ActionUtil.sendTitle(player, title);
+                        String[] args = title.split("\\|");
+                        ActionUtil.sendTitle(player, args[0], args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
                     }
 
                     // 播放音效
-                    String sound = getSound("flyFall." + flyStatus.getTime());
+                    String sound = SoundUtil.getSound("flyFall." + flyStatus.getTime());
                     if (!sound.isEmpty()) {
-                        ActionUtil.playSound(player, sound);
+                        String[] args = sound.split("\\|");
+                        ActionUtil.playSound(player, args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2]));
                     }
 
                     // 减少飞行时长

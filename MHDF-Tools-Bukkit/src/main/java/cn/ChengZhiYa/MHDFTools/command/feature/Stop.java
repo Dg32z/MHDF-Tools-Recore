@@ -3,14 +3,13 @@ package cn.ChengZhiYa.MHDFTools.command.feature;
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import cn.ChengZhiYa.MHDFTools.util.runnable.MHDFRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import static cn.ChengZhiYa.MHDFTools.util.config.LangUtil.i18n;
 
 @SuppressWarnings("unused")
 public final class Stop extends AbstractCommand {
@@ -29,7 +28,7 @@ public final class Stop extends AbstractCommand {
         int time = args.length >= 1 ? Integer.parseInt(args[0]) :
                 ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
         String message = args.length >= 2 ? ColorUtil.color(args[1]) :
-                i18n("commands.stop.defaultMessage");
+                LangUtil.i18n("commands.stop.defaultMessage");
 
         new MHDFRunnable() {
             private int countdown = time;
@@ -37,31 +36,23 @@ public final class Stop extends AbstractCommand {
             @Override
             public void run() {
                 if (countdown <= 0) {
-                    stopServer(message);
-                } else {
-                    Bukkit.broadcastMessage(
-                            i18n("commands.stop.countdownMessage")
-                                    .replace("{countdown}", String.valueOf(countdown))
-                    );
+                    this.cancel();
+                    Bukkit.savePlayers();
+
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        player.kickPlayer(LangUtil.i18n("commands.stop.kickMessage")
+                                .replace("{message}", message)
+                        );
+                    }
+
+                    Bukkit.shutdown();
+                    return;
                 }
+                Bukkit.broadcastMessage(LangUtil.i18n("commands.stop.countdownMessage")
+                        .replace("{countdown}", String.valueOf(countdown))
+                );
                 countdown--;
             }
         }.runTaskTimerAsynchronously(Main.instance, 0L, 20L);
-    }
-
-    /**
-     * 关闭服务器
-     */
-    private void stopServer(String message) {
-        Bukkit.savePlayers();
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.kickPlayer(
-                    i18n("commands.stop.kickMessage")
-                            .replace("{message}", message)
-            );
-        }
-
-        Bukkit.shutdown();
     }
 }

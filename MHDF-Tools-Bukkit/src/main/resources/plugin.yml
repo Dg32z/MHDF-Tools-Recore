@@ -4,4 +4,4 @@ main: cn.ChengZhiYa.MHDFTools.Main
 api-version: '1.20'
 folia-supported: true
 authoendrs: [ ChengZhiYa, Dg32z_ ]
-softdepend: [ Vault, PlaceholderAPI ]
+softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]

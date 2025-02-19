@@ -4,7 +4,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public interface Menu {
-    void onClick(InventoryClickEvent event);
+    void click(InventoryClickEvent event);
 
-    void onClose(InventoryCloseEvent event);
+    void close(InventoryCloseEvent event);
 }

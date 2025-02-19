@@ -1,9 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.menu.vanish;
+package cn.ChengZhiYa.MHDFTools.menu.fastuse.vanish;
 
 import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
+import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Barrel;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -11,36 +12,36 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-public final class BarrelMenu extends AbstractMenu {
-    private final Barrel barrel;
+public final class ShulkerBoxMenu extends AbstractMenu {
+    private final ShulkerBox shulkerBox;
 
-    public BarrelMenu(Player player, Barrel barrel) {
+    public ShulkerBoxMenu(Player player, ShulkerBox shulkerBox) {
         super(
                 "vanishSettings.enable",
                 player
         );
-        this.barrel = barrel;
+        this.shulkerBox = shulkerBox;
     }
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(getPlayer(), InventoryType.BARREL, ColorUtil.color("menu.vanish.title"));
-        inventory.setContents(barrel.getInventory().getContents());
+        Inventory inventory = Bukkit.createInventory(getPlayer(), InventoryType.SHULKER_BOX, ColorUtil.color(LangUtil.i18n("menu.vanish.title")));
+        inventory.setContents(shulkerBox.getInventory().getContents());
 
         return inventory;
     }
 
     @Override
-    public void onClick(InventoryClickEvent event) {
+    public void click(InventoryClickEvent event) {
         saveInventory(event.getInventory());
     }
 
     @Override
-    public void onClose(InventoryCloseEvent event) {
+    public void close(InventoryCloseEvent event) {
         saveInventory(event.getInventory());
     }
 
     private void saveInventory(Inventory inventory) {
-        barrel.getInventory().setContents(inventory.getContents());
+        shulkerBox.getInventory().setContents(inventory.getContents());
     }
 }

@@ -1,20 +1,17 @@
 package cn.ChengZhiYa.MHDFTools.manager;
 
-import cn.ChengZhiYa.MHDFTools.hook.PacketEventsHook;
-import cn.ChengZhiYa.MHDFTools.hook.PlaceholderAPIHook;
-import cn.ChengZhiYa.MHDFTools.hook.VaultHook;
+import cn.ChengZhiYa.MHDFTools.hook.*;
 import cn.ChengZhiYa.MHDFTools.interfaces.Hook;
 import lombok.Getter;
 
 @Getter
 @SuppressWarnings("unused")
 public final class PluginHookManager implements Hook {
-    @Getter
-    private static final PacketEventsHook packetEventsHook = new PacketEventsHook();
-    @Getter
-    private static final PlaceholderAPIHook placeholderAPIHook = new PlaceholderAPIHook();
-    @Getter
-    private static final VaultHook vaultHook = new VaultHook();
+    private final PacketEventsHook packetEventsHook = new PacketEventsHook();
+    private final PlaceholderAPIHook placeholderAPIHook = new PlaceholderAPIHook();
+    private final CraftEngineHook craftEngineHook = new CraftEngineHook();
+    private final MythicMobsHook mythicMobsHook = new MythicMobsHook();
+    private final VaultHook vaultHook = new VaultHook();
 
     /**
      * 初始化所有对接的API
@@ -23,6 +20,8 @@ public final class PluginHookManager implements Hook {
     public void hook() {
         packetEventsHook.hook();
         placeholderAPIHook.hook();
+        craftEngineHook.hook();
+        mythicMobsHook.hook();
         vaultHook.hook();
     }
 
@@ -33,6 +32,8 @@ public final class PluginHookManager implements Hook {
     public void unhook() {
         packetEventsHook.unhook();
         placeholderAPIHook.unhook();
+        craftEngineHook.unhook();
+        mythicMobsHook.unhook();
         vaultHook.unhook();
     }
 }

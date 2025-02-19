@@ -1,11 +1,9 @@
 package cn.ChengZhiYa.MHDFTools.util.message;
 
-import cn.ChengZhiYa.MHDFTools.manager.PluginHookManager;
+import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
@@ -45,22 +43,10 @@ public final class ColorUtil {
      */
     public static String color(@NotNull String message) {
         message = message.replace("{prefix}", LangUtil.getString("prefix"));
-        if (PluginHookManager.getPacketEventsHook().getServerManager().getVersion()
+        if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
                 .isNewerThanOrEquals(ServerVersion.V_1_16_5)) {
             message = rgb(message);
         }
         return legacy(message);
-    }
-
-    /**
-     * 处理颜色符号与PAPI变量
-     *
-     * @param message 文本
-     */
-    public static String color(OfflinePlayer player, @NotNull String message) {
-        if (PluginHookManager.getPlaceholderAPIHook().enable) {
-            PlaceholderAPI.setPlaceholders(player, message);
-        }
-        return color(message);
     }
 }

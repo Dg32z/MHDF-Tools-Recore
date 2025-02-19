@@ -41,6 +41,8 @@ public final class KnockBack extends AbstractCommand {
 
         Vector vector = new Vector(x, y, z);
         player.setVelocity(vector);
-        sender.sendMessage(LangUtil.i18n("commands.knockback.sendDone").replace("{player}", player.getName()));
+        sender.sendMessage(LangUtil.i18n("commands.knockback.sendDone")
+                .replace("{player}", player.getName())
+        );
     }
 }
