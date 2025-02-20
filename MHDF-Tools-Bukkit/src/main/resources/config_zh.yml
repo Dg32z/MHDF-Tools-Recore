@@ -1,6 +1,12 @@
 # 调试模式
 debug: false
 
+# 群组设置
+# 群组模式下必须使用redis缓存
+bungeeCordSettings:
+  # 开关
+  enable: false
+
 # 数据库设置
 databaseSettings:
   # 数据库类型
