@@ -2,6 +2,7 @@ package cn.ChengZhiYa.MHDFTools.task.feature;
 
 import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
 import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
+import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.VanishUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public final class AutoChangeVanish extends AbstractTask {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            VanishStatus vanishStatus = VanishUtil.getVanishStatus(player);
+            VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
 
             if (!vanishStatus.isEnable()) {
                 continue;

@@ -1,6 +1,5 @@
 package cn.ChengZhiYa.MHDFTools.entity.data;
 
-import cn.ChengZhiYa.MHDFTools.entity.AbstractDao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
@@ -10,12 +9,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@DatabaseTable(tableName = "mhdftools_fly")
-public final class FlyStatus extends AbstractDao {
+@DatabaseTable(tableName = "mhdftools_nick")
+public final class NickData {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
-    @DatabaseField(canBeNull = false)
-    private boolean isEnable;
-    @DatabaseField(canBeNull = false)
-    private long time;
+    @DatabaseField
+    private String nick;
 }

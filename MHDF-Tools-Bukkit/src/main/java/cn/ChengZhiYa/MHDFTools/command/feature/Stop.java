@@ -48,6 +48,7 @@ public final class Stop extends AbstractCommand {
                     Bukkit.shutdown();
                     return;
                 }
+
                 Bukkit.broadcastMessage(LangUtil.i18n("commands.stop.countdownMessage")
                         .replace("{countdown}", String.valueOf(countdown))
                 );

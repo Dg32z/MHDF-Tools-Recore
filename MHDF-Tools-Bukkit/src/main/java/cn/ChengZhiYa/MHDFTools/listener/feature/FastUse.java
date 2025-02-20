@@ -28,6 +28,7 @@ public final class FastUse extends AbstractListener {
 
         // 潜影盒
         if (item.getType().toString().contains("SHULKER_BOX")) {
+            // 不处理功能未开启的情况
             if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.shulkerBox")) {
                 return;
             }
@@ -38,6 +39,7 @@ public final class FastUse extends AbstractListener {
 
         // 末影箱
         if (item.getType() == Material.ENDER_CHEST) {
+            // 不处理功能未开启的情况
             if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.enderChest")) {
                 return;
             }
@@ -48,6 +50,7 @@ public final class FastUse extends AbstractListener {
 
         // 工作台
         if (item.getType() == Material.CRAFTING_TABLE) {
+            // 不处理功能未开启的情况
             if (!ConfigUtil.getConfig().getBoolean("fastUseSettings.craftingTable")) {
                 return;
             }

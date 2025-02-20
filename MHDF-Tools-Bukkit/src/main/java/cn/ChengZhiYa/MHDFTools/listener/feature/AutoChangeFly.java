@@ -3,6 +3,7 @@ package cn.ChengZhiYa.MHDFTools.listener.feature;
 import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
 import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.database.FlyStatusUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,12 +24,12 @@ public final class AutoChangeFly extends AbstractListener {
      */
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
         // 不处理功能未开启的情况
         if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.joinServer")) {
             return;
         }
+
+        Player player = event.getPlayer();
 
         if (allowChange(player)) {
             FlyUtil.enableFly(player);
@@ -41,12 +42,12 @@ public final class AutoChangeFly extends AbstractListener {
      */
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
-        Player player = event.getPlayer();
-
         // 不处理功能未开启的情况
         if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.chaneWorld")) {
             return;
         }
+
+        Player player = event.getPlayer();
 
         if (allowChange(player)) {
             FlyUtil.enableFly(player);
@@ -59,12 +60,12 @@ public final class AutoChangeFly extends AbstractListener {
      */
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        Player player = event.getPlayer();
-
         // 不处理功能未开启的情况
         if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.respawn")) {
             return;
         }
+
+        Player player = event.getPlayer();
 
         if (allowChange(player)) {
             FlyUtil.enableFly(player);
@@ -76,15 +77,17 @@ public final class AutoChangeFly extends AbstractListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            // 不处理功能未开启的情况
-            if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.takeHealth")) {
-                return;
-            }
+        // 不处理功能未开启的情况
+        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.takeHealth")) {
+            return;
+        }
 
-            if (allowChange(player)) {
-                FlyUtil.disableFly(player);
-            }
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
+        }
+
+        if (allowChange(player)) {
+            FlyUtil.disableFly(player);
         }
     }
 
@@ -94,23 +97,19 @@ public final class AutoChangeFly extends AbstractListener {
      * @param player 玩家实例
      */
     private boolean allowChange(Player player) {
-        FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
+        // 目标世界在 自动关闭飞行世界列表 当中
+        if (ConfigUtil.getConfig().getStringList("flySettings.autoDisable.worldList").contains(player.getWorld().getName())) {
+            FlyUtil.disableFly(player);
+            return false;
+        }
+
+        FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
 
         // 不处理没有开启飞行的玩家
         if (!flyStatus.isEnable()) {
             return false;
         }
 
-        // 不处理游戏模式可以飞行的玩家
-        if (FlyUtil.isAllowedFlyingGameMode(player)) {
-            return false;
-        }
-
-        // 目标世界在 自动关闭飞行世界列表 当中
-        if (ConfigUtil.getConfig().getStringList("flySettings.autoDisable.worldList").contains(player.getWorld().getName())) {
-            FlyUtil.disableFly(player);
-            return false;
-        }
-        return true;
+        return !FlyUtil.isAllowedFlyingGameMode(player);
     }
 }

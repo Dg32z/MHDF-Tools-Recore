@@ -18,12 +18,12 @@ public final class JoinMessage extends AbstractListener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
+        // 不处理功能未开启的情况
         if (ConfigUtil.getConfig().getBoolean("joinMessageSettings.enable")) {
             return;
         }
 
+        Player player = event.getPlayer();
         String message = ConfigUtil.getConfig().getString("joinMessageSettings." + getGroup(player) + ".message");
 
         event.setJoinMessage(message);

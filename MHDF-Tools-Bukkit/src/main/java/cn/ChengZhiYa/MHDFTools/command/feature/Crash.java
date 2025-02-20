@@ -28,31 +28,31 @@ public final class Crash extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length >= 1) {
-            Player player = Bukkit.getPlayer(args[0]);
-            if (player == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
-                return;
-            }
-
-            String crashType = args.length == 1
-                    ? ConfigUtil.getConfig().getString("crashSettings.defaultType")
-                    : args[1];
-
-            if (crashType != null && CrashUtil.crashPlayerClient(player, crashType)) {
-                sender.sendMessage(LangUtil.i18n("commands.crash.message")
-                        .replace("{type}", LangUtil.i18n("commands.crash.types." + crashType))
-                );
-            } else {
-                sender.sendMessage(LangUtil.i18n("commands.crash.typeNotExists"));
-            }
+        if (args.length == 0) {
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.crash.usage"))
+                    .replace("{command}", label)
+            );
             return;
         }
 
-        sender.sendMessage(LangUtil.i18n("usageError")
-                .replace("{usage}", LangUtil.i18n("commands.crash.usage"))
-                .replace("{command}", label)
-        );
+        Player player = Bukkit.getPlayer(args[0]);
+        if (player == null) {
+            sender.sendMessage(LangUtil.i18n("playerOffline"));
+            return;
+        }
+
+        String crashType = args.length == 1
+                ? ConfigUtil.getConfig().getString("crashSettings.defaultType")
+                : args[1];
+
+        if (crashType != null && CrashUtil.crashPlayerClient(player, crashType)) {
+            sender.sendMessage(LangUtil.i18n("commands.crash.message")
+                    .replace("{type}", LangUtil.i18n("commands.crash.types." + crashType))
+            );
+        } else {
+            sender.sendMessage(LangUtil.i18n("commands.crash.typeNotExists"));
+        }
     }
 
     @Override

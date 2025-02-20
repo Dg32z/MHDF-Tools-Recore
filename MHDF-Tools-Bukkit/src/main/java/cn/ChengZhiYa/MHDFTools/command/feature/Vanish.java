@@ -5,6 +5,7 @@ import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.VanishUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -19,7 +20,7 @@ public final class Vanish extends AbstractCommand {
     public Vanish() {
         super(
                 "vanishSettings.enable",
-                "影身",
+                "隐身",
                 "mhdftools.commands.vanish",
                 false,
                 ConfigUtil.getConfig().getStringList("vanishSettings.commands").toArray(new String[0])
@@ -51,32 +52,30 @@ public final class Vanish extends AbstractCommand {
             }
         }
 
-        // 切换影身
-        if (player != null) {
-            VanishStatus vanishStatus = VanishUtil.getVanishStatus(player);
-            if (!vanishStatus.isEnable()) {
-                VanishUtil.enableVanish(player);
-                if (sendToSender) {
-                    VanishUtil.sendChangeVanishMessage(sender, player, true);
-                }
-                VanishUtil.sendChangeVanishMessage(player, player, true);
-            } else {
-                VanishUtil.disableVanish(player);
-                if (sendToSender) {
-                    VanishUtil.sendChangeVanishMessage(sender, player, false);
-                }
-                VanishUtil.sendChangeVanishMessage(player, player, false);
-            }
-            return;
-        }
-
         // 输出帮助信息
-        {
+        if (player == null) {
             sender.sendMessage(
                     LangUtil.i18n("usageError")
                             .replace("{usage}", LangUtil.i18n("commands.vanish.usage"))
                             .replace("{command}", label)
             );
+            return;
+        }
+
+        // 切换隐身
+        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
+        if (!vanishStatus.isEnable()) {
+            VanishUtil.enableVanish(player);
+            if (sendToSender) {
+                VanishUtil.sendChangeVanishMessage(sender, player, true);
+            }
+            VanishUtil.sendChangeVanishMessage(player, player, true);
+        } else {
+            VanishUtil.disableVanish(player);
+            if (sendToSender) {
+                VanishUtil.sendChangeVanishMessage(sender, player, false);
+            }
+            VanishUtil.sendChangeVanishMessage(player, player, false);
         }
     }
 

@@ -23,7 +23,7 @@ public final class KnockBack extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length < 2) {
+        if (args.length != 1) {
             sender.sendMessage(LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.knockback.usage"))
                     .replace("{command}", label)
@@ -31,7 +31,7 @@ public final class KnockBack extends AbstractCommand {
             return;
         }
 
-        Player player = Bukkit.getPlayer(args[1]);
+        Player player = Bukkit.getPlayer(args[0]);
 
         if (player == null) {
             sender.sendMessage(LangUtil.i18n("playerOffline"));

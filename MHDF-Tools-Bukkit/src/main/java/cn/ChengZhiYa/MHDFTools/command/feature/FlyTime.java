@@ -5,7 +5,7 @@ import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
+import cn.ChengZhiYa.MHDFTools.util.database.FlyStatusUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -37,9 +37,12 @@ public final class FlyTime extends AbstractCommand {
                 return;
             }
 
+            FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
+
             // 设置飞行时间
             if (args[0].equalsIgnoreCase("set")) {
-                FlyUtil.setFlyTime(player, inputTime);
+                flyStatus.setTime(inputTime);
+                FlyStatusUtil.updateFlyStatus(flyStatus);
 
                 sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.set.message")
                         .replace("{player}", player.getName())
@@ -50,10 +53,9 @@ public final class FlyTime extends AbstractCommand {
 
             // 增加飞行时间
             if (args[0].equalsIgnoreCase("add")) {
-                FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
-
                 long time = flyStatus.getTime() + inputTime;
-                FlyUtil.setFlyTime(player, time);
+                flyStatus.setTime(time);
+                FlyStatusUtil.updateFlyStatus(flyStatus);
 
                 sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.add.message")
                         .replace("{player}", player.getName())
@@ -65,10 +67,9 @@ public final class FlyTime extends AbstractCommand {
 
             // 减少飞行时间
             if (args[0].equalsIgnoreCase("take")) {
-                FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
-
                 long time = flyStatus.getTime() - inputTime;
-                FlyUtil.setFlyTime(player, flyStatus.getTime() - inputTime);
+                flyStatus.setTime(time);
+                FlyStatusUtil.updateFlyStatus(flyStatus);
 
                 sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.take.message")
                         .replace("{player}", player.getName())

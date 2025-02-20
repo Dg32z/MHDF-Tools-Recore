@@ -5,7 +5,7 @@ import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
 import cn.ChengZhiYa.MHDFTools.menu.fastuse.vanish.BarrelMenu;
 import cn.ChengZhiYa.MHDFTools.menu.fastuse.vanish.ChestMenu;
 import cn.ChengZhiYa.MHDFTools.menu.fastuse.vanish.ShulkerBoxMenu;
-import cn.ChengZhiYa.MHDFTools.util.feature.VanishUtil;
+import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -35,7 +35,7 @@ public final class VanishOpen extends AbstractListener {
         }
         Block block = event.getClickedBlock();
 
-        VanishStatus vanishStatus = VanishUtil.getVanishStatus(player);
+        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
         if (!vanishStatus.isEnable()) {
             return;
         }

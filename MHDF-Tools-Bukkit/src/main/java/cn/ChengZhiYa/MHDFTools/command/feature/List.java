@@ -25,25 +25,25 @@ public final class List extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 0) {
-            sender.sendMessage(LangUtil.i18n("commands.list.message")
-                    .replace("{tps}", String.valueOf(getTps()))
-                    .replace("{memory}", String.valueOf(getUsedMemory()))
-                    .replace("{maxMemory}", String.valueOf(getTotalMemory()))
-                    .replace("{playerCount}", BungeeCordUtil.getPlayerList().toString())
-                    .replace("{maxPlayerCount}", String.valueOf(Bukkit.getMaxPlayers()))
-                    .replace("{playerList}", BungeeCordUtil.getPlayerList().toString())
-            );
+        // 输出帮助信息
+        if (args.length != 0) {
+            {
+                sender.sendMessage(LangUtil.i18n("usageError")
+                        .replace("{usage}", LangUtil.i18n("commands.list.usage"))
+                        .replace("{command}", label)
+                );
+            }
             return;
         }
 
-        // 输出帮助信息
-        {
-            sender.sendMessage(LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.list.usage"))
-                    .replace("{command}", label)
-            );
-        }
+        sender.sendMessage(LangUtil.i18n("commands.list.message")
+                .replace("{tps}", String.valueOf(getTps()))
+                .replace("{memory}", String.valueOf(getUsedMemory()))
+                .replace("{maxMemory}", String.valueOf(getTotalMemory()))
+                .replace("{playerCount}", BungeeCordUtil.getPlayerList().toString())
+                .replace("{maxPlayerCount}", String.valueOf(Bukkit.getMaxPlayers()))
+                .replace("{playerList}", BungeeCordUtil.getPlayerList().toString())
+        );
     }
 
     /**

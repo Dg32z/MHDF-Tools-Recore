@@ -5,6 +5,7 @@ import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import cn.ChengZhiYa.MHDFTools.util.database.FlyStatusUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -36,7 +37,7 @@ public final class Fly extends AbstractCommand {
             sendToSender = false;
             player = (Player) sender;
 
-            FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
+            FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
             if (!sender.hasPermission("mhdftools.commands.fly.infinite") && flyStatus.getTime() <= 0) {
                 sender.sendMessage(LangUtil.i18n("noPermission"));
                 return;
@@ -57,31 +58,29 @@ public final class Fly extends AbstractCommand {
             }
         }
 
-        // 切换飞行
-        if (player != null) {
-            FlyStatus flyStatus = FlyUtil.getFlyStatus(player);
-            if (!flyStatus.isEnable()) {
-                FlyUtil.enableFly(player);
-                if (sendToSender) {
-                    FlyUtil.sendChangeFlyMessage(sender, player, true);
-                }
-                FlyUtil.sendChangeFlyMessage(player, player, true);
-            } else {
-                FlyUtil.disableFly(player);
-                if (sendToSender) {
-                    FlyUtil.sendChangeFlyMessage(sender, player, false);
-                }
-                FlyUtil.sendChangeFlyMessage(player, player, false);
-            }
-            return;
-        }
-
         // 输出帮助信息
-        {
+        if (player == null) {
             sender.sendMessage(LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.fly.usage"))
                     .replace("{command}", label)
             );
+            return;
+        }
+
+        // 切换飞行
+        FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
+        if (!flyStatus.isEnable()) {
+            FlyUtil.enableFly(player);
+            if (sendToSender) {
+                FlyUtil.sendChangeFlyMessage(sender, player, true);
+            }
+            FlyUtil.sendChangeFlyMessage(player, player, true);
+        } else {
+            FlyUtil.disableFly(player);
+            if (sendToSender) {
+                FlyUtil.sendChangeFlyMessage(sender, player, false);
+            }
+            FlyUtil.sendChangeFlyMessage(player, player, false);
         }
     }
 

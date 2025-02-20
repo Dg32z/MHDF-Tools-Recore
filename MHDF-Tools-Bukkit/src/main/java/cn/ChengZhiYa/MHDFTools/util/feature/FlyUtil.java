@@ -1,115 +1,14 @@
 package cn.ChengZhiYa.MHDFTools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
+import cn.ChengZhiYa.MHDFTools.util.database.FlyStatusUtil;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.sql.SQLException;
-import java.util.UUID;
-
 @SuppressWarnings("unused")
 public final class FlyUtil {
-    private static final Dao<FlyStatus, UUID> flyStatusDao;
-
-    static {
-        try {
-            flyStatusDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), FlyStatus.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 获取指定玩家UUID的飞行状态实例
-     *
-     * @param uuid 玩家UUID
-     * @return 飞行状态实例
-     */
-    public static FlyStatus getFlyStatus(UUID uuid) {
-        try {
-            FlyStatus flyStatus = flyStatusDao.queryForId(uuid);
-            if (flyStatus == null) {
-                flyStatus = new FlyStatus();
-                flyStatus.setPlayer(uuid);
-            }
-            return flyStatus;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 获取指定玩家实例的飞行状态实例
-     *
-     * @param player 玩家实例
-     * @return 飞行状态实例
-     */
-    public static FlyStatus getFlyStatus(Player player) {
-        return getFlyStatus(player.getUniqueId());
-    }
-
-    /**
-     * 设置指定玩家的飞行状态实例
-     *
-     * @param flyStatus 飞行状态实例
-     */
-    public static void setFlyStatus(FlyStatus flyStatus) {
-        try {
-            flyStatusDao.createOrUpdate(flyStatus);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 删除指定玩家UUID的飞行状态实例
-     *
-     * @param uuid 玩家UUID
-     */
-    public static void deleteFlyStatus(UUID uuid) {
-        try {
-            flyStatusDao.deleteById(uuid);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 删除指定玩家实例的飞行状态实例
-     *
-     * @param player 玩家实例
-     */
-    public static void deleteFlyStatus(Player player) {
-        deleteFlyStatus(player.getUniqueId());
-    }
-
-    /**
-     * 设置指定玩家UUID的限时飞行时间
-     *
-     * @param uuid 玩家UUID
-     * @param time 飞行时间
-     */
-    public static void setFlyTime(UUID uuid, Long time) {
-        FlyStatus flyStatus = getFlyStatus(uuid);
-        flyStatus.setTime(time);
-        setFlyStatus(flyStatus);
-    }
-
-    /**
-     * 设置指定玩家实例的限时飞行时间
-     *
-     * @param player 玩家实例
-     * @param time   飞行时间
-     */
-    public static void setFlyTime(Player player, Long time) {
-        setFlyTime(player.getUniqueId(), time);
-    }
-
     /**
      * 给指定目标实例发送切换飞行的提示
      *
@@ -143,9 +42,9 @@ public final class FlyUtil {
      * @param player 玩家实例
      */
     public static void enableFly(Player player) {
-        FlyStatus flyStatus = getFlyStatus(player);
+        FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
         flyStatus.setEnable(true);
-        setFlyStatus(flyStatus);
+        FlyStatusUtil.updateFlyStatus(flyStatus);
 
         player.setAllowFlight(true);
     }
@@ -156,9 +55,9 @@ public final class FlyUtil {
      * @param player 玩家实例
      */
     public static void disableFly(Player player) {
-        FlyStatus flyStatus = getFlyStatus(player);
+        FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
         flyStatus.setEnable(false);
-        setFlyStatus(flyStatus);
+        FlyStatusUtil.updateFlyStatus(flyStatus);
 
         player.setAllowFlight(false);
     }

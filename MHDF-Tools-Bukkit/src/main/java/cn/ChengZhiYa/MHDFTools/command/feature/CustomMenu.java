@@ -2,6 +2,7 @@ package cn.ChengZhiYa.MHDFTools.command.feature;
 
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.CustomMenuConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.CustomMenuUtil;
 import org.bukkit.command.CommandSender;
@@ -30,7 +31,7 @@ public final class CustomMenu extends AbstractCommand {
             );
         }
 
-        if (!CustomMenuUtil.getCustomMenuList().contains(args[0])) {
+        if (!CustomMenuConfigUtil.getCustomMenuList().contains(args[0])) {
             sender.sendMessage(LangUtil.i18n("commands.custommenu.menuNotExists"));
             return;
         }
@@ -43,6 +44,6 @@ public final class CustomMenu extends AbstractCommand {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return CustomMenuUtil.getCustomMenuList();
+        return CustomMenuConfigUtil.getCustomMenuList();
     }
 }

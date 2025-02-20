@@ -3,7 +3,7 @@ package cn.ChengZhiYa.MHDFTools.menu.fastuse;
 import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
 import cn.ChengZhiYa.MHDFTools.util.ActionUtil;
 import cn.ChengZhiYa.MHDFTools.util.RequirementUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.CustomMenuUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.CustomMenuConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.menu.ItemStackUtil;
 import cn.ChengZhiYa.MHDFTools.util.menu.MenuUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
@@ -35,7 +35,7 @@ public final class CustomMenu extends AbstractMenu {
                 player
         );
         this.menu = menu;
-        this.config = CustomMenuUtil.getCustomMenuConfig(menu + ".yml");
+        this.config = CustomMenuConfigUtil.getCustomMenuConfig(menu + ".yml");
     }
 
     @Override
