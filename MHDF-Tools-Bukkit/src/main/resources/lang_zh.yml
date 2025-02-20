@@ -176,9 +176,8 @@ commands:
     message: "{prefix} &6你成功将此处设置为出生点!"
   nick:
     usage: "/{command} <名称> [玩家]"
-    description: "修改玩家名称"
+    description: "修改玩家匿名名称"
     message: "{prefix} &6{player}的名称现在为{name}!"
-    blackWord: "{prefix} &c名称中不能包含{word}!"
   ip:
     usage: "/{command} <玩家>"
     description: "查询一个玩家的IP信息"

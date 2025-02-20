@@ -202,9 +202,6 @@ spawnSettings:
 nickSettings:
   # 开关
   enable: true
-  # 屏蔽词
-  blackWord:
-    - "傻逼"
   # 命令
   commands:
     - "nick"

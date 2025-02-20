@@ -19,7 +19,7 @@ public final class FlyUtil {
     public static void sendChangeFlyMessage(CommandSender sender, Player player, boolean enable) {
         sender.sendMessage(
                 LangUtil.i18n("commands.fly.message")
-                        .replace("{player}", player.getName())
+                        .replace("{player}", NickUtil.getName(player))
                         .replace("{change}",
                                 enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
                         )
