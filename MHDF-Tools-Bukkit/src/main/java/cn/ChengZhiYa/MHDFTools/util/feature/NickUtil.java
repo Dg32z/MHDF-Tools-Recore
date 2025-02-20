@@ -3,7 +3,6 @@ package cn.ChengZhiYa.MHDFTools.util.feature;
 import cn.ChengZhiYa.MHDFTools.entity.data.NickData;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.database.NickDataUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -55,7 +54,7 @@ public final class NickUtil {
      * 设置指定玩家实例的匿名昵称
      *
      * @param player 玩家实例
-     * @param name 匿名昵称
+     * @param name   匿名昵称
      */
     public static void setNickName(Player player, String name) {
         NickData nickData = NickDataUtil.getNickData(player);
@@ -69,7 +68,7 @@ public final class NickUtil {
      * 设置指定玩家实例的匿名昵称显示
      *
      * @param player 玩家实例
-     * @param name 匿名昵称
+     * @param name   匿名昵称
      */
     public static void setNickDisplay(Player player, String name) {
         player.setDisplayName(name);

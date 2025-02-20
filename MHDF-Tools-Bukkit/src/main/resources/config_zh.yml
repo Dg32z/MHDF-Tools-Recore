@@ -198,7 +198,7 @@ spawnSettings:
   setspawnCommands:
     - "setspawn"
 
-# 修改名称
+# 匿名
 nickSettings:
   # 开关
   enable: true
