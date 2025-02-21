@@ -1,5 +1,6 @@
 package cn.ChengZhiYa.MHDFTools.entity.data;
 
+import cn.ChengZhiYa.MHDFTools.entity.AbstractDao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @DatabaseTable(tableName = "mhdftools_vanish")
-public final class VanishStatus {
+public final class VanishStatus extends AbstractDao {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
     @DatabaseField(canBeNull = false)

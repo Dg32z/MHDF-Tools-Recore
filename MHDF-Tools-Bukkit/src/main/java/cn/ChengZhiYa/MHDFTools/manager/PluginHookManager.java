@@ -8,7 +8,7 @@ import lombok.Getter;
 @SuppressWarnings("unused")
 public final class PluginHookManager implements Hook {
     private final PacketEventsHook packetEventsHook = new PacketEventsHook();
-    private final PlaceholderAPIHook placeholderAPIHook = new PlaceholderAPIHook();
+    private final PlaceholderApiHook placeholderAPIHook = new PlaceholderApiHook();
     private final CraftEngineHook craftEngineHook = new CraftEngineHook();
     private final MythicMobsHook mythicMobsHook = new MythicMobsHook();
     private final VaultHook vaultHook = new VaultHook();
@@ -19,6 +19,7 @@ public final class PluginHookManager implements Hook {
     @Override
     public void hook() {
         packetEventsHook.hook();
+
         placeholderAPIHook.hook();
         craftEngineHook.hook();
         mythicMobsHook.hook();
@@ -31,6 +32,7 @@ public final class PluginHookManager implements Hook {
     @Override
     public void unhook() {
         packetEventsHook.unhook();
+
         placeholderAPIHook.unhook();
         craftEngineHook.unhook();
         mythicMobsHook.unhook();

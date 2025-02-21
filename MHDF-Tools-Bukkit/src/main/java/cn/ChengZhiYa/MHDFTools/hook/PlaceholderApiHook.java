@@ -1,20 +1,21 @@
 package cn.ChengZhiYa.MHDFTools.hook;
 
+import cn.ChengZhiYa.MHDFTools.hook.impl.PlaceholderApiImpl;
 import lombok.Getter;
-import lombok.Setter;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 @Getter
-@Setter
-public final class PlaceholderAPIHook extends AbstractHook {
+public final class PlaceholderApiHook extends AbstractHook {
+    private PlaceholderApiImpl api;
+
     /**
      * 初始化PlaceholderAPI的API
      */
     @Override
     public void hook() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            this.api = new PlaceholderApiImpl();
             super.enable = true;
         }
     }
@@ -24,6 +25,7 @@ public final class PlaceholderAPIHook extends AbstractHook {
      */
     @Override
     public void unhook() {
+        this.api = null;
         super.enable = false;
     }
 
@@ -36,7 +38,7 @@ public final class PlaceholderAPIHook extends AbstractHook {
      */
     public String placeholder(OfflinePlayer player, String message) {
         if (isEnable()) {
-            return PlaceholderAPI.setPlaceholders(player, message);
+            return getApi().placeholder(player, message);
         }
         return message;
     }

@@ -23,7 +23,7 @@ public final class FlyTime extends AbstractCommand {
                 "限时飞行",
                 "mhdftools.commands.flytime",
                 false,
-                ConfigUtil.getConfig().getStringList("flySettings.flyTimeCommands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("flySettings.flytimeCommands").toArray(new String[0])
         );
     }
 

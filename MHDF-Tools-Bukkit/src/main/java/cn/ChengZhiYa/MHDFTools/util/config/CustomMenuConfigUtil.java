@@ -5,6 +5,7 @@ import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public final class CustomMenuConfigUtil {
@@ -59,7 +60,7 @@ public final class CustomMenuConfigUtil {
      */
     public static List<String> getCustomMenuList() {
         return getCustomMenuFileList().stream()
-                .map(File::getName)
+                .map(File::getPath)
                 .map(s -> s.replace("\\", "/"))
                 .filter(s -> s.endsWith(".yml"))
                 .map(s -> s.split("customMenu/")[1])

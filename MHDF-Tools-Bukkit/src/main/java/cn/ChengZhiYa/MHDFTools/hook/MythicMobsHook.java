@@ -1,18 +1,19 @@
 package cn.ChengZhiYa.MHDFTools.hook;
 
-import io.lumine.mythic.bukkit.MythicBukkit;
+import cn.ChengZhiYa.MHDFTools.hook.impl.MythicMobsImpl;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 @Getter
 public final class MythicMobsHook extends AbstractHook {
-    private MythicBukkit api;
+    private MythicMobsImpl api;
 
     @Override
     public void hook() {
         if (Bukkit.getPluginManager().getPlugin("MythicMobs") != null) {
-            this.api = MythicBukkit.inst();
+            this.api = new MythicMobsImpl();
             super.enable = true;
         }
     }
@@ -30,6 +31,9 @@ public final class MythicMobsHook extends AbstractHook {
      * @return 物品实例
      */
     public ItemStack getItem(String id) {
-        return getApi().getItemManager().getItemStack(id);
+        if (isEnable()) {
+            return getApi().getItem(id);
+        }
+        return new ItemStack(Material.AIR);
     }
 }

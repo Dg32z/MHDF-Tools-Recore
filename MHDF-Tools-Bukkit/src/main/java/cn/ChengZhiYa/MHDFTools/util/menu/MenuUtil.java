@@ -3,9 +3,11 @@ package cn.ChengZhiYa.MHDFTools.util.menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class MenuUtil {
@@ -16,10 +18,18 @@ public final class MenuUtil {
      * @return 物品实例
      */
     public static ItemStack getClickItem(InventoryClickEvent event) {
+        if (event.getClickedInventory() == null) {
+            return null;
+        }
+
         Player player = (Player) event.getWhoClicked();
 
         if (event.getClick() == ClickType.NUMBER_KEY) {
-            return player.getInventory().getItem(event.getHotbarButton());
+            ItemStack item = player.getInventory().getItem(event.getHotbarButton());
+            if (item == null) {
+                return event.getClickedInventory().getItem(event.getRawSlot());
+            }
+            return item;
         }
 
         return event.getCurrentItem();

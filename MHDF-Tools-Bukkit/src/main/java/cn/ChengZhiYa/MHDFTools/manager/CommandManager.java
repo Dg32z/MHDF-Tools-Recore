@@ -4,6 +4,7 @@ import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.interfaces.Init;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import cn.ChengZhiYa.MHDFTools.util.message.LogUtil;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
@@ -43,6 +44,11 @@ public final class CommandManager implements Init {
     private void registerCommand(AbstractCommand abstractCommand) throws Exception {
         Constructor<PluginCommand> commandConstructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
         commandConstructor.setAccessible(true);
+        if (abstractCommand.getCommands().length == 0) {
+            LogUtil.log("命令: " + abstractCommand.getClass() + " 注册失败, 原因: 找不到命令!");
+            return;
+        }
+
         PluginCommand command = commandConstructor.newInstance(abstractCommand.getCommands()[0], Main.instance);
 
         command.setAliases(Arrays.asList(abstractCommand.getCommands()));
