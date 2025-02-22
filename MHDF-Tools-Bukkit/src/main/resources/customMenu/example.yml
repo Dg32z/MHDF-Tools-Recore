@@ -84,7 +84,7 @@ items:
           # lore:
           #  - "&b喵喵喵,坏掉惹"
           # 数量
-          # amount: 64
+        # amount: 64
         # 自定义模型数据
         # customModelData: 12345
         # 输出

@@ -36,6 +36,10 @@ public final class BungeeCordUtil {
      * @param out 消息数据实例
      */
     public static void sendPluginMessage(ByteArrayDataOutput out) {
+        if (!isBungeeCordMode()) {
+            return;
+        }
+
         List<Player> playerList = new ArrayList<>(Bukkit.getOnlinePlayers());
         if (playerList.isEmpty()) {
             return;
@@ -68,6 +72,8 @@ public final class BungeeCordUtil {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("mhdf_tools");
         out.writeUTF(data.toJSONString());
+
+        sendPluginMessage(out);
     }
 
     /**
@@ -88,6 +94,13 @@ public final class BungeeCordUtil {
      * @param targetName 传送到的玩家ID
      */
     public static void teleportPlayerServer(String playerName, String targetName) {
+        Player player = Bukkit.getPlayer(playerName);
+        Player target = Bukkit.getPlayer(targetName);
+        if (player != null && target != null) {
+            player.teleport(target);
+            return;
+        }
+
         JSONObject data = new JSONObject();
         data.put("action", "teleportPlayer");
         data.put("to", "all");

@@ -67,6 +67,7 @@ public final class Tpa extends AbstractCommand {
             switch (args[0]) {
                 case "accept" -> {
                     BungeeCordUtil.teleportPlayerServer(args[1], sender.getName());
+                    Main.instance.getCacheManager().put(args[1] + "_tpPlayer", sender.getName());
                     BungeeCordUtil.sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpa.accept.accepted")
                             .replace("{player}", args[1])
                     );
