@@ -5,7 +5,6 @@ import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.List;
 
 public final class MenuConfigUtil {
     /**
@@ -25,15 +24,6 @@ public final class MenuConfigUtil {
      */
     public static File getMenuFolder() {
         return new File(ConfigUtil.getDataFolder(), "menu");
-    }
-
-    /**
-     * 获取菜单文件实例列表
-     *
-     * @return 自定义菜单文件实例列表
-     */
-    public static List<File> getMenuFileList() {
-        return FileUtil.listFiles(getMenuFolder());
     }
 
     /**
