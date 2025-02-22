@@ -6,6 +6,7 @@ import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import cn.ChengZhiYa.MHDFTools.util.runnable.MHDFRunnable;
+import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -49,9 +50,10 @@ public final class Stop extends AbstractCommand {
                     Bukkit.savePlayers();
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.kickPlayer(LangUtil.i18n("commands.stop.kickMessage")
-                                .replace("{message}", message)
-                        );
+                        MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                                player.kickPlayer(LangUtil.i18n("commands.stop.kickMessage")
+                                        .replace("{message}", message)
+                        ));
                     }
 
                     Bukkit.shutdown();
