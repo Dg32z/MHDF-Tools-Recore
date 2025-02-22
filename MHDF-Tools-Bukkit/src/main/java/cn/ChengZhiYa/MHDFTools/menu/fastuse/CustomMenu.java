@@ -90,6 +90,9 @@ public final class CustomMenu extends AbstractMenu {
     @Override
     public void click(InventoryClickEvent event) {
         ItemStack item = MenuUtil.getClickItem(event);
+        if (item == null) {
+            return;
+        }
 
         NBTItem nbtItem = new NBTItem(item);
         NBTCompound nbtCompound = nbtItem.getCompound("MHDF-Tools");

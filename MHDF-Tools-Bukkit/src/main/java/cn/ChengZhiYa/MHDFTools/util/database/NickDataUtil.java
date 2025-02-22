@@ -20,6 +20,12 @@ public final class NickDataUtil {
         }
     }
 
+    /**
+     * 获取指定玩家UUID的匿名数据实例
+     *
+     * @param uuid 玩家UUID
+     * @return 匿名数据实例
+     */
     public static NickData getNickData(UUID uuid) {
         try {
             NickData nickData = nickDataDao.queryForId(uuid);
@@ -33,10 +39,21 @@ public final class NickDataUtil {
         }
     }
 
+    /**
+     * 获取指定玩家实例的匿名数据实例
+     *
+     * @param player 玩家实例
+     * @return 匿名数据实例
+     */
     public static NickData getNickData(OfflinePlayer player) {
         return getNickData(player.getUniqueId());
     }
 
+    /**
+     * 更新指定匿名数据实例在数据库中的数据
+     *
+     * @param nickData 匿名数据实例
+     */
     public static void updateNickData(NickData nickData) {
         try {
             nickDataDao.createIfNotExists(nickData);

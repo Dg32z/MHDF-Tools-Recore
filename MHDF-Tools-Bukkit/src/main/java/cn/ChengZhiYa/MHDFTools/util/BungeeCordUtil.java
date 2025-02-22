@@ -1,6 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.util;
 
 import cn.ChengZhiYa.MHDFTools.Main;
+import cn.ChengZhiYa.MHDFTools.entity.BungeeCordLocation;
 import cn.ChengZhiYa.MHDFTools.enums.MessageType;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -49,17 +50,6 @@ public final class BungeeCordUtil {
     }
 
     /**
-     * 更新BC玩家列表数据
-     */
-    public static void updateBungeeCordPlayerList() {
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("PlayerList");
-        out.writeUTF("ALL");
-
-        sendPluginMessage(out);
-    }
-
-    /**
      * 发送梦之工具插件消息
      *
      * @param data 消息数据实例
@@ -74,17 +64,6 @@ public final class BungeeCordUtil {
         out.writeUTF(data.toJSONString());
 
         sendPluginMessage(out);
-    }
-
-    /**
-     * 更新BC服务器名称数据
-     */
-    public static void updateServerName() {
-        JSONObject data = new JSONObject();
-        data.put("action", "serverInfo");
-        data.put("to", "me");
-
-        sendMhdfToolsPluginMessage(data);
     }
 
     /**
@@ -115,6 +94,33 @@ public final class BungeeCordUtil {
     }
 
     /**
+     * 将指定玩家ID传送至指定群组位置实例
+     *
+     * @param playerName         玩家ID
+     * @param bungeeCordLocation 群组位置实例
+     */
+    public static void teleportLocation(String playerName, BungeeCordLocation bungeeCordLocation) {
+        if (bungeeCordLocation.getServer().equals("无") || bungeeCordLocation.getServer().equals(getServerName())) {
+            Player player = Bukkit.getPlayer(playerName);
+            if (player == null) {
+                return;
+            }
+
+            player.teleport(bungeeCordLocation.toLocation());
+            return;
+        }
+
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("ConnectOther");
+        out.writeUTF(playerName);
+        out.writeUTF(bungeeCordLocation.getServer());
+
+        Main.instance.getCacheManager().put(playerName + "_tpLocation", bungeeCordLocation.toBase64());
+
+        sendPluginMessage(out);
+    }
+
+    /**
      * 向指定玩家ID发送指定消息文本
      *
      * @param targetName 玩家ID
@@ -136,6 +142,17 @@ public final class BungeeCordUtil {
     }
 
     /**
+     * 更新BC玩家列表数据
+     */
+    public static void updateBungeeCordPlayerList() {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("PlayerList");
+        out.writeUTF("ALL");
+
+        sendPluginMessage(out);
+    }
+
+    /**
      * 获取在线玩家列表
      *
      * @return 在线玩家列表
@@ -152,6 +169,17 @@ public final class BungeeCordUtil {
             list.add(name);
         }
         return list;
+    }
+
+    /**
+     * 更新BC服务器名称数据
+     */
+    public static void updateServerName() {
+        JSONObject data = new JSONObject();
+        data.put("action", "serverInfo");
+        data.put("to", "me");
+
+        sendMhdfToolsPluginMessage(data);
     }
 
     /**

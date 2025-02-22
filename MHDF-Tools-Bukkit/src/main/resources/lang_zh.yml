@@ -156,16 +156,19 @@ commands:
   home:
     usage: "/{command} [家名称]"
     description: "返回到指定家"
+    noHome: "{prefix} &c目标家不存在!"
     openMenuMessage: "{prefix} &6你打开了家列表"
     teleportMessage: "{prefix} &6你传送到了{home}!"
   sethome:
     usage: "/{command} <家名称>"
     description: "设置家"
-    message: "{prefix} &6你设置了<home>!"
+    isMax: "{prefix} &c你已经设置了{amount}个家了,无法设置更多了!"
+    message: "{prefix} &6你设置了{home}!"
   delhome:
     usage: "/{command} <家名称>"
     description: "删除家"
-    message: "{prefix} &6你删除了<home>!"
+    noHome: "{prefix} &c目标家不存在!"
+    message: "{prefix} &6你删除了{home}!"
   back:
     usage: "/{command}"
     description: "返回死亡点"

@@ -66,11 +66,11 @@ public final class ItemStackUtil {
             );
         }
 
-        if (amount != null) {
+        if (amount != null && amount > 0) {
             item.setAmount(amount);
         }
 
-        if (customModelData != null) {
+        if (customModelData != null && customModelData > 0) {
             meta.setCustomModelData(customModelData);
         }
 

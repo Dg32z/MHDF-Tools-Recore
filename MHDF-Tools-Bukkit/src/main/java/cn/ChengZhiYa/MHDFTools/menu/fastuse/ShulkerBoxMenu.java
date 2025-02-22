@@ -40,7 +40,6 @@ public final class ShulkerBoxMenu extends AbstractMenu {
     @Override
     public void click(InventoryClickEvent event) {
         ItemStack item = MenuUtil.getClickItem(event);
-
         if (item == null) {
             return;
         }

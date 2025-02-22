@@ -156,6 +156,9 @@ customMenuSettings:
 homeSettings:
   # 开关
   enable: true
+  # 默认最大家数量
+  # 可以通过 mhdftools.commands.home.max.<数量> 自定义
+  defaultMax: 10
   # 命令
   commands:
     - "home"

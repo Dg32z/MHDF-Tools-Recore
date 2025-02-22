@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public final class CustomMenu extends AbstractCommand {
     public CustomMenu() {
         super(
