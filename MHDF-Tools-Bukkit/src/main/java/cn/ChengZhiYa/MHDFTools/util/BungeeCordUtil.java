@@ -4,6 +4,7 @@ import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.entity.BungeeCordLocation;
 import cn.ChengZhiYa.MHDFTools.enums.MessageType;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -101,7 +102,7 @@ public final class BungeeCordUtil {
      * @param bungeeCordLocation 群组位置实例
      */
     public static void teleportLocation(String playerName, BungeeCordLocation bungeeCordLocation) {
-        if (bungeeCordLocation.getServer().equals("无") || bungeeCordLocation.getServer().equals(getServerName())) {
+        if (bungeeCordLocation.getServer().equals(getServerName())) {
             Player player = Bukkit.getPlayer(playerName);
             if (player == null) {
                 return;
@@ -128,6 +129,16 @@ public final class BungeeCordUtil {
      * @param message    消息文本
      */
     public static void sendMessage(String playerName, MessageType type, String message) {
+        Player player = Bukkit.getPlayer(playerName);
+        if (player != null) {
+            switch (type) {
+                case MINI_MESSAGE ->
+                        Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
+                case LEGACY -> player.sendMessage(ColorUtil.color(message));
+            }
+            return;
+        }
+
         JSONObject data = new JSONObject();
         data.put("action", "sendMessage");
         data.put("to", "all");

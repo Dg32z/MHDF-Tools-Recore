@@ -65,7 +65,7 @@ public final class GameMode extends AbstractCommand {
             return;
         }
 
-        player.setGameMode(gameMode);
+        BungeeCordUtil.setGameMode(player.getName(), gameMode);
         sender.sendMessage(LangUtil.i18n("commands.gamemode.message")
                 .replace("{player}", NickUtil.getName(player))
                 .replace("{gamemode}", LangUtil.i18n("gamemode." + gameMode.name()))
