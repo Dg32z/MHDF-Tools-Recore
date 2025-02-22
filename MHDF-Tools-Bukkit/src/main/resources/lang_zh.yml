@@ -14,10 +14,10 @@ menu:
     title: "&b隐身打开容器"
 
 gamemode:
-  survival: "生存模式"
-  adventure: "冒险模式"
-  creative: "创造模式"
-  spectator: "旁观模式"
+  SURVIVAL: "生存模式"
+  ADVENTURE: "冒险模式"
+  CREATIVE: "创造模式"
+  SPECTATOR: "旁观模式"
 
 commands:
   mhdftools:
@@ -203,6 +203,7 @@ commands:
   gamemode:
     usage: "/{command} <游戏模式> [玩家]"
     description: "修改玩家游戏模式"
+    noGameMode: "{prefix} &c目标游戏模式不存在!"
     message: "{prefix} &6{player}的游戏模式已被更新为{gamemode}!"
   bed:
     usage: "/{command}"

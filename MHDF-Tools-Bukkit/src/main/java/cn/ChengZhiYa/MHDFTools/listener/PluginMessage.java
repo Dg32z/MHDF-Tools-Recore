@@ -6,6 +6,7 @@ import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public final class PluginMessage implements PluginMessageListener {
     @Override
-    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte @NotNull [] messageData) {
+    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player messagePlayer, byte @NotNull [] messageData) {
         if (!channel.equals("BungeeCord")) {
             return;
         }
@@ -38,9 +39,9 @@ public final class PluginMessage implements PluginMessageListener {
                     switch (action) {
                         case "serverInfo" -> BungeeCordUtil.setServerName(form);
                         case "sendMessage" -> {
-                            String targetName = params.getString("targetName");
-                            Player target = Bukkit.getPlayer(targetName);
-                            if (target == null) {
+                            String playerName = params.getString("playerName");
+                            Player player = Bukkit.getPlayer(playerName);
+                            if (player == null) {
                                 return;
                             }
 
@@ -53,6 +54,16 @@ public final class PluginMessage implements PluginMessageListener {
                                         Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
                                 case LEGACY -> player.sendMessage(ColorUtil.color(message));
                             }
+                        }
+                        case "setGameMode" -> {
+                            String playerName = params.getString("playerName");
+                            Player player = Bukkit.getPlayer(playerName);
+                            if (player == null) {
+                                return;
+                            }
+
+                            GameMode gameMode = GameMode.valueOf(params.getString("gameMode"));
+                            player.setGameMode(gameMode);
                         }
                     }
                 }

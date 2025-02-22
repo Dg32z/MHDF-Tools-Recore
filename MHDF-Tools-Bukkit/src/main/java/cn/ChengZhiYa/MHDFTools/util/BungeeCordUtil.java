@@ -10,6 +10,7 @@ import com.google.common.io.ByteStreams;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -123,18 +124,44 @@ public final class BungeeCordUtil {
     /**
      * 向指定玩家ID发送指定消息文本
      *
-     * @param targetName 玩家ID
+     * @param playerName 玩家ID
      * @param message    消息文本
      */
-    public static void sendMessage(String targetName, MessageType type, String message) {
+    public static void sendMessage(String playerName, MessageType type, String message) {
         JSONObject data = new JSONObject();
         data.put("action", "sendMessage");
         data.put("to", "all");
 
         JSONObject params = new JSONObject();
-        params.put("targetName", targetName);
+        params.put("playerName", playerName);
         params.put("type", type.name());
         params.put("message", message);
+
+        data.put("params", params);
+
+        sendMhdfToolsPluginMessage(data);
+    }
+
+    /**
+     * 修改指定玩家ID的游戏模式为游戏模式实例
+     *
+     * @param playerName 玩家ID
+     * @param gameMode   游戏模式实例
+     */
+    public static void setGameMode(String playerName, GameMode gameMode) {
+        Player player = Bukkit.getPlayer(playerName);
+        if (player != null) {
+            player.setGameMode(gameMode);
+            return;
+        }
+
+        JSONObject data = new JSONObject();
+        data.put("action", "setGameMode");
+        data.put("to", "all");
+
+        JSONObject params = new JSONObject();
+        params.put("playerName", playerName);
+        params.put("gameMode", gameMode.name());
 
         data.put("params", params);
 

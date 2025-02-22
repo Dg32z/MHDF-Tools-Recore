@@ -19,12 +19,11 @@ public final class VanishUtil {
      * @param enable 是否开启隐身
      */
     public static void sendChangeVanishMessage(CommandSender sender, Player player, boolean enable) {
-        sender.sendMessage(
-                LangUtil.i18n("commands.vanish.message")
-                        .replace("{player}", NickUtil.getName(player))
-                        .replace("{change}",
-                                enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
-                        )
+        sender.sendMessage(LangUtil.i18n("commands.vanish.message")
+                .replace("{player}", NickUtil.getName(player))
+                .replace("{change}",
+                        enable ? LangUtil.i18n("enable") : LangUtil.i18n("disable")
+                )
         );
     }
 
