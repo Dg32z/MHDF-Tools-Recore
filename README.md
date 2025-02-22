@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="https://pic.imgdb.cn/item/665c036bd9c307b7e9170568.png" width="200" height="200" alt="MHDF-Tools">
+   <img src="./Logo.png" width="200px" height="200px" alt="MHDF-Tools">
 </p>
 
 <div align="center">
@@ -12,11 +12,11 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 </div>
 
 <p align="center">
-    <a href="https://github.com/Love-MHDF/MHDF-Tools/issues">
-        <img src="https://img.shields.io/github/issues/Love-MHDF/MHDF-Tools?style=flat-square" alt="issues">
+    <a href="https://github.com/MHDFCraft/MHDF-Tools/issues">
+        <img src="https://img.shields.io/github/issues/MHDFCraft/MHDF-Tools?style=flat-square" alt="issues">
     </a>
-    <a href="https://github.com/Love-MHDF/MHDF-Tools/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/Love-MHDF/MHDF-Tools?style=flat-square" alt="license">
+    <a href="https://github.com/MHDFCraft/MHDF-Tools/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/MHDFCraft/MHDF-Tools?style=flat-square" alt="license">
     </a>
     <a href="https://qm.qq.com/cgi-bin/qm/qr?k=T047YB6lHNMMcMuVlK_hGBcT5HNESxMA&jump_from=webapi&authKey=0/IFGIO6xLjjHB2YKF7laLxkKWbtWbDhb1lt//m7GgbElJSWdRZ8RjbWzSsufkO6">
         <img src="https://img.shields.io/badge/QQ群-129139830-brightgreen?style=flat-square" alt="qq-group">
@@ -27,31 +27,39 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 
 ## 前置插件 (可选)
 
-_PlaceholderAPI, Vault_
+- [CraftEngine](https://github.com/Xiao-MoMi/craft-engine)
+- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245)
+- [MythicMobs](https://mythiccraft.io/index.php?resources/mythicmobs.1)
+- [Vault](https://www.spigotmc.org/resources/vault.34315)
 
 <p align="center">
-  <a href="https://github.com/Love-MHDF/MHDF-Tools/releases">下载</a>
+  <a href="https://github.com/MHDFCraft/MHDF-Tools/releases">下载</a>
 </p>
 
 <div align="center">
-    <a href="https://github.com/Love-MHDF/MHDF-Tools/pulse">
+    <a href="https://github.com/MHDFCraft/MHDF-Tools/pulse">
         <img src="https://repobeats.axiom.co/api/embed/e58f3e1358766291db33ba451d3e90be99811f4f.svg" alt="pulse">
     </a>
 </div>
 
 ## 贡献者
 
-<a href="https://github.com/Love-MHDF/MHDF-Tools/graphs/contributors">
-  <img src="https://stg.contrib.rocks/image?repo=Love-MHDF/MHDF-Tools" />
+<a href="https://github.com/MHDFCraft/MHDF-Tools/graphs/contributors">
+  <img src="https://stg.contrib.rocks/image?repo=MHDFCraft/MHDF-Tools" />
 </a>
-
-## Star
-
-[![Stargazers over time](https://starchart.cc/Love-MHDF/MHDF-Tools.svg?variant=adaptive)](https://starchart.cc/Love-MHDF/MHDF-Tools)
 
 ## 特别感谢
 
+- [Xiao-MoMi](https://github.com/Xiao-MoMi)
+- [LuckPerms](https://github.com/LuckPerms/LuckPerms)
+- [TridentDupe](https://github.com/Killetx/TridentDupe)
+
+## Star
+
+[![Stargazers over time](https://starchart.cc/MHDFCraft/MHDF-Tools.svg?variant=adaptive)](https://starchart.cc/MHDFCraft/MHDF-Tools)
+
+## 友链
+
 <div>
     <a href="https://www.mhdf.love/">梦回东方</a>
-    <a href="https://cloud.fengidc.cn/">风IDC</a>
 </div>
