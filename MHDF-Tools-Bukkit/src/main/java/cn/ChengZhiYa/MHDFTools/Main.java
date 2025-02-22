@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
     public static BukkitAudiences adventure;
+    private BStatsManager bStatsManager;
     private ConfigManager configManager;
     private LibrariesManager librariesManager;
     private DatabaseManager databaseManager;
@@ -33,6 +34,9 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         adventure = BukkitAudiences.create(this);
+
+        this.bStatsManager = new BStatsManager();
+        this.bStatsManager.init();
 
         this.pluginHookManager = new PluginHookManager();
         this.pluginHookManager.hook();
@@ -68,6 +72,7 @@ public final class Main extends JavaPlugin {
         this.cacheManager.close();
         this.cacheManager = null;
 
+        this.bStatsManager = null;
         this.configManager = null;
         this.listenerManager = null;
         this.commandManager = null;
