@@ -216,6 +216,7 @@ commands:
   warp:
     usage: "/{command} <传送点>"
     description: "传送到指定传送点"
+    noWarp: "{prefix} &c目标传送点不存在!"
     message: "{prefix} &6你来到了{warp}!"
   setwarp:
     usage: "/{command} <传送点>"
@@ -224,4 +225,5 @@ commands:
   delwarp:
     usage: "/{command} <传送点>"
     description: "删除传送点"
+    noWarp: "{prefix} &c目标传送点不存在!"
     message: "{prefix} &6你删除了{warp}!"

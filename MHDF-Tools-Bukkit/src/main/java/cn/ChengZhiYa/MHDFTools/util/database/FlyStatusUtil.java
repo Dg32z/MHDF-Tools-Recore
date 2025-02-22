@@ -33,6 +33,7 @@ public final class FlyStatusUtil {
                 flyStatus = new FlyStatus();
                 flyStatus.setPlayer(uuid);
             }
+
             return flyStatus;
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -7,18 +7,12 @@ import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
-@DatabaseTable(tableName = "mhdftools_home")
-public final class HomeData extends AbstractDao {
-    @DatabaseField(generatedId = true, canBeNull = false)
-    private Integer id;
-    @DatabaseField(canBeNull = false)
-    private UUID player;
-    @DatabaseField(canBeNull = false)
-    private String home;
+@DatabaseTable(tableName = "mhdftools_warp")
+public final class WarpData extends AbstractDao {
+    @DatabaseField(id = true, canBeNull = false)
+    private String warp;
     @DatabaseField(canBeNull = false)
     private String server;
     @DatabaseField(canBeNull = false)

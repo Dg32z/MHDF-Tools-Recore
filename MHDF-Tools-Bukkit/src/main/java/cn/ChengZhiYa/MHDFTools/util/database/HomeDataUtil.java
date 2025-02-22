@@ -75,6 +75,7 @@ public final class HomeDataUtil {
                 homeData.setPlayer(uuid);
                 homeData.setHome(home);
             }
+
             return homeData;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -107,6 +108,7 @@ public final class HomeDataUtil {
             if (homeDataList == null) {
                 homeDataList = new ArrayList<>();
             }
+
             return homeDataList;
         } catch (SQLException e) {
             throw new RuntimeException(e);

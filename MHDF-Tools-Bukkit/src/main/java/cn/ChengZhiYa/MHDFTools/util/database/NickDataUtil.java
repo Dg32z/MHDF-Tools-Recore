@@ -33,6 +33,7 @@ public final class NickDataUtil {
                 nickData = new NickData();
                 nickData.setPlayer(uuid);
             }
+
             return nickData;
         } catch (SQLException e) {
             throw new RuntimeException(e);

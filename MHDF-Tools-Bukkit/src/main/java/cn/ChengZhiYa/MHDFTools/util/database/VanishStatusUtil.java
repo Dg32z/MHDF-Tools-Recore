@@ -33,6 +33,7 @@ public final class VanishStatusUtil {
                 vanishStatus = new VanishStatus();
                 vanishStatus.setPlayer(uuid);
             }
+
             return vanishStatus;
         } catch (SQLException e) {
             throw new RuntimeException(e);

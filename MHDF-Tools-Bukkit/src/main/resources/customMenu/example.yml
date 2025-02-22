@@ -77,7 +77,7 @@ items:
           # mythicMobs-<MM物品ID>     ——使用MM的物品
           # head-<玩家ID>             ——指定玩家的头颅
           # random_bed               ——随机颜色的床
-          # type: paper
+        # type: paper
         # 名称
         # name: "&b你好 %player_name%!"
         # 简介

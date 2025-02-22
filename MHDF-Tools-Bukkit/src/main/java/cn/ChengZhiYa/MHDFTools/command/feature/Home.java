@@ -7,8 +7,12 @@ import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.database.HomeDataUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public final class Home extends AbstractCommand {
@@ -43,9 +47,26 @@ public final class Home extends AbstractCommand {
             );
             return;
         }
-        sender.sendMessage(LangUtil.i18n("usageError")
-                .replace("{usage}", LangUtil.i18n("commands.home.usage"))
-                .replace("{command}", label)
-        );
+
+        // 输出帮助信息
+        {
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.home.usage"))
+                    .replace("{command}", label)
+            );
+        }
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) {
+            return new ArrayList<>();
+        }
+        if (args.length == 1) {
+            return HomeDataUtil.getHomeDataList(player).stream()
+                    .map(HomeData::getHome)
+                    .toList();
+        }
+        return new ArrayList<>();
     }
 }

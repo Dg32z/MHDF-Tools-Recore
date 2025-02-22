@@ -3,5 +3,5 @@ version: '${project.version}'
 main: cn.ChengZhiYa.MHDFTools.Main
 api-version: '1.20'
 folia-supported: true
-authoendrs: [ ChengZhiYa, Dg32z_ ]
+authoendrs: [ BaiShenYao_Dog, Dg32z_, Araykal ]
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]

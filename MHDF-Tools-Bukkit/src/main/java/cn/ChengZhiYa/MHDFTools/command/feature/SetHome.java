@@ -8,8 +8,12 @@ import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.database.HomeDataUtil;
 import cn.ChengZhiYa.MHDFTools.util.feature.HomeUtil;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public final class SetHome extends AbstractCommand {
@@ -25,6 +29,7 @@ public final class SetHome extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        // 输出帮助信息
         if (args.length != 1) {
             sender.sendMessage(LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.sethome.usage"))
@@ -56,5 +61,18 @@ public final class SetHome extends AbstractCommand {
         sender.sendMessage(LangUtil.i18n("commands.sethome.message")
                 .replace("{home}", args[0])
         );
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) {
+            return new ArrayList<>();
+        }
+        if (args.length == 1) {
+            return HomeDataUtil.getHomeDataList(player).stream()
+                    .map(HomeData::getHome)
+                    .toList();
+        }
+        return new ArrayList<>();
     }
 }
