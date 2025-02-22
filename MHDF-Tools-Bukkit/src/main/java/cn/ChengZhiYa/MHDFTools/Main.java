@@ -6,24 +6,17 @@ import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@Getter
 public final class Main extends JavaPlugin {
     public static Main instance;
     public static BukkitAudiences adventure;
-    @Getter
     private ConfigManager configManager;
-    @Getter
     private LibrariesManager librariesManager;
-    @Getter
     private DatabaseManager databaseManager;
-    @Getter
     private CacheManager cacheManager;
-    @Getter
     private CommandManager commandManager;
-    @Getter
     private ListenerManager listenerManager;
-    @Getter
     private PluginHookManager pluginHookManager;
-    @Getter
     private TaskManager taskManager;
 
     @Override

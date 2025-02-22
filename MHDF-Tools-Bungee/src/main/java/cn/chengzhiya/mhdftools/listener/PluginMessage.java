@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -15,6 +16,12 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 public final class PluginMessage implements Listener {
+    /**
+     * 通过插件消息事件实例获取发送端服务器实例
+     *
+     * @param event 插件消息事件实例
+     * @return 发送端服务器实例
+     */
     public ServerInfo getServerInfo(PluginMessageEvent event) {
         InetAddress senderAddress = event.getSender().getAddress().getAddress();
         int senderPort = event.getSender().getAddress().getPort();
@@ -56,18 +63,36 @@ public final class PluginMessage implements Listener {
             out.writeUTF("mhdf_tools");
             out.writeUTF(data.toJSONString());
 
-            String to = data.getString("to");
-            switch (to) {
-                case "all" -> {
-                    for (ServerInfo server : Main.instance.getProxy().getServers().values()) {
-                        sendData(server, out);
+            String action = data.getString("action");
+            JSONObject params = data.getJSONObject("params");
+            switch (action) {
+                case "teleportPlayer" -> {
+                    String playerName = params.getString("playerName");
+                    ProxiedPlayer player = Main.instance.getProxy().getPlayer(playerName);
+
+                    String targetName = params.getString("targetName");
+                    ProxiedPlayer target = Main.instance.getProxy().getPlayer(targetName);
+
+                    if (player == null || target == null) {
+                        return;
                     }
-                    return;
+
+                    player.connect(target.getReconnectServer());
                 }
-                case "me" -> sendData(senderServer, out);
                 default -> {
-                    ServerInfo server = Main.instance.getProxy().getServerInfo(to);
-                    sendData(server, out);
+                    String to = data.getString("to");
+                    switch (to) {
+                        case "all" -> {
+                            for (ServerInfo server : Main.instance.getProxy().getServers().values()) {
+                                sendData(server, out);
+                            }
+                        }
+                        case "me" -> sendData(senderServer, out);
+                        default -> {
+                            ServerInfo server = Main.instance.getProxy().getServerInfo(to);
+                            sendData(server, out);
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
@@ -75,6 +100,12 @@ public final class PluginMessage implements Listener {
         }
     }
 
+    /**
+     * 发送插件消息给指定服务器实例
+     *
+     * @param server 服务器实例
+     * @param out    消息数据实例
+     */
     private void sendData(ServerInfo server, ByteArrayDataOutput out) {
         if (server == null) {
             return;

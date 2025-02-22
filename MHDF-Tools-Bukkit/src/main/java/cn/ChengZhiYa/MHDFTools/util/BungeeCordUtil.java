@@ -1,6 +1,7 @@
 package cn.ChengZhiYa.MHDFTools.util;
 
 import cn.ChengZhiYa.MHDFTools.Main;
+import cn.ChengZhiYa.MHDFTools.enums.MessageType;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
@@ -60,6 +61,10 @@ public final class BungeeCordUtil {
      * @param data 消息数据实例
      */
     public static void sendMhdfToolsPluginMessage(JSONObject data) {
+        if (data.getJSONObject("params") == null) {
+            data.put("params", new JSONObject());
+        }
+
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("mhdf_tools");
         out.writeUTF(data.toJSONString());
@@ -72,6 +77,47 @@ public final class BungeeCordUtil {
         JSONObject data = new JSONObject();
         data.put("action", "serverInfo");
         data.put("to", "me");
+
+        sendMhdfToolsPluginMessage(data);
+    }
+
+    /**
+     * 传送指定玩家ID到指定玩家ID的服务器
+     *
+     * @param playerName 被传送的玩家ID
+     * @param targetName 传送到的玩家ID
+     */
+    public static void teleportPlayerServer(String playerName, String targetName) {
+        JSONObject data = new JSONObject();
+        data.put("action", "teleportPlayer");
+        data.put("to", "all");
+
+        JSONObject params = new JSONObject();
+        params.put("playerName", playerName);
+        params.put("targetName", targetName);
+
+        data.put("params", params);
+
+        sendMhdfToolsPluginMessage(data);
+    }
+
+    /**
+     * 向指定玩家ID发送指定消息文本
+     *
+     * @param targetName 玩家ID
+     * @param message    消息文本
+     */
+    public static void sendMessage(String targetName, MessageType type, String message) {
+        JSONObject data = new JSONObject();
+        data.put("action", "sendMessage");
+        data.put("to", "all");
+
+        JSONObject params = new JSONObject();
+        params.put("targetName", targetName);
+        params.put("type", type.name());
+        params.put("message", message);
+
+        data.put("params", params);
 
         sendMhdfToolsPluginMessage(data);
     }
@@ -93,5 +139,15 @@ public final class BungeeCordUtil {
             list.add(name);
         }
         return list;
+    }
+
+    /**
+     * 判断指定玩家ID的玩家是否在线
+     *
+     * @param name 玩家ID
+     * @return 结果
+     */
+    public static boolean ifPlayerOnline(String name) {
+        return getPlayerList().contains(name);
     }
 }

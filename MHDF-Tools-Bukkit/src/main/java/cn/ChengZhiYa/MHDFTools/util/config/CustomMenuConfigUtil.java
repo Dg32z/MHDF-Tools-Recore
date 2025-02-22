@@ -5,7 +5,6 @@ import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 public final class CustomMenuConfigUtil {

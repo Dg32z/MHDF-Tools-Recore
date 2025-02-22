@@ -4,9 +4,10 @@ import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisStringCommands;
+import io.lettuce.core.api.async.RedisAsyncCommands;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("unused")
 public final class CacheManager {
@@ -80,8 +81,23 @@ public final class CacheManager {
             this.map.put(key, value);
         }
         if (this.redisConnection != null) {
-            RedisStringCommands<String, String> sync = this.redisConnection.sync();
+            RedisAsyncCommands<String, String> sync = this.redisConnection.async();
             sync.set("mhdf-luckcreate:" + key, value);
+        }
+    }
+
+    /**
+     * 从缓存中删除数据
+     *
+     * @param key 删除的key
+     */
+    public void remove(String key) {
+        if (this.map != null) {
+            this.map.remove(key);
+        }
+        if (this.redisConnection != null) {
+            RedisAsyncCommands<String, String> sync = this.redisConnection.async();
+            sync.del("mhdf-luckcreate:" + key);
         }
     }
 
@@ -96,8 +112,12 @@ public final class CacheManager {
             this.map.get(key);
         }
         if (this.redisClient != null) {
-            RedisStringCommands<String, String> sync = this.redisConnection.sync();
-            return sync.get("mhdf-luckcreate:" + key);
+            try {
+                RedisAsyncCommands<String, String> sync = this.redisConnection.async();
+                return sync.get("mhdf-luckcreate:" + key).get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         }
         return null;
     }
