@@ -23,6 +23,6 @@ public final class HomeUtil {
             }
         }
 
-        return ConfigUtil.getConfig().getInt("HomeSystemSettings.MaxHomeTime");
+        return ConfigUtil.getConfig().getInt("homeSettings.defaultMax");
     }
 }

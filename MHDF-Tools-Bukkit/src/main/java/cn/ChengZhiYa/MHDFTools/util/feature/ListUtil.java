@@ -3,7 +3,7 @@ package cn.ChengZhiYa.MHDFTools.util.feature;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
 
-public class ListUtil {
+public final class ListUtil {
     /**
      * 获取服务端运行时实例
      *
