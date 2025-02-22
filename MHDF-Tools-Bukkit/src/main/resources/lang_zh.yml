@@ -172,10 +172,12 @@ commands:
   back:
     usage: "/{command}"
     description: "返回死亡点"
+    noLocation: "{prefix} &6找不到你上次死亡点的位置!"
     message: "{prefix} &6你来到了死亡点,输入&e/tpback&6返回传送前的位置!"
   tpback:
     usage: "/{command}"
     description: "返回传送前的位置"
+    noLocation: "{prefix} &6找不到你上次传送前的位置!"
     message: "{prefix} &6你来到了传送前的位置,输入&e/tpback&6返回传送前的位置!"
   spawn:
     usage: "/{command}"

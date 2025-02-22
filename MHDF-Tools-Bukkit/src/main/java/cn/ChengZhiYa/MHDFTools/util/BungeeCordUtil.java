@@ -20,7 +20,7 @@ public final class BungeeCordUtil {
     private static final List<String> bungeeCordPlayerList = new ArrayList<>();
     @Getter
     @Setter
-    private static String serverName = "";
+    private static String serverName = "无";
 
     /**
      * 检测是否开启群组模式
