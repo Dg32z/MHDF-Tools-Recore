@@ -7,7 +7,7 @@ import cn.ChengZhiYa.MHDFTools.libraries.DependencyManager;
 import cn.ChengZhiYa.MHDFTools.libraries.DependencyManagerImpl;
 import cn.ChengZhiYa.MHDFTools.libraries.classpath.ReflectionClassPathAppender;
 
-import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public final class LibrariesManager implements Init {
@@ -20,12 +20,6 @@ public final class LibrariesManager implements Init {
                 new ReflectionClassPathAppender(Main.class.getClassLoader())
         );
 
-        dependencyManager.loadDependencies(
-                Arrays.stream(Dependency.values())
-                        .filter(dependency -> dependency != Dependency.ASM &&
-                                dependency != Dependency.ASM_COMMONS &&
-                                dependency != Dependency.JAR_RELOCATOR)
-                        .toList()
-        );
+        dependencyManager.loadDependencies(List.of(Dependency.values()));
     }
 }

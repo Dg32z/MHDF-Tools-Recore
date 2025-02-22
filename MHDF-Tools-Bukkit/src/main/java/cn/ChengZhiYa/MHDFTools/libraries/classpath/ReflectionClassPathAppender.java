@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 
-public class ReflectionClassPathAppender implements ClassPathAppender {
+public final class ReflectionClassPathAppender implements ClassPathAppender {
     private final URLClassLoaderAccess classLoaderAccess;
 
     public ReflectionClassPathAppender(ClassLoader classLoader) throws IllegalStateException {
@@ -15,6 +15,11 @@ public class ReflectionClassPathAppender implements ClassPathAppender {
         }
     }
 
+    /**
+     * 加载指定jar文件到classpath中
+     *
+     * @param file jar文件路径
+     */
     @Override
     public void addJarToClasspath(Path file) {
         try {

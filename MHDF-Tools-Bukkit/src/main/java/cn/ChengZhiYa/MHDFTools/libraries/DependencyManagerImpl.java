@@ -2,37 +2,32 @@ package cn.ChengZhiYa.MHDFTools.libraries;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.exception.FileException;
-import cn.ChengZhiYa.MHDFTools.libraries.classloader.DependencyClassLoader;
 import cn.ChengZhiYa.MHDFTools.libraries.classpath.ClassPathAppender;
-import cn.ChengZhiYa.MHDFTools.libraries.relocation.Relocation;
-import cn.ChengZhiYa.MHDFTools.libraries.relocation.RelocationHandler;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.FileUtil;
-import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonElement;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collection;
+import java.util.EnumMap;
 import java.util.concurrent.CountDownLatch;
 
-public class DependencyManagerImpl implements DependencyManager {
+public final class DependencyManagerImpl implements DependencyManager {
     private final Path dependenciesFolder;
     private final ClassPathAppender classPathAppender;
     private final EnumMap<Dependency, Path> loaded = new EnumMap<>(Dependency.class);
-    private final Map<ImmutableSet<Dependency>, DependencyClassLoader> loaders = new HashMap<>();
-    private final RelocationHandler relocationHandler;
 
     public DependencyManagerImpl(ClassPathAppender classPathAppender) {
         this.dependenciesFolder = setupDependenciesFolder();
         this.classPathAppender = classPathAppender;
-        this.relocationHandler = new RelocationHandler(this);
     }
 
+    /**
+     * 初始化依赖文件夹
+     *
+     * @return 依赖文件夹路径
+     */
     private static Path setupDependenciesFolder() {
         File file = new File(ConfigUtil.getDataFolder(), "libs");
         try {
@@ -43,39 +38,11 @@ public class DependencyManagerImpl implements DependencyManager {
         return file.toPath();
     }
 
-    @Override
-    public ClassLoader obtainClassLoaderWith(Set<Dependency> dependencies) {
-        ImmutableSet<Dependency> set = ImmutableSet.copyOf(dependencies);
-
-        for (Dependency dependency : dependencies) {
-            if (!this.loaded.containsKey(dependency)) {
-                throw new RuntimeException("依赖未加载: " + dependency);
-            }
-        }
-
-        synchronized (this.loaders) {
-            DependencyClassLoader classLoader = this.loaders.get(set);
-            if (classLoader != null) {
-                return classLoader;
-            }
-
-            URL[] urls = set.stream()
-                    .map(this.loaded::get)
-                    .map(file -> {
-                        try {
-                            return file.toUri().toURL();
-                        } catch (MalformedURLException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .toArray(URL[]::new);
-
-            classLoader = new DependencyClassLoader(urls);
-            this.loaders.put(set, classLoader);
-            return classLoader;
-        }
-    }
-
+    /**
+     * 加载指定依赖信息实例列表对应的全部依赖
+     *
+     * @param dependencies 依赖信息实例列表
+     */
     @Override
     public void loadDependencies(Collection<Dependency> dependencies) {
         CountDownLatch latch = new CountDownLatch(dependencies.size());
@@ -87,9 +54,7 @@ public class DependencyManagerImpl implements DependencyManager {
             }
 
             try {
-                Main.instance.getLogger().info("正在加载依赖 " + dependency.getFileName(null));
                 loadDependency(dependency);
-                Main.instance.getLogger().info("依赖 " + dependency.getFileName(null) + " 加载完成!");
             } catch (Throwable e) {
                 throw new RuntimeException("无法下载依赖 " + dependency, e);
             } finally {
@@ -104,70 +69,44 @@ public class DependencyManagerImpl implements DependencyManager {
         }
     }
 
-    private void loadDependency(Dependency dependency) throws Exception {
+    /**
+     * 加载指定依赖信息实例对应的依赖
+     *
+     * @param dependency 依赖信息实例
+     */
+    private void loadDependency(Dependency dependency) {
         if (this.loaded.containsKey(dependency)) {
             return;
         }
 
-        Path file = remapDependency(dependency, downloadDependency(dependency));
+        Path file = downloadDependency(dependency);
 
         this.loaded.put(dependency, file);
 
-        if (this.classPathAppender != null &&
-                dependency != Dependency.ASM &&
-                dependency != Dependency.ASM_COMMONS &&
-                dependency != Dependency.JAR_RELOCATOR
-        ) {
-            this.classPathAppender.addJarToClasspath(file);
-        }
+        Main.instance.getLogger().info("正在加载依赖 " + dependency.getFileName());
+        this.classPathAppender.addJarToClasspath(file);
+        Main.instance.getLogger().info("依赖 " + dependency.getFileName() + " 加载完成!");
     }
 
+    /**
+     * 下载指定依赖信息实例对应的依赖
+     *
+     * @param dependency 依赖信息实例
+     * @return 依赖的文件路径
+     */
     private Path downloadDependency(Dependency dependency) {
-        Path file = dependenciesFolder.resolve(dependency.getFileName(null));
+        Path file = dependenciesFolder.resolve(dependency.getFileName());
 
         if (Files.exists(file)) {
             return file;
         }
 
-        String fileName = dependency.getFileName(null);
+        String fileName = dependency.getFileName();
         Repository repository = dependency.getRepository();
 
         Main.instance.getLogger().info("正在下载依赖 " + fileName + "(" + repository.getUrl() + dependency.getMavenRepoPath() + ")");
         repository.download(dependency, file);
         Main.instance.getLogger().info("依赖 " + fileName + " 下载完成!");
         return file;
-    }
-
-    private Path remapDependency(Dependency dependency, Path normalFile) throws Exception {
-        List<Relocation> rules = new ArrayList<>(dependency.getRelocations());
-        if (rules.isEmpty()) {
-            return normalFile;
-        }
-
-        Path remappedFile = this.dependenciesFolder.resolve(
-                dependency.getFileName(isGsonRelocated() ? "remapped-legacy" : "remapped")
-        );
-
-        if (Files.exists(remappedFile)) {
-            return remappedFile;
-        }
-        relocationHandler.remap(normalFile, remappedFile, rules);
-        return remappedFile;
-    }
-
-    @Override
-    public void close() {
-        for (DependencyClassLoader loader : this.loaders.values()) {
-            try {
-                loader.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private boolean isGsonRelocated() {
-        return JsonElement.class.getName().startsWith("cn.ChengZhiYa");
     }
 }

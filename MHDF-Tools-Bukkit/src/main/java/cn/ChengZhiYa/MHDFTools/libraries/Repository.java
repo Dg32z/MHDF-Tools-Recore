@@ -47,15 +47,12 @@ public enum Repository {
         this.id = id;
     }
 
-    public static Repository getByID(String id) {
-        for (Repository repository : values()) {
-            if (id.equals(repository.id)) {
-                return repository;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * 从maven仓库下载指定依赖信息实例对应的依赖保存到路径
+     *
+     * @param dependency 依赖信息实例
+     * @param file       保存路径
+     */
     public void download(Dependency dependency, Path file) {
         try {
             URLConnection connection = HttpUtil.openConnection(this.url + dependency.getMavenRepoPath());

@@ -1,34 +1,11 @@
 package cn.ChengZhiYa.MHDFTools.libraries;
 
-import cn.ChengZhiYa.MHDFTools.libraries.relocation.Relocation;
-import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Locale;
 
 public enum Dependency {
-    // 依赖处理
-    ASM(
-            "org.ow2.asm",
-            "asm",
-            "9.7",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    ASM_COMMONS(
-            "org.ow2.asm",
-            "asm-commons",
-            "9.7",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    JAR_RELOCATOR(
-            "me.lucko",
-            "jar-relocator",
-            "1.7",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-
     // JSON处理
     FAST_JSON(
             "com.alibaba",
@@ -111,6 +88,7 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
+    // redis
     LETTUCE_CORE(
             "io.lettuce",
             "lettuce-core",
@@ -200,49 +178,39 @@ public enum Dependency {
 
     // 调度器
     UNIVERSAL_SCHEDULER(
-            "com.github.Anon8281",
-            "UniversalScheduler",
-            "0.1.6",
-            Repository.JITPACK
+            "org.bstats",
+            "bstats-bukkit",
+            "3.0.2",
+            Repository.MAVEN_CENTRAL_MIRROR
     );
 
     private final String artifact;
     private final String version;
-    @Getter
-    private final List<Relocation> relocations;
     @Getter
     private final Repository repository;
     @Getter
     private final String mavenRepoPath;
 
     Dependency(@NotNull String groupId, @NotNull String artifactId, @NotNull String version, @NotNull Repository repository) {
-        this(groupId, artifactId, version, repository, new Relocation[0]);
-    }
-
-    Dependency(@NotNull String groupId, @NotNull String artifactId, @NotNull String version, @NotNull Repository repository, Relocation... relocations) {
         this.mavenRepoPath = String.format("%s/%s/%s/%s-%s.jar",
-                rewriteEscaping(groupId).replace(".", "/"),
-                rewriteEscaping(artifactId),
+                groupId.replace(".", "/"),
+                artifactId,
                 version,
-                rewriteEscaping(artifactId),
+                artifactId,
                 version
         );
         this.version = version;
-        this.relocations = ImmutableList.copyOf(relocations);
         this.repository = repository;
         this.artifact = artifactId;
     }
 
-    private static String rewriteEscaping(String s) {
-        return s.replace("{}", ".");
-    }
-
-    public String getFileName(String classifier) {
+    /**
+     * 获取依赖文件名称
+     *
+     * @return 文件名称
+     */
+    public String getFileName() {
         String name = artifact.toLowerCase(Locale.ROOT).replace('_', '-');
-        String extra = classifier == null || classifier.isEmpty()
-                ? ""
-                : "-" + classifier;
-        return name + "-" + this.version + extra + ".jar";
-
+        return name + "-" + this.version + ".jar";
     }
 }
