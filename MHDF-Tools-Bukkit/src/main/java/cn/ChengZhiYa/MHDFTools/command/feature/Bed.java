@@ -3,7 +3,6 @@ package cn.ChengZhiYa.MHDFTools.command.feature;
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,9 +20,16 @@ public final class Bed extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
-        Location bedLocation = sender.getBedLocation();
+        // 输出帮助信息
+        if (args.length != 0) {
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.bed.usage"))
+                    .replace("{command}", label)
+            );
+            return;
+        }
 
-        sender.teleport(bedLocation);
+        sender.teleport(sender.getBedLocation());
         sender.sendMessage(LangUtil.i18n("commands.bed.message"));
     }
 }

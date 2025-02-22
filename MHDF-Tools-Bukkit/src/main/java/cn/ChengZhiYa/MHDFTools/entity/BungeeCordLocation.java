@@ -27,6 +27,18 @@ public final class BungeeCordLocation {
         this.pitch = pitch;
     }
 
+    public BungeeCordLocation(String server, Location location) {
+        this(
+                server,
+                location.getWorld().getName(),
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch()
+        );
+    }
+
     public BungeeCordLocation(String base64) {
         String[] data = Base64Util.decode(base64).split(":");
         this.server = data[0];

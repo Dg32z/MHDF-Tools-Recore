@@ -28,7 +28,8 @@ public final class Crash extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 0) {
+        // 输出帮助信息
+        if (args.length == 0 || args.length >= 3) {
             sender.sendMessage(LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.crash.usage"))
                     .replace("{command}", label)

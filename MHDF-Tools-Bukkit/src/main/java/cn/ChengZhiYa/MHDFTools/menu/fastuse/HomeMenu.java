@@ -168,14 +168,8 @@ public final class HomeMenu extends AbstractMenu {
 
                 BungeeCordUtil.teleportLocation(getPlayer().getName(), homeData.toBungeeCordLocation());
             }
-            case "上一页" -> {
-                HomeMenu homeMenu = new HomeMenu(getPlayer(), getPage() - 1);
-                homeMenu.openMenu();
-            }
-            case "下一页" -> {
-                HomeMenu homeMenu = new HomeMenu(getPlayer(), getPage() + 1);
-                homeMenu.openMenu();
-            }
+            case "上一页" -> new HomeMenu(getPlayer(), getPage() - 1).openMenu();
+            case "下一页" -> new HomeMenu(getPlayer(), getPage() + 1).openMenu();
             default -> {
                 ConfigurationSection items = getConfig().getConfigurationSection("items");
                 if (items == null) {

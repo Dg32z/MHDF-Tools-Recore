@@ -24,6 +24,13 @@ public final class ConfigUtil {
     }
 
     /**
+     * 保存配置文件
+     */
+    public static void saveConfig() {
+        Main.instance.saveConfig();
+    }
+
+    /**
      * 重新加载配置文件
      */
     public static void reloadConfig() {

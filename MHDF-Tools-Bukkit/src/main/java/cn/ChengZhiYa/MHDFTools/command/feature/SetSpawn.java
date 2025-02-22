@@ -1,0 +1,56 @@
+package cn.ChengZhiYa.MHDFTools.command.feature;
+
+import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
+import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+@SuppressWarnings("unused")
+public final class SetSpawn extends AbstractCommand {
+    public SetSpawn() {
+        super(
+                "spawnSettings.enable",
+                "设置出生点",
+                "mhdftools.commands.setspawn",
+                true,
+                ConfigUtil.getConfig().getStringList("spawnSettings.setspawnCommands").toArray(new String[0])
+        );
+    }
+
+    @Override
+    public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        // 输出帮助信息
+        if (args.length != 0) {
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.setspawn.usage"))
+                    .replace("{command}", label)
+            );
+            return;
+        }
+
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.location");
+        if (config == null) {
+            return;
+        }
+
+        Location location = sender.getLocation();
+
+        config.set("server", BungeeCordUtil.getServerName());
+        config.set("world", location.getWorld().getName());
+        config.set("x", location.getX());
+        config.set("y", location.getY());
+        config.set("z", location.getZ());
+        config.set("yaw", location.getYaw());
+        config.set("pitch", location.getPitch());
+
+        ConfigUtil.getConfig().set("spawnSettings.location", config);
+        ConfigUtil.saveConfig();
+        ConfigUtil.reloadConfig();
+
+        sender.sendMessage(LangUtil.i18n("commands.spawn.message"));
+    }
+}

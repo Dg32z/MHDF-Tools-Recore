@@ -81,8 +81,8 @@ items:
           # 名称
           # name: "&b你好 %player_name%!"
           # 简介
-          # lore:
-          #  - "&b喵喵喵,坏掉惹"
+        # lore:
+        #  - "&b喵喵喵,坏掉惹"
         # 数量
         # amount: 64
         # 自定义模型数据

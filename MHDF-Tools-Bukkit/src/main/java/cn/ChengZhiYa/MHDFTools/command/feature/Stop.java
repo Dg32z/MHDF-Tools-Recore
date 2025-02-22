@@ -25,9 +25,18 @@ public final class Stop extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        // 输出帮助信息
+        if (args.length >= 3) {
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.stop.usage"))
+                    .replace("{command}", label)
+            );
+            return;
+        }
+
         int time = args.length >= 1 ? Integer.parseInt(args[0]) :
                 ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
-        String message = args.length >= 2 ? ColorUtil.color(args[1]) :
+        String message = args.length == 2 ? ColorUtil.color(args[1]) :
                 LangUtil.i18n("commands.stop.defaultMessage");
 
         new MHDFRunnable() {

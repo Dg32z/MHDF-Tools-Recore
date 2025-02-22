@@ -22,7 +22,12 @@ public final class DelHome extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
+        // 输出帮助信息
+        if (args.length != 1) {
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.delhome.usage"))
+                    .replace("{command}", label)
+            );
             return;
         }
 

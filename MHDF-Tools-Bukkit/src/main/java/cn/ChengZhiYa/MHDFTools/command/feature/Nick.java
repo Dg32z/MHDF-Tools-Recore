@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public final class Nick extends AbstractCommand {
     public Nick() {
         super(
@@ -54,7 +55,6 @@ public final class Nick extends AbstractCommand {
         }
 
         NickUtil.setNickName(player, ColorUtil.color(args[1]));
-
         sender.sendMessage(LangUtil.i18n("commands.nick.message")
                 .replace("{player}", player.getName())
                 .replace("{name}", ColorUtil.color(args[1]))

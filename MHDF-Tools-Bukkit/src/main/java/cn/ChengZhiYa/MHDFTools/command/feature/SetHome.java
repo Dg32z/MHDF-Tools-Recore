@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public final class SetHome extends AbstractCommand {
     public SetHome() {
         super(

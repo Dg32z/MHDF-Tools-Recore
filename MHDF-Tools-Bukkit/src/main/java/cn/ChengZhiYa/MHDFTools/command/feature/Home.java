@@ -2,6 +2,7 @@ package cn.ChengZhiYa.MHDFTools.command.feature;
 
 import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
 import cn.ChengZhiYa.MHDFTools.entity.data.HomeData;
+import cn.ChengZhiYa.MHDFTools.menu.fastuse.HomeMenu;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
@@ -23,6 +24,11 @@ public final class Home extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 0) {
+            new HomeMenu(sender, 1).openMenu();
+            sender.sendMessage(LangUtil.i18n("commands.home.openMenuMessage"));
+            return;
+        }
         if (args.length == 1) {
             if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
                 sender.sendMessage(LangUtil.i18n("commands.home.noHome"));

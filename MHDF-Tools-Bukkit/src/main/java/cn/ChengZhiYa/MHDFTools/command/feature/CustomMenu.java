@@ -25,6 +25,7 @@ public final class CustomMenu extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        // 输出帮助信息
         if (args.length != 1) {
             sender.sendMessage(LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.custommenu.usage"))

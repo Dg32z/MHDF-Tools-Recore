@@ -23,12 +23,7 @@ public final class Back extends AbstractListener {
 
         BungeeCordLocation bungeeCordLocation = new BungeeCordLocation(
                 BungeeCordUtil.getServerName(),
-                location.getWorld().getName(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch()
+                location
         );
 
         Main.instance.getCacheManager().put(player.getName() + "_back", bungeeCordLocation.toBase64());
