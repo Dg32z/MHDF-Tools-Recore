@@ -22,7 +22,7 @@ public final class SoundUtil {
      * 加载音效文件
      */
     public static void reloadSound() {
-        data = YamlConfiguration.loadConfiguration(soundFile);
+        data = YamlConfiguration.loadConfiguration(file);
     }
 
     /**
