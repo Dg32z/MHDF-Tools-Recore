@@ -53,7 +53,7 @@ public final class Stop extends AbstractCommand {
                         MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
                                 player.kickPlayer(LangUtil.i18n("commands.stop.kickMessage")
                                         .replace("{message}", message)
-                        ));
+                                ));
                     }
 
                     Bukkit.shutdown();

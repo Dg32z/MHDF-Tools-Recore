@@ -174,20 +174,6 @@ public enum Dependency {
             "adventure-platform-bukkit",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
-    ),
-
-    // bStats
-    BSTATS_BUKKIT(
-            "org.bstats",
-            "bstats-bukkit",
-            "3.0.2",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    BSTATS_BASE(
-            "org.bstats",
-            "bstats-base",
-            "3.0.2",
-            Repository.MAVEN_CENTRAL_MIRROR
     );
 
     private final String artifact;

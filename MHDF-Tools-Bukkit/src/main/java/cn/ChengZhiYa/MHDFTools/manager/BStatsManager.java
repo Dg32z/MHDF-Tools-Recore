@@ -1,9 +1,8 @@
 package cn.ChengZhiYa.MHDFTools.manager;
 
-import cn.ChengZhiYa.MHDFTools.Main;
+import cn.ChengZhiYa.MHDFTools.Metrics;
 import cn.ChengZhiYa.MHDFTools.interfaces.Init;
 import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import org.bstats.bukkit.Metrics;
 
 public final class BStatsManager implements Init {
     /**
@@ -12,7 +11,7 @@ public final class BStatsManager implements Init {
     @Override
     public void init() {
         if (ConfigUtil.getConfig().getBoolean("bStats")) {
-            new Metrics(Main.instance, 17154);
+            new Metrics(17154);
         }
     }
 }

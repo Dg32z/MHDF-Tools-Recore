@@ -2,7 +2,6 @@ package cn.ChengZhiYa.MHDFTools.util.feature;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
-import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
 import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
