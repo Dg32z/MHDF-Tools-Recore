@@ -2,8 +2,10 @@ package cn.ChengZhiYa.MHDFTools.util.feature;
 
 import cn.ChengZhiYa.MHDFTools.Main;
 import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
+import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
 import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
+import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -40,9 +42,11 @@ public final class VanishUtil {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
-                onlinePlayer.hidePlayer(Main.instance, player);
+                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                        onlinePlayer.hidePlayer(Main.instance, player));
             } else {
-                onlinePlayer.hidePlayer(player);
+                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                        onlinePlayer.hidePlayer(player));
             }
         }
     }
@@ -56,9 +60,11 @@ public final class VanishUtil {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
-                onlinePlayer.showPlayer(Main.instance, player);
+                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                        onlinePlayer.showPlayer(Main.instance, player));
             } else {
-                onlinePlayer.showPlayer(player);
+                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                        onlinePlayer.showPlayer(player));
             }
         }
     }

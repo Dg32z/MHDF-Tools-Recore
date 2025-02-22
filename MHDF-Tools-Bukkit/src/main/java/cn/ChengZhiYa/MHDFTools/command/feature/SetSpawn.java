@@ -51,6 +51,6 @@ public final class SetSpawn extends AbstractCommand {
         ConfigUtil.saveConfig();
         ConfigUtil.reloadConfig();
 
-        sender.sendMessage(LangUtil.i18n("commands.spawn.message"));
+        sender.sendMessage(LangUtil.i18n("commands.setspawn.message"));
     }
 }

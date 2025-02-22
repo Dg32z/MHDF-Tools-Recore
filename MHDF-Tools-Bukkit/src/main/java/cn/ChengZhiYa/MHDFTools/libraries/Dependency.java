@@ -176,10 +176,16 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
-    // 调度器
-    UNIVERSAL_SCHEDULER(
+    // bStats
+    BSTATS_BUKKIT(
             "org.bstats",
             "bstats-bukkit",
+            "3.0.2",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    BSTATS_BASE(
+            "org.bstats",
+            "bstats-base",
             "3.0.2",
             Repository.MAVEN_CENTRAL_MIRROR
     );

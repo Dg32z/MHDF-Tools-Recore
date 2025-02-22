@@ -14,7 +14,7 @@ public final class Suicide extends AbstractCommand {
                 "自杀",
                 "mhdftools.commands.suicide",
                 true,
-                ConfigUtil.getConfig().getStringList("bedSettings.commands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("suicideSettings.commands").toArray(new String[0])
         );
     }
 
