@@ -57,6 +57,10 @@ public final class VanishUtil {
      * @param player 玩家实例
      */
     public static void disableVanish(Player player) {
+        VanishStatus vanishStatus = VanishStatusUtil.getVanishStatus(player);
+        vanishStatus.setEnable(false);
+        VanishStatusUtil.updateVanishStatus(vanishStatus);
+
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
