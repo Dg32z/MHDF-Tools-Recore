@@ -36,7 +36,7 @@ public final class List extends AbstractCommand {
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{maxMemory}", String.valueOf(ListUtil.getTotalMemory()))
-                .replace("{playerCount}", BungeeCordUtil.getPlayerList().toString())
+                .replace("{playerCount}", String.valueOf(BungeeCordUtil.getPlayerList().size()))
                 .replace("{maxPlayerCount}", String.valueOf(Bukkit.getMaxPlayers()))
                 .replace("{playerList}", BungeeCordUtil.getPlayerList().toString())
         );
