@@ -7,8 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public final class SoundUtil {
-    private static final File soundFile = new File(ConfigUtil.getDataFolder(), "sound.yml");
-    private static YamlConfiguration sound;
+    private static final File file = new File(ConfigUtil.getDataFolder(), "sound.yml");
+    private static YamlConfiguration data;
 
     /**
      * 保存初始音效文件
@@ -22,17 +22,17 @@ public final class SoundUtil {
      * 加载音效文件
      */
     public static void reloadSound() {
-        sound = YamlConfiguration.loadConfiguration(soundFile);
+        data = YamlConfiguration.loadConfiguration(soundFile);
     }
 
     /**
      * 根据指定key获取对应音效
      */
     public static @NotNull String getSound(String key) {
-        if (sound == null) {
+        if (data == null) {
             reloadSound();
         }
-        String value = sound.getString(key);
+        String value = data.getString(key);
         return value != null ? value : "";
     }
 }

@@ -12,8 +12,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public final class LangUtil {
-    private static final File langFile = new File(ConfigUtil.getDataFolder(), "lang.yml");
-    private static YamlConfiguration lang;
+    private static final File file = new File(ConfigUtil.getDataFolder(), "lang.yml");
+    private static YamlConfiguration data;
 
     /**
      * 保存初始语言文件
@@ -26,7 +26,7 @@ public final class LangUtil {
      * 加载语言文件
      */
     public static void reloadLang() {
-        lang = YamlConfiguration.loadConfiguration(langFile);
+        data = YamlConfiguration.loadConfiguration(file);
     }
 
     /**
@@ -35,10 +35,10 @@ public final class LangUtil {
      * @return 文本
      */
     public static @NotNull String getString(String key) {
-        if (lang == null) {
+        if (data == null) {
             reloadLang();
         }
-        String value = lang.getString(key);
+        String value = data.getString(key);
         return value != null ? value : "";
     }
 
@@ -48,7 +48,7 @@ public final class LangUtil {
      * @return 文本
      */
     public static @NotNull String i18n(String key) {
-        if (lang == null) {
+        if (data == null) {
             reloadLang();
         }
         return ColorUtil.color(getString(key));
@@ -60,10 +60,10 @@ public final class LangUtil {
      * @return 项列表
      */
     public static @NotNull Set<String> getKeys(String key) {
-        if (lang == null) {
+        if (data == null) {
             reloadLang();
         }
-        return Objects.requireNonNull(lang.getConfigurationSection(key)).getKeys(false);
+        return Objects.requireNonNull(data.getConfigurationSection(key)).getKeys(false);
     }
 
     /**

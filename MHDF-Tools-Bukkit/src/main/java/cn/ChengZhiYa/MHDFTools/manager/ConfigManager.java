@@ -25,6 +25,8 @@ public final class ConfigManager implements Init {
             SoundUtil.reloadSound();
 
             CustomMenuConfigUtil.saveDefaultCustomMenu();
+
+            MenuConfigUtil.saveDefaultMenu();
         } catch (ResourceException | FileException e) {
             throw new RuntimeException(e);
         }

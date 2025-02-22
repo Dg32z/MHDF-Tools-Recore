@@ -80,7 +80,7 @@ items:
           # type: paper
           # 名称
           # name: "&b你好 %player_name%!"
-          # 简介
+        # 简介
         # lore:
         #  - "&b喵喵喵,坏掉惹"
         # 数量

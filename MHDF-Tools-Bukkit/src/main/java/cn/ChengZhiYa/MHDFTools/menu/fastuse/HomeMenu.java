@@ -5,7 +5,7 @@ import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
 import cn.ChengZhiYa.MHDFTools.util.ActionUtil;
 import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
 import cn.ChengZhiYa.MHDFTools.util.RequirementUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.ChengZhiYa.MHDFTools.util.config.MenuConfigUtil;
 import cn.ChengZhiYa.MHDFTools.util.database.HomeDataUtil;
 import cn.ChengZhiYa.MHDFTools.util.menu.ItemStackUtil;
 import cn.ChengZhiYa.MHDFTools.util.menu.MenuUtil;
@@ -23,7 +23,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +37,7 @@ public final class HomeMenu extends AbstractMenu {
                 "homeSettings.enable",
                 player
         );
-        this.config = YamlConfiguration.loadConfiguration(new File(ConfigUtil.getDataFolder(), "menu/home.yml"));
+        this.config = MenuConfigUtil.getMenuConfig("home.yml");
         this.page = page;
     }
 
