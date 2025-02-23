@@ -29,7 +29,11 @@ public final class Bed extends AbstractCommand {
             return;
         }
 
-        sender.teleport(sender.getBedLocation());
-        sender.sendMessage(LangUtil.i18n("commands.bed.message"));
+        try {
+            sender.teleport(sender.getBedLocation());
+            sender.sendMessage(LangUtil.i18n("commands.bed.message"));
+        }catch (IllegalStateException e) {
+            sender.sendMessage(LangUtil.i18n("commands.bed.noSleep"));
+        }
     }
 }

@@ -208,6 +208,7 @@ commands:
   bed:
     usage: "/{command}"
     description: "回到床的位置"
+    noSleep: "{prefix} &c找不到你床的位置!"
     message: "{prefix} &6你回到了床的旁边!"
   suicide:
     usage: "/{command}"
