@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.hook.*;
-import cn.ChengZhiYa.MHDFTools.interfaces.Hook;
+import cn.chengzhiya.mhdftools.hook.*;
+import cn.chengzhiya.mhdftools.interfaces.Hook;
 import lombok.Getter;
 
 @Getter

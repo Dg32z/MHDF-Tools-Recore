@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.hook.impl;
+package cn.chengzhiya.mhdftools.hook.impl;
 
 import io.lumine.mythic.bukkit.MythicBukkit;
 import lombok.Getter;

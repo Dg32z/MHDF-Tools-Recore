@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.util.message;
+package cn.chengzhiya.mhdftools.util.message;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

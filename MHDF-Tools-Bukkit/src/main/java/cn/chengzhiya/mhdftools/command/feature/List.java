@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.command.feature;
+package cn.chengzhiya.mhdftools.command.feature;
 
-import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
-import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.ListUtil;
+import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.feature.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;

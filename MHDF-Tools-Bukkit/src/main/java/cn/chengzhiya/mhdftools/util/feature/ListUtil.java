@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;

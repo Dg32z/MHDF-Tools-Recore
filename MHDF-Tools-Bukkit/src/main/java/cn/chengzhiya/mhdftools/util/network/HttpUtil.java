@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.network;
+package cn.chengzhiya.mhdftools.util.network;
 
-import cn.ChengZhiYa.MHDFTools.exception.DownloadException;
+import cn.chengzhiya.mhdftools.exception.DownloadException;
 import com.google.common.io.ByteStreams;
 
 import java.io.IOException;

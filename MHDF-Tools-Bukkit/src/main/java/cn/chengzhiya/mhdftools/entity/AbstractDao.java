@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.entity;
+package cn.chengzhiya.mhdftools.entity;
 
 public abstract class AbstractDao {
 }

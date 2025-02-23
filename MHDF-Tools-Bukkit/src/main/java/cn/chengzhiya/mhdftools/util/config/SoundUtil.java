@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.config;
+package cn.chengzhiya.mhdftools.util.config;
 
-import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
+import cn.chengzhiya.mhdftools.exception.ResourceException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 

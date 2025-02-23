@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.util.scheduler;
+package cn.chengzhiya.mhdftools.util.scheduler;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;

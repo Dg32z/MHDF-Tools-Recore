@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.entity;
+package cn.chengzhiya.mhdftools.entity;
 
-import cn.ChengZhiYa.MHDFTools.util.Base64Util;
+import cn.chengzhiya.mhdftools.util.Base64Util;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;

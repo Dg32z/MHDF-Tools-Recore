@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.command.feature;
+package cn.chengzhiya.mhdftools.command.feature;
 
-import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
-import cn.ChengZhiYa.MHDFTools.entity.data.HomeData;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.database.HomeDataUtil;
+import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.entity.data.HomeData;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

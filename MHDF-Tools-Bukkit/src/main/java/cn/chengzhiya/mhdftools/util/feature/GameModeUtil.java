@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.GameMode;
 import org.bukkit.configuration.ConfigurationSection;
 

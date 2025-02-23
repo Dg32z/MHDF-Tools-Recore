@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.hook;
+package cn.chengzhiya.mhdftools.hook;
 
-import cn.ChengZhiYa.MHDFTools.Main;
+import cn.chengzhiya.mhdftools.Main;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerManager;
 import com.github.retrooper.packetevents.util.TimeStampMode;

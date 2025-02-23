@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.exception;
+package cn.chengzhiya.mhdftools.exception;
 
 public final class DownloadException extends Exception {
     public DownloadException(String message) {

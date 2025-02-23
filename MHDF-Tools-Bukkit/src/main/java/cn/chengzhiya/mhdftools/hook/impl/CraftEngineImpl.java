@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.hook.impl;
+package cn.chengzhiya.mhdftools.hook.impl;
 
 import lombok.Getter;
 import net.momirealms.craftengine.bukkit.plugin.BukkitCraftEngine;

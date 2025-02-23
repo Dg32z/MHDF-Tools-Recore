@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.Main;
+import cn.chengzhiya.mhdftools.Main;
 import com.github.retrooper.packetevents.protocol.particle.Particle;
 import com.github.retrooper.packetevents.protocol.particle.type.ParticleTypes;
 import com.github.retrooper.packetevents.util.Vector3d;

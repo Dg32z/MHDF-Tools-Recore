@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.libraries.classpath;
+package cn.chengzhiya.mhdftools.libraries.classpath;
 
 import java.net.MalformedURLException;
 import java.net.URLClassLoader;

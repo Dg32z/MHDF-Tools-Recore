@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.listener;
+package cn.chengzhiya.mhdftools.listener;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.enums.MessageType;
-import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.enums.MessageType;
+import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

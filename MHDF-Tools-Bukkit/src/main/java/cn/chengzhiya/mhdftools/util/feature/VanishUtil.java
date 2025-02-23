@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
-import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.entity.data;
+package cn.chengzhiya.mhdftools.entity.data;
 
-import cn.ChengZhiYa.MHDFTools.entity.AbstractDao;
-import cn.ChengZhiYa.MHDFTools.entity.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.entity.AbstractDao;
+import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;

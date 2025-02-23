@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.builder;
+package cn.chengzhiya.mhdftools.builder;
 
-import cn.ChengZhiYa.MHDFTools.util.message.LogUtil;
+import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import de.tr7zw.changeme.nbtapi.NBT;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Item;

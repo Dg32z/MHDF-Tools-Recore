@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;

@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.util.menu;
+package cn.chengzhiya.mhdftools.util.menu;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

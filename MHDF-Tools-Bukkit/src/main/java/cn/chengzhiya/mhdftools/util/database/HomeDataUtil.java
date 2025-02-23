@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.util.database;
+package cn.chengzhiya.mhdftools.util.database;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.entity.data.HomeData;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.entity.Player;

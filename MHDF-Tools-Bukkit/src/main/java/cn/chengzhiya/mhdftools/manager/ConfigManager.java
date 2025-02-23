@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.exception.FileException;
-import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
-import cn.ChengZhiYa.MHDFTools.interfaces.Init;
-import cn.ChengZhiYa.MHDFTools.util.config.*;
+import cn.chengzhiya.mhdftools.exception.FileException;
+import cn.chengzhiya.mhdftools.exception.ResourceException;
+import cn.chengzhiya.mhdftools.interfaces.Init;
+import cn.chengzhiya.mhdftools.util.config.*;
 
 @SuppressWarnings("unused")
 public final class ConfigManager implements Init {

@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.enums;
+package cn.chengzhiya.mhdftools.enums;
 
 public enum MessageType {
     MINI_MESSAGE,

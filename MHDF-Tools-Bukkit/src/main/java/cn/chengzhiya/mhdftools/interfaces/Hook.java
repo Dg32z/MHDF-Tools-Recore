@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.interfaces;
+package cn.chengzhiya.mhdftools.interfaces;
 
 public interface Hook {
     void hook();

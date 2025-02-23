@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.util;
+package cn.chengzhiya.mhdftools.util;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.entity.BungeeCordLocation;
-import cn.ChengZhiYa.MHDFTools.enums.MessageType;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.enums.MessageType;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;

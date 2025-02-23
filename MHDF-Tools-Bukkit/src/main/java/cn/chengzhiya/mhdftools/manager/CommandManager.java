@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.command.AbstractCommand;
-import cn.ChengZhiYa.MHDFTools.interfaces.Init;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.LogUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.interfaces.Init;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;

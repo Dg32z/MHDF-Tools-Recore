@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.hook;
+package cn.chengzhiya.mhdftools.hook;
 
-import cn.ChengZhiYa.MHDFTools.hook.impl.CraftEngineImpl;
+import cn.chengzhiya.mhdftools.hook.impl.CraftEngineImpl;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

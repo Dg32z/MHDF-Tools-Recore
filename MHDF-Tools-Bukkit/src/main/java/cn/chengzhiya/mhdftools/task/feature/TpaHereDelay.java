@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.task.feature;
+package cn.chengzhiya.mhdftools.task.feature;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.task.AbstractTask;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

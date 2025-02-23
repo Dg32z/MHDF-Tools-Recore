@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.exception;
+package cn.chengzhiya.mhdftools.exception;
 
 public final class FileException extends Exception {
     public FileException(String message) {

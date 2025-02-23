@@ -23,10 +23,10 @@
  *  SOFTWARE.
  */
 
-package cn.ChengZhiYa.MHDFTools.libraries;
+package cn.chengzhiya.mhdftools.libraries;
 
-import cn.ChengZhiYa.MHDFTools.exception.DownloadException;
-import cn.ChengZhiYa.MHDFTools.util.network.HttpUtil;
+import cn.chengzhiya.mhdftools.exception.DownloadException;
+import cn.chengzhiya.mhdftools.util.network.HttpUtil;
 import lombok.Getter;
 
 import java.io.IOException;

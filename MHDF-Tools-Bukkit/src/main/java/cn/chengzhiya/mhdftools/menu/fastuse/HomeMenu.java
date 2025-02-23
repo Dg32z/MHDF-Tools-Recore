@@ -1,15 +1,15 @@
-package cn.ChengZhiYa.MHDFTools.menu.fastuse;
+package cn.chengzhiya.mhdftools.menu.fastuse;
 
-import cn.ChengZhiYa.MHDFTools.entity.data.HomeData;
-import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
-import cn.ChengZhiYa.MHDFTools.util.ActionUtil;
-import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
-import cn.ChengZhiYa.MHDFTools.util.RequirementUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.MenuConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.database.HomeDataUtil;
-import cn.ChengZhiYa.MHDFTools.util.menu.ItemStackUtil;
-import cn.ChengZhiYa.MHDFTools.util.menu.MenuUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.entity.data.HomeData;
+import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.util.ActionUtil;
+import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
+import cn.chengzhiya.mhdftools.util.RequirementUtil;
+import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
+import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
+import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
+import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.Getter;

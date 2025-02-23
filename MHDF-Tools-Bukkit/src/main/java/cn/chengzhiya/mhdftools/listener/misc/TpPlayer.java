@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.listener.misc;
+package cn.chengzhiya.mhdftools.listener.misc;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

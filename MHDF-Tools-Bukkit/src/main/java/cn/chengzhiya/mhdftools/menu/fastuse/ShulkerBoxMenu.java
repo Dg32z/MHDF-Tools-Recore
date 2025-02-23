@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.menu.fastuse;
+package cn.chengzhiya.mhdftools.menu.fastuse;
 
-import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.menu.MenuUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.task;
+package cn.chengzhiya.mhdftools.task;
 
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.runnable.MHDFRunnable;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.runnable.MHDFRunnable;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 

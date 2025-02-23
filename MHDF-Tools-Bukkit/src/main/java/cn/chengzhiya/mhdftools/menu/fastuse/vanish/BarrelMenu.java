@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.menu.fastuse.vanish;
+package cn.chengzhiya.mhdftools.menu.fastuse.vanish;
 
-import cn.ChengZhiYa.MHDFTools.menu.AbstractMenu;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.menu.AbstractMenu;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Barrel;
 import org.bukkit.entity.Player;

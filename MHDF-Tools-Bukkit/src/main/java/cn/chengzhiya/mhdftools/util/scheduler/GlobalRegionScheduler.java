@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.util.scheduler;
+package cn.chengzhiya.mhdftools.util.scheduler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

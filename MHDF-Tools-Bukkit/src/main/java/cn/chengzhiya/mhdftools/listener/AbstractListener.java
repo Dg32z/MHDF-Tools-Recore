@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.listener;
+package cn.chengzhiya.mhdftools.listener;
 
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 

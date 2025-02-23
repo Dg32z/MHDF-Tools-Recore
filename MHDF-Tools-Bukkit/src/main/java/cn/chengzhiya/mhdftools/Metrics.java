@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools;
+package cn.chengzhiya.mhdftools;
 
-import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;

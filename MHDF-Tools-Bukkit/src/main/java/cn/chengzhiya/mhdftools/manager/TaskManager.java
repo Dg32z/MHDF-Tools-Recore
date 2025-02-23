@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.interfaces.Init;
-import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.interfaces.Init;
+import cn.chengzhiya.mhdftools.task.AbstractTask;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;

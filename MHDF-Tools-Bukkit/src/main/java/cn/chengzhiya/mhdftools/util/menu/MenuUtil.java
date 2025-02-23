@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.util.menu;
+package cn.chengzhiya.mhdftools.util.menu;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

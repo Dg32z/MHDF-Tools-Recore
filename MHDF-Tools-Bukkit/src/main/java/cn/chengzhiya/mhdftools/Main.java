@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools;
+package cn.chengzhiya.mhdftools;
 
-import cn.ChengZhiYa.MHDFTools.manager.*;
-import cn.ChengZhiYa.MHDFTools.util.message.LogUtil;
+import cn.chengzhiya.mhdftools.manager.*;
+import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;

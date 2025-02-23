@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.util.runnable;
+package cn.chengzhiya.mhdftools.util.runnable;
 
-import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
-import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFTask;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFTask;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;

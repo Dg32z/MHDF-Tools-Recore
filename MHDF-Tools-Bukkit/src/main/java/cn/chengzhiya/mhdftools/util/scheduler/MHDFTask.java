@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.util.scheduler;
+package cn.chengzhiya.mhdftools.util.scheduler;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import org.bukkit.plugin.Plugin;

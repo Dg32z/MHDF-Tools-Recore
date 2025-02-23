@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.listener.feature;
+package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.entity.BungeeCordLocation;
-import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
-import cn.ChengZhiYa.MHDFTools.util.BungeeCordUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
+import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

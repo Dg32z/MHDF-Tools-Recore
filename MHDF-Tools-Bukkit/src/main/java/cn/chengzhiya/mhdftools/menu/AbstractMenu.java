@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.menu;
+package cn.chengzhiya.mhdftools.menu;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.interfaces.Menu;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.interfaces.Menu;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;

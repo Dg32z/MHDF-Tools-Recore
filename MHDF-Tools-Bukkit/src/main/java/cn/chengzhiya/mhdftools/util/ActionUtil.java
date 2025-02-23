@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.util;
+package cn.chengzhiya.mhdftools.util;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.util.feature.CustomMenuUtil;
-import cn.ChengZhiYa.MHDFTools.util.message.ColorUtil;
-import cn.ChengZhiYa.MHDFTools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

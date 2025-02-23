@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 

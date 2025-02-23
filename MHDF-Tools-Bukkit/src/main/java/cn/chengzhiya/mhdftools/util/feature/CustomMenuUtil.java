@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.menu.fastuse.CustomMenu;
+import cn.chengzhiya.mhdftools.menu.fastuse.CustomMenu;
 import org.bukkit.entity.Player;
 
 public final class CustomMenuUtil {

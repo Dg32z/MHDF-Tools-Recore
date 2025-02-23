@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.listener.feature;
+package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
-import cn.ChengZhiYa.MHDFTools.util.config.CustomMenuConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.CustomMenuUtil;
+import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.config.CustomMenuConfigUtil;
+import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

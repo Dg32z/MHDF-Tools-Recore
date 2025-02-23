@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.util.config;
+package cn.chengzhiya.mhdftools.util.config;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.exception.ResourceException;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.exception.ResourceException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;

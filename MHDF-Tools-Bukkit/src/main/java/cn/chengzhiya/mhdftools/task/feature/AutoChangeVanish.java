@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.task.feature;
+package cn.chengzhiya.mhdftools.task.feature;
 
-import cn.ChengZhiYa.MHDFTools.entity.data.VanishStatus;
-import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
-import cn.ChengZhiYa.MHDFTools.util.database.VanishStatusUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.VanishUtil;
+import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
+import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
+import cn.chengzhiya.mhdftools.util.feature.VanishUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

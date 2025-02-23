@@ -1,6 +1,6 @@
-package cn.ChengZhiYa.MHDFTools.util.message;
+package cn.chengzhiya.mhdftools.util.message;
 
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Bukkit;
 
 public final class LogUtil {

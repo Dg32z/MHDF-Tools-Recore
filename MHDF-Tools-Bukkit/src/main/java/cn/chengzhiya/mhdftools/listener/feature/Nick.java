@@ -1,9 +1,9 @@
-package cn.ChengZhiYa.MHDFTools.listener.feature;
+package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.ChengZhiYa.MHDFTools.entity.data.NickData;
-import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
-import cn.ChengZhiYa.MHDFTools.util.database.NickDataUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.NickUtil;
+import cn.chengzhiya.mhdftools.entity.data.NickData;
+import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.database.NickDataUtil;
+import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;

@@ -1,12 +1,12 @@
-package cn.ChengZhiYa.MHDFTools.task.feature;
+package cn.chengzhiya.mhdftools.task.feature;
 
-import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
-import cn.ChengZhiYa.MHDFTools.task.AbstractTask;
-import cn.ChengZhiYa.MHDFTools.util.ActionUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.SoundUtil;
-import cn.ChengZhiYa.MHDFTools.util.database.FlyStatusUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
+import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
+import cn.chengzhiya.mhdftools.task.AbstractTask;
+import cn.chengzhiya.mhdftools.util.ActionUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.config.SoundUtil;
+import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
+import cn.chengzhiya.mhdftools.util.feature.FlyUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

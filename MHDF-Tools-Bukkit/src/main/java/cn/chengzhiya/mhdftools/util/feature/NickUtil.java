@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.util.feature;
+package cn.chengzhiya.mhdftools.util.feature;
 
-import cn.ChengZhiYa.MHDFTools.entity.data.NickData;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.database.NickDataUtil;
+import cn.chengzhiya.mhdftools.entity.data.NickData;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.database.NickDataUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 

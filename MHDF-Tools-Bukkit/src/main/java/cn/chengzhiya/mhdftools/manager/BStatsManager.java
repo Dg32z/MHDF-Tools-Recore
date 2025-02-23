@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.Metrics;
-import cn.ChengZhiYa.MHDFTools.interfaces.Init;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.Metrics;
+import cn.chengzhiya.mhdftools.interfaces.Init;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 
 public final class BStatsManager implements Init {
     /**

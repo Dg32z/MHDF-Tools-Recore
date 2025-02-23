@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.libraries.classpath;
+package cn.chengzhiya.mhdftools.libraries.classpath;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

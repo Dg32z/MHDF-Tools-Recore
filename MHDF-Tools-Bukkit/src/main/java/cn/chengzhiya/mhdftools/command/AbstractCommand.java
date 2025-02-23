@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.command;
+package cn.chengzhiya.mhdftools.command;
 
-import cn.ChengZhiYa.MHDFTools.interfaces.Command;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.interfaces.Command;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;

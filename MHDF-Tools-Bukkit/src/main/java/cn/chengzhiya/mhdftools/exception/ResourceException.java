@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.exception;
+package cn.chengzhiya.mhdftools.exception;
 
 public final class ResourceException extends Exception {
     public ResourceException(String message) {

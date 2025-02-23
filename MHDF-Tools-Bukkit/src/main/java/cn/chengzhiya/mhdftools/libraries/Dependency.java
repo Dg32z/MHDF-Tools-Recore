@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.libraries;
+package cn.chengzhiya.mhdftools.libraries;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

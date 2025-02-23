@@ -1,4 +1,4 @@
-package cn.ChengZhiYa.MHDFTools.hook;
+package cn.chengzhiya.mhdftools.hook;
 
 import org.bukkit.Bukkit;
 

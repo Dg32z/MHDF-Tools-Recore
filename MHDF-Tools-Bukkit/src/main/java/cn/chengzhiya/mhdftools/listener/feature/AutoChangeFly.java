@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.listener.feature;
+package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.ChengZhiYa.MHDFTools.entity.data.FlyStatus;
-import cn.ChengZhiYa.MHDFTools.listener.AbstractListener;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.database.FlyStatusUtil;
-import cn.ChengZhiYa.MHDFTools.util.feature.FlyUtil;
+import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
+import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
+import cn.chengzhiya.mhdftools.util.feature.FlyUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;

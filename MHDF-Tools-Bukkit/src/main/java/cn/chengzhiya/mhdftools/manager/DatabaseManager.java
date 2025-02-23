@@ -1,8 +1,8 @@
-package cn.ChengZhiYa.MHDFTools.manager;
+package cn.chengzhiya.mhdftools.manager;
 
-import cn.ChengZhiYa.MHDFTools.entity.AbstractDao;
-import cn.ChengZhiYa.MHDFTools.interfaces.Init;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.entity.AbstractDao;
+import cn.chengzhiya.mhdftools.interfaces.Init;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.zaxxer.hikari.HikariConfig;

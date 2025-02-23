@@ -1,10 +1,10 @@
-package cn.ChengZhiYa.MHDFTools.libraries;
+package cn.chengzhiya.mhdftools.libraries;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.exception.FileException;
-import cn.ChengZhiYa.MHDFTools.libraries.classpath.ClassPathAppender;
-import cn.ChengZhiYa.MHDFTools.util.config.ConfigUtil;
-import cn.ChengZhiYa.MHDFTools.util.config.FileUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.exception.FileException;
+import cn.chengzhiya.mhdftools.libraries.classpath.ClassPathAppender;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.FileUtil;
 
 import java.io.File;
 import java.nio.file.Files;

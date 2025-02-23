@@ -1,7 +1,7 @@
-package cn.ChengZhiYa.MHDFTools.util;
+package cn.chengzhiya.mhdftools.util;
 
-import cn.ChengZhiYa.MHDFTools.Main;
-import cn.ChengZhiYa.MHDFTools.util.menu.ItemStackUtil;
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
