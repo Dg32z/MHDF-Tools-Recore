@@ -109,7 +109,7 @@ public final class CacheManager {
      */
     public String get(String key) {
         if (this.map != null) {
-            this.map.get(key);
+            return this.map.get(key);
         }
         if (this.redisClient != null) {
             try {
