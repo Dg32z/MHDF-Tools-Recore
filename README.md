@@ -32,10 +32,6 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 - [MythicMobs](https://mythiccraft.io/index.php?resources/mythicmobs.1)
 - [Vault](https://www.spigotmc.org/resources/vault.34315)
 
-<p align="center">
-  <a href="https://github.com/MHDFCraft/MHDF-Tools/releases">下载</a>
-</p>
-
 <div align="center">
     <a href="https://github.com/MHDFCraft/MHDF-Tools/pulse">
         <img src="https://repobeats.axiom.co/api/embed/e58f3e1358766291db33ba451d3e90be99811f4f.svg" alt="pulse">
@@ -50,9 +46,12 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 
 ## 特别感谢
 
+- [LuckPerms](https://github.com/LuckPerms/LuckPerms) 依赖下载与加载部分代码参考
+- [TridentDupe](https://github.com/Killetx/TridentDupe) 三叉戟复制漏洞思路参考
+
+## 精神支柱
+
 - [Xiao-MoMi](https://github.com/Xiao-MoMi)
-- [LuckPerms](https://github.com/LuckPerms/LuckPerms)
-- [TridentDupe](https://github.com/Killetx/TridentDupe)
 
 ## Star
 
