@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.listener.feature;
+package cn.chengzhiya.mhdftools.listener.misc;
 
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
