@@ -82,7 +82,7 @@ public final class CacheManager {
         }
         if (this.redisConnection != null) {
             RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-            sync.set("mhdf-luckcreate:" + key, value);
+            sync.set("mhdf-tools:" + key, value);
         }
     }
 
@@ -97,7 +97,7 @@ public final class CacheManager {
         }
         if (this.redisConnection != null) {
             RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-            sync.del("mhdf-luckcreate:" + key);
+            sync.del("mhdf-tools:" + key);
         }
     }
 
@@ -114,7 +114,7 @@ public final class CacheManager {
         if (this.redisClient != null) {
             try {
                 RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-                return sync.get("mhdf-luckcreate:" + key).get();
+                return sync.get("mhdf-tools:" + key).get();
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }
