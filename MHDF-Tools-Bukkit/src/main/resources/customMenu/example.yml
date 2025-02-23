@@ -70,25 +70,25 @@ items:
         # input: "%player_name%"
         # 权限
         permission: "mhdftools.橙汁の使用权"
-          # 物品
-          # item:
+        # 物品
+        # item:
           # 类型
           # craftEngine-<CE物品ID>    ——使用CE的物品
           # mythicMobs-<MM物品ID>     ——使用MM的物品
           # head-<玩家ID>             ——指定玩家的头颅
-        # random_bed               ——随机颜色的床
-        # type: paper
-        # 名称
-        # name: "&b你好 %player_name%!"
-        # 简介
-        # lore:
-        #  - "&b喵喵喵,坏掉惹"
-        # 数量
-        # amount: 64
-        # 自定义模型数据
-        # customModelData: 12345
-        # 输出
-        # output: 12345
+          # random_bed               ——随机颜色的床
+          # type: paper
+          # 名称
+          # name: "&b你好 %player_name%!"
+          # 简介
+          # lore:
+          #  - "&b喵喵喵,坏掉惹"
+          # 数量
+          # amount: 64
+          # 自定义模型数据
+          # customModelData: 12345
+          # 输出
+          # output: 12345
         # 不满足条件时的操作
         denyActions:
           - "[message]|&c哼,杂鱼,别想进来❤"

@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,11 +30,13 @@ public final class Bed extends AbstractCommand {
             return;
         }
 
-        try {
-            sender.teleport(sender.getBedLocation());
-            sender.sendMessage(LangUtil.i18n("commands.bed.message"));
-        }catch (IllegalStateException e) {
+        Location location = sender.getRespawnLocation();
+        if (location == null) {
             sender.sendMessage(LangUtil.i18n("commands.bed.noSleep"));
+            return;
         }
+
+        sender.teleport(location);
+        sender.sendMessage(LangUtil.i18n("commands.bed.message"));
     }
 }

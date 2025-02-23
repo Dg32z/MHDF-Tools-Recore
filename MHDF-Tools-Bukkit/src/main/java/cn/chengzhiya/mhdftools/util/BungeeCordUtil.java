@@ -200,6 +200,15 @@ public final class BungeeCordUtil {
             return getBungeeCordPlayerList();
         }
 
+        return getBukkitPlayerList();
+    }
+
+    /**
+     * 获取子服在线玩家列表
+     *
+     * @return 子服在线玩家列表
+     */
+    public static List<String> getBukkitPlayerList() {
         List<String> list = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             String name = player.getName();

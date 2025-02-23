@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.command;
 
 import cn.chengzhiya.mhdftools.interfaces.Command;
+import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import lombok.Getter;
@@ -8,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,12 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        return tabCompleter(sender, label, args).stream()
+    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        List<String> tabComplete = tabCompleter(sender, label, args);
+        if (tabComplete == null) {
+            tabComplete = BungeeCordUtil.getBukkitPlayerList();
+        }
+        return tabComplete.stream()
                 .filter(s -> s.toLowerCase(Locale.ROOT).startsWith(args[args.length - 1].toLowerCase(Locale.ROOT)))
                 .toList();
     }
