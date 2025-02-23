@@ -42,12 +42,12 @@ public final class BungeeCordLocation {
     public BungeeCordLocation(String base64) {
         String[] data = Base64Util.decode(base64).split(":");
         this.server = data[0];
-        this.world = data[0];
-        this.x = Double.parseDouble(data[1]);
-        this.y = Double.parseDouble(data[2]);
-        this.z = Double.parseDouble(data[3]);
-        this.yaw = Float.parseFloat(data[4]);
-        this.pitch = Float.parseFloat(data[5]);
+        this.world = data[1];
+        this.x = Double.parseDouble(data[2]);
+        this.y = Double.parseDouble(data[3]);
+        this.z = Double.parseDouble(data[4]);
+        this.yaw = Float.parseFloat(data[5]);
+        this.pitch = Float.parseFloat(data[6]);
     }
 
     /**
