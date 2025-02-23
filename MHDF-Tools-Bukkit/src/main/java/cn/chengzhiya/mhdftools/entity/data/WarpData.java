@@ -37,9 +37,9 @@ public final class WarpData extends AbstractDao {
         return new BungeeCordLocation(
                 getServer(),
                 getWorld(),
+                getX(),
                 getY(),
-                getY(),
-                getY(),
+                getZ(),
                 getYaw(),
                 getPitch()
         );

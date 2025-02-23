@@ -43,9 +43,9 @@ public final class HomeData extends AbstractDao {
         return new BungeeCordLocation(
                 getServer(),
                 getWorld(),
+                getX(),
                 getY(),
-                getY(),
-                getY(),
+                getZ(),
                 getYaw(),
                 getPitch()
         );
