@@ -18,7 +18,7 @@ public final class Nick extends AbstractCommand {
                 "匿名",
                 "mhdftools.commands.nick",
                 true,
-                ConfigUtil.getConfig().getStringList("customMenuSettings.commands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("nickSettings.commands").toArray(new String[0])
         );
     }
 
