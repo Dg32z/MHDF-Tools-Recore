@@ -242,3 +242,25 @@ commands:
     noMoney: "{prefix} &c你没有那么多的钱!"
     message: "{prefix} &6你向{player}转了{amount}!"
     receivedMessage: "{prefix} &6{player}向你转了{amount}"
+  moneyadmin:
+    subCommands:
+      help:
+        usage: "/{command} help"
+        description: "命令帮助"
+        commandFormat: "&e{usage} &7| &b{description}"
+        message: |-
+          &e-------------=&6梦之工具&6=&e-------------
+          {helpList}
+          &e-------------=&6梦之工具&6=&e-------------
+      set:
+        usage: "/{command} set <玩家> <金额>"
+        description: "设置经济"
+        message: "{prefix} &6玩家{player}的余额被设置为{amount}!"
+      add:
+        usage: "/{command} add <玩家> <金额>"
+        description: "增加经济"
+        message: "{prefix} &6玩家{player}的余额被增加{change},他现在有{amount}!"
+      take:
+        usage: "/{command} take <玩家> <金额>"
+        description: "扣除经济"
+        message: "{prefix} &6玩家{player}的余额被扣除{change},他现在有{amount}!"

@@ -41,7 +41,7 @@ public final class Tpa extends AbstractCommand {
             );
 
             sender.sendMessage(LangUtil.i18n("commands.tpa.message")
-                    .replace("{player}", sender.getName())
+                    .replace("{player}", args[0])
             );
             return;
         }

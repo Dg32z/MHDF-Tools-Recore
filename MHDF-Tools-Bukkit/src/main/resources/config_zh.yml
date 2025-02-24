@@ -328,6 +328,10 @@ economySettings:
     enable: true
     # 税率(单位： 百分比)
     rate: 0.05
+  # 经济管理命令
+  moneyadminCommands:
+    - "moneyadmin"
+    - "eco"
   # 查询余额命令
   moneyCommands:
     - "money"

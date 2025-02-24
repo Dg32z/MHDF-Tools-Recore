@@ -1,7 +1,9 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.config.SoundUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +35,9 @@ public final class MHDFTools extends AbstractCommand {
 
             // 重载插件配置
             if (args[0].equalsIgnoreCase("reload")) {
+                ConfigUtil.reloadConfig();
+                LangUtil.reloadLang();
+                SoundUtil.reloadSound();
                 sender.sendMessage(LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
                         .replace("{command}", label)
                 );
