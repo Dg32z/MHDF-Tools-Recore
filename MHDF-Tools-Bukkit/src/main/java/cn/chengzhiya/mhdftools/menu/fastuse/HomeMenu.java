@@ -2,9 +2,9 @@ package cn.chengzhiya.mhdftools.menu.fastuse;
 
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
-import cn.chengzhiya.mhdftools.util.ActionUtil;
 import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
-import cn.chengzhiya.mhdftools.util.RequirementUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;

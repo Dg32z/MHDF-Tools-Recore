@@ -51,10 +51,9 @@ public final class GameMode extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(
-                    LangUtil.i18n("usageError")
-                            .replace("{usage}", LangUtil.i18n("commands.gamemode.usage"))
-                            .replace("{command}", label)
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.gamemode.usage"))
+                    .replace("{command}", label)
             );
             return;
         }

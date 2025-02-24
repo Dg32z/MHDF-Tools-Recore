@@ -37,12 +37,11 @@ public final class Nick extends AbstractCommand {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));
                 return;
             }
-            player = Bukkit.getPlayer(args[1]);
-
             if (!sender.hasPermission("mhdftools.commands.nick.give")) {
                 sender.sendMessage(LangUtil.i18n("noPermission"));
                 return;
             }
+            player = Bukkit.getPlayer(args[1]);
         }
 
         // 输出帮助信息

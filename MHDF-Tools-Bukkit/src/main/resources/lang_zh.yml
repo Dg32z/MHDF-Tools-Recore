@@ -19,6 +19,9 @@ gamemode:
   CREATIVE: "创造模式"
   SPECTATOR: "旁观模式"
 
+economy:
+  tax: "{prefix} &6你向服务器上交了{amount}的个人所得税!"
+
 commands:
   mhdftools:
     subCommands:
@@ -228,3 +231,14 @@ commands:
     description: "删除传送点"
     noWarp: "{prefix} &c目标传送点不存在!"
     message: "{prefix} &6你删除了{warp}!"
+  money:
+    usage: "/{command} [玩家ID]"
+    description: "查询余额"
+    message: "{prefix} &6{player}的余额为{amount}!"
+  pay:
+    usage: "/{command} <玩家ID> <金额>"
+    description: "查询余额"
+    moneyFormatError: "{prefix} &c超级大笨蛋,金额怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
+    noMoney: "{prefix} &c你没有那么多的钱!"
+    message: "{prefix} &6你向{player}转了{amount}!"
+    receivedMessage: "{prefix} &6{player}向你转了{amount}"

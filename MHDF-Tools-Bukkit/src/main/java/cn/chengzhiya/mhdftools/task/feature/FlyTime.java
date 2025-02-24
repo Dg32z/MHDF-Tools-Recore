@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.task.feature;
 
 import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
-import cn.chengzhiya.mhdftools.util.ActionUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.SoundUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;

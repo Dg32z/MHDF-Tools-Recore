@@ -46,16 +46,15 @@ public final class Fly extends AbstractCommand {
 
         // 切换其他玩家的飞行模式
         if (args.length == 1) {
+            if (!sender.hasPermission("mhdftools.commands.fly.give")) {
+                sender.sendMessage(LangUtil.i18n("noPermission"));
+                return;
+            }
             if (Bukkit.getPlayer(args[0]) == null) {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
-
-            if (!sender.hasPermission("mhdftools.commands.fly.give")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
-                return;
-            }
         }
 
         // 输出帮助信息

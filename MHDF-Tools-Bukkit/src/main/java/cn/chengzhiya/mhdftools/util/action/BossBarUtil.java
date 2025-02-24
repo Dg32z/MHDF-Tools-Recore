@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.util;
+package cn.chengzhiya.mhdftools.util.action;
 
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;

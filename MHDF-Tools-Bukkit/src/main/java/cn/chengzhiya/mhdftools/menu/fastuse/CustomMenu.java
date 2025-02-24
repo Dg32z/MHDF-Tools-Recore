@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.menu.fastuse;
 
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
-import cn.chengzhiya.mhdftools.util.ActionUtil;
-import cn.chengzhiya.mhdftools.util.RequirementUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
 import cn.chengzhiya.mhdftools.util.config.CustomMenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;

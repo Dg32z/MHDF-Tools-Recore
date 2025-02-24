@@ -40,24 +40,22 @@ public final class Vanish extends AbstractCommand {
 
         // 切换其他玩家的隐身模式
         if (args.length == 1) {
+            if (!sender.hasPermission("mhdftools.commands.vanish.give")) {
+                sender.sendMessage(LangUtil.i18n("noPermission"));
+                return;
+            }
             if (Bukkit.getPlayer(args[0]) == null) {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
-
-            if (!sender.hasPermission("mhdftools.commands.vanish.give")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
-                return;
-            }
         }
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(
-                    LangUtil.i18n("usageError")
-                            .replace("{usage}", LangUtil.i18n("commands.vanish.usage"))
-                            .replace("{command}", label)
+            sender.sendMessage(LangUtil.i18n("usageError")
+                    .replace("{usage}", LangUtil.i18n("commands.vanish.usage"))
+                    .replace("{command}", label)
             );
             return;
         }

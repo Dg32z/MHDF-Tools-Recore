@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.util;
+package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
