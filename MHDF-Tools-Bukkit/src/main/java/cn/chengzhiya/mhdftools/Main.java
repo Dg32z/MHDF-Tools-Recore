@@ -56,11 +56,6 @@ public final class Main extends JavaPlugin {
         this.taskManager = new TaskManager();
         this.taskManager.init();
 
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "mhdf_tools");
-        getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Bu());
-        getServer().getMessenger().registerIncomingPluginChannel(this, "mhdf_tools", new MhdfToolsChannelListener());
-
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
