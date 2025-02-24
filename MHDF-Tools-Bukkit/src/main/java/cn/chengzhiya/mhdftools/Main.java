@@ -63,25 +63,15 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.bStatsManager = null;
-        this.configManager = null;
-        this.listenerManager = null;
-        this.commandManager = null;
-        this.taskManager = null;
-
         if (adventure != null) {
             adventure.close();
-            adventure = null;
         }
 
         this.databaseManager.close();
-        this.databaseManager = null;
 
         this.cacheManager.close();
-        this.cacheManager = null;
 
         this.pluginHookManager.unhook();
-        this.pluginHookManager = null;
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
