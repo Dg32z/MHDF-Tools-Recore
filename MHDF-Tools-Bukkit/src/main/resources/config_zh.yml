@@ -314,6 +314,24 @@ tridentDupeFixSettings:
   # 开关
   enable: true
 
+# 聊天颜色
+chatColorSettings:
+  # 开关
+  enable: true
+  # 默认
+  default:
+    # 权重
+    weight: 0
+    # 提示消息
+    color: "&f"
+  # 拥有 mhdftools.group.chatcolor.<名字> 权限的提示
+  # 例如 mhdftools.group.chatcolor.admin
+  admin:
+    # 权重
+    weight: 1
+    # 提示消息
+    color: "&c"
+
 # 经济系统
 economySettings:
   # 开关

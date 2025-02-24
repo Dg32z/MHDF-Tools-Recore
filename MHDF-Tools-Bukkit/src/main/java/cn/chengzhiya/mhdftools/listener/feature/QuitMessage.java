@@ -18,11 +18,6 @@ public final class QuitMessage extends AbstractListener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        // 不处理功能未开启的情况
-        if (ConfigUtil.getConfig().getBoolean("quitMessageSettings.enable")) {
-            return;
-        }
-
         Player player = event.getPlayer();
         String message = ConfigUtil.getConfig().getString("quitMessageSettings." + getGroup(player) + ".message");
 

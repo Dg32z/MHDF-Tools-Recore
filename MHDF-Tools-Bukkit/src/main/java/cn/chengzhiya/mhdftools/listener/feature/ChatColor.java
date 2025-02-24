@@ -2,26 +2,31 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.util.List;
 
-public final class JoinMessage extends AbstractListener {
-    public JoinMessage() {
+public final class ChatColor extends AbstractListener {
+    public ChatColor() {
         super(
-                "joinMessageSettings.enable"
+                "chatColorSettings.enable"
         );
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        String message = ConfigUtil.getConfig().getString("joinMessageSettings." + getGroup(player) + ".message");
+        String message = event.getMessage();
+        String color = ConfigUtil.getConfig().getString("chatColorSettings." + getGroup(player) + ".message");
+        if (color == null) {
+            return;
+        }
 
-        event.setJoinMessage(message);
+        event.setMessage(ColorUtil.color(color) + message);
     }
 
     /**
@@ -33,15 +38,15 @@ public final class JoinMessage extends AbstractListener {
     private String getGroup(Player player) {
         List<String> groupList = player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
-                .filter(permission -> permission.startsWith("mhdftools.group.joinmessage."))
-                .map(permission -> permission.replace("mhdftools.group.joinmessage.", ""))
+                .filter(permission -> permission.startsWith("mhdftools.group.chatcolor."))
+                .map(permission -> permission.replace("mhdftools.group.chatcolor.", ""))
                 .toList();
 
         int maxWeight = 0;
         String maxWeightGroup = "default";
 
         for (String group : groupList) {
-            int weight = ConfigUtil.getConfig().getInt("joinMessageSettings." + group + ".weight");
+            int weight = ConfigUtil.getConfig().getInt("chatColorSettings." + group + ".weight");
 
             if (weight > maxWeight) {
                 maxWeight = weight;
