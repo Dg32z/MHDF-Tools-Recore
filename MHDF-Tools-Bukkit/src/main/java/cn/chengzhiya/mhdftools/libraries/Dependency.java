@@ -32,19 +32,19 @@ public enum Dependency {
     PACKETEVENTS_API(
             "com{}github{}retrooper",
             "packetevents-api",
-            "2.6.0",
+            "2.7.0",
             Repository.CODE_MC
     ),
     PACKETEVENTS_NETTY_COMMON(
             "com{}github{}retrooper",
             "packetevents-netty-common",
-            "2.6.0",
+            "2.7.0",
             Repository.CODE_MC
     ),
     PACKETEVENTS_SPIGOT(
             "com{}github{}retrooper",
             "packetevents-spigot",
-            "2.6.0",
+            "2.7.0",
             Repository.CODE_MC
     ),
 
