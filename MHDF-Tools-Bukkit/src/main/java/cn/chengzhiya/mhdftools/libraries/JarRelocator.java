@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class JarRelocator {
+public final class JarRelocator {
     private static final String JAR_RELOCATOR_CLASS = "me.lucko.jarrelocator.JarRelocator";
     private static final String JAR_RELOCATOR_RUN_METHOD = "run";
 
@@ -33,7 +33,8 @@ public class JarRelocator {
      * @throws Exception 可能抛出的反射操作异常或文件操作异常
      */
     public void remap(File input, File output, Map<String, String> relocations) throws Exception {
-        Object jarRelocator = this.jarRelocatorConstructor.newInstance(input, output, relocations);
-        this.jarRelocatorRunMethod.invoke(jarRelocator);
+        this.jarRelocatorRunMethod.invoke(
+                this.jarRelocatorConstructor.newInstance(input, output, relocations)
+        );
     }
 }

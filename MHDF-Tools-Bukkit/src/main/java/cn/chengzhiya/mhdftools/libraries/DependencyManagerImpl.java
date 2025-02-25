@@ -15,7 +15,8 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 public final class DependencyManagerImpl implements DependencyManager {
-    private static final String RELOCATION_PREFIX = "cn.chengzhiya.mhdftools.libraries.";
+    private static final String RELOCATION_PREFIX = "cn.chengzhiya.mhdftools.libs.";
+
     private final Path dependenciesFolder;
     private final ClassPathAppender classPathAppender;
     private final EnumMap<Dependency, Path> loaded = new EnumMap<>(Dependency.class);
@@ -25,13 +26,6 @@ public final class DependencyManagerImpl implements DependencyManager {
         this.dependenciesFolder = setupDependenciesFolder();
         this.classPathAppender = classPathAppender;
         this.jarRelocator = null;
-    }
-
-    /**
-     * 初始化 JarRelocator
-     */
-    public void init() {
-        jarRelocator = new JarRelocator();
     }
 
     /**
@@ -50,7 +44,15 @@ public final class DependencyManagerImpl implements DependencyManager {
     }
 
     /**
+     * 初始化 JarRelocator
+     */
+    public void init() {
+        jarRelocator = new JarRelocator();
+    }
+
+    /**
      * 下载指定依赖信息实例列表对应的全部依赖
+     *
      * @param dependencies 依赖信息实例列表
      */
     @Override
@@ -150,6 +152,7 @@ public final class DependencyManagerImpl implements DependencyManager {
 
     /**
      * 重定位依赖
+     *
      * @param dependency 依赖信息实例
      * @return 重定位后的依赖路径
      */
@@ -177,6 +180,7 @@ public final class DependencyManagerImpl implements DependencyManager {
 
     /**
      * 获取重定位后的依赖路径
+     *
      * @param original 原始依赖路径
      * @return 重定位后的依赖路径
      */
@@ -186,6 +190,7 @@ public final class DependencyManagerImpl implements DependencyManager {
 
     /**
      * 判断依赖是否需要重定位
+     *
      * @param dependency 依赖信息实例
      * @return 结果
      */
