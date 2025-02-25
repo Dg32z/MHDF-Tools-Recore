@@ -52,7 +52,7 @@ public enum Dependency {
     ITEM_NBT_API(
             "de.tr7zw",
             "item-nbt-api",
-            "2.14.0",
+            "2.14.1",
             Repository.CODE_MC
     ),
 
