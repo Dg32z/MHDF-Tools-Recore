@@ -35,17 +35,17 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         adventure = BukkitAudiences.create(this);
 
-        this.bStatsManager = new BStatsManager();
-        this.bStatsManager.init();
-
-        this.pluginHookManager = new PluginHookManager();
-        this.pluginHookManager.hook();
-
         this.databaseManager = new DatabaseManager();
         this.databaseManager.init();
 
         this.cacheManager = new CacheManager();
         this.cacheManager.init();
+
+        this.bStatsManager = new BStatsManager();
+        this.bStatsManager.init();
+
+        this.pluginHookManager = new PluginHookManager();
+        this.pluginHookManager.hook();
 
         this.commandManager = new CommandManager();
         this.commandManager.init();
@@ -55,7 +55,6 @@ public final class Main extends JavaPlugin {
 
         this.taskManager = new TaskManager();
         this.taskManager.init();
-
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
@@ -68,15 +67,23 @@ public final class Main extends JavaPlugin {
             adventure.close();
         }
 
-        this.databaseManager.close();
-
-        this.cacheManager.close();
-
         this.pluginHookManager.unhook();
+        this.cacheManager.close();
+        this.databaseManager.close();
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+
+        this.taskManager = null;
+        this.listenerManager = null;
+        this.commandManager = null;
+        this.pluginHookManager = null;
+        this.bStatsManager = null;
+        this.cacheManager = null;
+        this.databaseManager = null;
+        this.librariesManager = null;
+        this.configManager = null;
 
         instance = null;
     }

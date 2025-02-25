@@ -45,14 +45,6 @@ public final class DelHome extends AbstractCommand {
         sender.sendMessage(LangUtil.i18n("commands.delhome.message")
                 .replace("{home}", args[0])
         );
-
-        // 输出帮助信息
-        {
-            sender.sendMessage(LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.delhome.usage"))
-                    .replace("{command}", label)
-            );
-        }
     }
 
     @Override
