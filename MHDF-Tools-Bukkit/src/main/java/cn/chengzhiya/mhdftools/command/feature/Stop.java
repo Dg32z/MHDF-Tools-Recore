@@ -47,13 +47,14 @@ public final class Stop extends AbstractCommand {
             public void run() {
                 if (countdown <= 0) {
                     this.cancel();
-                    Bukkit.savePlayers();
+                    MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) -> Bukkit.savePlayers());
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
                                 player.kickPlayer(LangUtil.i18n("commands.stop.kickMessage")
                                         .replace("{message}", message)
-                                ));
+                                )
+                        );
                     }
 
                     Bukkit.shutdown();
