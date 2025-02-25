@@ -67,9 +67,15 @@ public final class Main extends JavaPlugin {
             adventure.close();
         }
 
-        this.pluginHookManager.unhook();
-        this.cacheManager.close();
-        this.databaseManager.close();
+        if (pluginHookManager != null) {
+            this.pluginHookManager.unhook();
+        }
+        if (this.cacheManager != null) {
+            this.cacheManager.close();
+        }
+        if (this.databaseManager != null) {
+            this.databaseManager.close();
+        }
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
