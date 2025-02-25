@@ -43,47 +43,47 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.alibaba</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.com.alibaba</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.alibaba</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.reflections</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.org.reflections</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.org.reflections</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.javassist</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.org.javassist</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.org.javassist</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.github.retrooper</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.com.github.retrooper</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.github.retrooper</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>de.tr7zw</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.de.tr7zw</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.de.tr7zw</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.j256.ormlite</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.com.j256.ormlite</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.j256.ormlite</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.zaxxer</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.com.zaxxer</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.zaxxer</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.h2database</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.com.h2database</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.h2database</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.mysql</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.com.mysql</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.mysql</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>io.lettuce</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.io.lettuce</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.io.lettuce</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>net.kyori</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libraries.net.kyori</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.net.kyori</shadedPattern>
                                 </relocation>
                             </relocations>
                             <minimizeJar>true</minimizeJar>
