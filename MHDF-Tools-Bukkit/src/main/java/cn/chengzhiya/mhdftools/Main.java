@@ -45,6 +45,9 @@ public final class Main extends JavaPlugin {
         this.bStatsManager = new BStatsManager();
         this.bStatsManager.init();
 
+        this.pluginHookManager = new PluginHookManager();
+        this.pluginHookManager.hook();
+
         this.commandManager = new CommandManager();
         this.commandManager.init();
 
@@ -56,9 +59,6 @@ public final class Main extends JavaPlugin {
 
         this.bungeeCordManager = new BungeeCordManager();
         this.bungeeCordManager.init();
-
-        this.pluginHookManager = new PluginHookManager();
-        this.pluginHookManager.hook();
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
@@ -88,12 +88,12 @@ public final class Main extends JavaPlugin {
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
 
-        this.pluginHookManager = null;
         this.bungeeCordManager = null;
         this.taskManager = null;
         this.listenerManager = null;
         this.commandManager = null;
         this.bStatsManager = null;
+        this.pluginHookManager = null;
         this.cacheManager = null;
         this.databaseManager = null;
         this.librariesManager = null;
