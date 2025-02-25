@@ -45,7 +45,7 @@ public final class CustomMenu extends AbstractMenu {
         int size = getConfig().getInt("size");
         String title = getConfig().getString("title");
 
-        Inventory menu = Bukkit.createInventory(getPlayer(), size, ColorUtil.color(Objects.requireNonNull(title)));
+        Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
 
         ConfigurationSection items = getConfig().getConfigurationSection("items");
         if (items == null) {

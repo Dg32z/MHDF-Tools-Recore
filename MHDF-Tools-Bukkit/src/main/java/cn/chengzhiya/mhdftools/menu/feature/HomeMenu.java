@@ -49,7 +49,7 @@ public final class HomeMenu extends AbstractMenu {
         int homeSize = getConfig().getInt("homeSize");
         String title = getConfig().getString("title");
 
-        Inventory menu = Bukkit.createInventory(getPlayer(), size, ColorUtil.color(Objects.requireNonNull(title)));
+        Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
 
         ConfigurationSection items = getConfig().getConfigurationSection("items");
         if (items == null) {
