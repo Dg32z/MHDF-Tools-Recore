@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.entity.Player;
@@ -38,7 +37,7 @@ public final class Back extends AbstractCommand {
             return;
         }
 
-        BungeeCordUtil.teleportLocation(sender.getName(), new BungeeCordLocation(backLocationBase64));
+        Main.instance.getBungeeCordManager().teleportLocation(sender.getName(), new BungeeCordLocation(backLocationBase64));
         sender.sendMessage(LangUtil.i18n("commands.back.message"));
     }
 }

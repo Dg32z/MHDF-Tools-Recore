@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.GameModeUtil;
@@ -64,7 +64,7 @@ public final class GameMode extends AbstractCommand {
             return;
         }
 
-        BungeeCordUtil.setGameMode(player.getName(), gameMode);
+        Main.instance.getBungeeCordManager().setGameMode(player.getName(), gameMode);
         sender.sendMessage(LangUtil.i18n("commands.gamemode.message")
                 .replace("{player}", NickUtil.getName(player))
                 .replace("{gamemode}", LangUtil.i18n("gamemode." + gameMode.name()))
@@ -77,7 +77,7 @@ public final class GameMode extends AbstractCommand {
             return ConfigUtil.getConfig().getStringList("gamemodeSettings.tabCompleter");
         }
         if (args.length == 2) {
-            return BungeeCordUtil.getBungeeCordPlayerList();
+            return Main.instance.getBungeeCordManager().getBungeeCordPlayerList();
         }
         return new ArrayList<>();
     }

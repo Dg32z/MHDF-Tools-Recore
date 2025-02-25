@@ -16,6 +16,7 @@ public final class VanishStatus extends AbstractDao {
     private UUID player;
     @DatabaseField(canBeNull = false)
     private boolean isEnable;
+
     public VanishStatus() {
         super(
                 "vanishSettings.enable"

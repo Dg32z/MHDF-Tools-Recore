@@ -33,6 +33,7 @@ public final class HomeData extends AbstractDao {
     private Float yaw;
     @DatabaseField(canBeNull = false)
     private Float pitch;
+
     public HomeData() {
         super(
                 "homeSettings.enable"

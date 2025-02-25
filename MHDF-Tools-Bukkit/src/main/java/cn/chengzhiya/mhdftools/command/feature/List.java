@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.ListUtil;
@@ -36,9 +36,9 @@ public final class List extends AbstractCommand {
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{maxMemory}", String.valueOf(ListUtil.getTotalMemory()))
-                .replace("{playerCount}", String.valueOf(BungeeCordUtil.getPlayerList().size()))
+                .replace("{playerCount}", String.valueOf(Main.instance.getBungeeCordManager().getPlayerList().size()))
                 .replace("{maxPlayerCount}", String.valueOf(Bukkit.getMaxPlayers()))
-                .replace("{playerList}", BungeeCordUtil.getPlayerList().toString())
+                .replace("{playerList}", Main.instance.getBungeeCordManager().getPlayerList().toString())
         );
     }
 }

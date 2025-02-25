@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
@@ -166,7 +166,7 @@ public final class HomeMenu extends AbstractMenu {
                 String home = nbtCompound.getString("home");
                 HomeData homeData = HomeDataUtil.getHomeData(getPlayer(), home);
 
-                BungeeCordUtil.teleportLocation(getPlayer().getName(), homeData.toBungeeCordLocation());
+                Main.instance.getBungeeCordManager().teleportLocation(getPlayer().getName(), homeData.toBungeeCordLocation());
             }
             case "上一页" -> new HomeMenu(getPlayer(), getPage() - 1).openMenu();
             case "下一页" -> new HomeMenu(getPlayer(), getPage() + 1).openMenu();

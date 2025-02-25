@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.enums.MessageType;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.command.CommandSender;
@@ -28,7 +27,7 @@ public final class Tpa extends AbstractCommand {
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            if (!BungeeCordUtil.ifPlayerOnline(args[0])) {
+            if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));
                 return;
             }
@@ -36,7 +35,7 @@ public final class Tpa extends AbstractCommand {
             Main.instance.getCacheManager().put(sender.getName() + "_tpaPlayer", args[0]);
             Main.instance.getCacheManager().put(sender.getName() + "_tpaDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
-            BungeeCordUtil.sendMessage(args[0], MessageType.MINI_MESSAGE, LangUtil.i18n("commands.tpa.requestMessage")
+            Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.MINI_MESSAGE, LangUtil.i18n("commands.tpa.requestMessage")
                     .replace("{player}", sender.getName())
             );
 
@@ -60,16 +59,16 @@ public final class Tpa extends AbstractCommand {
             Main.instance.getCacheManager().remove(args[1] + "_tpaPlayer");
             Main.instance.getCacheManager().remove(args[1] + "_tpaDelay");
 
-            if (!BungeeCordUtil.ifPlayerOnline(args[1])) {
+            if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));
                 return;
             }
 
             switch (args[0]) {
                 case "accept" -> {
-                    BungeeCordUtil.teleportPlayerServer(args[1], sender.getName());
+                    Main.instance.getBungeeCordManager().teleportPlayerServer(args[1], sender.getName());
                     Main.instance.getCacheManager().put(args[1] + "_tpPlayer", sender.getName());
-                    BungeeCordUtil.sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpa.accept.accepted")
+                    Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpa.accept.accepted")
                             .replace("{player}", args[1])
                     );
 
@@ -79,7 +78,7 @@ public final class Tpa extends AbstractCommand {
                     return;
                 }
                 case "reject" -> {
-                    BungeeCordUtil.sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpa.reject.rejected")
+                    Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpa.reject.rejected")
                             .replace("{player}", args[1])
                     );
 
@@ -102,7 +101,7 @@ public final class Tpa extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return BungeeCordUtil.getPlayerList();
+            return Main.instance.getBungeeCordManager().getPlayerList();
         }
         return new ArrayList<>();
     }

@@ -1,8 +1,10 @@
-package cn.chengzhiya.mhdftools.util;
+package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.enums.MessageType;
+import cn.chengzhiya.mhdftools.interfaces.Init;
+import cn.chengzhiya.mhdftools.listener.PluginMessage;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -13,23 +15,47 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class BungeeCordUtil {
-    @Getter
-    private static final List<String> bungeeCordPlayerList = new ArrayList<>();
-    @Getter
+import static org.bukkit.Bukkit.getServer;
+
+@Getter
+public final class BungeeCordManager implements Init {
+    private final PluginMessageListener messageListener = new PluginMessage();
+    private final List<String> bungeeCordPlayerList = new ArrayList<>();
     @Setter
-    private static String serverName = "无";
+    private String serverName = "无";
+
+    /**
+     * 初始化群组模式
+     */
+    @Override
+    public void init() {
+        if (isBungeeCordMode()) {
+            getServer().getMessenger().registerOutgoingPluginChannel(Main.instance, "BungeeCord");
+            getServer().getMessenger().registerIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
+        }
+    }
+
+    /**
+     * 关闭群组模式
+     */
+    public void close() {
+        if (isBungeeCordMode()) {
+            getServer().getMessenger().unregisterOutgoingPluginChannel(Main.instance, "BungeeCord");
+            getServer().getMessenger().unregisterIncomingPluginChannel(Main.instance, "BungeeCord", getMessageListener());
+        }
+    }
 
     /**
      * 检测是否开启群组模式
      *
      * @return 结果
      */
-    public static boolean isBungeeCordMode() {
+    public boolean isBungeeCordMode() {
         return ConfigUtil.getConfig().getBoolean("bungeeCordSettings.enable");
     }
 
@@ -38,7 +64,7 @@ public final class BungeeCordUtil {
      *
      * @param out 消息数据实例
      */
-    public static void sendPluginMessage(ByteArrayDataOutput out) {
+    public void sendPluginMessage(ByteArrayDataOutput out) {
         if (!isBungeeCordMode()) {
             return;
         }
@@ -56,7 +82,7 @@ public final class BungeeCordUtil {
      *
      * @param data 消息数据实例
      */
-    public static void sendMhdfToolsPluginMessage(JSONObject data) {
+    public void sendMhdfToolsPluginMessage(JSONObject data) {
         if (data.getJSONObject("params") == null) {
             data.put("params", new JSONObject());
         }
@@ -74,7 +100,7 @@ public final class BungeeCordUtil {
      * @param playerName 被传送的玩家ID
      * @param targetName 传送到的玩家ID
      */
-    public static void teleportPlayerServer(String playerName, String targetName) {
+    public void teleportPlayerServer(String playerName, String targetName) {
         Player player = Bukkit.getPlayer(playerName);
         Player target = Bukkit.getPlayer(targetName);
         if (player != null && target != null) {
@@ -101,7 +127,7 @@ public final class BungeeCordUtil {
      * @param playerName         玩家ID
      * @param bungeeCordLocation 群组位置实例
      */
-    public static void teleportLocation(String playerName, BungeeCordLocation bungeeCordLocation) {
+    public void teleportLocation(String playerName, BungeeCordLocation bungeeCordLocation) {
         if (bungeeCordLocation.getServer().equals(getServerName())) {
             Player player = Bukkit.getPlayer(playerName);
             if (player == null) {
@@ -128,7 +154,7 @@ public final class BungeeCordUtil {
      * @param playerName 玩家ID
      * @param message    消息文本
      */
-    public static void sendMessage(String playerName, MessageType type, String message) {
+    public void sendMessage(String playerName, MessageType type, String message) {
         Player player = Bukkit.getPlayer(playerName);
         if (player != null) {
             switch (type) {
@@ -158,7 +184,7 @@ public final class BungeeCordUtil {
      * @param playerName 玩家ID
      * @param gameMode   游戏模式实例
      */
-    public static void setGameMode(String playerName, GameMode gameMode) {
+    public void setGameMode(String playerName, GameMode gameMode) {
         Player player = Bukkit.getPlayer(playerName);
         if (player != null) {
             player.setGameMode(gameMode);
@@ -181,7 +207,7 @@ public final class BungeeCordUtil {
     /**
      * 更新BC玩家列表数据
      */
-    public static void updateBungeeCordPlayerList() {
+    public void updateBungeeCordPlayerList() {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerList");
         out.writeUTF("ALL");
@@ -194,7 +220,7 @@ public final class BungeeCordUtil {
      *
      * @return 在线玩家列表
      */
-    public static List<String> getPlayerList() {
+    public List<String> getPlayerList() {
         if (isBungeeCordMode()) {
             updateBungeeCordPlayerList();
             return getBungeeCordPlayerList();
@@ -208,7 +234,7 @@ public final class BungeeCordUtil {
      *
      * @return 子服在线玩家列表
      */
-    public static List<String> getBukkitPlayerList() {
+    public List<String> getBukkitPlayerList() {
         List<String> list = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             String name = player.getName();
@@ -220,7 +246,7 @@ public final class BungeeCordUtil {
     /**
      * 更新BC服务器名称数据
      */
-    public static void updateServerName() {
+    public void updateServerName() {
         JSONObject data = new JSONObject();
         data.put("action", "serverInfo");
         data.put("to", "me");
@@ -234,7 +260,7 @@ public final class BungeeCordUtil {
      * @param name 玩家ID
      * @return 结果
      */
-    public static boolean ifPlayerOnline(String name) {
+    public boolean ifPlayerOnline(String name) {
         return getPlayerList().contains(name);
     }
 }

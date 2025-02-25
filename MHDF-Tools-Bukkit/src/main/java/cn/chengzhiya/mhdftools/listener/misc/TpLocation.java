@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.listener.misc;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,7 +23,7 @@ public final class TpLocation extends AbstractListener {
 
         Main.instance.getCacheManager().remove(player.getName() + "_tpLocation");
         BungeeCordLocation tpLocation = new BungeeCordLocation(tpLocationBase64);
-        if (tpLocation.getServer().equals(BungeeCordUtil.getServerName())) {
+        if (tpLocation.getServer().equals(Main.instance.getBungeeCordManager().getServerName())) {
             return;
         }
 

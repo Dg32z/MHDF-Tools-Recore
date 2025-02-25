@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
@@ -80,7 +80,7 @@ public final class Vanish extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return BungeeCordUtil.getPlayerList();
+            return Main.instance.getBungeeCordManager().getPlayerList();
         }
         return new ArrayList<>();
     }

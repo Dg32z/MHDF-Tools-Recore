@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.configuration.ConfigurationSection;
@@ -47,7 +47,7 @@ public final class Spawn extends AbstractCommand {
                 (float) config.getDouble("ptch")
         );
 
-        BungeeCordUtil.teleportLocation(sender.getName(), bungeeCordLocation);
+        Main.instance.getBungeeCordManager().teleportLocation(sender.getName(), bungeeCordLocation);
         sender.sendMessage(LangUtil.i18n("commands.spawn.message"));
     }
 }

@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.interfaces.Command;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import lombok.Getter;
@@ -52,7 +52,7 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> tabComplete = tabCompleter(sender, label, args);
         if (tabComplete == null) {
-            tabComplete = BungeeCordUtil.getBukkitPlayerList();
+            tabComplete = Main.instance.getBungeeCordManager().getBukkitPlayerList();
         }
         return tabComplete.stream()
                 .filter(s -> s.toLowerCase(Locale.ROOT).startsWith(args[args.length - 1].toLowerCase(Locale.ROOT)))

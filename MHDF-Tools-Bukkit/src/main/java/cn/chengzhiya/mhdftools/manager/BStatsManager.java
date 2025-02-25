@@ -6,7 +6,7 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 
 public final class BStatsManager implements Init {
     /**
-     * 启动bstats
+     * 初始化bstats
      */
     @Override
     public void init() {

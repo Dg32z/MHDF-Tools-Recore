@@ -1,9 +1,9 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.feature.HomeMenu;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
@@ -40,7 +40,7 @@ public final class Home extends AbstractCommand {
             }
 
             HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
-            BungeeCordUtil.teleportLocation(sender.getName(), homeData.toBungeeCordLocation());
+            Main.instance.getBungeeCordManager().teleportLocation(sender.getName(), homeData.toBungeeCordLocation());
 
             sender.sendMessage(LangUtil.i18n("commands.home.teleportMessage")
                     .replace("{home}", homeData.getHome())

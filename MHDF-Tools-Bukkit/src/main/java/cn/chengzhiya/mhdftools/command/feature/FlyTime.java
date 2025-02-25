@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
@@ -93,7 +93,7 @@ public final class FlyTime extends AbstractCommand {
         if (args.length == 2 &&
                 (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("take"))
         ) {
-            return BungeeCordUtil.getPlayerList();
+            return Main.instance.getBungeeCordManager().getPlayerList();
         }
         if (args.length == 1) {
             return Arrays.asList("help", "set", "add", "take");

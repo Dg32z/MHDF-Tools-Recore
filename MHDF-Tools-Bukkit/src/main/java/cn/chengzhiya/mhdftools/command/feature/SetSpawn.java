@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Location;
@@ -39,7 +39,7 @@ public final class SetSpawn extends AbstractCommand {
 
         Location location = sender.getLocation();
 
-        config.set("server", BungeeCordUtil.getServerName());
+        config.set("server", Main.instance.getBungeeCordManager().getServerName());
         config.set("world", location.getWorld().getName());
         config.set("x", location.getX());
         config.set("y", location.getY());

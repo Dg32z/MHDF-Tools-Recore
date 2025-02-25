@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.MessageType;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.bukkit.Bukkit;
@@ -37,7 +36,7 @@ public final class PluginMessage implements PluginMessageListener {
                     JSONObject params = data.getJSONObject("params");
 
                     switch (action) {
-                        case "serverInfo" -> BungeeCordUtil.setServerName(form);
+                        case "serverInfo" -> Main.instance.getBungeeCordManager().setServerName(form);
                         case "sendMessage" -> {
                             String playerName = params.getString("playerName");
                             Player player = Bukkit.getPlayer(playerName);
@@ -69,8 +68,8 @@ public final class PluginMessage implements PluginMessageListener {
                 }
                 case "PlayerList" -> {
                     in.readUTF();
-                    BungeeCordUtil.getPlayerList().clear();
-                    BungeeCordUtil.getPlayerList().addAll(List.of(in.readUTF().split(", ")));
+                    Main.instance.getBungeeCordManager().getPlayerList().clear();
+                    Main.instance.getBungeeCordManager().getPlayerList().addAll(List.of(in.readUTF().split(", ")));
                 }
             }
         } catch (IOException e) {

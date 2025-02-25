@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.listener.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +21,7 @@ public final class Back extends AbstractListener {
         Location location = player.getLocation();
 
         BungeeCordLocation bungeeCordLocation = new BungeeCordLocation(
-                BungeeCordUtil.getServerName(),
+                Main.instance.getBungeeCordManager().getServerName(),
                 location
         );
 

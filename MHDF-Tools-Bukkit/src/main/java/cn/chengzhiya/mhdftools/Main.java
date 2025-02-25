@@ -10,15 +10,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
     public static BukkitAudiences adventure;
-    private BStatsManager bStatsManager;
     private ConfigManager configManager;
     private LibrariesManager librariesManager;
     private DatabaseManager databaseManager;
     private CacheManager cacheManager;
+    private BStatsManager bStatsManager;
     private CommandManager commandManager;
     private ListenerManager listenerManager;
-    private PluginHookManager pluginHookManager;
     private TaskManager taskManager;
+    private BungeeCordManager bungeeCordManager;
+    private PluginHookManager pluginHookManager;
 
     @Override
     public void onLoad() {
@@ -44,9 +45,6 @@ public final class Main extends JavaPlugin {
         this.bStatsManager = new BStatsManager();
         this.bStatsManager.init();
 
-        this.pluginHookManager = new PluginHookManager();
-        this.pluginHookManager.hook();
-
         this.commandManager = new CommandManager();
         this.commandManager.init();
 
@@ -55,6 +53,12 @@ public final class Main extends JavaPlugin {
 
         this.taskManager = new TaskManager();
         this.taskManager.init();
+
+        this.bungeeCordManager = new BungeeCordManager();
+        this.bungeeCordManager.init();
+
+        this.pluginHookManager = new PluginHookManager();
+        this.pluginHookManager.hook();
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
@@ -67,8 +71,11 @@ public final class Main extends JavaPlugin {
             adventure.close();
         }
 
-        if (pluginHookManager != null) {
+        if (this.pluginHookManager != null) {
             this.pluginHookManager.unhook();
+        }
+        if (this.bungeeCordManager != null) {
+            this.bungeeCordManager.close();
         }
         if (this.cacheManager != null) {
             this.cacheManager.close();
@@ -81,10 +88,11 @@ public final class Main extends JavaPlugin {
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
 
+        this.pluginHookManager = null;
+        this.bungeeCordManager = null;
         this.taskManager = null;
         this.listenerManager = null;
         this.commandManager = null;
-        this.pluginHookManager = null;
         this.bStatsManager = null;
         this.cacheManager = null;
         this.databaseManager = null;
