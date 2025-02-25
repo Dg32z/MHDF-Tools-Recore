@@ -27,6 +27,11 @@ public final class WarpData extends AbstractDao {
     private Float yaw;
     @DatabaseField(canBeNull = false)
     private Float pitch;
+    public WarpData() {
+        super(
+                "warpSettings.enable"
+        );
+    }
 
     /**
      * 转换为群组位置实例

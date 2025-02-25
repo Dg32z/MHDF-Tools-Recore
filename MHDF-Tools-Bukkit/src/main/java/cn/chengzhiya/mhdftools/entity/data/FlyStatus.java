@@ -18,4 +18,9 @@ public final class FlyStatus extends AbstractDao {
     private boolean isEnable;
     @DatabaseField(canBeNull = false)
     private long time;
+    public FlyStatus() {
+        super(
+                "flySettings.enable"
+        );
+    }
 }

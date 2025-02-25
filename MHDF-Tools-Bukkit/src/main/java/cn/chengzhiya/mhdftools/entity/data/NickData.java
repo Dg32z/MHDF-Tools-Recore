@@ -16,4 +16,9 @@ public final class NickData extends AbstractDao {
     private UUID player;
     @DatabaseField
     private String nick;
+    public NickData() {
+        super(
+                "nickSettings.enable"
+        );
+    }
 }

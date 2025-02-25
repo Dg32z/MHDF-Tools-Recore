@@ -127,7 +127,9 @@ public final class DatabaseManager implements Init {
             for (Class<? extends AbstractDao> clazz : reflections.getSubTypesOf(AbstractDao.class)) {
                 if (!Modifier.isAbstract(clazz.getModifiers())) {
                     AbstractDao abstractDao = clazz.getDeclaredConstructor().newInstance();
-                    TableUtils.createTableIfNotExists(this.connectionSource, abstractDao.getClass());
+                    if (abstractDao.isEnable()) {
+                        TableUtils.createTableIfNotExists(this.connectionSource, abstractDao.getClass());
+                    }
                 }
             }
         } catch (Exception e) {
