@@ -11,6 +11,8 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public final class LibrariesManager implements Init {
+    public static final List<Dependency> DEPENDENCIES = List.of(Dependency.ASM, Dependency.ASM_COMMONS, Dependency.JAR_RELOCATOR);
+
     /**
      * 下载并加载所有所需依赖
      */
@@ -20,6 +22,9 @@ public final class LibrariesManager implements Init {
                 new ReflectionClassPathAppender(Main.class.getClassLoader())
         );
 
+        dependencyManager.downloadDependencies(List.of(Dependency.values()));
+        dependencyManager.loadDependencies(DEPENDENCIES); // 加载remap依赖
+        dependencyManager.init();
         dependencyManager.loadDependencies(List.of(Dependency.values()));
     }
 }
