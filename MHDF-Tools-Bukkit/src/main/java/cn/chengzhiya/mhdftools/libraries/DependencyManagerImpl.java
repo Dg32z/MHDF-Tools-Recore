@@ -11,16 +11,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 public final class DependencyManagerImpl implements DependencyManager {
+    private static final String RELOCATION_PREFIX = "cn.chengzhiya.mhdftools.libraries.";
     private final Path dependenciesFolder;
     private final ClassPathAppender classPathAppender;
     private final EnumMap<Dependency, Path> loaded = new EnumMap<>(Dependency.class);
+    public JarRelocator jarRelocator;
 
     public DependencyManagerImpl(ClassPathAppender classPathAppender) {
         this.dependenciesFolder = setupDependenciesFolder();
         this.classPathAppender = classPathAppender;
+        this.jarRelocator = null;
+    }
+
+    /**
+     * 初始化 JarRelocator
+     */
+    public void init() {
+        jarRelocator = new JarRelocator();
     }
 
     /**
@@ -37,6 +48,37 @@ public final class DependencyManagerImpl implements DependencyManager {
         }
         return file.toPath();
     }
+
+    /**
+     * 下载指定依赖信息实例列表对应的全部依赖
+     * @param dependencies 依赖信息实例列表
+     */
+    @Override
+    public void downloadDependencies(Collection<Dependency> dependencies) {
+        CountDownLatch latch = new CountDownLatch(dependencies.size());
+
+        for (Dependency dependency : dependencies) {
+            if (this.loaded.containsKey(dependency)) {
+                latch.countDown();
+                continue;
+            }
+
+            try {
+                downloadDependency(dependency);
+            } catch (Throwable e) {
+                throw new RuntimeException("无法下载依赖 " + dependency, e);
+            } finally {
+                latch.countDown();
+            }
+        }
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
 
     /**
      * 加载指定依赖信息实例列表对应的全部依赖
@@ -79,7 +121,7 @@ public final class DependencyManagerImpl implements DependencyManager {
             return;
         }
 
-        Path file = downloadDependency(dependency);
+        Path file = remapDependency(dependency);
 
         this.loaded.put(dependency, file);
 
@@ -92,21 +134,62 @@ public final class DependencyManagerImpl implements DependencyManager {
      * 下载指定依赖信息实例对应的依赖
      *
      * @param dependency 依赖信息实例
-     * @return 依赖的文件路径
      */
-    private Path downloadDependency(Dependency dependency) {
+    private void downloadDependency(Dependency dependency) {
         Path file = dependenciesFolder.resolve(dependency.getFileName());
 
         if (Files.exists(file)) {
-            return file;
+            return;
         }
 
         String fileName = dependency.getFileName();
         Repository repository = dependency.getRepository();
-
         Main.instance.getLogger().info("正在下载依赖 " + fileName + "(" + repository.getUrl() + dependency.getMavenRepoPath() + ")");
         repository.download(dependency, file);
-        Main.instance.getLogger().info("依赖 " + fileName + " 下载完成!");
-        return file;
+    }
+
+    /**
+     * 重定位依赖
+     * @param dependency 依赖信息实例
+     * @return 重定位后的依赖路径
+     */
+    private Path remapDependency(Dependency dependency) {
+        Path file = dependenciesFolder.resolve(dependency.getFileName());
+
+        if (Files.exists(getRelocatedPath(file))) {
+            return getRelocatedPath(file);
+        }
+
+        if (!isRelocatable(dependency)) {
+            return file;
+        }
+
+        try {
+            jarRelocator.remap(
+                    file.toFile(), getRelocatedPath(file).toFile(),
+                    Map.of(dependency.getGroupId(), RELOCATION_PREFIX + dependency.getGroupId())
+            );
+            return getRelocatedPath(file);
+        } catch (Exception e) {
+            throw new RuntimeException("重定位依赖失败: " + dependency.getFileName(), e);
+        }
+    }
+
+    /**
+     * 获取重定位后的依赖路径
+     * @param original 原始依赖路径
+     * @return 重定位后的依赖路径
+     */
+    private Path getRelocatedPath(Path original) {
+        return original.resolveSibling("relocated-" + original.getFileName());
+    }
+
+    /**
+     * 判断依赖是否需要重定位
+     * @param dependency 依赖信息实例
+     * @return 结果
+     */
+    public boolean isRelocatable(Dependency dependency) {
+        return !dependency.name().equals("JAR_RELOCATOR") && !dependency.name().equals("ASM") && !dependency.name().equals("ASM_COMMONS");
     }
 }

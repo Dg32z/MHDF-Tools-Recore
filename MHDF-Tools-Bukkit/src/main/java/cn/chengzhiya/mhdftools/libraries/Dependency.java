@@ -8,7 +8,7 @@ import java.util.Locale;
 public enum Dependency {
     // JSON处理
     FAST_JSON(
-            "com.alibaba",
+            "com{}alibaba",
             "fastjson",
             "1.2.83",
             Repository.MAVEN_CENTRAL_MIRROR
@@ -16,13 +16,13 @@ public enum Dependency {
 
     // 反射处理
     REFLECTIONS(
-            "org.reflections",
+            "org{}reflections",
             "reflections",
             "0.10.2",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     JAVASSITST(
-            "org.javassist",
+            "org{}javassist",
             "javassist",
             "3.28.0-GA",
             Repository.MAVEN_CENTRAL_MIRROR
@@ -30,19 +30,19 @@ public enum Dependency {
 
     // packetevents-api
     PACKETEVENTS_API(
-            "com.github.retrooper",
+            "com{}github{}retrooper",
             "packetevents-api",
             "2.6.0",
             Repository.CODE_MC
     ),
     PACKETEVENTS_NETTY_COMMON(
-            "com.github.retrooper",
+            "com{}github{}retrooper",
             "packetevents-netty-common",
             "2.6.0",
             Repository.CODE_MC
     ),
     PACKETEVENTS_SPIGOT(
-            "com.github.retrooper",
+            "com{}github{}retrooper",
             "packetevents-spigot",
             "2.6.0",
             Repository.CODE_MC
@@ -50,7 +50,7 @@ public enum Dependency {
 
     // item-nbt-api
     ITEM_NBT_API(
-            "de.tr7zw",
+            "de{}tr7zw",
             "item-nbt-api",
             "2.14.1",
             Repository.CODE_MC
@@ -58,31 +58,31 @@ public enum Dependency {
 
     // 数据库
     ORMLITE_CORE(
-            "com.j256.ormlite",
+            "com{}j256{}ormlite",
             "ormlite-core",
             "6.1",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ORMLITE_JDBC(
-            "com.j256.ormlite",
+            "com{}j256{}ormlite",
             "ormlite-jdbc",
             "6.1",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     HIKARI_CP(
-            "com.zaxxer",
+            "com{}zaxxer",
             "HikariCP",
             "6.1.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     H2_DRIVER(
-            "com.h2database",
+            "com{}h2database",
             "h2",
             "2.3.232",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     MYSQL_DRIVER(
-            "com.mysql",
+            "com{}mysql",
             "mysql-connector-j",
             "9.1.0",
             Repository.MAVEN_CENTRAL_MIRROR
@@ -90,7 +90,7 @@ public enum Dependency {
 
     // redis
     LETTUCE_CORE(
-            "io.lettuce",
+            "io{}lettuce",
             "lettuce-core",
             "6.5.3.RELEASE",
             Repository.MAVEN_CENTRAL_MIRROR
@@ -98,81 +98,103 @@ public enum Dependency {
 
     // adventure-api
     EXAMINATION_API(
-            "net.kyori",
+            "net{}kyori",
             "examination-api",
             "1.3.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     EXAMINATION_STRING(
-            "net.kyori",
+            "net{}kyori",
             "examination-string",
             "1.3.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_KEY(
-            "net.kyori",
+            "net{}kyori",
             "adventure-key",
             "4.17.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_API(
-            "net.kyori",
+            "net{}kyori",
             "adventure-api",
             "4.17.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_LEGACY(
-            "net.kyori",
+            "net{}kyori",
             "adventure-text-serializer-legacy",
             "4.13.1",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON(
-            "net.kyori",
+            "net{}kyori",
             "adventure-text-serializer-gson",
             "4.13.1",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL(
-            "net.kyori",
+            "net{}kyori",
             "adventure-text-serializer-gson-legacy-impl",
             "4.13.1",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_BUNGEECORD(
-            "net.kyori",
+            "net{}kyori",
             "adventure-text-serializer-bungeecord",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_NBT(
-            "net.kyori",
+            "net{}kyori",
             "adventure-nbt",
             "4.13.1",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_PLATFORM_API(
-            "net.kyori",
+            "net{}kyori",
             "adventure-platform-api",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_PLATFORM_FACET(
-            "net.kyori",
+            "net{}kyori",
             "adventure-platform-facet",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_PLATFORM_VIAVERSION(
-            "net.kyori",
+            "net{}kyori",
             "adventure-platform-viaversion",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_PLATFORM_BUKKIT(
-            "net.kyori",
+            "net{}kyori",
             "adventure-platform-bukkit",
             "4.3.4",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+
+    // remap必要依赖
+    ASM(
+            "org{}ow2{}asm",
+            "asm",
+            "9.7.1",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+
+    ASM_COMMONS(
+            "org{}ow2{}asm",
+            "asm-commons",
+            "9.7.1",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+
+    JAR_RELOCATOR(
+            "me{}lucko",
+            "jar-relocator",
+            "1.7",
             Repository.MAVEN_CENTRAL_MIRROR
     );
 
@@ -182,15 +204,18 @@ public enum Dependency {
     private final Repository repository;
     @Getter
     private final String mavenRepoPath;
+    @Getter
+    private final String groupId;
 
     Dependency(@NotNull String groupId, @NotNull String artifactId, @NotNull String version, @NotNull Repository repository) {
         this.mavenRepoPath = String.format("%s/%s/%s/%s-%s.jar",
-                groupId.replace(".", "/"),
+                groupId.replace("{}", ".").replace(".", "/"),
                 artifactId,
                 version,
                 artifactId,
                 version
         );
+        this.groupId = groupId.replace("{}", ".");
         this.version = version;
         this.repository = repository;
         this.artifact = artifactId;
