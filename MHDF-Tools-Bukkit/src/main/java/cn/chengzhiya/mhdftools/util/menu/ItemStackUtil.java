@@ -9,11 +9,35 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public final class ItemStackUtil {
+    /**
+     * 获取随机床空间ID实例
+     *
+     * @return 空间ID实例
+     */
+    public static Material getRandomBed() {
+        List<Material> bedList = Arrays.asList(
+                Material.BLACK_BED,
+                Material.BLUE_BED,
+                Material.BROWN_BED,
+                Material.CYAN_BED,
+                Material.GREEN_BED,
+                Material.LIGHT_BLUE_BED,
+                Material.LIGHT_GRAY_BED,
+                Material.MAGENTA_BED,
+                Material.ORANGE_BED,
+                Material.LIME_BED,
+                Material.PINK_BED,
+                Material.PURPLE_BED,
+                Material.RED_BED,
+                Material.WHITE_BED,
+                Material.YELLOW_BED
+        );
+        return bedList.get(new Random().nextInt(bedList.size()));
+    }
+
     /**
      * 构建物品实例
      *
@@ -48,7 +72,9 @@ public final class ItemStackUtil {
             meta.setOwningPlayer(Bukkit.getOfflinePlayer(playerName));
 
             item.setItemMeta(meta);
-        } else {
+        } else if (type.equals("random_bed")) {
+            item = new ItemStack(getRandomBed());
+        }else {
             item = new ItemStack(Objects.requireNonNull(Material.matchMaterial(type)));
         }
 
