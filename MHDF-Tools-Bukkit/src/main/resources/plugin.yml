@@ -5,3 +5,72 @@ api-version: '1.20'
 folia-supported: true
 authoendrs: [ BaiShenYao_Dog, Dg32z_, Araykal ]
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
+permissions:
+  mhdftools.commands.back:
+    default: true
+  mhdftools.commands.bed:
+    default: true
+  mhdftools.commands.crash:
+    default: op
+  mhdftools.commands.custommenu:
+    default: op
+  mhdftools.commands.delhome:
+    default: true
+  mhdftools.commands.delwarp:
+    default: op
+  mhdftools.commands.fly:
+    default: op
+  mhdftools.commands.fly.infinite:
+    default: op
+  mhdftools.commands.fly.give:
+    default: op
+  mhdftools.commands.flytime:
+    default: op
+  mhdftools.commands.gamemode:
+    default: op
+  mhdftools.commands.gamemode.give:
+    default: op
+  mhdftools.commands.home:
+    default: true
+  mhdftools.commands.ip:
+    default: op
+  mhdftools.commands.knockback:
+    default: op
+  mhdftools.commands.list:
+    default: true
+  mhdftools.commands.mhdftools:
+    default: op
+  mhdftools.commands.money:
+    default: true
+  mhdftools.commands.money.other:
+    default: op
+  mhdftools.commands.moneyadmin:
+    default: op
+  mhdftools.commands.nick:
+    default: op
+  mhdftools.commands.nick.give:
+    default: op
+  mhdftools.commands.pay:
+    default: true
+  mhdftools.commands.sethome:
+    default: true
+  mhdftools.commands.setspawn:
+    default: op
+  mhdftools.commands.setwarp:
+    default: op
+  mhdftools.commands.spawn:
+    default: true
+  mhdftools.commands.stop:
+    default: op
+  mhdftools.commands.suicide:
+    default: op
+  mhdftools.commands.tpa:
+    default: true
+  mhdftools.commands.tpahere:
+    default: true
+  mhdftools.commands.tpback:
+    default: true
+  mhdftools.commands.vanish:
+    default: op
+  mhdftools.commands.warp:
+    default: true
