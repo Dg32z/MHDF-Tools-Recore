@@ -95,6 +95,18 @@ public enum Dependency {
             "6.5.3.RELEASE",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
+    REACTOR_CORE(
+            "io.projectreactor",
+            "reactor-core",
+            "3.6.6",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    REACTIVE_STREAMS(
+            "org.reactivestreams",
+            "reactive-streams",
+            "1.0.4",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
 
     // adventure-api
     EXAMINATION_API(
