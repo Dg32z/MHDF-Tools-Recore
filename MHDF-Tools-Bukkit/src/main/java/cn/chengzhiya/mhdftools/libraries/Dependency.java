@@ -44,7 +44,7 @@ public enum Dependency {
     PACKETEVENTS_SPIGOT(
             "com{}github{}retrooper",
             "packetevents-spigot",
-            "2.6.0",
+            "2.7.0",
             Repository.CODE_MC
     ),
 
