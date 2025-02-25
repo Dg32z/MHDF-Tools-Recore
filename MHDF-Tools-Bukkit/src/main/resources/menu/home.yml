@@ -40,7 +40,7 @@ items:
     # random_bed               ——随机颜色的床
     type: random_bed
     # 名称
-    name: "&e{home}"
+    name: "&e{name}"
     # 简介
     lore:
       - "&b服务器: {server}"

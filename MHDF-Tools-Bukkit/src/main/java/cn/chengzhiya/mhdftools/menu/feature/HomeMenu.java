@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.menu.fastuse;
+package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
@@ -63,9 +63,10 @@ public final class HomeMenu extends AbstractMenu {
                 continue;
             }
 
-            int start = (page - 1) * homeSize;
-            int end = page * homeSize;
             List<HomeData> homeList = HomeDataUtil.getHomeDataList(getPlayer());
+            int start = (page - 1) * homeSize;
+            int maxEnd = page * homeSize;
+            int end = Math.min(homeList.size(), maxEnd);
 
             String type = itemConfig.getString("type");
             String name = itemConfig.getString("name");
@@ -112,7 +113,7 @@ public final class HomeMenu extends AbstractMenu {
                     }
                 }
                 case "下一页" -> {
-                    if (homeList.size() <= end) {
+                    if (homeList.size() <= maxEnd) {
                         continue;
                     }
                 }

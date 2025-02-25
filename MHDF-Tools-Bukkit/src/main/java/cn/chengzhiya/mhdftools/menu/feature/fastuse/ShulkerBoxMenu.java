@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.menu.fastuse;
+package cn.chengzhiya.mhdftools.menu.feature.fastuse;
 
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;

@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.menu.fastuse.ShulkerBoxMenu;
+import cn.chengzhiya.mhdftools.menu.feature.fastuse.ShulkerBoxMenu;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

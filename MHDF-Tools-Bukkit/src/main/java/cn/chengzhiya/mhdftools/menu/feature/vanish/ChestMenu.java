@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.menu.fastuse.vanish;
+package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;

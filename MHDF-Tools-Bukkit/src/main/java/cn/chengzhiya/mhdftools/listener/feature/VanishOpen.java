@@ -2,9 +2,9 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.menu.fastuse.vanish.BarrelMenu;
-import cn.chengzhiya.mhdftools.menu.fastuse.vanish.ChestMenu;
-import cn.chengzhiya.mhdftools.menu.fastuse.vanish.ShulkerBoxMenu;
+import cn.chengzhiya.mhdftools.menu.feature.vanish.BarrelMenu;
+import cn.chengzhiya.mhdftools.menu.feature.vanish.ChestMenu;
+import cn.chengzhiya.mhdftools.menu.feature.vanish.ShulkerBoxMenu;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;

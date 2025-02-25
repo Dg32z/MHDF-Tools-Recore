@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
-import cn.chengzhiya.mhdftools.menu.fastuse.HomeMenu;
+import cn.chengzhiya.mhdftools.menu.feature.HomeMenu;
 import cn.chengzhiya.mhdftools.util.BungeeCordUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
