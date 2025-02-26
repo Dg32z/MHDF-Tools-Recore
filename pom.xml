@@ -19,6 +19,7 @@
     <modules>
         <module>MHDF-Tools-Bukkit</module>
         <module>MHDF-Tools-Bungee</module>
+        <module>MHDF-Tools-Velocity</module>
     </modules>
 
     <repositories>
