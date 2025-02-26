@@ -70,14 +70,6 @@
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.com.zaxxer</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>com.h2database</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.h2database</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.mysql</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.mysql</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>io.lettuce</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.io.lettuce</shadedPattern>
                                 </relocation>

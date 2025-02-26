@@ -195,6 +195,10 @@ public final class DependencyManagerImpl implements DependencyManager {
      * @return 结果
      */
     public boolean isRelocatable(Dependency dependency) {
-        return !dependency.name().equals("JAR_RELOCATOR") && !dependency.name().equals("ASM") && !dependency.name().equals("ASM_COMMONS");
+        return dependency != Dependency.JAR_RELOCATOR &&
+                dependency != Dependency.ASM &&
+                dependency != Dependency.ASM_COMMONS &&
+                dependency != Dependency.H2_DRIVER &&
+                dependency != Dependency.MYSQL_DRIVER;
     }
 }

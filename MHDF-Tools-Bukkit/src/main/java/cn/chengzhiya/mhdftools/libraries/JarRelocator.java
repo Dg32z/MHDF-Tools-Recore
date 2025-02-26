@@ -30,7 +30,6 @@ public final class JarRelocator {
      * @param input       需要处理的目标JAR文件对象
      * @param output      重定位后生成的JAR文件对象
      * @param relocations 类路径重定位映射规则，键为原始路径，值为目标路径
-     * @throws Exception 可能抛出的反射操作异常或文件操作异常
      */
     public void remap(File input, File output, Map<String, String> relocations) throws Exception {
         this.jarRelocatorRunMethod.invoke(
