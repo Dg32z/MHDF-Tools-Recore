@@ -23,7 +23,7 @@ public final class MoneyAdmin extends AbstractCommand {
                 "经济管理",
                 "mhdftools.commands.moneyadmin",
                 false,
-                ConfigUtil.getConfig().getStringList("economySettings.moneyAdminCommands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("economySettings.moneyadminCommands").toArray(new String[0])
         );
     }
 
