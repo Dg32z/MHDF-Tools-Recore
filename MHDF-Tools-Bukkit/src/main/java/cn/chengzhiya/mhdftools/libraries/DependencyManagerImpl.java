@@ -159,12 +159,12 @@ public final class DependencyManagerImpl implements DependencyManager {
     private Path remapDependency(Dependency dependency) {
         Path file = dependenciesFolder.resolve(dependency.getFileName());
 
-        if (Files.exists(getRelocatedPath(file))) {
-            return getRelocatedPath(file);
-        }
-
         if (!isRelocatable(dependency)) {
             return file;
+        }
+
+        if (Files.exists(getRelocatedPath(file))) {
+            return getRelocatedPath(file);
         }
 
         try {
@@ -199,6 +199,8 @@ public final class DependencyManagerImpl implements DependencyManager {
                 dependency != Dependency.ASM &&
                 dependency != Dependency.ASM_COMMONS &&
                 dependency != Dependency.H2_DRIVER &&
-                dependency != Dependency.MYSQL_DRIVER;
+                dependency != Dependency.MYSQL_DRIVER &&
+                dependency != Dependency.REACTOR_CORE &&
+                dependency != Dependency.REACTIVE_STREAMS;
     }
 }
