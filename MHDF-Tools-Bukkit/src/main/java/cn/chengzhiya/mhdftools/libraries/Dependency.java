@@ -6,6 +6,26 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum Dependency {
+    // 依赖处理
+    ASM(
+            "org{}ow2{}asm",
+            "asm",
+            "9.7.1",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ASM_COMMONS(
+            "org{}ow2{}asm",
+            "asm-commons",
+            "9.7.1",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    JAR_RELOCATOR(
+            "me{}lucko",
+            "jar-relocator",
+            "1.7",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+
     // JSON处理
     FAST_JSON(
             "com{}alibaba",
@@ -96,13 +116,13 @@ public enum Dependency {
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     REACTOR_CORE(
-            "io.projectreactor",
+            "io{}projectreactor",
             "reactor-core",
             "3.6.6",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     REACTIVE_STREAMS(
-            "org.reactivestreams",
+            "org{}reactivestreams",
             "reactive-streams",
             "1.0.4",
             Repository.MAVEN_CENTRAL_MIRROR
@@ -185,28 +205,6 @@ public enum Dependency {
             "net{}kyori",
             "adventure-platform-bukkit",
             "4.3.4",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-
-    // remap必要依赖
-    ASM(
-            "org{}ow2{}asm",
-            "asm",
-            "9.7.1",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-
-    ASM_COMMONS(
-            "org{}ow2{}asm",
-            "asm-commons",
-            "9.7.1",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-
-    JAR_RELOCATOR(
-            "me{}lucko",
-            "jar-relocator",
-            "1.7",
             Repository.MAVEN_CENTRAL_MIRROR
     );
 
