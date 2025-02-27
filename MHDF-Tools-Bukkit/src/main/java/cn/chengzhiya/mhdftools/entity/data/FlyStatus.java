@@ -12,16 +12,16 @@ import java.util.UUID;
 @Setter
 @DatabaseTable(tableName = "mhdftools_fly")
 public final class FlyStatus extends AbstractDao {
+    public FlyStatus() {
+        super(
+                "flySettings.enable"
+        );
+    }
+
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
     @DatabaseField(canBeNull = false)
     private boolean isEnable;
     @DatabaseField(canBeNull = false)
     private long time;
-
-    public FlyStatus() {
-        super(
-                "flySettings.enable"
-        );
-    }
 }

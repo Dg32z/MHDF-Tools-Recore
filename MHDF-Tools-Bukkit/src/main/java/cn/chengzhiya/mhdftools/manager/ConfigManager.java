@@ -16,7 +16,7 @@ public final class ConfigManager implements Init {
             FileUtil.createFolder(ConfigUtil.getDataFolder());
 
             ConfigUtil.saveDefaultConfig();
-            ConfigUtil.saveDefaultConfig();
+            ConfigUtil.reloadConfig();
 
             LangUtil.saveDefaultLang();
             LangUtil.reloadLang();

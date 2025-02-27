@@ -12,14 +12,14 @@ import java.util.UUID;
 @Setter
 @DatabaseTable(tableName = "mhdftools_vanish")
 public final class VanishStatus extends AbstractDao {
-    @DatabaseField(id = true, canBeNull = false)
-    private UUID player;
-    @DatabaseField(canBeNull = false)
-    private boolean isEnable;
-
     public VanishStatus() {
         super(
                 "vanishSettings.enable"
         );
     }
+
+    @DatabaseField(id = true, canBeNull = false)
+    private UUID player;
+    @DatabaseField(canBeNull = false)
+    private boolean isEnable;
 }

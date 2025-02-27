@@ -13,6 +13,12 @@ import java.util.UUID;
 @Setter
 @DatabaseTable(tableName = "mhdftools_home")
 public final class HomeData extends AbstractDao {
+    public HomeData() {
+        super(
+                "homeSettings.enable"
+        );
+    }
+
     @DatabaseField(generatedId = true, canBeNull = false)
     private Integer id;
     @DatabaseField(canBeNull = false)
@@ -33,12 +39,6 @@ public final class HomeData extends AbstractDao {
     private Float yaw;
     @DatabaseField(canBeNull = false)
     private Float pitch;
-
-    public HomeData() {
-        super(
-                "homeSettings.enable"
-        );
-    }
 
     /**
      * 转换为群组位置实例

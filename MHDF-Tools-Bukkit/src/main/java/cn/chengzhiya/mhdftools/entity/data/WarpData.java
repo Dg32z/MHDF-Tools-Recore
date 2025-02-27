@@ -11,6 +11,12 @@ import lombok.Setter;
 @Setter
 @DatabaseTable(tableName = "mhdftools_warp")
 public final class WarpData extends AbstractDao {
+    public WarpData() {
+        super(
+                "warpSettings.enable"
+        );
+    }
+
     @DatabaseField(id = true, canBeNull = false)
     private String warp;
     @DatabaseField(canBeNull = false)
@@ -27,12 +33,6 @@ public final class WarpData extends AbstractDao {
     private Float yaw;
     @DatabaseField(canBeNull = false)
     private Float pitch;
-
-    public WarpData() {
-        super(
-                "warpSettings.enable"
-        );
-    }
 
     /**
      * 转换为群组位置实例
