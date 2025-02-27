@@ -1,13 +1,28 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.entity.data.EconomyData;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public final class EconomyUtil {
+    /**
+     * 获取货币名称
+     *
+     * @return 货币名称
+     */
+    public static String getMoneyName() {
+        String name = ConfigUtil.getConfig().getString("economySettings.name");
+        if (name == null) {
+            return null;
+        }
+        return ColorUtil.color(name);
+    }
+
     /**
      * 获取指定玩家UUID的经济实例
      *

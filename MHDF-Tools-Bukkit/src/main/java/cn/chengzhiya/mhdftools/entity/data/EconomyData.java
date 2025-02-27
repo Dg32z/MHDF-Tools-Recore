@@ -17,6 +17,7 @@ public final class EconomyData extends AbstractDao {
     private UUID player;
     @DatabaseField(format = "20,2", canBeNull = false)
     private BigDecimal bigDecimal;
+
     public EconomyData() {
         super(
                 "economySettings.enable"

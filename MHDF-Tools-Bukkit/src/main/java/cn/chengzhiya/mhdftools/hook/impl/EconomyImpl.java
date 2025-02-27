@@ -6,7 +6,6 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -56,11 +55,7 @@ public final class EconomyImpl extends AbstractEconomy {
     }
 
     public String currencyNameSingular() {
-        String name = ConfigUtil.getConfig().getString("economySettings.name");
-        if (name == null) {
-            return null;
-        }
-        return ColorUtil.color(name);
+        return EconomyUtil.getMoneyName();
     }
 
     @Override

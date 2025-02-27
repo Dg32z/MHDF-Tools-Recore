@@ -24,6 +24,9 @@ public final class VaultHook extends AbstractHook {
      */
     @Override
     public void unhook() {
+        if (this.api != null) {
+            getApi().unhook();
+        }
         this.api = null;
         super.enable = false;
     }
