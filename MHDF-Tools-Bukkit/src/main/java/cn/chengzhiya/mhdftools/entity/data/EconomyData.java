@@ -13,14 +13,13 @@ import java.util.UUID;
 @Setter
 @DatabaseTable(tableName = "mhdftools_economy")
 public final class EconomyData extends AbstractDao {
+    @DatabaseField(id = true, canBeNull = false)
+    private UUID player;
+    @DatabaseField(format = "20,2", canBeNull = false)
+    private BigDecimal bigDecimal;
     public EconomyData() {
         super(
                 "economySettings.enable"
         );
     }
-
-    @DatabaseField(id = true, canBeNull = false)
-    private UUID player;
-    @DatabaseField(format = "20,2", canBeNull = false)
-    private BigDecimal bigDecimal;
 }

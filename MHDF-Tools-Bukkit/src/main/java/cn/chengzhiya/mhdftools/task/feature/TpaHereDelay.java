@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.task.AbstractTask;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings("unused")
 public final class TpaHereDelay extends AbstractTask {
     public TpaHereDelay() {
         super(

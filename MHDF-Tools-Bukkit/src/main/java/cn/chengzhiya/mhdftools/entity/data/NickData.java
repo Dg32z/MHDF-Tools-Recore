@@ -12,14 +12,13 @@ import java.util.UUID;
 @Setter
 @DatabaseTable(tableName = "mhdftools_nick")
 public final class NickData extends AbstractDao {
+    @DatabaseField(id = true, canBeNull = false)
+    private UUID player;
+    @DatabaseField
+    private String nick;
     public NickData() {
         super(
                 "nickSettings.enable"
         );
     }
-
-    @DatabaseField(id = true, canBeNull = false)
-    private UUID player;
-    @DatabaseField
-    private String nick;
 }
