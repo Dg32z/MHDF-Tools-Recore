@@ -1,7 +1,9 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -20,8 +22,14 @@ public final class QuitMessage extends AbstractListener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         String message = ConfigUtil.getConfig().getString("quitMessageSettings." + getGroup(player) + ".message");
+        if (message == null) {
+            event.setQuitMessage(null);
+            return;
+        }
 
-        event.setQuitMessage(message);
+        event.setQuitMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
+                .replace("{player}", player.getName())
+        );
     }
 
     /**
