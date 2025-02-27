@@ -222,7 +222,6 @@ public final class BungeeCordManager implements Init {
      */
     public List<String> getPlayerList() {
         if (isBungeeCordMode()) {
-            updateBungeeCordPlayerList();
             return getBungeeCordPlayerList();
         }
 
