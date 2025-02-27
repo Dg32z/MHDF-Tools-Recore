@@ -11,7 +11,7 @@ public final class BStatsManager implements Init {
     @Override
     public void init() {
         if (ConfigUtil.getConfig().getBoolean("bStats")) {
-            new Metrics(17154);
+            new Metrics(24887);
         }
     }
 }
