@@ -213,6 +213,11 @@ commands:
     description: "回到床的位置"
     noSleep: "{prefix} &c找不到你床的位置!"
     message: "{prefix} &6你回到了床的旁边!"
+  hat:
+    usage: "/{command}"
+    description: "帽子"
+    noItem: "{prefix} &c手上必须要有物品!"
+    message: "{prefix} &6快看看你的新帽子!"
   suicide:
     usage: "/{command}"
     description: "自杀"
