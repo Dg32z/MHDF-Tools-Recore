@@ -2,6 +2,8 @@ package cn.chengzhiya.mhdftools.listener.misc;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.runnable.MHDFRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,12 +23,24 @@ public final class TpPlayer extends AbstractListener {
             return;
         }
 
-        Main.instance.getCacheManager().remove(player.getName() + "_tpPlayer");
-        Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
-        if (targetPlayer == null) {
+        MHDFRunnable runnable = new MHDFRunnable() {
+            @Override
+            public void run() {
+                Main.instance.getCacheManager().remove(player.getName() + "_tpPlayer");
+                Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
+                if (targetPlayer == null) {
+                    return;
+                }
+
+                player.teleport(targetPlayer);
+            }
+        };
+
+        if (!ConfigUtil.getConfig().getBoolean("bungeeCordSettings.teleportDelay.enable")) {
+            runnable.run();
             return;
         }
 
-        player.teleport(targetPlayer);
+        runnable.runTaskLater(Main.instance, ConfigUtil.getConfig().getInt("bungeeCordSettings.teleportDelay.delay"));
     }
 }

@@ -3,6 +3,8 @@ package cn.chengzhiya.mhdftools.listener.misc;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.runnable.MHDFRunnable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,12 +23,24 @@ public final class TpLocation extends AbstractListener {
             return;
         }
 
-        Main.instance.getCacheManager().remove(player.getName() + "_tpLocation");
-        BungeeCordLocation tpLocation = new BungeeCordLocation(tpLocationBase64);
-        if (tpLocation.getServer().equals(Main.instance.getBungeeCordManager().getServerName())) {
+        MHDFRunnable runnable = new MHDFRunnable() {
+            @Override
+            public void run() {
+                Main.instance.getCacheManager().remove(player.getName() + "_tpLocation");
+                BungeeCordLocation tpLocation = new BungeeCordLocation(tpLocationBase64);
+                if (!tpLocation.getServer().equals(Main.instance.getBungeeCordManager().getServerName())) {
+                    return;
+                }
+
+                player.teleport(tpLocation.toLocation());
+            }
+        };
+
+        if (!ConfigUtil.getConfig().getBoolean("bungeeCordSettings.teleportDelay.enable")) {
+            runnable.run();
             return;
         }
 
-        player.teleport(tpLocation.toLocation());
+        runnable.runTaskLater(Main.instance, ConfigUtil.getConfig().getInt("bungeeCordSettings.teleportDelay.delay"));
     }
 }

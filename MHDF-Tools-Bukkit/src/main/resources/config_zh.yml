@@ -34,6 +34,12 @@ bStats: true
 bungeeCordSettings:
   # 开关
   enable: false
+  # 传送延迟
+  teleportDelay:
+    # 开关
+    enable: false
+    # 延迟(单位: Tick)
+    delay: 5
 
 # 数据库设置
 databaseSettings:

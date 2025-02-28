@@ -129,52 +129,16 @@ public enum Dependency {
     ),
 
     // adventure-api
-    EXAMINATION_API(
-            "net{}kyori",
-            "examination-api",
-            "1.3.0",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    EXAMINATION_STRING(
-            "net{}kyori",
-            "examination-string",
-            "1.3.0",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    ADVENTURE_KEY(
-            "net{}kyori",
-            "adventure-key",
-            "4.17.0",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
     ADVENTURE_API(
             "net{}kyori",
             "adventure-api",
             "4.17.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
-    ADVENTURE_TEXT_SERIALIZER_LEGACY(
+    ADVENTURE_KEY(
             "net{}kyori",
-            "adventure-text-serializer-legacy",
-            "4.13.1",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    ADVENTURE_TEXT_SERIALIZER_GSON(
-            "net{}kyori",
-            "adventure-text-serializer-gson",
-            "4.13.1",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL(
-            "net{}kyori",
-            "adventure-text-serializer-gson-legacy-impl",
-            "4.13.1",
-            Repository.MAVEN_CENTRAL_MIRROR
-    ),
-    ADVENTURE_TEXT_SERIALIZER_BUNGEECORD(
-            "net{}kyori",
-            "adventure-text-serializer-bungeecord",
-            "4.3.4",
+            "adventure-key",
+            "4.17.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_NBT(
@@ -186,6 +150,12 @@ public enum Dependency {
     ADVENTURE_PLATFORM_API(
             "net{}kyori",
             "adventure-platform-api",
+            "4.3.4",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_PLATFORM_BUKKIT(
+            "net{}kyori",
+            "adventure-platform-bukkit",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
@@ -201,10 +171,82 @@ public enum Dependency {
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
-    ADVENTURE_PLATFORM_BUKKIT(
+    ADVENTURE_TEXT_LOGGER_SLF4J(
             "net{}kyori",
-            "adventure-platform-bukkit",
+            "adventure-text-logger-slf4j",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_MINIMESSAGE(
+            "net{}kyori",
+            "adventure-text-minimessage",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_ANSI(
+            "net{}kyori",
+            "adventure-text-serializer-ansi",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_BUNGEECORD(
+            "net{}kyori",
+            "adventure-text-serializer-bungeecord",
             "4.3.4",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_GSON(
+            "net{}kyori",
+            "adventure-text-serializer-gson",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL(
+            "net{}kyori",
+            "adventure-text-serializer-gson-legacy-impl",
+            "4.13.1",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_JSON(
+            "net{}kyori",
+            "adventure-text-serializer-json",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_LEGACY(
+            "net{}kyori",
+            "adventure-text-serializer-legacy",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ADVENTURE_TEXT_SERIALIZER_PLAIN(
+            "net{}kyori",
+            "adventure-text-serializer-plain",
+            "4.17.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    ANSI(
+            "net{}kyori",
+            "ansi",
+            "1.0.3",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    EXAMINATION_API(
+            "net{}kyori",
+            "examination-api",
+            "1.3.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    EXAMINATION_STRING(
+            "net{}kyori",
+            "examination-string",
+            "1.3.0",
+            Repository.MAVEN_CENTRAL_MIRROR
+    ),
+    OPTION(
+            "net{}kyori",
+            "option",
+            "1.0.0",
             Repository.MAVEN_CENTRAL_MIRROR
     );
 
