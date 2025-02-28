@@ -111,13 +111,15 @@ public final class BungeeCordManager implements Init {
      * @param playerName 被传送的玩家ID
      * @param targetName 传送到的玩家ID
      */
-    public void teleportPlayerServer(String playerName, String targetName) {
+    public void teleportPlayer(String playerName, String targetName) {
         Player player = Bukkit.getPlayer(playerName);
         Player target = Bukkit.getPlayer(targetName);
         if (player != null && target != null) {
             player.teleport(target);
             return;
         }
+
+        Main.instance.getCacheManager().put(playerName + "_tpPlayer", targetName);
 
         JSONObject data = new JSONObject();
         data.put("action", "teleportPlayer");

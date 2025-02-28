@@ -47,12 +47,12 @@ public final class Tpa extends AbstractCommand {
         if (args.length == 2) {
             String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpPlayer");
             if (targetPlayerName == null) {
-                sender.sendMessage(LangUtil.i18n("commands.tpa.reject.noRequest"));
+                sender.sendMessage(LangUtil.i18n("commands.tpa.noRequest"));
                 return;
             }
 
-            if (!targetPlayerName.equals(sender.getName())) {
-                sender.sendMessage(LangUtil.i18n("commands.tpa.reject.noRequest"));
+            if (!targetPlayerName.equals(args[1])) {
+                sender.sendMessage(LangUtil.i18n("commands.tpa.noRequest"));
                 return;
             }
 
@@ -66,8 +66,7 @@ public final class Tpa extends AbstractCommand {
 
             switch (args[0]) {
                 case "accept" -> {
-                    Main.instance.getBungeeCordManager().teleportPlayerServer(args[1], sender.getName());
-                    Main.instance.getCacheManager().put(args[1] + "_tpPlayer", sender.getName());
+                    Main.instance.getBungeeCordManager().teleportPlayer(args[1], sender.getName());
                     Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpa.accept.accepted")
                             .replace("{player}", args[1])
                     );
