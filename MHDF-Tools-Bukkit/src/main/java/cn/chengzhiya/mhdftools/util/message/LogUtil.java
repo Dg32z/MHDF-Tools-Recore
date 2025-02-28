@@ -11,26 +11,26 @@ public final class LogUtil {
      * 日志消息
      *
      * @param message 内容
+     * @param args    参数
      */
-    public static void log(String message) {
+    public static void log(String message, String... args) {
+        for (Object var : args) {
+            message = message.replaceFirst("\\{}", var.toString());
+        }
         Bukkit.getConsoleSender().sendMessage(ColorUtil.color(CONSOLE_PREFIX + message));
     }
 
     /**
      * 调试消息
      *
-     * @param messages 内容
+     * @param message 内容
+     * @param args    参数
      */
-    public static void debug(String... messages) {
-        if (ConfigUtil.getConfig().getBoolean("debug")) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (String message : messages) {
-                stringBuilder.append(message);
-                if (!message.equals(messages[messages.length - 1])) {
-                    stringBuilder.append(" | ");
-                }
-            }
-            log(DEBUG_PREFIX + stringBuilder);
+    public static void debug(String message, String... args) {
+        if (!ConfigUtil.getConfig().getBoolean("debug")) {
+            return;
         }
+
+        log(DEBUG_PREFIX + message, args);
     }
 }

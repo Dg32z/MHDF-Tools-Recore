@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.listener;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -30,13 +31,22 @@ public final class PluginMessage implements PluginMessageListener {
                 case "mhdf_tools" -> {
                     JSONObject data = JSONObject.parseObject(in.readUTF());
 
+                    LogUtil.debug("收到来自群组端的梦之工具消息 | 消息: {}",
+                            data.toJSONString()
+                    );
+
                     String action = data.getString("action");
-                    String form = data.getString("form");
+                    String from = data.getString("from");
                     String to = data.getString("to");
                     JSONObject params = data.getJSONObject("params");
 
                     switch (action) {
-                        case "serverInfo" -> Main.instance.getBungeeCordManager().setServerName(form);
+                        case "serverInfo" -> {
+                            LogUtil.debug("更新服务器名称 | 名称: {}",
+                                    from
+                            );
+                            Main.instance.getBungeeCordManager().setServerName(from);
+                        }
                         case "sendMessage" -> {
                             String playerName = params.getString("playerName");
                             Player player = Bukkit.getPlayer(playerName);
@@ -48,6 +58,12 @@ public final class PluginMessage implements PluginMessageListener {
                             MessageType messageType = MessageType.valueOf(type);
 
                             String message = params.getString("message");
+                            LogUtil.debug("发送跨服消息 | 目标玩家: {} | 消息类型: {} | 消息: {}",
+                                    playerName,
+                                    type,
+                                    message
+                            );
+
                             switch (messageType) {
                                 case MINI_MESSAGE ->
                                         Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
@@ -61,15 +77,25 @@ public final class PluginMessage implements PluginMessageListener {
                                 return;
                             }
 
-                            GameMode gameMode = GameMode.valueOf(params.getString("gameMode"));
-                            player.setGameMode(gameMode);
+                            String gamemode = params.getString("gameMode");
+                            LogUtil.debug("修改跨服游戏模式 | 目标玩家: {} | 游戏模式: {}",
+                                    playerName,
+                                    gamemode
+                            );
+                            player.setGameMode(GameMode.valueOf(gamemode));
                         }
                     }
                 }
                 case "PlayerList" -> {
                     in.readUTF();
+                    String playerList = in.readUTF();
+
+                    LogUtil.debug("更新在线玩家列表 | 在线列表: {}",
+                            playerList
+                    );
+
                     Main.instance.getBungeeCordManager().getPlayerList().clear();
-                    Main.instance.getBungeeCordManager().getPlayerList().addAll(List.of(in.readUTF().split(", ")));
+                    Main.instance.getBungeeCordManager().getPlayerList().addAll(List.of(playerList.split(", ")));
                 }
             }
         } catch (IOException e) {

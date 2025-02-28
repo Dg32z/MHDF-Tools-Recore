@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.listener.PluginMessage;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -66,11 +67,17 @@ public final class BungeeCordManager implements Init {
      */
     public void sendPluginMessage(ByteArrayDataOutput out) {
         if (!isBungeeCordMode()) {
+            LogUtil.debug("发送插件消息失败 | 原因: {}",
+                    "未开启群组模式"
+            );
             return;
         }
 
         List<Player> playerList = new ArrayList<>(Bukkit.getOnlinePlayers());
         if (playerList.isEmpty()) {
+            LogUtil.debug("发送插件消息失败 | 原因: {}",
+                    "服务器没有玩家"
+            );
             return;
         }
 
@@ -86,6 +93,10 @@ public final class BungeeCordManager implements Init {
         if (data.getJSONObject("params") == null) {
             data.put("params", new JSONObject());
         }
+
+        LogUtil.debug("发送梦之工具插件消息至群组端 | 消息: {}",
+                data.toJSONString()
+        );
 
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("mhdf_tools");

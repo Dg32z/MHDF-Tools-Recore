@@ -66,10 +66,15 @@ items:
         # permission 当玩家拥有<权限>的这个权限时
         # hasItem 当玩家拥有<物品>的这个物品时
         type: "permission"
-        # 输入
-        # input: "%player_name%"
         # 权限
         permission: "mhdftools.橙汁の使用权"
+        # 输入
+        # input: "%player_name%"
+        # 输出
+        # output: 12345
+        # 不满足条件时的操作
+        denyActions:
+          - "[message]|&c哼,杂鱼,别想进来❤"
           # 物品
           # item:
           # 类型
@@ -87,11 +92,6 @@ items:
           # amount: 64
           # 自定义模型数据
           # customModelData: 12345
-          # 输出
-        # output: 12345
-        # 不满足条件时的操作
-        denyActions:
-          - "[message]|&c哼,杂鱼,别想进来❤"
     # 点击操作
     clickActions:
       - "[message]|&b欸？！怎么...么大❤会..会坏.❤.坏掉的吧..我错惹,别过来❤"
