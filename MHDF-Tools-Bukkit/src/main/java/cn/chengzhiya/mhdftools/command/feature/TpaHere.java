@@ -45,13 +45,13 @@ public final class TpaHere extends AbstractCommand {
             return;
         }
         if (args.length == 2) {
-            String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpPlayer");
+            String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpaherePlayer");
             if (targetPlayerName == null) {
                 sender.sendMessage(LangUtil.i18n("commands.tpahere.noRequest"));
                 return;
             }
 
-            if (!targetPlayerName.equals(args[1])) {
+            if (!targetPlayerName.equals(sender.getName())) {
                 sender.sendMessage(LangUtil.i18n("commands.tpahere.noRequest"));
                 return;
             }
