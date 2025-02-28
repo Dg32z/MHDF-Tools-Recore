@@ -77,7 +77,7 @@ public final class PluginMessage implements Listener {
                         return;
                     }
 
-                    player.connect(target.getReconnectServer());
+                    player.connect(target.getServer().getInfo());
                 }
                 default -> {
                     String to = data.getString("to");

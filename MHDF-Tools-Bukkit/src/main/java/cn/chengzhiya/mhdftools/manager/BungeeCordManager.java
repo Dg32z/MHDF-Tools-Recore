@@ -123,7 +123,6 @@ public final class BungeeCordManager implements Init {
 
         JSONObject data = new JSONObject();
         data.put("action", "teleportPlayer");
-        data.put("to", "all");
 
         JSONObject params = new JSONObject();
         params.put("playerName", playerName);
