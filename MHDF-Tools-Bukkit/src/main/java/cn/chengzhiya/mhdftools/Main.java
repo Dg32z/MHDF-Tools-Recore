@@ -85,7 +85,7 @@ public final class Main extends JavaPlugin {
         }
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
-        LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
+        LogUtil.log("&a插件卸载成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
 
         this.bungeeCordManager = null;
