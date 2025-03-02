@@ -30,14 +30,6 @@ public final class DatabaseManager implements Init {
     public void init() {
         String type = ConfigUtil.getConfig().getString("databaseSettings.type");
 
-        // 加载数据库驱动
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Class.forName("org.h2.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("数据库驱动加载失败");
-        }
-
         if (type == null) {
             throw new RuntimeException("数据库类型未设置");
         }
@@ -46,6 +38,12 @@ public final class DatabaseManager implements Init {
             // 初始化MySQL数据库的连接
             case "mysql" -> {
                 this.type = "mysql";
+
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException("数据库驱动加载失败");
+                }
 
                 databaseUrl = "jdbc:mysql://" +
                         ConfigUtil.getConfig().getString("databaseSettings.mysql.host") + "/" +
@@ -61,6 +59,12 @@ public final class DatabaseManager implements Init {
             // 初始化H2数据库的连接
             case "h2" -> {
                 this.type = "h2";
+
+                try {
+                    Class.forName("org.h2.Driver");
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException("数据库驱动加载失败");
+                }
 
                 String fileName = ConfigUtil.getConfig().getString("databaseSettings.h2.file");
                 File file = new File(ConfigUtil.getDataFolder(), Objects.requireNonNull(fileName));

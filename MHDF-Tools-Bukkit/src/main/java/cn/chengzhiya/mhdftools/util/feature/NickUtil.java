@@ -39,15 +39,15 @@ public final class NickUtil {
      */
     public static String getName(OfflinePlayer player) {
         // 不处理功能未开启的情况
-        if (ConfigUtil.getConfig().getBoolean("nickSettings.enable")) {
+        if (!ConfigUtil.getConfig().getBoolean("nickSettings.enable")) {
             return player.getName();
         }
 
-        String nickName = getNickName(player);
-        if (nickName == null) {
-            return player.getName();
-        }
-        return nickName;
+            String nickName = getNickName(player);
+            if (nickName == null) {
+                return player.getName();
+            }
+            return nickName;
     }
 
     /**
