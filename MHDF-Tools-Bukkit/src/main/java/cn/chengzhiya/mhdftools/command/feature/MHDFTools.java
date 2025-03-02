@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -28,7 +29,8 @@ public final class MHDFTools extends AbstractCommand {
             // 查看插件信息
             if (args[0].equalsIgnoreCase("about")) {
                 sender.sendMessage(LangUtil.i18n("commands.mhdftools.subCommands.about.message")
-                        .replace("{command}", label)
+                        .replace("{version}", Main.instance.getDescription().getVersion())
+                        .replace("{serverVersion}", Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion().getReleaseName())
                 );
                 return;
             }
