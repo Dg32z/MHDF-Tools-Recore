@@ -245,6 +245,7 @@ commands:
   pay:
     usage: "/{command} <玩家ID> <金额>"
     description: "查询余额"
+    paySelf: "{prefix} &c你不可以给自己转账!"
     moneyFormatError: "{prefix} &c超级大笨蛋,金额怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     noMoney: "{prefix} &c你没有那么多的钱!"
     message: "{prefix} &6你向{player}转了{amount}!"
