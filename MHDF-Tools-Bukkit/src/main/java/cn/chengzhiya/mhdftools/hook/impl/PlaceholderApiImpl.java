@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -50,7 +51,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "mhdftools";
+        return Main.instance.getDescription().getName();
     }
 
     @Override
@@ -60,7 +61,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.0.0";
+        return Main.instance.getDescription().getVersion();
     }
 
     @Override
