@@ -34,12 +34,12 @@ bStats: true
 bungeeCordSettings:
   # 开关
   enable: false
-  # 传送延迟
-  teleportDelay:
-    # 开关
-    enable: false
-    # 延迟(单位: Tick)
-    delay: 5
+  # 自动重试
+  autoTry:
+    # 延迟(单位: ticks)
+    delay: 10
+    # 最大重试次数
+    maxTimes: 5
 
 # 数据库设置
 databaseSettings:
