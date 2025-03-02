@@ -35,6 +35,11 @@ public final class DelHome extends AbstractCommand {
             return;
         }
 
+        if (ConfigUtil.getConfig().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
             sender.sendMessage(LangUtil.i18n("commands.delhome.noHome"));
             return;

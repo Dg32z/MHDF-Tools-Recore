@@ -167,6 +167,9 @@ tpaSettings:
   # 命令
   commands:
     - "tpa"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 传送玩家过来
 tpahereSettings:
@@ -177,6 +180,9 @@ tpahereSettings:
   # 命令
   commands:
     - "tpahere"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 自定义菜单
 customMenuSettings:
@@ -202,6 +208,9 @@ homeSettings:
   # 删除家命令
   delhomeCommands:
     - "delhome"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 返回死亡点
 backSettings:
@@ -210,6 +219,9 @@ backSettings:
   # 命令
   commands:
     - "back"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 返回传送前的位置
 tpbackSettings:
@@ -218,6 +230,9 @@ tpbackSettings:
   # 命令
   commands:
     - "tpback"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 出生点
 spawnSettings:
@@ -244,6 +259,9 @@ spawnSettings:
     - "spawn"
   setspawnCommands:
     - "setspawn"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 匿名
 nickSettings:
@@ -306,6 +324,9 @@ bedSettings:
   # 命令
   commands:
     - "bed"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 自杀
 suicideSettings:
@@ -314,6 +335,9 @@ suicideSettings:
   # 命令
   commands:
     - "suicide"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 帽子
 hatSettings:
@@ -336,6 +360,9 @@ warpSettings:
   # 删除传送点命令
   delwarpCommands:
     - "delwarp"
+  # 黑名单世界
+  blackWorld:
+    - "pvp"
 
 # 快速使用
 fastUseSettings:

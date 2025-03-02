@@ -32,6 +32,11 @@ public final class Spawn extends AbstractCommand {
             return;
         }
 
+        if (ConfigUtil.getConfig().getStringList("spawnSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.location");
         if (config == null) {
             return;

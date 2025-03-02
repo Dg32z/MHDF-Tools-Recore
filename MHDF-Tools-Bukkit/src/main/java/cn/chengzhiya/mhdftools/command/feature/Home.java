@@ -28,11 +28,17 @@ public final class Home extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        if (ConfigUtil.getConfig().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         if (args.length == 0) {
             new HomeMenu(sender, 1).openMenu();
             sender.sendMessage(LangUtil.i18n("commands.home.openMenuMessage"));
             return;
         }
+
         if (args.length == 1) {
             if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
                 sender.sendMessage(LangUtil.i18n("commands.home.noHome"));

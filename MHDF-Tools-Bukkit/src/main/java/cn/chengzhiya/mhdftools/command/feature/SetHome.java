@@ -38,6 +38,11 @@ public final class SetHome extends AbstractCommand {
             return;
         }
 
+        if (ConfigUtil.getConfig().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         int maxHome = HomeUtil.getMaxHome(sender);
         if (HomeDataUtil.getHomeDataList(sender).size() >= maxHome) {
             sender.sendMessage(LangUtil.i18n("commands.sethome.isMax")

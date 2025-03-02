@@ -26,6 +26,11 @@ public final class TpaHere extends AbstractCommand {
 
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
+        if (ConfigUtil.getConfig().getStringList("tpahereSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         if (args.length == 1) {
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
                 sender.sendMessage(LangUtil.i18n("playerOffline"));

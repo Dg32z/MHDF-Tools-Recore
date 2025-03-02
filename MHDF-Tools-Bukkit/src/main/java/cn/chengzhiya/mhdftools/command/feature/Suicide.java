@@ -29,6 +29,11 @@ public final class Suicide extends AbstractCommand {
             return;
         }
 
+        if (ConfigUtil.getConfig().getStringList("suicideSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         sender.setHealth(0.0);
         sender.sendMessage(LangUtil.i18n("commands.suicide.message"));
     }

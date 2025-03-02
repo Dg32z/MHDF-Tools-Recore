@@ -30,6 +30,11 @@ public final class Bed extends AbstractCommand {
             return;
         }
 
+        if (ConfigUtil.getConfig().getStringList("bedSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         Location location = sender.getRespawnLocation();
         if (location == null) {
             sender.sendMessage(LangUtil.i18n("commands.bed.noSleep"));

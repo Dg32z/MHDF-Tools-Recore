@@ -40,7 +40,7 @@ public final class Pay extends AbstractCommand {
             return;
         }
 
-        if (args[0].equals(sender.getName())){
+        if (args[0].equals(sender.getName())) {
             sender.sendMessage(LangUtil.i18n("commands.pay.paySelf"));
             return;
         }

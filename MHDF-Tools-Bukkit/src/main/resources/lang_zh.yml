@@ -3,6 +3,7 @@ onlyPlayer: "{prefix} &c这个命令只能玩家执行!"
 noPermission: "{prefix} &c你没有权限怎么做"
 usageError: "{prefix} &c用法错误,正确用法: {usage}"
 playerOffline: "{prefix} &c你指定的玩家并没有在线!"
+blackWorld: "{prefix} &c当前世界无法使用这个功能!"
 enable: "&a开启"
 disable: "&c关闭"
 

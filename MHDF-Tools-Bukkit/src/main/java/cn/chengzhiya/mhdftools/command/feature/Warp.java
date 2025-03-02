@@ -36,6 +36,11 @@ public final class Warp extends AbstractCommand {
             return;
         }
 
+        if (ConfigUtil.getConfig().getStringList("warpSettings.blackWorld").contains(sender.getWorld().getName())) {
+            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            return;
+        }
+
         if (!WarpDataUtil.ifWarpDataExist(args[0])) {
             sender.sendMessage(LangUtil.i18n("commands.warp.noWarp"));
             return;
