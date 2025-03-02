@@ -32,6 +32,11 @@ public final class Tpa extends AbstractCommand {
                 return;
             }
 
+            if (args[0].equals(sender.getName())) {
+                sender.sendMessage(LangUtil.i18n("commands.tpa.sendSelf"));
+                return;
+            }
+
             Main.instance.getCacheManager().put(sender.getName() + "_tpaPlayer", args[0]);
             Main.instance.getCacheManager().put(sender.getName() + "_tpaDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
