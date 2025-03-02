@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.BigDecimalUtil;
@@ -75,6 +76,13 @@ public final class MoneyAdmin extends AbstractCommand {
         if (args.length == 1) {
             return new ArrayList<>(LangUtil.getKeys("commands.moneyadmin.subCommands"));
         }
-        return null;
+        if (args.length == 2) {
+            switch (args[0]) {
+                case "set", "add", "take" -> {
+                    return Main.instance.getBungeeCordManager().getPlayerList();
+                }
+            }
+        }
+        return new ArrayList<>();
     }
 }

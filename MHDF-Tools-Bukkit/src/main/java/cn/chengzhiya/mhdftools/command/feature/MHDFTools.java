@@ -59,6 +59,6 @@ public final class MHDFTools extends AbstractCommand {
         if (args.length == 1) {
             return new ArrayList<>(LangUtil.getKeys("commands.mhdftools.subCommands"));
         }
-        return null;
+        return new ArrayList<>();
     }
 }
