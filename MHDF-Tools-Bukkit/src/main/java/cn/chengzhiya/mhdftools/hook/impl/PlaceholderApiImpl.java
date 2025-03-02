@@ -51,7 +51,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return Main.instance.getDescription().getName();
+        return "mhdftools";
     }
 
     @Override
@@ -67,7 +67,10 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
         for (AbstractPlaceholder placeholder : placeholderList) {
-            return placeholder.onPlaceholder(player, params);
+            String result = placeholder.onPlaceholder(player, params);
+            if (result != null) {
+                return result;
+            }
         }
         return null;
     }
