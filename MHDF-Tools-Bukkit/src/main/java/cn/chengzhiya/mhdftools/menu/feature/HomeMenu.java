@@ -154,6 +154,8 @@ public final class HomeMenu extends AbstractMenu {
             return;
         }
 
+        event.setCancelled(true);
+
         NBTItem nbtItem = new NBTItem(item);
         NBTCompound nbtCompound = nbtItem.getCompound("MHDF-Tools");
         if (nbtCompound == null) {
