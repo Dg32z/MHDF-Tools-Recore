@@ -121,11 +121,7 @@ public final class HomeMenu extends AbstractMenu {
 
             ItemStack item = ItemStackUtil.getItemStack(
                     getPlayer(),
-                    type,
-                    name,
-                    lore,
-                    amount,
-                    customModelData
+                    itemConfig
             );
 
             NBTItem nbtItem = new NBTItem(item);

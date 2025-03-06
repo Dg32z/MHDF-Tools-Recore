@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -152,5 +153,23 @@ public final class ItemStackUtil {
      */
     public static ItemStack getItemStack(Player player, String type) {
         return getItemStack(player, type, null, new ArrayList<>(), 1, null);
+    }
+
+    /**
+     * 构建物品实例
+     *
+     * @param player 玩家实例
+     * @param config 配置实例
+     * @return 物品实例
+     */
+    public static ItemStack getItemStack(Player player, ConfigurationSection config) {
+        return getItemStack(
+                player,
+                config.getString("type"),
+                config.getString("name"),
+                config.getStringList("lore"),
+                config.getInt("amount"),
+                config.getInt("customModelData")
+        );
     }
 }

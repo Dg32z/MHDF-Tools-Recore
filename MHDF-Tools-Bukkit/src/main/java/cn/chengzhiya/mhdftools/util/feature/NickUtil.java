@@ -43,11 +43,11 @@ public final class NickUtil {
             return player.getName();
         }
 
-            String nickName = getNickName(player);
-            if (nickName == null) {
-                return player.getName();
-            }
-            return nickName;
+        String nickName = getNickName(player);
+        if (nickName == null) {
+            return player.getName();
+        }
+        return nickName;
     }
 
     /**

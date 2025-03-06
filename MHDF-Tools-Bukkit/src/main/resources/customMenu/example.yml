@@ -75,8 +75,8 @@ items:
         # 不满足条件时的操作
         denyActions:
           - "[message]|&c哼,杂鱼,别想进来❤"
-          # 物品
-          # item:
+        # 物品
+        # item:
           # 类型
           # craftEngine-<CE物品ID>    ——使用CE的物品
           # mythicMobs-<MM物品ID>     ——使用MM的物品

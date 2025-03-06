@@ -61,11 +61,7 @@ public final class CustomMenu extends AbstractMenu {
 
             ItemStack item = ItemStackUtil.getItemStack(
                     getPlayer(),
-                    itemConfig.getString("type"),
-                    itemConfig.getString("name"),
-                    itemConfig.getStringList("lore"),
-                    itemConfig.getInt("amount"),
-                    itemConfig.getInt("customModelData")
+                    itemConfig
             );
 
             NBTItem nbtItem = new NBTItem(item);

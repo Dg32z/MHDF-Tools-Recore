@@ -149,6 +149,10 @@ public final class RequirementUtil {
                             itemConfig.getInt("customModelData")
                     );
 
+                    if (player.getInventory().contains(item)) {
+                        continue;
+                    }
+
                     return requirement.getStringList("denyActions");
                 }
             }
