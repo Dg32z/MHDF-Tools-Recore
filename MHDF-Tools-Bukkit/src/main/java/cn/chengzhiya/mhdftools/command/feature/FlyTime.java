@@ -7,8 +7,8 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,53 +30,41 @@ public final class FlyTime extends AbstractCommand {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 3) {
-            Player player = Bukkit.getPlayer(args[1]);
-            long inputTime = Long.parseLong(args[2]);
-            if (player == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
-                return;
-            }
+            switch (args[0]) {
+                case "set", "add", "take" -> {
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
-            FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
+                    long inputTime;
+                    try {
+                        inputTime = Long.parseLong(args[2]);
+                    } catch (NumberFormatException e) {
+                        sender.sendMessage(LangUtil.i18n("commands.flytime.timeFormatError"));
+                        return;
+                    }
 
-            // 设置飞行时间
-            if (args[0].equalsIgnoreCase("set")) {
-                flyStatus.setTime(inputTime);
-                FlyStatusUtil.updateFlyStatus(flyStatus);
+                    FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
 
-                sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.set.message")
-                        .replace("{player}", player.getName())
-                        .replace("{time}", args[2])
-                );
-                return;
-            }
+                    if (args[0].equals("set")) {
+                        flyStatus.setTime(inputTime);
+                    }
 
-            // 增加飞行时间
-            if (args[0].equalsIgnoreCase("add")) {
-                long time = flyStatus.getTime() + inputTime;
-                flyStatus.setTime(time);
-                FlyStatusUtil.updateFlyStatus(flyStatus);
+                    if (args[0].equals("add")) {
+                        flyStatus.setTime(flyStatus.getTime() + inputTime);
+                    }
 
-                sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.add.message")
-                        .replace("{player}", player.getName())
-                        .replace("{add}", args[2])
-                        .replace("{time}", String.valueOf(time))
-                );
-                return;
-            }
+                    if (args[0].equals("take")) {
+                        flyStatus.setTime(flyStatus.getTime() - inputTime);
+                    }
 
-            // 减少飞行时间
-            if (args[0].equalsIgnoreCase("take")) {
-                long time = flyStatus.getTime() - inputTime;
-                flyStatus.setTime(time);
-                FlyStatusUtil.updateFlyStatus(flyStatus);
+                    FlyStatusUtil.updateFlyStatus(flyStatus);
 
-                sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.take.message")
-                        .replace("{player}", player.getName())
-                        .replace("{take}", args[2])
-                        .replace("{time}", String.valueOf(time))
-                );
-                return;
+                    sender.sendMessage(LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
+                            .replace("{player}", args[0])
+                            .replace("{change}", String.valueOf(inputTime))
+                            .replace("{amount}", String.valueOf(flyStatus.getTime()))
+                    );
+                    return;
+                }
             }
         }
 

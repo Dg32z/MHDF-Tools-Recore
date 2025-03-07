@@ -85,6 +85,7 @@ commands:
     description: "隐身"
     message: "{prefix} &6{player}的隐身模式已{change}"
   flytime:
+    timeFormatError: "{prefix} &c超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     subCommands:
       help:
         usage: "/{command} help"
@@ -252,6 +253,7 @@ commands:
     message: "{prefix} &6你向{player}转了{amount}!"
     receivedMessage: "{prefix} &6{player}向你转了{amount}"
   moneyadmin:
+    moneyFormatError: "{prefix} &c超级大笨蛋,金额怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     subCommands:
       help:
         usage: "/{command} help"

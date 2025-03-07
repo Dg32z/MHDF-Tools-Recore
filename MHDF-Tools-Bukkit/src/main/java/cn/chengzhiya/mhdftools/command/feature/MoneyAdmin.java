@@ -34,7 +34,13 @@ public final class MoneyAdmin extends AbstractCommand {
             switch (args[0]) {
                 case "set", "add", "take" -> {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-                    BigDecimal change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[2]));
+                    BigDecimal change;
+                    try {
+                        change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[1]));
+                    } catch (NumberFormatException e) {
+                        sender.sendMessage(LangUtil.i18n("commands.moneyadmin.moneyFormatError"));
+                        return;
+                    }
 
                     EconomyData economyData = EconomyDataUtil.getEconomyData(player);
 
