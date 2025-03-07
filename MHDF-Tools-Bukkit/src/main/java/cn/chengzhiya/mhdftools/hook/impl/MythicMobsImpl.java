@@ -21,4 +21,14 @@ public final class MythicMobsImpl {
     public ItemStack getItem(String id) {
         return getApi().getItemManager().getItemStack(id);
     }
+
+    /**
+     * 获取指定物品实例的物品ID
+     *
+     * @param itemStack 物品实例
+     * @return 物品ID
+     */
+    public String getItemId(ItemStack itemStack) {
+        return getApi().getItemManager().getMythicTypeFromItem(itemStack);
+    }
 }

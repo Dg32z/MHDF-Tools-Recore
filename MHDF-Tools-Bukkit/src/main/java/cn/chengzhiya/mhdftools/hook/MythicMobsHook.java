@@ -36,4 +36,17 @@ public final class MythicMobsHook extends AbstractHook {
         }
         return new ItemStack(Material.AIR);
     }
+
+    /**
+     * 获取指定物品实例的物品ID
+     *
+     * @param itemStack 物品实例
+     * @return 物品ID
+     */
+    public String getItemId(ItemStack itemStack) {
+        if (isEnable()) {
+            return getApi().getItemId(itemStack);
+        }
+        return null;
+    }
 }

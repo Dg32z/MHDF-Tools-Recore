@@ -48,4 +48,14 @@ public final class CraftEngineImpl {
     public ItemStack getItem(String item, Player player) {
         return getItem(item, adaptPlayer(player));
     }
+
+    /**
+     * 获取指定物品实例的物品ID
+     *
+     * @param itemStack 物品实例
+     * @return 物品ID
+     */
+    public String getItemId(ItemStack itemStack) {
+        return getApi().itemManager().customItemId(itemStack).namespace();
+    }
 }

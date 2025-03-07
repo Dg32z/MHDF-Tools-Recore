@@ -60,7 +60,7 @@ public final class EconomyDataUtil {
                 BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
         );
 
-        EconomyDataUtil.updateEconomyData(economyData);
+        updateEconomyData(economyData);
     }
 
     /**
