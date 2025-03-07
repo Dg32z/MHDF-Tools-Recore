@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
@@ -23,7 +22,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,9 +55,9 @@ public final class HomeMenu extends AbstractMenu {
         }
 
         for (String key : items.getKeys(false)) {
-            ConfigurationSection itemConfig = items.getConfigurationSection(key);
+            ConfigurationSection item = items.getConfigurationSection(key);
 
-            if (itemConfig == null) {
+            if (item == null) {
                 continue;
             }
 
@@ -68,18 +66,18 @@ public final class HomeMenu extends AbstractMenu {
             int maxEnd = page * homeSize;
             int end = Math.min(homeList.size(), maxEnd);
 
-            String type = itemConfig.getString("type");
-            String name = itemConfig.getString("name");
-            List<String> lore = itemConfig.getStringList("lore");
-            Integer amount = itemConfig.getInt("amount");
-            Integer customModelData = itemConfig.getInt("customModelData");
+            String type = item.getString("type");
+            String name = item.getString("name");
+            List<String> lore = item.getStringList("lore");
+            Integer amount = item.getInt("amount");
+            Integer customModelData = item.getInt("customModelData");
 
             switch (key) {
                 case "家" -> {
                     for (int i = start; i < end; i++) {
                         HomeData homeData = homeList.get(i);
 
-                        ItemStack item = ItemStackUtil.getItemStack(
+                        ItemStack itemStack = ItemStackUtil.getItemStack(
                                 getPlayer(),
                                 type,
                                 name != null ? name.replace("{name}", homeData.getHome()) : null,
@@ -98,7 +96,7 @@ public final class HomeMenu extends AbstractMenu {
                                 customModelData
                         );
 
-                        NBTItem nbtItem = new NBTItem(item);
+                        NBTItem nbtItem = new NBTItem(itemStack);
                         NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
                         nbtCompound.setString("key", key);
                         nbtCompound.setString("home", homeData.getHome());
@@ -119,22 +117,16 @@ public final class HomeMenu extends AbstractMenu {
                 }
             }
 
-            ItemStack item = ItemStackUtil.getItemStack(
+            ItemStack itemStack = ItemStackUtil.getItemStack(
                     getPlayer(),
-                    itemConfig
+                    item
             );
 
-            NBTItem nbtItem = new NBTItem(item);
+            NBTItem nbtItem = new NBTItem(itemStack);
             NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
             nbtCompound.setString("key", key);
 
-            List<Integer> slotList = new ArrayList<>();
-            if (!itemConfig.getStringList("slots").isEmpty()) {
-                slotList.addAll(MenuUtil.getSlotList(itemConfig.getStringList("slots")));
-            } else {
-                slotList.addAll(MenuUtil.getSlotList(itemConfig.getString("slot")));
-            }
-
+            List<Integer> slotList = MenuUtil.getSlotList(item);
             for (Integer slot : slotList) {
                 menu.setItem(slot, nbtItem.getItem());
             }
@@ -145,14 +137,14 @@ public final class HomeMenu extends AbstractMenu {
 
     @Override
     public void click(InventoryClickEvent event) {
-        ItemStack item = MenuUtil.getClickItem(event);
-        if (item == null) {
+        ItemStack itemStack = MenuUtil.getClickItem(event);
+        if (itemStack == null) {
             return;
         }
 
         event.setCancelled(true);
 
-        NBTItem nbtItem = new NBTItem(item);
+        NBTItem nbtItem = new NBTItem(itemStack);
         NBTCompound nbtCompound = nbtItem.getCompound("MHDF-Tools");
         if (nbtCompound == null) {
             return;
@@ -168,32 +160,9 @@ public final class HomeMenu extends AbstractMenu {
             }
             case "上一页" -> new HomeMenu(getPlayer(), getPage() - 1).openMenu();
             case "下一页" -> new HomeMenu(getPlayer(), getPage() + 1).openMenu();
-            default -> {
-                ConfigurationSection items = getConfig().getConfigurationSection("items");
-                if (items == null) {
-                    return;
-                }
-
-                ConfigurationSection itemConfig = items.getConfigurationSection(key);
-                if (itemConfig == null) {
-                    return;
-                }
-
-                ConfigurationSection clickRequirementsConfig = getConfig().getConfigurationSection("clickRequirements");
-                if (clickRequirementsConfig != null) {
-                    List<String> denyAction = RequirementUtil.checkRequirements(getPlayer(), clickRequirementsConfig);
-                    if (!denyAction.isEmpty()) {
-                        ActionUtil.runActionList(getPlayer(), denyAction);
-                        return;
-                    }
-                }
-
-                List<String> clickAction = itemConfig.getStringList("clickAction");
-                if (!clickAction.isEmpty()) {
-                    ActionUtil.runActionList(getPlayer(), clickAction);
-                }
-            }
         }
+
+        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
     }
 
     @Override

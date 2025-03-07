@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
 import cn.chengzhiya.mhdftools.util.config.CustomMenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
@@ -20,7 +19,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,28 +51,22 @@ public final class CustomMenu extends AbstractMenu {
         }
 
         for (String key : items.getKeys(false)) {
-            ConfigurationSection itemConfig = items.getConfigurationSection(key);
+            ConfigurationSection item = items.getConfigurationSection(key);
 
-            if (itemConfig == null) {
+            if (item == null) {
                 continue;
             }
 
-            ItemStack item = ItemStackUtil.getItemStack(
+            ItemStack itemStack = ItemStackUtil.getItemStack(
                     getPlayer(),
-                    itemConfig
+                    item
             );
 
-            NBTItem nbtItem = new NBTItem(item);
+            NBTItem nbtItem = new NBTItem(itemStack);
             NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
             nbtCompound.setString("key", key);
 
-            List<Integer> slotList = new ArrayList<>();
-            if (!itemConfig.getStringList("slots").isEmpty()) {
-                slotList.addAll(MenuUtil.getSlotList(itemConfig.getStringList("slots")));
-            } else {
-                slotList.addAll(MenuUtil.getSlotList(itemConfig.getString("slot")));
-            }
-
+            List<Integer> slotList = MenuUtil.getSlotList(item);
             for (Integer slot : slotList) {
                 menu.setItem(slot, nbtItem.getItem());
             }
@@ -85,44 +77,21 @@ public final class CustomMenu extends AbstractMenu {
 
     @Override
     public void click(InventoryClickEvent event) {
-        ItemStack item = MenuUtil.getClickItem(event);
-        if (item == null) {
+        ItemStack itemStack = MenuUtil.getClickItem(event);
+        if (itemStack == null) {
             return;
         }
 
         event.setCancelled(true);
 
-        NBTItem nbtItem = new NBTItem(item);
+        NBTItem nbtItem = new NBTItem(itemStack);
         NBTCompound nbtCompound = nbtItem.getCompound("MHDF-Tools");
         if (nbtCompound == null) {
             return;
         }
 
         String key = nbtCompound.getString("key");
-
-        ConfigurationSection items = getConfig().getConfigurationSection("items");
-        if (items == null) {
-            return;
-        }
-
-        ConfigurationSection itemConfig = items.getConfigurationSection(key);
-        if (itemConfig == null) {
-            return;
-        }
-
-        ConfigurationSection clickRequirementsConfig = getConfig().getConfigurationSection("clickRequirements");
-        if (clickRequirementsConfig != null) {
-            List<String> denyAction = RequirementUtil.checkRequirements(getPlayer(), clickRequirementsConfig);
-            if (!denyAction.isEmpty()) {
-                ActionUtil.runActionList(getPlayer(), denyAction);
-                return;
-            }
-        }
-
-        List<String> clickAction = itemConfig.getStringList("clickAction");
-        if (!clickAction.isEmpty()) {
-            ActionUtil.runActionList(getPlayer(), clickAction);
-        }
+        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
     }
 
     @Override

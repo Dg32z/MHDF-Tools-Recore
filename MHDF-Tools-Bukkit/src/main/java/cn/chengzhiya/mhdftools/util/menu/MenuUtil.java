@@ -1,5 +1,8 @@
 package cn.chengzhiya.mhdftools.util.menu;
 
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -74,5 +77,68 @@ public final class MenuUtil {
         }
 
         return slotList;
+    }
+
+    /**
+     * 获取格子列表
+     *
+     * @param config 配置实例
+     * @return 格子列表
+     */
+    public static List<Integer> getSlotList(ConfigurationSection config) {
+        List<Integer> slotList = new ArrayList<>();
+        if (!config.getStringList("slots").isEmpty()) {
+            slotList.addAll(getSlotList(config.getStringList("slots")));
+        } else {
+            slotList.addAll(getSlotList(config.getString("slot")));
+        }
+
+        return slotList;
+    }
+
+    /**
+     * 为指定玩家实例执行指定物品配置实例的操作
+     *
+     * @param player 玩家实例
+     * @param item   物品配置实例
+     */
+    public static void runItemClickAction(Player player, ConfigurationSection item) {
+        if (item == null) {
+            return;
+        }
+
+        ConfigurationSection clickRequirementsConfig = item.getConfigurationSection("clickRequirements");
+        if (clickRequirementsConfig != null) {
+            List<String> denyAction = RequirementUtil.checkRequirements(player, clickRequirementsConfig);
+            if (!denyAction.isEmpty()) {
+                ActionUtil.runActionList(player, denyAction);
+                return;
+            }
+        }
+
+        List<String> clickAction = item.getStringList("clickAction");
+        if (!clickAction.isEmpty()) {
+            ActionUtil.runActionList(player, clickAction);
+        }
+    }
+
+    /**
+     * 为指定玩家实例执行指定菜单配置实例下指定物品ID的操作
+     *
+     * @param player 玩家实例
+     * @param menu   菜单配置实例
+     * @param key    物品ID
+     */
+    public static void runItemClickAction(Player player, ConfigurationSection menu, String key) {
+        if (menu == null) {
+            return;
+        }
+
+        ConfigurationSection items = menu.getConfigurationSection("items");
+        if (items == null) {
+            return;
+        }
+
+        runItemClickAction(player, items.getConfigurationSection(key));
     }
 }
