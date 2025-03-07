@@ -33,7 +33,7 @@ public final class FlyTime extends AbstractTask {
             }
 
             // 不处理永久飞行的玩家
-            if (!player.hasPermission("mhdftools.commands.fly.infinite")) {
+            if (player.hasPermission("mhdftools.commands.fly.infinite")) {
                 return;
             }
 
