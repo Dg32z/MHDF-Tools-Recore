@@ -131,7 +131,8 @@ public final class ActionUtil {
      * @param command 命令
      */
     public static void runCommand(CommandSender sender, String command) {
-        Bukkit.dispatchCommand(sender, command);
+        MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, task ->
+                Bukkit.dispatchCommand(sender, command));
     }
 
     /**
