@@ -74,3 +74,5 @@ permissions:
     default: op
   mhdftools.commands.warp:
     default: true
+  mhdftools.commands.warp.other:
+    default: op
