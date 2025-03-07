@@ -70,7 +70,7 @@ public final class Warp extends AbstractCommand {
 
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
         Main.instance.getBungeeCordManager().teleportLocation(player.getName(), warpData.toBungeeCordLocation());
-        
+
         Main.instance.getBungeeCordManager().sendMessage(player.getName(), MessageType.LEGACY, LangUtil.i18n("commands.warp.message")
                 .replace("{warp}", args[0])
         );
