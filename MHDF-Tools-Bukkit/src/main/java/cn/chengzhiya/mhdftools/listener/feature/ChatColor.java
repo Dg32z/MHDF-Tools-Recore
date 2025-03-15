@@ -21,7 +21,7 @@ public final class ChatColor extends AbstractListener {
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
-        String color = ConfigUtil.getConfig().getString("chatColorSettings." + getGroup(player) + ".message");
+        String color = ConfigUtil.getConfig().getString("chatColorSettings." + getGroup(player) + ".color");
         if (color == null) {
             return;
         }
