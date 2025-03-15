@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
-import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -48,10 +47,7 @@ public final class ActionUtil {
      * @param message     消息
      */
     public static void broadcastMessage(MessageType messageType, String message) {
-        LogUtil.log(message);
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            sendMessage(player, messageType, message);
-        }
+        Bukkit.broadcast(ColorUtil.miniMessage(message));
     }
 
     /**
