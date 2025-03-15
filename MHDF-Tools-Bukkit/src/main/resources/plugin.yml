@@ -6,6 +6,10 @@ folia-supported: true
 authoendrs: [ BaiShenYao_Dog, Dg32z_, Araykal ]
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
 permissions:
+  mhdftools.bypass.color:
+    default: op
+  mhdftools.bypass.minimessage:
+    default: op
   mhdftools.bypass.blackword:
     default: op
   mhdftools.commands.back:

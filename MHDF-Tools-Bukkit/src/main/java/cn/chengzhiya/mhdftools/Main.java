@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools;
 
 import cn.chengzhiya.mhdftools.manager.*;
+import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -25,11 +26,11 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
-        this.configManager = new ConfigManager();
-        this.configManager.init();
-
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
+
+        this.configManager = new ConfigManager();
+        this.configManager.init();
     }
 
     @Override
@@ -47,6 +48,9 @@ public final class Main extends JavaPlugin {
 
         this.pluginHookManager = new PluginHookManager();
         this.pluginHookManager.hook();
+
+        MinecraftLangUtil.saveDefaultMinecraftLang();
+        MinecraftLangUtil.reloadMinecraftLang();
 
         this.commandManager = new CommandManager();
         this.commandManager.init();
