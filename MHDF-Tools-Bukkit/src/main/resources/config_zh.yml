@@ -388,15 +388,53 @@ chatColorSettings:
   default:
     # 权重
     weight: 0
-    # 提示消息
+    # 颜色
     color: "&f"
   # 拥有 mhdftools.group.chatcolor.<名字> 权限的提示
   # 例如 mhdftools.group.chatcolor.admin
   admin:
     # 权重
     weight: 1
-    # 提示消息
+    # 颜色
     color: "&c"
+
+# 聊天格式设置
+chatFormatSettings:
+  # 开关
+  enable: true
+  # 默认
+  default:
+    # 权重
+    weight: 0
+    # 格式
+    format: "&f[玩家] %player_name%&f: {message}"
+  # 拥有 mhdftools.group.chatformat.<名字> 权限的提示
+  # 例如 mhdftools.group.chatformat.admin
+  admin:
+    # 权重
+    weight: 1
+    # 格式
+    format: "&c[管理] %player_name%&f: {message}"
+
+# 敏感词设置
+# 绕过权限: mhdftools.bypass.blackword
+blackWordSettings:
+  # 开关
+  enable: true
+  # 文本
+  word:
+    - "傻逼"
+  # 替换
+  replace:
+    # 替换方式
+    # word  ——替换目标词
+    # line  ——替换整句
+    type: "line"
+    # 替换后的文本
+    # word: "喵“
+    # 替换后的句子(随机选择)
+    lineList:
+      - "主人,我错惹喵~"
 
 # 经济系统
 economySettings:
