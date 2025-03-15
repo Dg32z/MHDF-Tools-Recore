@@ -32,7 +32,7 @@ public final class HttpUtil {
      * @param connection URL连接
      * @return 文件数据
      */
-    private static byte[] downloadFile(URLConnection connection) throws DownloadException {
+    public static byte[] downloadFile(URLConnection connection) throws DownloadException {
         try {
             try (InputStream in = connection.getInputStream()) {
                 byte[] bytes = ByteStreams.toByteArray(in);

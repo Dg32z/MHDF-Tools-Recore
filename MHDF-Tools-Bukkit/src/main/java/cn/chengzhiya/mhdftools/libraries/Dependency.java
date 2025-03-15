@@ -28,9 +28,9 @@ public enum Dependency {
 
     // JSON处理
     FAST_JSON(
-            "com{}alibaba",
-            "fastjson",
-            "1.2.83",
+            "com{}alibaba{}fastjson2",
+            "fastjson2",
+            "2.0.53",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
 
@@ -132,19 +132,19 @@ public enum Dependency {
     ADVENTURE_API(
             "net{}kyori",
             "adventure-api",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_KEY(
             "net{}kyori",
             "adventure-key",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_NBT(
             "net{}kyori",
             "adventure-nbt",
-            "4.13.1",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_PLATFORM_API(
@@ -174,19 +174,19 @@ public enum Dependency {
     ADVENTURE_TEXT_LOGGER_SLF4J(
             "net{}kyori",
             "adventure-text-logger-slf4j",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_MINIMESSAGE(
             "net{}kyori",
             "adventure-text-minimessage",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_ANSI(
             "net{}kyori",
             "adventure-text-serializer-ansi",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_BUNGEECORD(
@@ -198,31 +198,31 @@ public enum Dependency {
     ADVENTURE_TEXT_SERIALIZER_GSON(
             "net{}kyori",
             "adventure-text-serializer-gson",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL(
             "net{}kyori",
             "adventure-text-serializer-gson-legacy-impl",
-            "4.13.1",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_JSON(
             "net{}kyori",
             "adventure-text-serializer-json",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_LEGACY(
             "net{}kyori",
             "adventure-text-serializer-legacy",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ADVENTURE_TEXT_SERIALIZER_PLAIN(
             "net{}kyori",
             "adventure-text-serializer-plain",
-            "4.17.0",
+            "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR
     ),
     ANSI(

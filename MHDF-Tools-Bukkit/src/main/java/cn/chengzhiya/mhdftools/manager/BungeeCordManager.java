@@ -5,10 +5,11 @@ import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.listener.PluginMessage;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import lombok.Getter;
@@ -169,6 +170,7 @@ public final class BungeeCordManager implements Init {
      */
     public void sendMessage(String playerName, MessageType messageType, String message) {
         if (!isBungeeCordMode() && playerName.equals("all")) {
+            ActionUtil.broadcastMessage(messageType, message);
             return;
         }
 
