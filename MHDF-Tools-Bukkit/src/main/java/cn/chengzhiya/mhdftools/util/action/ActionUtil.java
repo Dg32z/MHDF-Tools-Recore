@@ -1,8 +1,10 @@
 package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -16,7 +18,53 @@ import java.util.List;
 @SuppressWarnings({"unused", "deprecation"})
 public final class ActionUtil {
     /**
-     * 给指定玩家播放音效
+     * 给指定玩家实例发送消息
+     *
+     * @param player      玩家实例
+     * @param messageType 消息类型
+     * @param message     消息
+     */
+    public static void sendMessage(Player player, MessageType messageType, String message) {
+        switch (messageType) {
+            case MINI_MESSAGE -> Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
+            case LEGACY -> player.sendMessage(ColorUtil.color(message));
+        }
+    }
+
+    /**
+     * 给指定玩家实例发送消息
+     *
+     * @param player  玩家实例
+     * @param message 消息
+     */
+    public static void sendMessage(Player player, String message) {
+        sendMessage(player, MessageType.LEGACY, message);
+    }
+
+    /**
+     * 发送全服消息
+     *
+     * @param messageType 消息类型
+     * @param message     消息
+     */
+    public static void broadcastMessage(MessageType messageType, String message) {
+        LogUtil.log(message);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            sendMessage(player, messageType, message);
+        }
+    }
+
+    /**
+     * 发送全服消息
+     *
+     * @param message 消息
+     */
+    public static void broadcastMessage(String message) {
+        broadcastMessage(MessageType.LEGACY, message);
+    }
+
+    /**
+     * 给指定玩家实例播放音效
      *
      * @param player 玩家实例
      * @param sound  音效
@@ -29,7 +77,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 给指定玩家播放音效
+     * 给指定玩家实例播放音效
      *
      * @param player 玩家实例
      * @param sound  音效
@@ -42,7 +90,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 给指定玩家发送标题消息
+     * 给指定玩家实例发送标题消息
      *
      * @param player   玩家实例
      * @param title    大标题文本
@@ -57,7 +105,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 给指定玩家发送标题消息
+     * 给指定玩家实例发送标题消息
      *
      * @param player   玩家实例
      * @param title    大标题文本
@@ -68,7 +116,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 给指定玩家发送标题消息
+     * 给指定玩家实例发送标题消息
      *
      * @param player 玩家实例
      * @param title  大标题文本
@@ -77,9 +125,8 @@ public final class ActionUtil {
         sendTitle(player, title, "", 10, 70, 20);
     }
 
-
     /**
-     * 给指定玩家发送操作栏消息
+     * 给指定玩家实例发送操作栏消息
      *
      * @param player  玩家实例
      * @param message 消息
@@ -90,7 +137,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 给指定玩家发送BOSS血条
+     * 给指定玩家实例发送BOSS血条
      *
      * @param player  玩家实例
      * @param bossBar BOSS血条实例
@@ -101,7 +148,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 隐藏指定玩家的指定BOSS血条
+     * 隐藏指定玩家实例的指定BOSS血条
      *
      * @param player  玩家实例
      * @param bossBar BOSS血条实例
@@ -112,7 +159,7 @@ public final class ActionUtil {
     }
 
     /**
-     * 给指定玩家发送BOSS血条
+     * 给指定玩家实例发送BOSS血条
      *
      * @param player  玩家实例
      * @param bossBar BOSS血条实例
@@ -162,7 +209,7 @@ public final class ActionUtil {
             case "[player]" -> runCommand(sender, args[1]);
             case "[player_op]" -> runOpCommand(sender, args[1]);
             case "[console]" -> runCommand(Bukkit.getConsoleSender(), args[1]);
-            case "[broadcast]" -> Bukkit.broadcastMessage(ColorUtil.color(args[1]));
+            case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(MessageType.LEGACY, args[1]);
             case "[message]" -> sender.sendMessage(args[1]);
             case "[actionbar]" -> {
                 if (sender instanceof Player player) {

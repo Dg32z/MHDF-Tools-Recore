@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.enums.MessageType;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.bukkit.Bukkit;
@@ -49,10 +49,6 @@ public final class PluginMessage implements PluginMessageListener {
                         }
                         case "sendMessage" -> {
                             String playerName = params.getString("playerName");
-                            Player player = Bukkit.getPlayer(playerName);
-                            if (player == null) {
-                                return;
-                            }
 
                             String type = params.getString("type");
                             MessageType messageType = MessageType.valueOf(type);
@@ -64,11 +60,17 @@ public final class PluginMessage implements PluginMessageListener {
                                     message
                             );
 
-                            switch (messageType) {
-                                case MINI_MESSAGE ->
-                                        Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
-                                case LEGACY -> player.sendMessage(ColorUtil.color(message));
+                            if (playerName.equals("all")) {
+                                ActionUtil.broadcastMessage(messageType, message);
+                                return;
                             }
+
+                            Player player = Bukkit.getPlayer(playerName);
+                            if (player == null) {
+                                return;
+                            }
+
+                            ActionUtil.sendMessage(player, messageType, message);
                         }
                         case "setGameMode" -> {
                             String playerName = params.getString("playerName");

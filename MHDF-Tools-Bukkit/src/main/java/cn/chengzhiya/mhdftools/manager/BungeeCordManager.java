@@ -65,7 +65,7 @@ public final class BungeeCordManager implements Init {
      *
      * @param out 消息数据实例
      */
-    public void sendPluginMessage(ByteArrayDataOutput out) {
+    private void sendPluginMessage(ByteArrayDataOutput out) {
         if (!isBungeeCordMode()) {
             LogUtil.debug("发送插件消息失败 | 原因: {}",
                     "未开启群组模式"
@@ -89,7 +89,7 @@ public final class BungeeCordManager implements Init {
      *
      * @param data 消息数据实例
      */
-    public void sendMhdfToolsPluginMessage(JSONObject data) {
+    private void sendMhdfToolsPluginMessage(JSONObject data) {
         if (data.getJSONObject("params") == null) {
             data.put("params", new JSONObject());
         }
@@ -163,13 +163,18 @@ public final class BungeeCordManager implements Init {
     /**
      * 向指定玩家ID发送指定消息文本
      *
-     * @param playerName 玩家ID
-     * @param message    消息文本
+     * @param playerName  玩家ID
+     * @param messageType 消息类型
+     * @param message     消息文本
      */
-    public void sendMessage(String playerName, MessageType type, String message) {
+    public void sendMessage(String playerName, MessageType messageType, String message) {
+        if (!isBungeeCordMode() && playerName.equals("all")) {
+            return;
+        }
+
         Player player = Bukkit.getPlayer(playerName);
         if (player != null) {
-            switch (type) {
+            switch (messageType) {
                 case MINI_MESSAGE -> Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
                 case LEGACY -> player.sendMessage(ColorUtil.color(message));
             }
@@ -182,12 +187,22 @@ public final class BungeeCordManager implements Init {
 
         JSONObject params = new JSONObject();
         params.put("playerName", playerName);
-        params.put("type", type.name());
+        params.put("type", messageType.name());
         params.put("message", message);
 
         data.put("params", params);
 
         sendMhdfToolsPluginMessage(data);
+    }
+
+    /**
+     * 向指定玩家ID发送指定消息文本
+     *
+     * @param messageType 消息类型
+     * @param message     消息文本
+     */
+    public void broadcastMessage(MessageType messageType, String message) {
+        sendMessage("all", messageType, message);
     }
 
     /**
