@@ -3,9 +3,11 @@ package cn.chengzhiya.mhdftools.util.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
+import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionAttachmentInfo;
@@ -35,32 +37,35 @@ public final class ChatUtil {
             return message;
         }
 
-        String type = config.getString("replace.type");
-        if (type == null) {
-            return message;
-        }
-
-        for (String s : config.getStringList("word")) {
-            if (!message.contains(s)) {
-                continue;
+        List<YamlConfiguration> replaceList = YamlUtil.getConfigurationSectionList(config, "replace");
+        for (YamlConfiguration replace : replaceList) {
+            String type = replace.getString("type");
+            if (type == null) {
+                return message;
             }
 
-            switch (type) {
-                case "line" -> {
-                    List<String> lineList = ConfigUtil.getConfig().getStringList("blackWordSettings.replace.lineList");
-                    if (lineList.isEmpty()) {
-                        break;
-                    }
-
-                    message = lineList.get(new Random().nextInt(lineList.size()));
+            for (String s : replace.getStringList("word")) {
+                if (!message.contains(s)) {
+                    continue;
                 }
-                case "word" -> {
-                    String word = ConfigUtil.getConfig().getString("blackWordSettings.replace.word");
-                    if (word == null) {
-                        break;
-                    }
 
-                    message = message.replace(s, word);
+                switch (type) {
+                    case "line" -> {
+                        List<String> lineList = replace.getStringList("lineList");
+                        if (lineList.isEmpty()) {
+                            break;
+                        }
+
+                        message = lineList.get(new Random().nextInt(lineList.size()));
+                    }
+                    case "word" -> {
+                        String word = replace.getString("replaceWord");
+                        if (word == null) {
+                            break;
+                        }
+
+                        message = message.replace(s, word);
+                    }
                 }
             }
         }

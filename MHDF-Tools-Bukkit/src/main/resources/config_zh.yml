@@ -422,20 +422,20 @@ chatSettings:
   blackWord:
     # 开关
     enable: true
-    # 文本
-    word:
-      - "傻逼"
     # 替换
     replace:
-      # 替换方式
-      # word  ——替换目标词
-      # line  ——替换整句
-      type: "line"
-      # 替换后的文本
-      # word: "喵“
-      # 替换后的句子(随机选择)
-      lineList:
-        - "主人,我错惹喵~"
+      - # 文本
+        word:
+          - "傻逼"
+        # 替换方式
+        # word  ——替换目标词
+        # line  ——替换整句
+        type: "line"
+        # 替换后的文本
+        # replaceWord: "喵"
+        # 替换后的句子(随机选择)
+        lineList:
+          - "主人,我错惹喵~"
   # 展示物品设置
   showItem:
     # 开关
