@@ -186,10 +186,7 @@ public final class BungeeCordManager implements Init {
 
         Player player = Bukkit.getPlayer(playerName);
         if (player != null) {
-            switch (messageType) {
-                case MINI_MESSAGE -> Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
-                case LEGACY -> player.sendMessage(ColorUtil.color(message));
-            }
+            ActionUtil.sendMessage(player, messageType, message);
             return;
         }
 
