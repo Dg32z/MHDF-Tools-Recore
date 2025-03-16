@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -10,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("unused")
 public final class Nick extends AbstractCommand {
     public Nick() {
@@ -17,7 +21,7 @@ public final class Nick extends AbstractCommand {
                 "nickSettings.enable",
                 "匿名",
                 "mhdftools.commands.nick",
-                true,
+                false,
                 ConfigUtil.getConfig().getStringList("nickSettings.commands").toArray(new String[0])
         );
     }
@@ -58,5 +62,13 @@ public final class Nick extends AbstractCommand {
                 .replace("{player}", player.getName())
                 .replace("{name}", ColorUtil.color(args[1]))
         );
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 2) {
+            return Main.instance.getBungeeCordManager().getBukkitPlayerList();
+        }
+        return new ArrayList<>();
     }
 }
