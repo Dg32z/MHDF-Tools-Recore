@@ -52,7 +52,7 @@ public final class ChatUtil {
                         break;
                     }
 
-                    message = message.replace(s, lineList.get(new Random().nextInt(lineList.size())));
+                    message = lineList.get(new Random().nextInt(lineList.size()));
                 }
                 case "word" -> {
                     String word = ConfigUtil.getConfig().getString("blackWordSettings.replace.word");
