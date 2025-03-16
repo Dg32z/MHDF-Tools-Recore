@@ -24,7 +24,7 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String applyBlackWord(Player player, String message) {
-        if (player.hasPermission("mhdftools.bypass.blackword")) {
+        if (player.hasPermission("mhdftools.bypass.replaceWord")) {
             return message;
         }
 

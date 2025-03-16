@@ -417,9 +417,9 @@ tridentDupeFixSettings:
 chatSettings:
   # 开关
   enable: true
-  # 敏感词设置
-  # 绕过权限: mhdftools.bypass.blackword
-  blackWord:
+  # 替换词设置
+  # 绕过权限: mhdftools.bypass.replaceWord
+  replaceWord:
     # 开关
     enable: true
     # 替换
