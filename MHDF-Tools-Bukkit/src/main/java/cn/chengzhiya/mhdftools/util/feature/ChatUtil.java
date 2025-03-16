@@ -28,7 +28,7 @@ public final class ChatUtil {
             return message;
         }
 
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.blackWord");
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.replaceWord");
         if (config == null) {
             return message;
         }
