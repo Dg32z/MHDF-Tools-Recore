@@ -148,7 +148,7 @@ public final class ChatUtil {
         String maxWeightGroup = "default";
 
         for (String group : groupList) {
-            int weight = ConfigUtil.getConfig().getInt("chatFormatSettings." + group + ".weight");
+            int weight = ConfigUtil.getConfig().getInt("chatSettings.format." + group + ".weight");
 
             if (weight > maxWeight) {
                 maxWeight = weight;
