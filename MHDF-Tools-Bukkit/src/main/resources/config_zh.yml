@@ -413,12 +413,24 @@ tridentDupeFixSettings:
   # 开关
   enable: true
 
-# 聊天格式设置
+# 聊天设置
 chatSettings:
   # 开关
   enable: true
+  # 聊天延迟设置
+  # 绕过权限: mhdftools.bypass.chat.delay
+  delay:
+    # 开关
+    enable: true
+    # 延迟
+    delay: 3
+  # 禁止刷屏设置
+  # 绕过权限: mhdftools.bypass.chat.spam
+  spam:
+    # 开关
+    enable: true
   # 替换词设置
-  # 绕过权限: mhdftools.bypass.replaceWord
+  # 绕过权限: mhdftools.bypass.chat.replaceWord
   replaceWord:
     # 开关
     enable: true

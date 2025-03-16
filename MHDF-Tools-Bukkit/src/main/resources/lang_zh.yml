@@ -14,6 +14,10 @@ menu:
   vanish:
     title: "&b隐身打开容器"
 
+chat:
+  delay: "{prefix} &c冷却中,你还需要等待{delay}秒,才可以聊天!"
+  spam: "{prefix} &c请不要刷屏！"
+
 gamemode:
   SURVIVAL: "生存模式"
   ADVENTURE: "冒险模式"
