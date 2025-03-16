@@ -19,6 +19,7 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     private static String rgb(@NotNull String message) {
+        message = message.replace("&#", "#");
         Matcher matcher = Pattern.compile("#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})").matcher(message);
         StringBuilder sb = new StringBuilder(message.length());
         while (matcher.find()) {
