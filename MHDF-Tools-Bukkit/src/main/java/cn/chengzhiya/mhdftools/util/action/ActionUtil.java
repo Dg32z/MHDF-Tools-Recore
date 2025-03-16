@@ -202,6 +202,11 @@ public final class ActionUtil {
      */
     public static void runAction(CommandSender sender, String[] args) {
         switch (args[0]) {
+            case "[connect]" -> {
+                if (sender instanceof Player player) {
+                    Main.instance.getBungeeCordManager().connectServer(player.getName(), args[1]);
+                }
+            }
             case "[player]" -> runCommand(sender, args[1]);
             case "[player_op]" -> runOpCommand(sender, args[1]);
             case "[console]" -> runCommand(Bukkit.getConsoleSender(), args[1]);

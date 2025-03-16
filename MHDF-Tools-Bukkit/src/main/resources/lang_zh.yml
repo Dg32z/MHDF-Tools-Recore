@@ -275,3 +275,9 @@ commands:
         usage: "/{command} take <玩家> <金额>"
         description: "扣除经济"
         message: "{prefix} &6玩家{player}的余额被扣除{change},他现在有{amount}!"
+  randomteleport:
+    usage: "/{command} <世界> [玩家] [服务器]"
+    description: "随机传送到指定世界"
+    blackWorld: "{prefix} &c目标世界不允许传送!"
+    noWorld: "{prefix} &c找不到目标世界!"
+    message: "{prefix} &6传送成功!"

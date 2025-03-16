@@ -107,6 +107,21 @@ public final class BungeeCordManager implements Init {
     }
 
     /**
+     * 将指定玩家ID的玩家移动到指定服务器ID的服务器
+     *
+     * @param playerName 玩家ID
+     * @param serverName 服务器ID
+     */
+    public void connectServer(String playerName, String serverName) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("ConnectOther");
+        out.writeUTF(playerName);
+        out.writeUTF(serverName);
+
+        sendPluginMessage(out);
+    }
+
+    /**
      * 传送指定玩家ID到指定玩家ID的服务器
      *
      * @param playerName 被传送的玩家ID
@@ -151,14 +166,9 @@ public final class BungeeCordManager implements Init {
             return;
         }
 
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("ConnectOther");
-        out.writeUTF(playerName);
-        out.writeUTF(bungeeCordLocation.getServer());
-
         Main.instance.getCacheManager().put(playerName + "_tpLocation", bungeeCordLocation.toBase64());
 
-        sendPluginMessage(out);
+        connectServer(playerName, bungeeCordLocation.getServer());
     }
 
     /**
