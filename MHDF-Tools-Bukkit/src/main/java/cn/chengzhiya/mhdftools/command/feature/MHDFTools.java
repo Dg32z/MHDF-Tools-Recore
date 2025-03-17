@@ -30,7 +30,7 @@ public final class MHDFTools extends AbstractCommand {
             if (args[0].equalsIgnoreCase("about")) {
                 sender.sendMessage(LangUtil.i18n("commands.mhdftools.subCommands.about.message")
                         .replace("{version}", Main.instance.getDescription().getVersion())
-                        .replace("{serverVersion}", Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion().getReleaseName())
+                        .replace("{serverVersion}", Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion().getReleaseName())
                 );
                 return;
             }

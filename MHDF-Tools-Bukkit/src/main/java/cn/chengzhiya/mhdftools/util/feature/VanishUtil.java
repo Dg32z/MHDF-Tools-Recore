@@ -39,7 +39,7 @@ public final class VanishUtil {
         VanishStatusUtil.updateVanishStatus(vanishStatus);
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
+            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
                 MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
                         onlinePlayer.hidePlayer(Main.instance, player));
@@ -61,7 +61,7 @@ public final class VanishUtil {
         VanishStatusUtil.updateVanishStatus(vanishStatus);
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
+            if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)) {
                 MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
                         onlinePlayer.showPlayer(Main.instance, player));

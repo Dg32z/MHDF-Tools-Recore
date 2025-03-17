@@ -133,7 +133,7 @@ public final class ColorUtil {
     public static String legacyColor(@NotNull String message) {
         message = message.replace("{prefix}", LangUtil.getString("prefix"));
         if (Main.instance.getPluginHookManager().getPacketEventsHook()
-                .getServerManager().getVersion().isNewerThanOrEquals(ServerVersion.V_1_16_5)) {
+                .getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_16_5)) {
             message = rgb(message);
         }
         return legacy(message);

@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.hook;
 import cn.chengzhiya.mhdftools.Main;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerManager;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.util.TimeStampMode;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 @Getter
 @SuppressWarnings({"UnstableApiUsage", "deprecation"})
 public final class PacketEventsHook extends AbstractHook {
-    private ServerManager serverManager;
+    private ServerVersion serverVersion;
 
     /**
      * 初始化PacketEvents的API
@@ -31,7 +32,7 @@ public final class PacketEventsHook extends AbstractHook {
         PacketEvents.getAPI().load();
 
         PacketEvents.getAPI().init();
-        this.serverManager = PacketEvents.getAPI().getServerManager();
+        this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
         super.enable = true;
     }
 

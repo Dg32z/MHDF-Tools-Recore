@@ -34,7 +34,7 @@ public final class MinecraftLangUtil {
                 JSONObject versionManifest = JSON.parseObject(versionManifestBytes);
 
                 String serverVersion = Main.instance.getPluginHookManager().getPacketEventsHook()
-                        .getServerManager().getVersion().getReleaseName();
+                        .getServerVersion().getReleaseName();
                 byte[] versionBytes = null;
 
                 // 读取当前服务端版本的版本配置
