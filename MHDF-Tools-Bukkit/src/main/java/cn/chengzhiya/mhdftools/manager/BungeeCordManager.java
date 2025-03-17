@@ -2,9 +2,9 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.listener.PluginMessage;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
@@ -173,19 +173,18 @@ public final class BungeeCordManager implements Init {
     /**
      * 向指定玩家ID发送指定消息文本
      *
-     * @param playerName  玩家ID
-     * @param messageType 消息类型
-     * @param message     消息文本
+     * @param playerName 玩家ID
+     * @param message    消息文本
      */
-    public void sendMessage(String playerName, MessageType messageType, String message) {
+    public void sendMessage(String playerName, String message) {
         if (!isBungeeCordMode() && playerName.equals("all")) {
-            ActionUtil.broadcastMessage(messageType, message);
+            ActionUtil.broadcastMessage(message);
             return;
         }
 
         Player player = Bukkit.getPlayer(playerName);
         if (player != null) {
-            ActionUtil.sendMessage(player, messageType, message);
+            ActionUtil.sendMessage(player, message);
             return;
         }
 
@@ -195,7 +194,6 @@ public final class BungeeCordManager implements Init {
 
         JSONObject params = new JSONObject();
         params.put("playerName", playerName);
-        params.put("type", messageType.name());
         params.put("message", message);
 
         data.put("params", params);
@@ -206,11 +204,20 @@ public final class BungeeCordManager implements Init {
     /**
      * 向指定玩家ID发送指定消息文本
      *
-     * @param messageType 消息类型
-     * @param message     消息文本
+     * @param playerName 玩家ID
+     * @param message    文本实例
      */
-    public void broadcastMessage(MessageType messageType, String message) {
-        sendMessage("all", messageType, message);
+    public void sendMessage(String playerName, TextComponent message) {
+        sendMessage(playerName, message.toMiniMessageString());
+    }
+
+    /**
+     * 向指定玩家ID发送指定消息文本
+     *
+     * @param message 消息文本
+     */
+    public void broadcastMessage(String message) {
+        sendMessage("all", message);
     }
 
     /**

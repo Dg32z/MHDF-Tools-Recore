@@ -1,6 +1,8 @@
 package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.ResourceException;
+import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -47,10 +49,7 @@ public final class LangUtil {
      *
      * @return 文本
      */
-    public static @NotNull String i18n(String key) {
-        if (data == null) {
-            reloadLang();
-        }
+    public static @NotNull TextComponent i18n(String key) {
         return ColorUtil.color(getString(key));
     }
 
@@ -71,12 +70,12 @@ public final class LangUtil {
      *
      * @return 命令帮助文本
      */
-    public static @NotNull String getHelpList(String commandKey) {
-        StringBuilder stringBuilder = new StringBuilder();
+    public static @NotNull TextComponent getHelpList(String commandKey) {
+        TextComponentBuilder textComponentBuilder = new TextComponentBuilder();
 
         List<String> keys = new ArrayList<>(LangUtil.getKeys("commands." + commandKey + ".subCommands"));
         for (String key : keys) {
-            stringBuilder.append(
+            textComponentBuilder.append(
                     LangUtil.i18n("commands." + commandKey + ".subCommands.help.commandFormat")
                             .replace("{usage}",
                                     LangUtil.i18n("commands." + commandKey + ".subCommands." + key + ".usage")
@@ -86,9 +85,10 @@ public final class LangUtil {
                             )
             );
             if (!key.equals(keys.get(keys.size() - 1))) {
-                stringBuilder.append("\n");
+                textComponentBuilder.appendNewline();
             }
         }
-        return stringBuilder.toString();
+
+        return textComponentBuilder.build();
     }
 }

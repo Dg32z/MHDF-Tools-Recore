@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
@@ -27,7 +26,7 @@ public final class ChestMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this, chest.getInventory().getSize(), ColorUtil.color(LangUtil.i18n("menu.vanish.title")));
+        Inventory inventory = Bukkit.createInventory(this, chest.getInventory().getSize(), LangUtil.i18n("menu.vanish.title"));
         inventory.setContents(chest.getInventory().getContents());
 
         return inventory;

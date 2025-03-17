@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -41,7 +40,7 @@ public final class Chat extends AbstractListener {
         }
 
         if (!player.hasPermission("mhdftools.bypass.color")) {
-            message = ChatColor.stripColor(ColorUtil.color(message));
+            message = ChatColor.stripColor(ColorUtil.legacyColor(message));
         }
 
         if (!player.hasPermission("mhdftools.bypass.minimessage")) {
@@ -69,8 +68,7 @@ public final class Chat extends AbstractListener {
 
         event.setCancelled(true);
         Main.instance.getBungeeCordManager().broadcastMessage(
-                MessageType.MINI_MESSAGE,
-                ColorUtil.legacyToMiniMessage(ChatUtil.getFormatMessage(player, message))
+                ChatUtil.getFormatMessage(player, message)
         );
     }
 }

@@ -482,7 +482,7 @@ economySettings:
   # 默认货币数量
   default: 1000.0
   # 货币名称
-  name: "&e金币"
+  name: "金币"
   # 个人所得税
   personalIncomeTax:
     # 开关

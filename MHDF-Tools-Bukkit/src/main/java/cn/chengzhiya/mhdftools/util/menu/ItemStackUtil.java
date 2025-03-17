@@ -82,11 +82,11 @@ public final class ItemStackUtil {
         ItemMeta meta = item.getItemMeta();
 
         if (name != null) {
-            meta.setDisplayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, name)));
+            meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, name)));
         }
 
         if (lore != null && !lore.isEmpty()) {
-            meta.setLore(lore.stream()
+            meta.lore(lore.stream()
                     .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, s))
                     .map(ColorUtil::color)
                     .toList()

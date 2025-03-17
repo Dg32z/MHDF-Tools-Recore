@@ -54,7 +54,7 @@ public final class CommandManager implements Init {
         command.setAliases(Arrays.asList(abstractCommand.getCommands()));
         command.setDescription(abstractCommand.getDescription());
         command.setPermission(abstractCommand.getPermission());
-        command.setPermissionMessage(LangUtil.i18n("noPermission"));
+        command.permissionMessage(LangUtil.i18n("noPermission"));
 
         command.setExecutor(abstractCommand);
         command.setTabCompleter(abstractCommand);

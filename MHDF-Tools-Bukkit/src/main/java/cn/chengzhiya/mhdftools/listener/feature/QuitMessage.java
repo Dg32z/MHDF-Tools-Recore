@@ -23,11 +23,11 @@ public final class QuitMessage extends AbstractListener {
         Player player = event.getPlayer();
         String message = ConfigUtil.getConfig().getString("quitMessageSettings." + getGroup(player) + ".message");
         if (message == null) {
-            event.setQuitMessage(null);
+            event.quitMessage(null);
             return;
         }
 
-        event.setQuitMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
+        event.quitMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
                 .replace("{player}", player.getName())
         );
     }

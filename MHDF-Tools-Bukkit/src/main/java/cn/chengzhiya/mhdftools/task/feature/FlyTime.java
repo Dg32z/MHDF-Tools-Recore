@@ -40,7 +40,7 @@ public final class FlyTime extends AbstractTask {
             FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
 
             // 发送迫降提示
-            String title = LangUtil.i18n("commands.fly.fallMessage." + flyStatus.getTime());
+            String title = LangUtil.getString("commands.fly.fallMessage." + flyStatus.getTime());
             if (!title.isEmpty()) {
                 String[] args = title.split("\\|");
                 ActionUtil.sendTitle(player, args[0], args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));

@@ -23,11 +23,11 @@ public final class JoinMessage extends AbstractListener {
         Player player = event.getPlayer();
         String message = ConfigUtil.getConfig().getString("joinMessageSettings." + getGroup(player) + ".message");
         if (message == null) {
-            event.setJoinMessage(null);
+            event.joinMessage(null);
             return;
         }
 
-        event.setJoinMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
+        event.joinMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
                 .replace("{player}", player.getName())
         );
     }

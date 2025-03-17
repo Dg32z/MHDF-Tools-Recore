@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.command.CommandSender;
@@ -45,7 +44,7 @@ public final class TpaHere extends AbstractCommand {
             Main.instance.getCacheManager().put(sender.getName() + "_tpaherePlayer", args[0]);
             Main.instance.getCacheManager().put(sender.getName() + "_tpahereDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpahereSettings.delay")));
 
-            Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.MINI_MESSAGE, LangUtil.i18n("commands.tpahere.requestMessage")
+            Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpahere.requestMessage")
                     .replace("{player}", sender.getName())
             );
 
@@ -77,7 +76,7 @@ public final class TpaHere extends AbstractCommand {
             switch (args[0]) {
                 case "accept" -> {
                     Main.instance.getBungeeCordManager().teleportPlayer(sender.getName(), args[1]);
-                    Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpahere.accept.accepted")
+                    Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpahere.accept.accepted")
                             .replace("{player}", args[1])
                     );
 
@@ -87,7 +86,7 @@ public final class TpaHere extends AbstractCommand {
                     return;
                 }
                 case "reject" -> {
-                    Main.instance.getBungeeCordManager().sendMessage(args[0], MessageType.LEGACY, LangUtil.i18n("commands.tpahere.reject.rejected")
+                    Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpahere.reject.rejected")
                             .replace("{player}", args[1])
                     );
 

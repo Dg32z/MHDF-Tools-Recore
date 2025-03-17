@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.WarpData;
-import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.WarpDataUtil;
@@ -71,7 +70,7 @@ public final class Warp extends AbstractCommand {
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
         Main.instance.getBungeeCordManager().teleportLocation(player.getName(), warpData.toBungeeCordLocation());
 
-        Main.instance.getBungeeCordManager().sendMessage(player.getName(), MessageType.LEGACY, LangUtil.i18n("commands.warp.message")
+        Main.instance.getBungeeCordManager().sendMessage(player.getName(), LangUtil.i18n("commands.warp.message")
                 .replace("{warp}", args[0])
         );
     }

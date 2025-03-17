@@ -2,6 +2,8 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -37,7 +39,7 @@ public final class Stop extends AbstractCommand {
 
         int time = args.length >= 1 ? Integer.parseInt(args[0]) :
                 ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
-        String message = args.length == 2 ? ColorUtil.color(args[1]) :
+        TextComponent message = args.length == 2 ? ColorUtil.color(args[1]) :
                 LangUtil.i18n("commands.stop.defaultMessage");
 
         new MHDFRunnable() {
@@ -51,7 +53,7 @@ public final class Stop extends AbstractCommand {
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
-                                player.kickPlayer(LangUtil.i18n("commands.stop.kickMessage")
+                                player.kick(LangUtil.i18n("commands.stop.kickMessage")
                                         .replace("{message}", message)
                                 )
                         );
@@ -61,7 +63,8 @@ public final class Stop extends AbstractCommand {
                     return;
                 }
 
-                Bukkit.broadcastMessage(LangUtil.i18n("commands.stop.countdownMessage")
+
+                ActionUtil.broadcastMessage(LangUtil.i18n("commands.stop.countdownMessage")
                         .replace("{countdown}", String.valueOf(countdown))
                 );
                 countdown--;

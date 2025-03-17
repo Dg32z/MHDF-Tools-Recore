@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.menu.feature.fastuse;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
@@ -31,7 +30,7 @@ public final class ShulkerBoxMenu extends AbstractMenu {
         BlockStateMeta blockMate = (BlockStateMeta) meta;
         ShulkerBox box = (ShulkerBox) blockMate.getBlockState();
 
-        Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, ColorUtil.color(LangUtil.i18n("menu.fastuse.shulkerBox.title")));
+        Inventory inventory = Bukkit.createInventory(this, InventoryType.BARREL, LangUtil.i18n("menu.fastuse.shulkerBox.title"));
         inventory.setContents(box.getInventory().getContents());
 
         return inventory;

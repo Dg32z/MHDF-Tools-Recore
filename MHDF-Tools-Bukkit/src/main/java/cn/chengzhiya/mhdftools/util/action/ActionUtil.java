@@ -1,53 +1,49 @@
 package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.enums.MessageType;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
+import net.kyori.adventure.title.TitlePart;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.time.Duration;
 import java.util.List;
 
 @SuppressWarnings({"unused", "deprecation"})
 public final class ActionUtil {
     /**
-     * 给指定玩家实例发送消息
+     * 发送全服消息
      *
-     * @param player      玩家实例
-     * @param messageType 消息类型
-     * @param message     消息
+     * @param message 文本实例
      */
-    public static void sendMessage(Player player, MessageType messageType, String message) {
-        switch (messageType) {
-            case MINI_MESSAGE -> Main.adventure.player(player).sendMessage(ColorUtil.miniMessage(message));
-            case LEGACY -> player.sendMessage(ColorUtil.color(message));
-        }
+    public static void sendMessage(CommandSender sender, TextComponent message) {
+        Main.adventure.sender(sender).sendMessage(message);
     }
 
     /**
-     * 给指定玩家实例发送消息
+     * 给指定命令执行者实例发送消息
      *
-     * @param player  玩家实例
+     * @param sender  命令执行者实例
      * @param message 消息
      */
-    public static void sendMessage(Player player, String message) {
-        sendMessage(player, MessageType.LEGACY, message);
+    public static void sendMessage(CommandSender sender, String message) {
+        sendMessage(sender, ColorUtil.color(message));
     }
 
     /**
      * 发送全服消息
      *
-     * @param messageType 消息类型
-     * @param message     消息
+     * @param message 文本实例
      */
-    public static void broadcastMessage(MessageType messageType, String message) {
-        Bukkit.broadcast(ColorUtil.miniMessage(message));
+    public static void broadcastMessage(TextComponent message) {
+        Bukkit.broadcast(message);
     }
 
     /**
@@ -56,7 +52,7 @@ public final class ActionUtil {
      * @param message 消息
      */
     public static void broadcastMessage(String message) {
-        broadcastMessage(MessageType.LEGACY, message);
+        broadcastMessage(ColorUtil.color(message));
     }
 
     /**
@@ -96,8 +92,11 @@ public final class ActionUtil {
      * @param fadeOut  淡出时间
      */
     public static void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
-        MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task ->
-                player.sendTitle(title, subTitle, fadeIn, stay, fadeOut));
+        MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task -> {
+            Main.adventure.player(player).sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
+            Main.adventure.player(player).sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
+            Main.adventure.player(player).sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
+        });
     }
 
     /**
@@ -129,7 +128,7 @@ public final class ActionUtil {
      */
     public static void sendActionBar(Player player, String message) {
         MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task ->
-                Main.adventure.player(player).sendActionBar(Component.text(message)));
+                Main.adventure.player(player).sendActionBar(ColorUtil.color(message)));
     }
 
     /**
@@ -210,8 +209,8 @@ public final class ActionUtil {
             case "[player]" -> runCommand(sender, args[1]);
             case "[player_op]" -> runOpCommand(sender, args[1]);
             case "[console]" -> runCommand(Bukkit.getConsoleSender(), args[1]);
-            case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(MessageType.LEGACY, args[1]);
-            case "[message]" -> sender.sendMessage(args[1]);
+            case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(args[1]);
+            case "[message]" -> sendMessage(sender, args[1]);
             case "[actionbar]" -> {
                 if (sender instanceof Player player) {
                     sendActionBar(player, args[1]);
@@ -293,7 +292,7 @@ public final class ActionUtil {
                 action = Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(null, action);
             }
 
-            String[] args = ColorUtil.color(action).split("<delay=");
+            String[] args = action.split("<delay=");
             long delay = args.length > 1 ? Long.parseLong(args[1].replace(">", "")) : 0;
 
             MHDFScheduler.getAsyncScheduler().runDelayed(Main.instance, (task) -> runAction(sender, args[0].split("\\|")), delay);

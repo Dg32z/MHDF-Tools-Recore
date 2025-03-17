@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.action;
 
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
 
 @SuppressWarnings("unused")
 public final class BossBarUtil {
@@ -14,7 +14,7 @@ public final class BossBarUtil {
      * @return boss血条实例
      */
     public static BossBar getBossBar(String title, BossBar.Color color, BossBar.Overlay style) {
-        return BossBar.bossBar(Component.text(title), 1f, color, style);
+        return BossBar.bossBar(ColorUtil.color(title), 1f, color, style);
     }
 
     /**

@@ -1,9 +1,9 @@
 package cn.chengzhiya.mhdftools.util.message;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public final class ColorUtil {
     /**
-     * RGB彩色符号(例如: #ffffff)处理
+     * 旧版RGB彩色符号(例如: #ffffff)处理
      *
      * @param message 文本
      * @return 处理后的文本
@@ -125,28 +125,37 @@ public final class ColorUtil {
     }
 
     /**
-     * 彩色符号处理
+     * 处理旧版颜色符号
      *
      * @param message 文本
      * @return 处理后的文本
      */
-    public static String color(@NotNull String message) {
+    public static String legacyColor(@NotNull String message) {
         message = message.replace("{prefix}", LangUtil.getString("prefix"));
-        if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerManager().getVersion()
-                .isNewerThanOrEquals(ServerVersion.V_1_16_5)) {
+        if (Main.instance.getPluginHookManager().getPacketEventsHook()
+                .getServerManager().getVersion().isNewerThanOrEquals(ServerVersion.V_1_16_5)) {
             message = rgb(message);
         }
         return legacy(message);
     }
 
     /**
-     * 用miniMessage格式解析颜色符号
+     * 将旧版颜色符号转换为minimessage颜色符号
      *
      * @param message 文本
      * @return 处理后的文本
      */
-    public static Component miniMessage(@NotNull String message) {
-        MiniMessage miniMessage = MiniMessage.miniMessage();
-        return miniMessage.deserialize(legacyToMiniMessage(color(message)));
+    public static String miniMessage(@NotNull String message) {
+        return legacyToMiniMessage(legacyColor(message));
+    }
+
+    /**
+     * 处理miniMessage颜色符号
+     *
+     * @param message 文本
+     * @return 处理后的文本
+     */
+    public static TextComponent color(@NotNull String message) {
+        return (TextComponent) MiniMessage.miniMessage().deserialize(miniMessage(message));
     }
 }

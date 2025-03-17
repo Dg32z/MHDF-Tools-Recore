@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools.util.feature;
 import cn.chengzhiya.mhdftools.entity.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.OfflinePlayer;
 
 import java.math.BigDecimal;
@@ -16,11 +15,7 @@ public final class EconomyUtil {
      * @return 货币名称
      */
     public static String getMoneyName() {
-        String name = ConfigUtil.getConfig().getString("economySettings.name");
-        if (name == null) {
-            return null;
-        }
-        return ColorUtil.color(name);
+        return ConfigUtil.getConfig().getString("economySettings.name");
     }
 
     /**

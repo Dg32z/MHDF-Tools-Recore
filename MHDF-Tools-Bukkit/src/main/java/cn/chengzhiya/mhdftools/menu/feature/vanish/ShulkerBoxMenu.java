@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.menu.feature.vanish;
 
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
@@ -25,7 +24,7 @@ public final class ShulkerBoxMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(this, InventoryType.SHULKER_BOX, ColorUtil.color(LangUtil.i18n("menu.vanish.title")));
+        Inventory inventory = Bukkit.createInventory(this, InventoryType.SHULKER_BOX, LangUtil.i18n("menu.vanish.title"));
         inventory.setContents(shulkerBox.getInventory().getContents());
 
         return inventory;

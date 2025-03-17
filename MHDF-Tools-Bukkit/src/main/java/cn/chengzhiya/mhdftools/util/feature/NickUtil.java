@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.util.feature;
 import cn.chengzhiya.mhdftools.entity.data.NickData;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.NickDataUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -71,9 +72,9 @@ public final class NickUtil {
      * @param name   匿名昵称
      */
     public static void setNickDisplay(Player player, String name) {
-        player.setDisplayName(name);
-        player.setCustomName(name);
-        player.setPlayerListName(name);
+        player.displayName(ColorUtil.color(name));
+        player.customName(ColorUtil.color(name));
+        player.playerListName(ColorUtil.color(name));
         player.setCustomNameVisible(true);
     }
 }

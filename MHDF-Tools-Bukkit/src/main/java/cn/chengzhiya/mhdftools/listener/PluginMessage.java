@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.enums.MessageType;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
@@ -50,18 +49,14 @@ public final class PluginMessage implements PluginMessageListener {
                         case "sendMessage" -> {
                             String playerName = params.getString("playerName");
 
-                            String type = params.getString("type");
-                            MessageType messageType = MessageType.valueOf(type);
-
                             String message = params.getString("message");
-                            LogUtil.debug("发送跨服消息 | 目标玩家: {} | 消息类型: {} | 消息: {}",
+                            LogUtil.debug("发送跨服消息 | 目标玩家: {} | 消息: {}",
                                     playerName,
-                                    type,
                                     message
                             );
 
                             if (playerName.equals("all")) {
-                                ActionUtil.broadcastMessage(messageType, message);
+                                ActionUtil.broadcastMessage(message);
                                 return;
                             }
 
@@ -70,7 +65,7 @@ public final class PluginMessage implements PluginMessageListener {
                                 return;
                             }
 
-                            ActionUtil.sendMessage(player, messageType, message);
+                            ActionUtil.sendMessage(player, message);
                         }
                         case "setGameMode" -> {
                             String playerName = params.getString("playerName");
