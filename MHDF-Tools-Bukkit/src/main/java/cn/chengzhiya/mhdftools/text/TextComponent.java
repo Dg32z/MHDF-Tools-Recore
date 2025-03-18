@@ -6,6 +6,7 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -104,6 +105,15 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
      */
     public String toMiniMessageString() {
         return MiniMessage.miniMessage().serialize(this);
+    }
+
+    /**
+     * 转换为旧版格式字符串
+     *
+     * @return 旧版格式字符串
+     */
+    public String toLegacyString() {
+        return LegacyComponentSerializer.legacySection().serialize(this);
     }
 
     @Override
