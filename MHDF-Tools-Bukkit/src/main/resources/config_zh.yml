@@ -590,3 +590,27 @@ timeActionSettings:
       # 操作
       action:
         - "[broadcast]|&e主人喵,中午该吃饭咯~"
+
+# motd设置
+motdSettings:
+  # 开关
+  enable: true
+  # 版本信息覆写
+  # 可能导致无法查看服务器延迟
+  version:
+    # 开关
+    enable: true
+    # 版本名称(不支持RGB)
+    name: "&a点击就送香香软软可爱橙汁汁"
+  # 玩家数量
+  players:
+    # 开关
+    enable: true
+    # 最大
+    max: 5835
+  # 简介
+  description:
+    - # 第一行
+      line1: "<gradient:#F18989:#EAB5B5>骗你的,但是可以送你香香软软的杉杉噢</gradient>"
+      # 第二行
+      line2: "<gradient:#F1BB89:#EADFB5>怎么生气了,我错惹,橙汁给你行了吧www</gradient>"
