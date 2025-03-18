@@ -159,7 +159,7 @@ public final class DependencyManagerImpl implements DependencyManager {
     private Path remapDependency(Dependency dependency) {
         Path file = dependenciesFolder.resolve(dependency.getFileName());
 
-        if (!isRelocatable(dependency)) {
+        if (!dependency.isRelocatable()) {
             return file;
         }
 
@@ -186,41 +186,5 @@ public final class DependencyManagerImpl implements DependencyManager {
      */
     private Path getRelocatedPath(Path original) {
         return original.resolveSibling("relocated-" + original.getFileName());
-    }
-
-    /**
-     * 判断依赖是否需要重定位
-     *
-     * @param dependency 依赖信息实例
-     * @return 结果
-     */
-    public boolean isRelocatable(Dependency dependency) {
-        return dependency != Dependency.JAR_RELOCATOR &&
-                dependency != Dependency.ASM &&
-                dependency != Dependency.ASM_COMMONS &&
-                dependency != Dependency.H2_DRIVER &&
-                dependency != Dependency.MYSQL_DRIVER &&
-                dependency != Dependency.REACTOR_CORE &&
-                dependency != Dependency.REACTIVE_STREAMS &&
-                dependency != Dependency.ADVENTURE_API &&
-                dependency != Dependency.ADVENTURE_KEY &&
-                dependency != Dependency.ADVENTURE_NBT &&
-                dependency != Dependency.ADVENTURE_PLATFORM_API &&
-                dependency != Dependency.ADVENTURE_PLATFORM_BUKKIT &&
-                dependency != Dependency.ADVENTURE_PLATFORM_FACET &&
-                dependency != Dependency.ADVENTURE_PLATFORM_VIAVERSION &&
-                dependency != Dependency.ADVENTURE_TEXT_LOGGER_SLF4J &&
-                dependency != Dependency.ADVENTURE_TEXT_MINIMESSAGE &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_ANSI &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_BUNGEECORD &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_GSON &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_JSON &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_LEGACY &&
-                dependency != Dependency.ADVENTURE_TEXT_SERIALIZER_PLAIN &&
-                dependency != Dependency.ANSI &&
-                dependency != Dependency.EXAMINATION_API &&
-                dependency != Dependency.EXAMINATION_STRING &&
-                dependency != Dependency.OPTION;
     }
 }
