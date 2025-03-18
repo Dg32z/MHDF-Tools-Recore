@@ -13,25 +13,6 @@ import java.util.regex.Pattern;
 
 public final class ColorUtil {
     /**
-     * 旧版RGB彩色符号(例如: #ffffff)处理
-     *
-     * @param message 文本
-     * @return 处理后的文本
-     */
-    private static String rgb(@NotNull String message) {
-        message = message.replace("&#", "#");
-        Matcher matcher = Pattern.compile("#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})").matcher(message);
-        StringBuilder sb = new StringBuilder(message.length());
-        while (matcher.find()) {
-            String hex = matcher.group(1);
-            ChatColor color = ChatColor.of("#" + hex);
-            matcher.appendReplacement(sb, color.toString());
-        }
-        matcher.appendTail(sb);
-        return sb.toString();
-    }
-
-    /**
      * 旧版彩色符号(例如: &e)处理
      *
      * @param message 文本
@@ -132,10 +113,6 @@ public final class ColorUtil {
      */
     public static String legacyColor(@NotNull String message) {
         message = message.replace("{prefix}", LangUtil.getString("prefix"));
-        if (Main.instance.getPluginHookManager().getPacketEventsHook()
-                .getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_16_5)) {
-            message = rgb(message);
-        }
         return legacy(message);
     }
 
