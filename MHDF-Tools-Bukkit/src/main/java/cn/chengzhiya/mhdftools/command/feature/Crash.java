@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public final class Crash extends AbstractCommand {
     public Crash() {
         super(

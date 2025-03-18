@@ -9,7 +9,6 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class TpBack extends AbstractCommand {
     public TpBack() {
         super(

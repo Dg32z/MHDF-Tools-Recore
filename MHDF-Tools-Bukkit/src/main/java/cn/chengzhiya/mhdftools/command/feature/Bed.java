@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class Bed extends AbstractCommand {
     public Bed() {
         super(

@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class Hat extends AbstractCommand {
     public Hat() {
         super(

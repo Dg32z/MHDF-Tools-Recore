@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class List extends AbstractCommand {
     public List() {
         super(

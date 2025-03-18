@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public final class Pay extends AbstractCommand {
     public Pay() {
         super(

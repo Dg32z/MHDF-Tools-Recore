@@ -7,7 +7,6 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class Suicide extends AbstractCommand {
     public Suicide() {
         super(

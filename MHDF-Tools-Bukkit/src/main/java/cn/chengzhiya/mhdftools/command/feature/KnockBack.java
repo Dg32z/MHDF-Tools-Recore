@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public final class KnockBack extends AbstractCommand {
     public KnockBack() {
         super(

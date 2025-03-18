@@ -10,7 +10,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class SetSpawn extends AbstractCommand {
     public SetSpawn() {
         super(

@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public final class Money extends AbstractCommand {
     public Money() {
         super(

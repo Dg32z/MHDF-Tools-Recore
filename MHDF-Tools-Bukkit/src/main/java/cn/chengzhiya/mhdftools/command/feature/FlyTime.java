@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public final class FlyTime extends AbstractCommand {
     public FlyTime() {
         super(
