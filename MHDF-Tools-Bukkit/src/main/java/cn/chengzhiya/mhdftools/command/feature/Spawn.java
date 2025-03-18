@@ -49,7 +49,7 @@ public final class Spawn extends AbstractCommand {
                 config.getDouble("y"),
                 config.getDouble("z"),
                 (float) config.getDouble("yaw"),
-                (float) config.getDouble("ptch")
+                (float) config.getDouble("pitch")
         );
 
         Main.instance.getBungeeCordManager().teleportLocation(sender, bungeeCordLocation);
