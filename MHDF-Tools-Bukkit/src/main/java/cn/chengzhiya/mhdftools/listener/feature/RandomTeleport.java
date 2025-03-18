@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
 import org.bukkit.Bukkit;
@@ -30,7 +31,7 @@ public final class RandomTeleport extends AbstractListener {
 
         World world = Bukkit.getWorld(rtpWorld);
         if (world == null) {
-            player.sendMessage(LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
+            ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
         }
 
         RandomTeleportUtil.randomTeleport(player, world);

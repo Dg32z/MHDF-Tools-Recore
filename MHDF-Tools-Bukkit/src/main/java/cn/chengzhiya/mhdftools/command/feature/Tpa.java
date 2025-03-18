@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.command.CommandSender;
@@ -26,18 +27,18 @@ public final class Tpa extends AbstractCommand {
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (ConfigUtil.getConfig().getStringList("tpaSettings.blackWorld").contains(sender.getWorld().getName())) {
-            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
             return;
         }
 
         if (args.length == 1) {
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
 
             if (args[0].equals(sender.getName())) {
-                sender.sendMessage(LangUtil.i18n("commands.tpa.sendSelf"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.sendSelf"));
                 return;
             }
 
@@ -48,7 +49,7 @@ public final class Tpa extends AbstractCommand {
                     .replace("{player}", sender.getName())
             );
 
-            sender.sendMessage(LangUtil.i18n("commands.tpa.message")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.message")
                     .replace("{player}", args[0])
             );
             return;
@@ -56,12 +57,12 @@ public final class Tpa extends AbstractCommand {
         if (args.length == 2) {
             String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpaPlayer");
             if (targetPlayerName == null) {
-                sender.sendMessage(LangUtil.i18n("commands.tpa.noRequest"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest"));
                 return;
             }
 
             if (!targetPlayerName.equals(sender.getName())) {
-                sender.sendMessage(LangUtil.i18n("commands.tpa.noRequest"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest"));
                 return;
             }
 
@@ -69,18 +70,18 @@ public final class Tpa extends AbstractCommand {
             Main.instance.getCacheManager().remove(args[1] + "_tpaDelay");
 
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
 
             switch (args[0]) {
                 case "accept" -> {
-                    Main.instance.getBungeeCordManager().teleportPlayer(args[1], sender.getName());
+                    Main.instance.getBungeeCordManager().teleportPlayer(args[1], sender);
                     Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpa.accept.accepted")
                             .replace("{player}", args[1])
                     );
 
-                    sender.sendMessage(LangUtil.i18n("commands.tpa.accept.message")
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.accept.message")
                             .replace("{player}", args[1])
                     );
                     return;
@@ -90,7 +91,7 @@ public final class Tpa extends AbstractCommand {
                             .replace("{player}", args[1])
                     );
 
-                    sender.sendMessage(LangUtil.i18n("commands.tpa.reject.message")
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.reject.message")
                             .replace("{player}", args[1])
                     );
                     return;
@@ -99,7 +100,7 @@ public final class Tpa extends AbstractCommand {
         }
 
         {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.tpa.usage"))
                     .replace("{command}", label)
             );

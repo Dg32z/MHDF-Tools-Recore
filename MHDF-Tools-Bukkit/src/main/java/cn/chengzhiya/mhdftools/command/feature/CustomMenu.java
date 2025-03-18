@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.CustomMenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -28,19 +29,19 @@ public final class CustomMenu extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.custommenu.usage"))
                     .replace("{command}", label)
             );
         }
 
         if (!CustomMenuConfigUtil.getCustomMenuList().contains(args[0])) {
-            sender.sendMessage(LangUtil.i18n("commands.custommenu.menuNotExists"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.custommenu.menuNotExists"));
             return;
         }
 
         CustomMenuUtil.openCustomMenu(sender, args[0]);
-        sender.sendMessage(LangUtil.i18n("commands.custommenu.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.custommenu.message")
                 .replace("{menu}", args[0])
         );
     }

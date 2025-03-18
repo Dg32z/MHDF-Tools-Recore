@@ -30,7 +30,7 @@ public final class Stop extends AbstractCommand {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length >= 3) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.stop.usage"))
                     .replace("{command}", label)
             );

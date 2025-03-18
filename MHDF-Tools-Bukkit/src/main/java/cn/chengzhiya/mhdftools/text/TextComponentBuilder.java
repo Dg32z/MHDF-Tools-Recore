@@ -10,8 +10,8 @@ public final class TextComponentBuilder {
         this.textComponent = (TextComponent) Component.empty();
     }
 
-    public TextComponentBuilder(TextComponent component) {
-        this.textComponent = component;
+    public TextComponentBuilder(Component component) {
+        this.textComponent = (TextComponent) component;
     }
 
     public TextComponentBuilder append(Component component) {

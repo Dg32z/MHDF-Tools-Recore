@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.NickUtil;
@@ -38,11 +39,11 @@ public final class Nick extends AbstractCommand {
         // 修改其他玩家的匿名名称
         if (args.length >= 2) {
             if (Bukkit.getPlayer(args[1]) == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
             if (!sender.hasPermission("mhdftools.commands.nick.give")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
@@ -50,7 +51,7 @@ public final class Nick extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.nick.usage"))
                     .replace("{command}", label)
             );
@@ -58,7 +59,7 @@ public final class Nick extends AbstractCommand {
         }
 
         NickUtil.setNickName(player, ColorUtil.miniMessage(args[1]));
-        sender.sendMessage(LangUtil.i18n("commands.nick.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.nick.message")
                 .replace("{player}", player.getName())
                 .replace("{name}", ColorUtil.color(args[1]))
         );

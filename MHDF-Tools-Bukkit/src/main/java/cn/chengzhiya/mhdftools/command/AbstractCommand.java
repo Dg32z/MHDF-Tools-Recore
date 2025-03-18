@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.interfaces.Command;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public abstract class AbstractCommand implements TabExecutor, Command {
             if (sender instanceof Player player) {
                 execute(player, label, args);
             } else {
-                sender.sendMessage(LangUtil.i18n("onlyPlayer"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("onlyPlayer"));
             }
             return false;
         }

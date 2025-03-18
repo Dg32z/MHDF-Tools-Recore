@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.BigDecimalUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
@@ -38,7 +39,7 @@ public final class MoneyAdmin extends AbstractCommand {
                     try {
                         change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[1]));
                     } catch (NumberFormatException e) {
-                        sender.sendMessage(LangUtil.i18n("commands.moneyadmin.moneyFormatError"));
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.moneyFormatError"));
                         return;
                     }
 
@@ -58,7 +59,7 @@ public final class MoneyAdmin extends AbstractCommand {
 
                     EconomyDataUtil.updateEconomyData(economyData);
 
-                    sender.sendMessage(LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
                             .replace("{player}", args[0])
                             .replace("{change}", change.toString())
                             .replace("{amount}", economyData.getBigDecimal().toString())
@@ -70,7 +71,7 @@ public final class MoneyAdmin extends AbstractCommand {
 
         // 输出帮助信息
         {
-            sender.sendMessage(LangUtil.i18n("commands.moneyadmin.subCommands.help.message")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands.help.message")
                     .replace("{helpList}", LangUtil.getHelpList("moneyadmin"))
                     .replace("{command}", label)
             );

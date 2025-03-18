@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.WarpData;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.WarpDataUtil;
@@ -28,7 +29,7 @@ public final class DelWarp extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.delwarp.usage"))
                     .replace("{command}", label)
             );
@@ -36,14 +37,14 @@ public final class DelWarp extends AbstractCommand {
         }
 
         if (!WarpDataUtil.ifWarpDataExist(args[0])) {
-            sender.sendMessage(LangUtil.i18n("commands.delwarp.noWarp"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delwarp.noWarp"));
             return;
         }
 
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
         WarpDataUtil.removeWarpData(warpData);
 
-        sender.sendMessage(LangUtil.i18n("commands.delwarp.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delwarp.message")
                 .replace("{warp}", args[0])
         );
     }

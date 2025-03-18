@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
@@ -28,7 +29,7 @@ public final class DelHome extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 1) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.delhome.usage"))
                     .replace("{command}", label)
             );
@@ -36,18 +37,18 @@ public final class DelHome extends AbstractCommand {
         }
 
         if (ConfigUtil.getConfig().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
-            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
             return;
         }
 
         if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
-            sender.sendMessage(LangUtil.i18n("commands.delhome.noHome"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delhome.noHome"));
             return;
         }
 
         HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
         HomeDataUtil.removeHomeData(homeData);
-        sender.sendMessage(LangUtil.i18n("commands.delhome.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delhome.message")
                 .replace("{home}", args[0])
         );
     }

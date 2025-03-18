@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.command.CommandSender;
@@ -26,18 +27,18 @@ public final class TpaHere extends AbstractCommand {
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (ConfigUtil.getConfig().getStringList("tpahereSettings.blackWorld").contains(sender.getWorld().getName())) {
-            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
             return;
         }
 
         if (args.length == 1) {
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
 
             if (args[0].equals(sender.getName())) {
-                sender.sendMessage(LangUtil.i18n("commands.tpa.sendSelf"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.sendSelf"));
                 return;
             }
 
@@ -48,7 +49,7 @@ public final class TpaHere extends AbstractCommand {
                     .replace("{player}", sender.getName())
             );
 
-            sender.sendMessage(LangUtil.i18n("commands.tpahere.message")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.message")
                     .replace("{player}", args[0])
             );
             return;
@@ -56,12 +57,12 @@ public final class TpaHere extends AbstractCommand {
         if (args.length == 2) {
             String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpaherePlayer");
             if (targetPlayerName == null) {
-                sender.sendMessage(LangUtil.i18n("commands.tpahere.noRequest"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.noRequest"));
                 return;
             }
 
             if (!targetPlayerName.equals(sender.getName())) {
-                sender.sendMessage(LangUtil.i18n("commands.tpahere.noRequest"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.noRequest"));
                 return;
             }
 
@@ -69,7 +70,7 @@ public final class TpaHere extends AbstractCommand {
             Main.instance.getCacheManager().remove(args[1] + "_tpahereDelay");
 
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
 
@@ -80,7 +81,7 @@ public final class TpaHere extends AbstractCommand {
                             .replace("{player}", args[1])
                     );
 
-                    sender.sendMessage(LangUtil.i18n("commands.tpahere.accept.message")
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.accept.message")
                             .replace("{player}", args[1])
                     );
                     return;
@@ -90,7 +91,7 @@ public final class TpaHere extends AbstractCommand {
                             .replace("{player}", args[1])
                     );
 
-                    sender.sendMessage(LangUtil.i18n("commands.tpahere.reject.message")
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.reject.message")
                             .replace("{player}", args[1])
                     );
                     return;
@@ -99,7 +100,7 @@ public final class TpaHere extends AbstractCommand {
         }
 
         {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.tpahere.usage"))
                     .replace("{command}", label)
             );

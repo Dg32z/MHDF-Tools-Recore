@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.CrashUtil;
@@ -30,7 +31,7 @@ public final class Crash extends AbstractCommand {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length == 0 || args.length >= 3) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.crash.usage"))
                     .replace("{command}", label)
             );
@@ -39,7 +40,7 @@ public final class Crash extends AbstractCommand {
 
         Player player = Bukkit.getPlayer(args[0]);
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("playerOffline"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
             return;
         }
 
@@ -48,11 +49,11 @@ public final class Crash extends AbstractCommand {
                 : args[1];
 
         if (crashType != null && CrashUtil.crashPlayerClient(player, crashType)) {
-            sender.sendMessage(LangUtil.i18n("commands.crash.message")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.crash.message")
                     .replace("{type}", LangUtil.i18n("commands.crash.types." + crashType))
             );
         } else {
-            sender.sendMessage(LangUtil.i18n("commands.crash.typeNotExists"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.crash.typeNotExists"));
         }
     }
 

@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
 import org.bukkit.GameMode;
@@ -17,7 +18,7 @@ public final class FlyUtil {
      * @param enable 是否开启飞行
      */
     public static void sendChangeFlyMessage(CommandSender sender, Player player, boolean enable) {
-        sender.sendMessage(
+        ActionUtil.sendMessage(sender,
                 LangUtil.i18n("commands.fly.message")
                         .replace("{player}", NickUtil.getName(player))
                         .replace("{change}",

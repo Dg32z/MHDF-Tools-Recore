@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
@@ -41,11 +42,11 @@ public final class Vanish extends AbstractCommand {
         // 切换其他玩家的隐身模式
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.vanish.give")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[0]) == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
@@ -53,7 +54,7 @@ public final class Vanish extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.vanish.usage"))
                     .replace("{command}", label)
             );

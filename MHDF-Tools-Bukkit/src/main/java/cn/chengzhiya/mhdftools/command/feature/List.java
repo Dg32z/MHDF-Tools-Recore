@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.ListUtil;
@@ -25,14 +26,14 @@ public final class List extends AbstractCommand {
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.list.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        sender.sendMessage(LangUtil.i18n("commands.list.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.list.message")
                 .replace("{tps}", String.valueOf(ListUtil.getTps()))
                 .replace("{memory}", String.valueOf(ListUtil.getUsedMemory()))
                 .replace("{maxMemory}", String.valueOf(ListUtil.getTotalMemory()))

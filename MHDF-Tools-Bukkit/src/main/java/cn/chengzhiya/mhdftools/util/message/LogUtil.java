@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.util.message;
 
-import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Bukkit;
 
@@ -18,7 +18,7 @@ public final class LogUtil {
         for (Object var : args) {
             message = message.replaceFirst("\\{}", var.toString());
         }
-        Main.adventure.sender(Bukkit.getConsoleSender()).sendMessage(ColorUtil.color(CONSOLE_PREFIX + message));
+        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(CONSOLE_PREFIX + message));
     }
 
     /**

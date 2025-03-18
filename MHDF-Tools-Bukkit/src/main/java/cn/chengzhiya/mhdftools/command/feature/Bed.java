@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Location;
@@ -23,7 +24,7 @@ public final class Bed extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.bed.usage"))
                     .replace("{command}", label)
             );
@@ -31,17 +32,17 @@ public final class Bed extends AbstractCommand {
         }
 
         if (ConfigUtil.getConfig().getStringList("bedSettings.blackWorld").contains(sender.getWorld().getName())) {
-            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
             return;
         }
 
         Location location = sender.getRespawnLocation();
         if (location == null) {
-            sender.sendMessage(LangUtil.i18n("commands.bed.noSleep"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.bed.noSleep"));
             return;
         }
 
         sender.teleport(location);
-        sender.sendMessage(LangUtil.i18n("commands.bed.message"));
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.bed.message"));
     }
 }

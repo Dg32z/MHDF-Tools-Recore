@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.EconomyData;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
@@ -38,7 +39,7 @@ public final class Money extends AbstractCommand {
         // 查询其他玩家的余额
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.money.other")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
 
@@ -47,7 +48,7 @@ public final class Money extends AbstractCommand {
 
         // 输出帮助信息
         if (name == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.money.usage"))
                     .replace("{command}", label)
             );
@@ -55,7 +56,7 @@ public final class Money extends AbstractCommand {
         }
 
         EconomyData economyData = EconomyDataUtil.getEconomyData(Bukkit.getOfflinePlayer(name));
-        sender.sendMessage(LangUtil.i18n("commands.money.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.money.message")
                 .replace("{player}", name)
                 .replace("{amount}", economyData.getBigDecimal().toString())
         );

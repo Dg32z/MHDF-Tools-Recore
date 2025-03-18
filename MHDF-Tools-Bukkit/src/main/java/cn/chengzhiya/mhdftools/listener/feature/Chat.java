@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
@@ -30,7 +31,7 @@ public final class Chat extends AbstractListener {
             if (!player.hasPermission("mhdftools.bypass.chat.delay")) {
                 String delayData = Main.instance.getCacheManager().get(player.getName() + "_delay");
                 if (delayData != null) {
-                    player.sendMessage(LangUtil.i18n("chat.delay")
+                    ActionUtil.sendMessage(player, LangUtil.i18n("chat.delay")
                             .replace("{delay}", delayData)
                     );
                     event.setCancelled(true);
@@ -52,7 +53,7 @@ public final class Chat extends AbstractListener {
             if (!player.hasPermission("mhdftools.bypass.chat.spam")) {
                 String spamData = Main.instance.getCacheManager().get(player.getName() + "_spam");
                 if (spamData != null && spamData.equals(message)) {
-                    player.sendMessage(LangUtil.i18n("chat.spam"));
+                    ActionUtil.sendMessage(player, LangUtil.i18n("chat.spam"));
                     event.setCancelled(true);
                     return;
                 }

@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public final class SetSpawn extends AbstractCommand {
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
         if (args.length != 0) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.setspawn.usage"))
                     .replace("{command}", label)
             );
@@ -51,6 +52,6 @@ public final class SetSpawn extends AbstractCommand {
         ConfigUtil.saveConfig();
         ConfigUtil.reloadConfig();
 
-        sender.sendMessage(LangUtil.i18n("commands.setspawn.message"));
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.setspawn.message"));
     }
 }

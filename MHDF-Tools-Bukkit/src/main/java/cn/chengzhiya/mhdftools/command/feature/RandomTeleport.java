@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
@@ -43,17 +44,17 @@ public final class RandomTeleport extends AbstractCommand {
         }
 
         if (ConfigUtil.getConfig().getStringList("randomTeleportSettings.blackWorld").contains(worldName)) {
-            sender.sendMessage(LangUtil.i18n("commands.randomteleport.subCommands.blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.blackWorld"));
             return;
         }
 
         if (args.length >= 2) {
             if (Bukkit.getPlayer(args[1]) == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
             if (!sender.hasPermission("mhdftools.commands.randomteleport.other")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
@@ -65,7 +66,7 @@ public final class RandomTeleport extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.randomteleport.usage"))
                     .replace("{command}", label)
             );
@@ -76,19 +77,19 @@ public final class RandomTeleport extends AbstractCommand {
         if (server == null) {
             World world = Bukkit.getWorld(worldName);
             if (world == null) {
-                sender.sendMessage(LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
                 return;
             }
 
             RandomTeleportUtil.randomTeleport(player, world);
-            player.sendMessage(LangUtil.i18n("commands.randomteleport.subCommands.message"));
-            sender.sendMessage(LangUtil.i18n("commands.randomteleport.subCommands.message"));
+            ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.subCommands.message"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.message"));
             return;
         }
 
         Main.instance.getCacheManager().put(player.getName() + "_rtpWorld", worldName);
         Main.instance.getBungeeCordManager().connectServer(player.getName(), server);
-        sender.sendMessage(LangUtil.i18n("commands.randomteleport.subCommands.message"));
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.message"));
     }
 
     @Override

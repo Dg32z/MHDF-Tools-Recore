@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
@@ -38,7 +39,7 @@ public final class FlyTime extends AbstractCommand {
                     try {
                         inputTime = Long.parseLong(args[2]);
                     } catch (NumberFormatException e) {
-                        sender.sendMessage(LangUtil.i18n("commands.flytime.timeFormatError"));
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.flytime.timeFormatError"));
                         return;
                     }
 
@@ -58,7 +59,7 @@ public final class FlyTime extends AbstractCommand {
 
                     FlyStatusUtil.updateFlyStatus(flyStatus);
 
-                    sender.sendMessage(LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
                             .replace("{player}", args[0])
                             .replace("{change}", String.valueOf(inputTime))
                             .replace("{amount}", String.valueOf(flyStatus.getTime()))
@@ -69,7 +70,7 @@ public final class FlyTime extends AbstractCommand {
         }
 
         {
-            sender.sendMessage(LangUtil.i18n("commands.flytime.subCommands.help.message")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.flytime.subCommands.help.message")
                     .replace("{helpList}", LangUtil.getHelpList("flytime"))
                     .replace("{command}", label)
             );

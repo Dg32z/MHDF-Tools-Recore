@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import org.bukkit.Material;
@@ -26,13 +27,13 @@ public final class Hat extends AbstractCommand {
         ItemStack handItem = sender.getInventory().getItemInMainHand();
 
         if (handItem.getType() == Material.AIR) {
-            sender.sendMessage(LangUtil.i18n("commands.hat.noItem"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.hat.noItem"));
             return;
         }
 
         sender.getInventory().setItemInMainHand(oldHelmet);
         sender.getInventory().setHelmet(handItem);
 
-        sender.sendMessage(LangUtil.i18n("commands.hat.message"));
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.hat.message"));
     }
 }

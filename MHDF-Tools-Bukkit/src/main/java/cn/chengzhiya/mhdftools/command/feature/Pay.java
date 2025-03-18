@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.EconomyData;
 import cn.chengzhiya.mhdftools.util.BigDecimalUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
@@ -33,7 +34,7 @@ public final class Pay extends AbstractCommand {
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.pay.usage"))
                     .replace("{command}", label)
             );
@@ -41,7 +42,7 @@ public final class Pay extends AbstractCommand {
         }
 
         if (args[0].equals(sender.getName())) {
-            sender.sendMessage(LangUtil.i18n("commands.pay.paySelf"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.paySelf"));
             return;
         }
 
@@ -50,13 +51,13 @@ public final class Pay extends AbstractCommand {
         try {
             amount = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[1]));
         } catch (NumberFormatException e) {
-            sender.sendMessage(LangUtil.i18n("commands.pay.moneyFormatError"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.moneyFormatError"));
             return;
         }
 
         EconomyData economyData = EconomyDataUtil.getEconomyData(sender);
         if (economyData.getBigDecimal().compareTo(amount) < 0) {
-            sender.sendMessage(LangUtil.i18n("commands.pay.noMoney"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.noMoney"));
             return;
         }
 
@@ -68,26 +69,22 @@ public final class Pay extends AbstractCommand {
                     ConfigUtil.getConfig().getDouble("economySettings.personalIncomeTax.rate"))
             );
 
-            if (player.getPlayer() != null) {
-                player.getPlayer().sendMessage(LangUtil.i18n("economy.tax")
-                        .replace("{amount}", String.valueOf(tax))
-                );
-            }
+            ActionUtil.sendMessage(player.getPlayer(), LangUtil.i18n("economy.tax")
+                    .replace("{amount}", String.valueOf(tax))
+            );
         }
 
         EconomyUtil.addMoney(player, amount.subtract(tax));
 
-        sender.sendMessage(LangUtil.i18n("commands.pay.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.message")
                 .replace("{player}", args[0])
                 .replace("{amount}", String.valueOf(amount))
         );
 
-        if (player.getPlayer() != null) {
-            sender.sendMessage(LangUtil.i18n("commands.pay.receivedMessage")
-                    .replace("{player}", sender.getName())
-                    .replace("{amount}", String.valueOf(amount))
-            );
-        }
+        ActionUtil.sendMessage(player.getPlayer(), LangUtil.i18n("commands.pay.receivedMessage")
+                .replace("{player}", sender.getName())
+                .replace("{amount}", String.valueOf(amount))
+        );
     }
 
     @Override

@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.WarpData;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.WarpDataUtil;
@@ -38,11 +39,11 @@ public final class Warp extends AbstractCommand {
         // 传送其他玩家至传送点
         if (args.length >= 2) {
             if (Bukkit.getPlayer(args[1]) == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
             if (!sender.hasPermission("mhdftools.commands.warp.other")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
@@ -50,7 +51,7 @@ public final class Warp extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.warp.usage"))
                     .replace("{command}", label)
             );
@@ -58,19 +59,19 @@ public final class Warp extends AbstractCommand {
         }
 
         if (ConfigUtil.getConfig().getStringList("warpSettings.blackWorld").contains(player.getWorld().getName())) {
-            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
             return;
         }
 
         if (!WarpDataUtil.ifWarpDataExist(args[0])) {
-            sender.sendMessage(LangUtil.i18n("commands.warp.noWarp"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.warp.noWarp"));
             return;
         }
 
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
-        Main.instance.getBungeeCordManager().teleportLocation(player.getName(), warpData.toBungeeCordLocation());
+        Main.instance.getBungeeCordManager().teleportLocation(player, warpData.toBungeeCordLocation());
 
-        Main.instance.getBungeeCordManager().sendMessage(player.getName(), LangUtil.i18n("commands.warp.message")
+        Main.instance.getBungeeCordManager().sendMessage(player, LangUtil.i18n("commands.warp.message")
                 .replace("{warp}", args[0])
         );
     }

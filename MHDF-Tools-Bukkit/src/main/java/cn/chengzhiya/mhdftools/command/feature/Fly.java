@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.FlyStatusUtil;
@@ -39,7 +40,7 @@ public final class Fly extends AbstractCommand {
 
             FlyStatus flyStatus = FlyStatusUtil.getFlyStatus(player);
             if (!sender.hasPermission("mhdftools.commands.fly.infinite") && flyStatus.getTime() <= 0) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
         }
@@ -47,11 +48,11 @@ public final class Fly extends AbstractCommand {
         // 切换其他玩家的飞行模式
         if (args.length == 1) {
             if (!sender.hasPermission("mhdftools.commands.fly.give")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
             if (Bukkit.getPlayer(args[0]) == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[0]);
@@ -59,7 +60,7 @@ public final class Fly extends AbstractCommand {
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.fly.usage"))
                     .replace("{command}", label)
             );

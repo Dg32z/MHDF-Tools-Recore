@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.GameModeUtil;
@@ -38,20 +39,20 @@ public final class GameMode extends AbstractCommand {
         // 切换其他玩家的游戏模式
         if (args.length == 2) {
             if (Bukkit.getPlayer(args[1]) == null) {
-                sender.sendMessage(LangUtil.i18n("playerOffline"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
                 return;
             }
             player = Bukkit.getPlayer(args[1]);
 
             if (!sender.hasPermission("mhdftools.commands.gamemode.give")) {
-                sender.sendMessage(LangUtil.i18n("noPermission"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("noPermission"));
                 return;
             }
         }
 
         // 输出帮助信息
         if (player == null) {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.gamemode.usage"))
                     .replace("{command}", label)
             );
@@ -60,12 +61,12 @@ public final class GameMode extends AbstractCommand {
 
         org.bukkit.GameMode gameMode = GameModeUtil.getGameMode(args[0]);
         if (gameMode == null) {
-            sender.sendMessage(LangUtil.i18n("commands.gamemode.noGameMode"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.gamemode.noGameMode"));
             return;
         }
 
         Main.instance.getBungeeCordManager().setGameMode(player.getName(), gameMode);
-        sender.sendMessage(LangUtil.i18n("commands.gamemode.message")
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.gamemode.message")
                 .replace("{player}", NickUtil.getName(player))
                 .replace("{gamemode}", LangUtil.i18n("gamemode." + gameMode.name()))
         );

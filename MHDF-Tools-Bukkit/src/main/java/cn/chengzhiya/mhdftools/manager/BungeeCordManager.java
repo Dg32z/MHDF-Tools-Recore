@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
@@ -149,6 +150,36 @@ public final class BungeeCordManager implements Init {
     }
 
     /**
+     * 传送指定玩家实例到指定玩家ID的服务器
+     *
+     * @param player     被传送的玩家实例
+     * @param targetName 传送到的玩家ID
+     */
+    public void teleportPlayer(OfflinePlayer player, String targetName) {
+        teleportPlayer(player.getName(), targetName);
+    }
+
+    /**
+     * 传送指定玩家实例到指定玩家ID的服务器
+     *
+     * @param playerName 被传送的玩家ID
+     * @param target     传送到的玩家实例
+     */
+    public void teleportPlayer(String playerName, OfflinePlayer target) {
+        teleportPlayer(playerName, target.getName());
+    }
+
+    /**
+     * 传送指定玩家实例到指定玩家实例的服务器
+     *
+     * @param player 被传送的玩家实例
+     * @param target 传送到的玩家实例
+     */
+    public void teleportPlayer(OfflinePlayer player, OfflinePlayer target) {
+        teleportPlayer(player, target.getName());
+    }
+
+    /**
      * 将指定玩家ID传送至指定群组位置实例
      *
      * @param playerName         玩家ID
@@ -168,6 +199,16 @@ public final class BungeeCordManager implements Init {
         Main.instance.getCacheManager().put(playerName + "_tpLocation", bungeeCordLocation.toBase64());
 
         connectServer(playerName, bungeeCordLocation.getServer());
+    }
+
+    /**
+     * 将指定玩家实例传送至指定群组位置实例
+     *
+     * @param player             玩家实例
+     * @param bungeeCordLocation 群组位置实例
+     */
+    public void teleportLocation(Player player, BungeeCordLocation bungeeCordLocation) {
+        teleportLocation(player.getName(), bungeeCordLocation);
     }
 
     /**
@@ -209,6 +250,26 @@ public final class BungeeCordManager implements Init {
      */
     public void sendMessage(String playerName, TextComponent message) {
         sendMessage(playerName, message.toMiniMessageString());
+    }
+
+    /**
+     * 向指定玩家实例发送指定消息文本
+     *
+     * @param player  玩家实例
+     * @param message 消息文本
+     */
+    public void sendMessage(OfflinePlayer player, String message) {
+        sendMessage(player.getName(), message);
+    }
+
+    /**
+     * 向指定玩家ID发送指定消息文本
+     *
+     * @param player  玩家实例
+     * @param message 文本实例
+     */
+    public void sendMessage(OfflinePlayer player, TextComponent message) {
+        sendMessage(player, message.toMiniMessageString());
     }
 
     /**

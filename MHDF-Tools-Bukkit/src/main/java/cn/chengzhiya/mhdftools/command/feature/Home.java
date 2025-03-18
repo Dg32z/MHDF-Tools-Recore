@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.feature.HomeMenu;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
@@ -29,26 +30,26 @@ public final class Home extends AbstractCommand {
     @Override
     public void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (ConfigUtil.getConfig().getStringList("homeSettings.blackWorld").contains(sender.getWorld().getName())) {
-            sender.sendMessage(LangUtil.i18n("blackWorld"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("blackWorld"));
             return;
         }
 
         if (args.length == 0) {
             new HomeMenu(sender, 1).openMenu();
-            sender.sendMessage(LangUtil.i18n("commands.home.openMenuMessage"));
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.home.openMenuMessage"));
             return;
         }
 
         if (args.length == 1) {
             if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
-                sender.sendMessage(LangUtil.i18n("commands.home.noHome"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.home.noHome"));
                 return;
             }
 
             HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
-            Main.instance.getBungeeCordManager().teleportLocation(sender.getName(), homeData.toBungeeCordLocation());
+            Main.instance.getBungeeCordManager().teleportLocation(sender, homeData.toBungeeCordLocation());
 
-            sender.sendMessage(LangUtil.i18n("commands.home.teleportMessage")
+            Main.instance.getBungeeCordManager().sendMessage(sender, LangUtil.i18n("commands.home.teleportMessage")
                     .replace("{home}", homeData.getHome())
             );
             return;
@@ -56,7 +57,7 @@ public final class Home extends AbstractCommand {
 
         // 输出帮助信息
         {
-            sender.sendMessage(LangUtil.i18n("usageError")
+            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
                     .replace("{usage}", LangUtil.i18n("commands.home.usage"))
                     .replace("{command}", label)
             );

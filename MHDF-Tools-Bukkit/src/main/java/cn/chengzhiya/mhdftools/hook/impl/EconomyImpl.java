@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.hook.impl;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.BigDecimalUtil;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
@@ -137,11 +138,9 @@ public final class EconomyImpl extends AbstractEconomy {
         double tax = 0;
         if (ConfigUtil.getConfig().getBoolean("economySettings.personalIncomeTax.enable")) {
             tax = amount * ConfigUtil.getConfig().getDouble("economySettings.personalIncomeTax.rate");
-            if (player.getPlayer() != null) {
-                player.getPlayer().sendMessage(LangUtil.i18n("economy.tax")
-                        .replace("{amount}", String.valueOf(tax))
-                );
-            }
+            ActionUtil.sendMessage(player.getPlayer(), LangUtil.i18n("economy.tax")
+                    .replace("{amount}", String.valueOf(tax))
+            );
         }
         EconomyUtil.addMoney(player, BigDecimalUtil.toBigDecimal(amount - tax));
         return new EconomyResponse(amount, getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
