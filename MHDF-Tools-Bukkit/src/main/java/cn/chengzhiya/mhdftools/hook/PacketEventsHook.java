@@ -6,6 +6,7 @@ import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.manager.server.ServerManager;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.util.TimeStampMode;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
@@ -48,9 +49,21 @@ public final class PacketEventsHook extends AbstractHook {
     }
 
     /**
-     * 给指定玩家发送指定数据包
+     * 给指定用户实例发送指定数据包
      *
-     * @param player 接收数据包的玩家
+     * @param user 接收数据包的用户实例
+     * @param packet 发送的数据包
+     */
+    public void sendPacket(User user, PacketWrapper<?> packet) {
+        if (super.enable) {
+            PacketEvents.getAPI().getPlayerManager().sendPacket(user, packet);
+        }
+    }
+
+    /**
+     * 给指定玩家实例发送指定数据包
+     *
+     * @param player 接收数据包的玩家实例
      * @param packet 发送的数据包
      */
     public void sendPacket(Player player, PacketWrapper<?> packet) {
