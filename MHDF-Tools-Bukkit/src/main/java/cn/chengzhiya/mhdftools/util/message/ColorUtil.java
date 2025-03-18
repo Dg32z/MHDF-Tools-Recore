@@ -1,15 +1,10 @@
 package cn.chengzhiya.mhdftools.util.message;
 
-import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class ColorUtil {
     /**
