@@ -1,7 +1,9 @@
 package cn.chengzhiya.mhdftools.hook;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.manager.server.ServerManager;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.util.TimeStampMode;
@@ -55,5 +57,15 @@ public final class PacketEventsHook extends AbstractHook {
         if (super.enable) {
             PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
         }
+    }
+
+    /**
+     * 注册监听器
+     *
+     * @param packetListener 数据包监听器实例
+     * @param priority 监听器权重
+     */
+    public void registerListener(AbstractPacketListener packetListener, PacketListenerPriority priority) {
+        PacketEvents.getAPI().getEventManager().registerListener(packetListener, priority);
     }
 }

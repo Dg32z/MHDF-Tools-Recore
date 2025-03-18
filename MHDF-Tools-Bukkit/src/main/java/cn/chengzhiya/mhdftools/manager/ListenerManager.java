@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.manager;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
 import org.bukkit.Bukkit;
 import org.reflections.Reflections;
 
@@ -18,11 +19,21 @@ public final class ListenerManager implements Init {
         try {
             Reflections reflections = new Reflections(AbstractListener.class.getPackageName());
 
+            for (Class<? extends AbstractPacketListener> clazz : reflections.getSubTypesOf(AbstractPacketListener.class)) {
+                if (!Modifier.isAbstract(clazz.getModifiers())) {
+                    AbstractPacketListener packetListener = clazz.getDeclaredConstructor().newInstance();
+                    if (packetListener.isEnable()) {
+                        Main.instance.getPluginHookManager().getPacketEventsHook()
+                                .registerListener(packetListener, packetListener.getPriority());
+                    }
+                }
+            }
+
             for (Class<? extends AbstractListener> clazz : reflections.getSubTypesOf(AbstractListener.class)) {
                 if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractListener abstractListener = clazz.getDeclaredConstructor().newInstance();
-                    if (abstractListener.isEnable()) {
-                        Bukkit.getPluginManager().registerEvents(abstractListener, Main.instance);
+                    AbstractListener listener = clazz.getDeclaredConstructor().newInstance();
+                    if (listener.isEnable()) {
+                        Bukkit.getPluginManager().registerEvents(listener, Main.instance);
                     }
                 }
             }
