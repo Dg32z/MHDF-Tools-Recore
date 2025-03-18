@@ -1,9 +1,70 @@
 package cn.chengzhiya.mhdftools.text;
 
+import net.kyori.adventure.text.AbstractComponent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextReplacementConfig;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class TextComponent implements net.kyori.adventure.text.TextComponent {
+import java.util.Collections;
+import java.util.List;
+
+@SuppressWarnings("UnstableApiUsage")
+public final class TextComponent extends AbstractComponent implements net.kyori.adventure.text.TextComponent {
+    private String content;
+
+    public TextComponent(@NotNull List<? extends ComponentLike> children, @NotNull Style style, @NotNull String content) {
+        super(children, style);
+        this.content = content;
+    }
+
+    public TextComponent(@NotNull List<? extends ComponentLike> children, @NotNull Style style) {
+        this(children, style, "");
+    }
+
+    public TextComponent(String content) {
+        this(Collections.emptyList(), Style.empty(), content);
+    }
+
+    public TextComponent() {
+        this("");
+    }
+
+    public TextComponent(Component component) {
+        this(component.children(), component.style());
+        if (component instanceof net.kyori.adventure.text.TextComponent textComponent) {
+            this.content = textComponent.content();
+        }
+    }
+
+    @Override
+    public @NotNull TextComponent content(@NotNull String content) {
+        this.content = content;
+        return this;
+    }
+
+    @Override
+    public @NotNull String content() {
+        return this.content;
+    }
+
+    @Override
+    public @NotNull Builder toBuilder() {
+        return new TextComponentBuilder(this);
+    }
+
+    @Override
+    public @NotNull TextComponent children(@NotNull List<? extends ComponentLike> children) {
+        return new TextComponent(children, this.style, this.content);
+    }
+
+    @Override
+    public @NotNull TextComponent style(@NotNull Style style) {
+        return new TextComponent(this.children, style, this.content);
+    }
+
     /**
      * 替换文本实例中的字符串
      *
@@ -17,7 +78,7 @@ public abstract class TextComponent implements net.kyori.adventure.text.TextComp
                 .replacement(replacement)
                 .build();
 
-        return (TextComponent) replaceText(replacementConfig);
+        return new TextComponent(replaceText(replacementConfig));
     }
 
     /**
@@ -33,7 +94,7 @@ public abstract class TextComponent implements net.kyori.adventure.text.TextComp
                 .replacement(replacement)
                 .build();
 
-        return (TextComponent) replaceText(replacementConfig);
+        return new TextComponent(replaceText(replacementConfig));
     }
 
     /**
@@ -43,5 +104,10 @@ public abstract class TextComponent implements net.kyori.adventure.text.TextComp
      */
     public String toMiniMessageString() {
         return MiniMessage.miniMessage().serialize(this);
+    }
+
+    @Override
+    public String toString() {
+        return this.content();
     }
 }
