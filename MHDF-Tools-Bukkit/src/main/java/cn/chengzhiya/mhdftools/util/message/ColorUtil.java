@@ -156,6 +156,6 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static TextComponent color(@NotNull String message) {
-        return (TextComponent) MiniMessage.miniMessage().deserialize(miniMessage(message));
+        return new TextComponent(MiniMessage.miniMessage().deserialize(miniMessage(message)));
     }
 }
