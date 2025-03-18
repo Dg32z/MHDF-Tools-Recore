@@ -152,147 +152,147 @@ public enum Dependency {
             "adventure-api",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_KEY(
             "net{}kyori",
             "adventure-key",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_NBT(
             "net{}kyori",
             "adventure-nbt",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_PLATFORM_API(
             "net{}kyori",
             "adventure-platform-api",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_PLATFORM_BUKKIT(
             "net{}kyori",
             "adventure-platform-bukkit",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_PLATFORM_FACET(
             "net{}kyori",
             "adventure-platform-facet",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_PLATFORM_VIAVERSION(
             "net{}kyori",
             "adventure-platform-viaversion",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_LOGGER_SLF4J(
             "net{}kyori",
             "adventure-text-logger-slf4j",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_MINIMESSAGE(
             "net{}kyori",
             "adventure-text-minimessage",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_ANSI(
             "net{}kyori",
             "adventure-text-serializer-ansi",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_BUNGEECORD(
             "net{}kyori",
             "adventure-text-serializer-bungeecord",
             "4.3.4",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON(
             "net{}kyori",
             "adventure-text-serializer-gson",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL(
             "net{}kyori",
             "adventure-text-serializer-gson-legacy-impl",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_JSON(
             "net{}kyori",
             "adventure-text-serializer-json",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_JSON_LEGACY_IMPL(
             "net{}kyori",
             "adventure-text-serializer-json-legacy-impl",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_LEGACY(
             "net{}kyori",
             "adventure-text-serializer-legacy",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ADVENTURE_TEXT_SERIALIZER_PLAIN(
             "net{}kyori",
             "adventure-text-serializer-plain",
             "4.18.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     ANSI(
             "net{}kyori",
             "ansi",
             "1.0.3",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     EXAMINATION_API(
             "net{}kyori",
             "examination-api",
             "1.3.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     EXAMINATION_STRING(
             "net{}kyori",
             "examination-string",
             "1.3.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     ),
     OPTION(
             "net{}kyori",
             "option",
             "1.0.0",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            false
     );
 
     private final String artifact;
