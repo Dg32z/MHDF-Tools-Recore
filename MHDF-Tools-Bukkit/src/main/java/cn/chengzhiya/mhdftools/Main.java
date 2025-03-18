@@ -44,13 +44,13 @@ public final class Main extends JavaPlugin {
         this.cacheManager = new CacheManager();
         this.cacheManager.init();
 
-        this.bStatsManager = new BStatsManager();
-        this.bStatsManager.init();
-
         this.pluginHookManager = new PluginHookManager();
         this.pluginHookManager.hook();
 
-        checkVersion();
+        ServerVersion version = pluginHookManager.getPacketEventsHook().getServerVersion();
+        if (version.isOlderThan(ServerVersion.V_1_17)) {
+            LogUtil.log("&c您的服务器是不被支持的版本 &7(&c" + version.getReleaseName() + "&7) &c可能会遇到很多问题!");
+        }
 
         MinecraftLangUtil.saveDefaultMinecraftLang();
         MinecraftLangUtil.reloadMinecraftLang();
@@ -67,6 +67,9 @@ public final class Main extends JavaPlugin {
         this.bungeeCordManager = new BungeeCordManager();
         this.bungeeCordManager.init();
 
+        this.bStatsManager = new BStatsManager();
+        this.bStatsManager.init();
+
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
@@ -78,11 +81,11 @@ public final class Main extends JavaPlugin {
             adventure.close();
         }
 
-        if (this.pluginHookManager != null) {
-            this.pluginHookManager.unhook();
-        }
         if (this.bungeeCordManager != null) {
             this.bungeeCordManager.close();
+        }
+        if (this.pluginHookManager != null) {
+            this.pluginHookManager.unhook();
         }
         if (this.cacheManager != null) {
             this.cacheManager.close();
@@ -95,11 +98,11 @@ public final class Main extends JavaPlugin {
         LogUtil.log("&a插件卸载成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
 
+        this.bStatsManager = null;
         this.bungeeCordManager = null;
         this.taskManager = null;
         this.listenerManager = null;
         this.commandManager = null;
-        this.bStatsManager = null;
         this.pluginHookManager = null;
         this.cacheManager = null;
         this.databaseManager = null;
@@ -107,13 +110,5 @@ public final class Main extends JavaPlugin {
         this.configManager = null;
 
         instance = null;
-    }
-
-    private void checkVersion() {
-        final ServerVersion version = pluginHookManager.getPacketEventsHook().getServerVersion();
-        if (version.isOlderThan(ServerVersion.V_1_17)) {
-            LogUtil.log("&c您的服务器是不被支持的版本 &7(&c" + version.getReleaseName() + "&7)");
-            this.getServer().getPluginManager().disablePlugin(this);
-        }
     }
 }
