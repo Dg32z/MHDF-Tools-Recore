@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-public final class HomeMenu extends AbstractMenu {
-    private final YamlConfiguration config;
+    public final class HomeMenu extends AbstractMenu {
+        private final YamlConfiguration config;
     private final int page;
 
     public HomeMenu(Player player, int page) {
@@ -54,17 +54,17 @@ public final class HomeMenu extends AbstractMenu {
             return menu;
         }
 
+        List<HomeData> homeList = HomeDataUtil.getHomeDataList(getPlayer());
+        int start = (page - 1) * homeSize;
+        int maxEnd = page * homeSize;
+        int end = Math.min(homeList.size(), maxEnd);
+
         for (String key : items.getKeys(false)) {
             ConfigurationSection item = items.getConfigurationSection(key);
 
             if (item == null) {
                 continue;
             }
-
-            List<HomeData> homeList = HomeDataUtil.getHomeDataList(getPlayer());
-            int start = (page - 1) * homeSize;
-            int maxEnd = page * homeSize;
-            int end = Math.min(homeList.size(), maxEnd);
 
             String type = item.getString("type");
             String name = item.getString("name");
