@@ -35,7 +35,7 @@ public enum Dependency {
             "fastjson2",
             "2.0.53",
             Repository.MAVEN_CENTRAL_MIRROR,
-            false
+            true
     ),
 
     // 反射处理
