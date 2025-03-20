@@ -50,12 +50,12 @@
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.org.reflections</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>org.javassist</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.org.javassist</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>com.github.retrooper</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.com.github.retrooper</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.github.retrooper</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.io.github.retrooper</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>de.tr7zw</pattern>

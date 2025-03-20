@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.EnumMap;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 
 public final class DependencyManagerImpl implements DependencyManager {
@@ -151,6 +151,29 @@ public final class DependencyManagerImpl implements DependencyManager {
     }
 
     /**
+     * 获取重定向依赖Map列表
+     *
+     * @return 重定向依赖Map列表
+     */
+    private HashMap<String, String> getRelocatorMap() {
+        HashMap<String, String> relocatorMap = new HashMap<>();
+
+        for (Dependency dependency : Dependency.values()) {
+            if (!dependency.isRelocatable()) {
+                continue;
+            }
+
+            for (String relocator : dependency.getRelocator()) {
+                relocatorMap.put(relocator, RELOCATION_PREFIX + relocator);
+            }
+
+            relocatorMap.put(dependency.getGroupId(), RELOCATION_PREFIX + dependency.getGroupId());
+        }
+
+        return relocatorMap;
+    }
+
+    /**
      * 重定位依赖
      *
      * @param dependency 依赖信息实例
@@ -170,7 +193,7 @@ public final class DependencyManagerImpl implements DependencyManager {
         try {
             jarRelocator.remap(
                     file.toFile(), getRelocatedPath(file).toFile(),
-                    Map.of(dependency.getGroupId(), RELOCATION_PREFIX + dependency.getGroupId())
+                    getRelocatorMap()
             );
             return getRelocatedPath(file);
         } catch (Exception e) {

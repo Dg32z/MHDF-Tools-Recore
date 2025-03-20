@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.libraries;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public enum Dependency {
@@ -51,7 +52,8 @@ public enum Dependency {
             "javassist",
             "3.28.0-GA",
             Repository.MAVEN_CENTRAL_MIRROR,
-            true
+            true,
+            "javassist"
     ),
 
     // packetevents-api
@@ -60,7 +62,8 @@ public enum Dependency {
             "packetevents-api",
             "2.7.0",
             Repository.CODE_MC,
-            true
+            true,
+            "io{}github{}retrooper"
     ),
     PACKETEVENTS_NETTY_COMMON(
             "com{}github{}retrooper",
@@ -136,14 +139,15 @@ public enum Dependency {
             "reactor-core",
             "3.6.6",
             Repository.MAVEN_CENTRAL_MIRROR,
-            false
+            true,
+            "reactor"
     ),
     REACTIVE_STREAMS(
             "org{}reactivestreams",
             "reactive-streams",
             "1.0.4",
             Repository.MAVEN_CENTRAL_MIRROR,
-            false
+            true
     ),
 
     // adventure-api
@@ -305,10 +309,12 @@ public enum Dependency {
     private final String groupId;
     @Getter
     private final boolean relocatable;
+    @Getter
+    private final String[] relocator;
 
-    Dependency(@NotNull String groupId, @NotNull String artifactId, @NotNull String version, @NotNull Repository repository, boolean relocatable) {
+    Dependency(@NotNull String groupId, @NotNull String artifactId, @NotNull String version, @NotNull Repository repository, boolean relocatable, String... relocator) {
         this.mavenRepoPath = String.format("%s/%s/%s/%s-%s.jar",
-                groupId.replace("{}", ".").replace(".", "/"),
+                groupId.replace("{}", "/"),
                 artifactId,
                 version,
                 artifactId,
@@ -319,6 +325,9 @@ public enum Dependency {
         this.repository = repository;
         this.artifact = artifactId;
         this.relocatable = relocatable;
+        this.relocator = Arrays.stream(relocator)
+                .map(s -> s.replace("{}", "."))
+                .toArray(String[]::new);
     }
 
     /**
