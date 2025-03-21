@@ -9,6 +9,7 @@
 _✨一款轻量化便携性的Bukkit基础插件✨_
 
 _✨轻量 便携 快捷 即装即用 可无前置运行✨_
+
 </div>
 
 <p align="center">
@@ -60,5 +61,7 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 ## 友链
 
 <div>
-    <a href="https://www.mhdf.love/">梦回东方</a>
+    <a href="https://plugin.mhdf.cn/">插件文档</a>
+    <a href="https://www.mhdf.cn/">梦回东方</a>
+    <a href="https://www.yuque.com/xiaoyutang-ayhvn/rnr4ym/">鱼酱の萌新开服教程</a>
 </div>
