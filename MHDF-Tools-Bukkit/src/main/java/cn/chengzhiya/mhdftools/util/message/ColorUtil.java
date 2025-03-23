@@ -18,13 +18,25 @@ public final class ColorUtil {
     }
 
     /**
-     * 检测字符是否是颜色代码的字符
+     * 处理旧版颜色符号
      *
-     * @param c 字符
-     * @return 结果
+     * @param message 文本
+     * @return 处理后的文本
      */
-    public static boolean isColorCode(char c) {
-        return c != '§' && c != '&';
+    public static String legacyColor(@NotNull String message) {
+        message = message.replace("{prefix}", LangUtil.getString("prefix"));
+        return legacy(message);
+    }
+
+    /**
+     * 将旧版RGB颜色字符文本转换为miniMessage格式
+     *
+     * @param legacy 旧版颜色字符文本
+     * @return miniMessage格式文本
+     */
+    public static String legacyColorToMiniMessage(@NotNull String legacy) {
+        legacy = legacy.replace("&#","#");
+        return legacy.replaceAll("(?<!<)#([0-9a-fA-F]{6})(?!>)", "<#$1>");
     }
 
     /**
@@ -33,7 +45,7 @@ public final class ColorUtil {
      * @param legacy 旧版颜色字符文本
      * @return miniMessage格式文本
      */
-    public static String legacyToMiniMessage(String legacy) {
+    public static String legacyToMiniMessage(@NotNull String legacy) {
         StringBuilder stringBuilder = new StringBuilder();
         char[] chars = legacy.toCharArray();
         for (int i = 0; i < chars.length; i++) {
@@ -101,14 +113,13 @@ public final class ColorUtil {
     }
 
     /**
-     * 处理旧版颜色符号
+     * 检测字符是否是颜色代码的字符
      *
-     * @param message 文本
-     * @return 处理后的文本
+     * @param c 字符
+     * @return 结果
      */
-    public static String legacyColor(@NotNull String message) {
-        message = message.replace("{prefix}", LangUtil.getString("prefix"));
-        return legacy(message);
+    public static boolean isColorCode(char c) {
+        return c != '§' && c != '&';
     }
 
     /**
@@ -118,7 +129,7 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static String miniMessage(@NotNull String message) {
-        return legacyToMiniMessage(legacyColor(message));
+        return legacyColorToMiniMessage(legacyToMiniMessage(legacyColor(message)));
     }
 
     /**
