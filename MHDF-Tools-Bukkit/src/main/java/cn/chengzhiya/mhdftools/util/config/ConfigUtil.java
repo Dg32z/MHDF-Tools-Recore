@@ -34,7 +34,7 @@ public final class ConfigUtil {
      * 重新加载配置文件
      */
     public static void reloadConfig() {
-        Main.instance.getConfig();
+        Main.instance.reloadConfig();
     }
 
     /**
