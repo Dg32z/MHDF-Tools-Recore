@@ -27,6 +27,7 @@ public final class Chat extends AbstractListener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
+        // 聊天延迟
         if (ConfigUtil.getConfig().getBoolean("chatSettings.delay.enable")) {
             if (!player.hasPermission("mhdftools.bypass.chat.delay")) {
                 String delayData = Main.instance.getCacheManager().get(player.getName() + "_delay");
@@ -40,15 +41,18 @@ public final class Chat extends AbstractListener {
             }
         }
 
+        // 限制使用颜色符号
         if (!player.hasPermission("mhdftools.bypass.color")) {
             message = ChatColor.stripColor(ColorUtil.legacyColor(message));
         }
 
+        // 限制使用miniMessage
         if (!player.hasPermission("mhdftools.bypass.minimessage")) {
             Pattern pattern = Pattern.compile("</?[a-zA-Z0-9_:-]+>");
             message = pattern.matcher(message).replaceAll("");
         }
 
+        // 刷屏限制
         if (ConfigUtil.getConfig().getBoolean("chatSettings.spam.enable")) {
             if (!player.hasPermission("mhdftools.bypass.chat.spam")) {
                 String spamData = Main.instance.getCacheManager().get(player.getName() + "_spam");
