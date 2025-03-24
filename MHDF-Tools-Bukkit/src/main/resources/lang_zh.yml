@@ -229,6 +229,7 @@ commands:
   suicide:
     usage: "/{command}"
     description: "自杀"
+    confirm: "你确定要自杀吗? <click:run_command:suicide confirm><hover:show_text:"&6点击确认自杀">&a[确认自杀]</hover></click>"
     message: "{prefix} &6你自杀了!"
   warp:
     usage: "/{command} <传送点> [玩家]"
