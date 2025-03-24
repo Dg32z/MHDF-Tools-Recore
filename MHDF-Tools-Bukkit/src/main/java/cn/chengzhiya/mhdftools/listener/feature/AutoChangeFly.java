@@ -43,7 +43,7 @@ public final class AutoChangeFly extends AbstractListener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.chaneWorld")) {
+        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.changeWorld")) {
             return;
         }
 
@@ -78,7 +78,7 @@ public final class AutoChangeFly extends AbstractListener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         // 不处理功能未开启的情况
-        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoEnable.takeHealth")) {
+        if (!ConfigUtil.getConfig().getBoolean("flySettings.autoDisable.takeHealth")) {
             return;
         }
 
