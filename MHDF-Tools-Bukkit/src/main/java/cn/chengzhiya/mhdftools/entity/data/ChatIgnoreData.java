@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.entity.data;
 
+import cn.chengzhiya.mhdftools.entity.AbstractDao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @DatabaseTable(tableName = "mhdftools_chatignore")
-public final class ChatIgnoreData {
+public final class ChatIgnoreData extends AbstractDao {
     @DatabaseField(generatedId = true, canBeNull = false)
     private Integer id;
     @DatabaseField(canBeNull = false, index = true)
