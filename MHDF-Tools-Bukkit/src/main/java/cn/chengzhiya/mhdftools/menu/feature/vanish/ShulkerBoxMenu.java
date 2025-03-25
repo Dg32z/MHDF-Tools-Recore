@@ -7,6 +7,7 @@ import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,9 @@ public final class ShulkerBoxMenu extends AbstractMenu {
 
         return inventory;
     }
+
+    @Override
+    public void open(InventoryOpenEvent event) {}
 
     @Override
     public void click(InventoryClickEvent event) {
