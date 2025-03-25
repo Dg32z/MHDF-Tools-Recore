@@ -28,7 +28,7 @@ public final class TpaUtil {
         Main.instance.getCacheManager().put(player.getName() + "_tpaDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
-                .replace("{player}", player.getName())
+                .replaceByMiniMessage("{player}", player.getName())
         );
 
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.message")

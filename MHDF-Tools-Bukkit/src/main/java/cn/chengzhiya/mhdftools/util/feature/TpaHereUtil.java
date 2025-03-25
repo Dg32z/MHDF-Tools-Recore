@@ -28,7 +28,7 @@ public final class TpaHereUtil {
         Main.instance.getCacheManager().put(player.getName() + "_tpahereDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpahereSettings.delay")));
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpahere.requestMessage")
-                .replace("{player}", player.getName())
+                .replaceByMiniMessage("{player}", player.getName())
         );
 
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpahere.message")
