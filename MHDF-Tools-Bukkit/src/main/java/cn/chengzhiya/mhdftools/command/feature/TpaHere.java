@@ -2,9 +2,11 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.menu.feature.TpaHereMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -30,27 +32,12 @@ public final class TpaHere extends AbstractCommand {
             return;
         }
 
+        if (args.length == 0) {
+            new TpaHereMenu(sender, 1).openMenu();
+            return;
+        }
         if (args.length == 1) {
-            if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
-                return;
-            }
-
-            if (args[0].equals(sender.getName())) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.sendSelf"));
-                return;
-            }
-
-            Main.instance.getCacheManager().put(sender.getName() + "_tpaherePlayer", args[0]);
-            Main.instance.getCacheManager().put(sender.getName() + "_tpahereDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpahereSettings.delay")));
-
-            Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpahere.requestMessage")
-                    .replace("{player}", sender.getName())
-            );
-
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.message")
-                    .replace("{player}", args[0])
-            );
+            TpaHereUtil.sendTpaHereRequest(sender, args[0]);
             return;
         }
         if (args.length == 2) {
