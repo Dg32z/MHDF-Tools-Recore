@@ -71,9 +71,12 @@ public final class Chat extends AbstractListener {
         Main.instance.getCacheManager().put(player.getName() + "_delay", String.valueOf(delay));
         Main.instance.getCacheManager().put(player.getName() + "_spam", message);
 
+        // 替换词
         if (!player.hasPermission("mhdftools.bypass.chat.replaceWord")) {
             message = ChatUtil.applyBlackWord(message);
         }
+
+        // 展示物品
         message = ChatUtil.applyShowItem(player, message);
 
         event.setCancelled(true);

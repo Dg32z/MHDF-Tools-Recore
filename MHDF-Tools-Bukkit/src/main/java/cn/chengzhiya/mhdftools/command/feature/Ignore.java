@@ -53,9 +53,11 @@ public final class Ignore extends AbstractCommand {
         if (args.length == 2) {
             // 增加屏蔽玩家
             if (args[0].equals("add")) {
-                if (ConfigUtil.getConfig().getStringList("chatSettings.ignore.blacklist").contains(args[1])) {
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.blacklist"));
-                    return;
+                if (!sender.hasPermission("mhdftools.bypass.ignore.blacklist")) {
+                    if (ConfigUtil.getConfig().getStringList("chatSettings.ignore.blacklist").contains(args[1])) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.blacklist"));
+                        return;
+                    }
                 }
 
                 OfflinePlayer ignorePlayer = Bukkit.getOfflinePlayer(args[1]);
