@@ -25,6 +25,7 @@ public final class TpaDelay extends AbstractTask {
             int delay = Integer.parseInt(delayString);
             if (delay <= 0) {
                 Main.instance.getCacheManager().remove(player.getName() + "_tpaDelay");
+                Main.instance.getCacheManager().remove(player.getName() + "_tpaPlayer");
                 return;
             }
 
