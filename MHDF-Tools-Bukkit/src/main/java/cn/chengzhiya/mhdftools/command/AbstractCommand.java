@@ -23,6 +23,22 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     private final boolean onlyPlayer;
     private final String[] commands;
 
+    public AbstractCommand(@NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+        this.enable = true;
+        this.description = description;
+        this.permission = permission;
+        this.onlyPlayer = onlyPlayer;
+        this.commands = commands;
+    }
+
+    public AbstractCommand(@NotNull String enableKey, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+        this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
+        this.description = description;
+        this.permission = permission;
+        this.onlyPlayer = onlyPlayer;
+        this.commands = commands;
+    }
+
     public AbstractCommand(List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
         boolean enable = true;
         for (String enableKey : enableKeyList) {
@@ -40,21 +56,8 @@ public abstract class AbstractCommand implements TabExecutor, Command {
         this.commands = commands;
     }
 
-    public AbstractCommand(String enableKey, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        if (enableKey == null || enableKey.isEmpty()) {
-            this.enable = true;
-        }else {
-            this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        }
-
-        this.description = description;
-        this.permission = permission;
-        this.onlyPlayer = onlyPlayer;
-        this.commands = commands;
-    }
-
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, String @NotNull [] args) {
         if (onlyPlayer) {
             if (sender instanceof Player player) {
                 execute(player, label, args);
@@ -68,7 +71,7 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     }
 
     @Override
-    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, String @NotNull [] args) {
         List<String> tabComplete = tabCompleter(sender, label, args);
         if (tabComplete == null) {
             tabComplete = Main.instance.getBungeeCordManager().getBukkitPlayerList();
