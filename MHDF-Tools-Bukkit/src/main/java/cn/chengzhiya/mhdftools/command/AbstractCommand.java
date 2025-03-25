@@ -23,16 +23,25 @@ public abstract class AbstractCommand implements TabExecutor, Command {
     private final boolean onlyPlayer;
     private final String[] commands;
 
-    public AbstractCommand(String enableKey, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
-        if (enableKey != null && !enableKey.isEmpty()) {
-            this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        } else {
-            this.enable = true;
+    public AbstractCommand(List<String> enableKeyList, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+        boolean enable = true;
+        for (String enableKey : enableKeyList) {
+            if (enableKey == null || enableKey.isEmpty()) {
+                continue;
+            }
+
+            enable = ConfigUtil.getConfig().getBoolean(enableKey);
         }
+
+        this.enable = enable;
         this.description = description;
         this.permission = permission;
         this.onlyPlayer = onlyPlayer;
         this.commands = commands;
+    }
+
+    public AbstractCommand(String enableKey, @NotNull String description, String permission, boolean onlyPlayer, String... commands) {
+        this(List.of(enableKey), description, permission, onlyPlayer, commands);
     }
 
     @Override
