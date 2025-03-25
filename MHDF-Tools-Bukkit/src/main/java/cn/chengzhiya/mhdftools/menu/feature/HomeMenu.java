@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-    public final class HomeMenu extends AbstractMenu {
-        private final YamlConfiguration config;
+public final class HomeMenu extends AbstractMenu {
+    private final YamlConfiguration config;
     private final int page;
 
     public HomeMenu(Player player, int page) {

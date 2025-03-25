@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.util.database;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.data.ChatIgnoreData;
-import cn.chengzhiya.mhdftools.entity.data.FlyStatus;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;
@@ -52,7 +51,7 @@ public final class ChatIgnoreDataUtil {
     /**
      * 获取指定玩家UUID屏蔽指定玩家UUID的聊天屏蔽数据实例
      *
-     * @param uuid 玩家UUID
+     * @param uuid       玩家UUID
      * @param ignoreUuid 被屏蔽的玩家UUID
      * @return 聊天屏蔽数据实例
      */
@@ -72,7 +71,7 @@ public final class ChatIgnoreDataUtil {
     /**
      * 获取指定玩家实例屏蔽指定玩家实例的聊天屏蔽数据实例
      *
-     * @param player 玩家实例
+     * @param player       玩家实例
      * @param ignorePlayer 被屏蔽的玩家实例
      * @return 聊天屏蔽数据实例
      */
@@ -83,7 +82,7 @@ public final class ChatIgnoreDataUtil {
     /**
      * 判断指定玩家UUID是否屏蔽指定玩家UUID
      *
-     * @param uuid 玩家UUID
+     * @param uuid       玩家UUID
      * @param ignoreUuid 被屏蔽的玩家UUID
      * @return 结果
      */
@@ -94,7 +93,7 @@ public final class ChatIgnoreDataUtil {
     /**
      * 判断指定玩家实例是否屏蔽指定玩家实例
      *
-     * @param player 玩家实例
+     * @param player       玩家实例
      * @param ignorePlayer 被屏蔽的玩家实例
      * @return 结果
      */
