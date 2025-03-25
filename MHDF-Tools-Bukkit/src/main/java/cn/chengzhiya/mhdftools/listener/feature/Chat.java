@@ -1,13 +1,17 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.data.ChatIgnoreData;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -72,8 +76,23 @@ public final class Chat extends AbstractListener {
         message = ChatUtil.applyShowItem(player, message);
 
         event.setCancelled(true);
-        Main.instance.getBungeeCordManager().broadcastMessage(
+
+        Main.instance.getBungeeCordManager().sendMessage(
+                "console",
                 ChatUtil.getFormatMessage(player, message)
         );
+        for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
+            if (ConfigUtil.getConfig().getBoolean("chatSettings.ignore.enable")) {
+                OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
+                if (ChatIgnoreDataUtil.isChatIgnore(targetPlayer, player)) {
+                    continue;
+                }
+            }
+
+            Main.instance.getBungeeCordManager().sendMessage(
+                    target,
+                    ChatUtil.getFormatMessage(player, message)
+            );
+        }
     }
 }

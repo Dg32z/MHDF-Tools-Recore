@@ -457,7 +457,17 @@ chatSettings:
     # 关键词
     word:
       - "[i]"
-  # 格式
+  # 屏蔽设置
+  ignore:
+    # 开关
+    enable: true
+    # 禁止屏蔽列表
+    blacklist:
+      - "BaiShenYao_Dog"
+    # 命令
+    commands:
+      - "ignore"
+  # 格式设置
   format:
     # 开关
     enable: true
