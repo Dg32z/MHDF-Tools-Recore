@@ -15,7 +15,6 @@ import java.util.List;
 public final class MHDFTools extends AbstractCommand {
     public MHDFTools() {
         super(
-                null,
                 "梦之工具主命令",
                 "mhdftools.commands.mhdftools",
                 false,
