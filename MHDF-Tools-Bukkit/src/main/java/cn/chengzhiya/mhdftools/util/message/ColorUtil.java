@@ -35,7 +35,7 @@ public final class ColorUtil {
      * @return miniMessage格式文本
      */
     public static String legacyColorToMiniMessage(@NotNull String legacy) {
-        legacy = legacy.replace("&#","#");
+        legacy = legacy.replace("&#", "#");
         return legacy.replaceAll("(?<!<)#([0-9a-fA-F]{6})(?!>)", "<#$1>");
     }
 

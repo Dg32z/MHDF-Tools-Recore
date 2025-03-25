@@ -12,6 +12,12 @@ public final class MenuConfigUtil {
      */
     public static void saveDefaultMenu() throws ResourceException, FileException {
         FileUtil.createFolder(getMenuFolder());
+        if (ConfigUtil.getConfig().getBoolean("tpaSettings.enable")) {
+            FileUtil.saveResource("menu/tpa.yml", "menu/tpa.yml", false);
+        }
+        if (ConfigUtil.getConfig().getBoolean("tpahereSettings.enable")) {
+            FileUtil.saveResource("menu/tpahere.yml", "menu/tpahere.yml", false);
+        }
         if (ConfigUtil.getConfig().getBoolean("homeSettings.enable")) {
             FileUtil.saveResource("menu/home.yml", "menu/home.yml", false);
         }

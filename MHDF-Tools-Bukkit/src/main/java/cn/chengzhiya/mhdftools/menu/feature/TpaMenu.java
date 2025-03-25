@@ -1,11 +1,10 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
-import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
+import cn.chengzhiya.mhdftools.util.feature.TpaUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -27,23 +26,23 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-public final class HomeMenu extends AbstractMenu {
+public final class TpaMenu extends AbstractMenu {
     private final YamlConfiguration config;
     private final int page;
 
-    public HomeMenu(Player player, int page) {
+    public TpaMenu(Player player, int page) {
         super(
-                "homeSettings.enable",
+                "tpaSettings.enable",
                 player
         );
-        this.config = MenuConfigUtil.getMenuConfig("home.yml");
+        this.config = MenuConfigUtil.getMenuConfig("tpa.yml");
         this.page = page;
     }
 
     @Override
     public @NotNull Inventory getInventory() {
         int size = getConfig().getInt("size");
-        int homeSize = getConfig().getInt("homeSize");
+        int playerSize = getConfig().getInt("playerSize");
         String title = getConfig().getString("title");
 
         Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
@@ -53,10 +52,10 @@ public final class HomeMenu extends AbstractMenu {
             return menu;
         }
 
-        List<HomeData> homeList = HomeDataUtil.getHomeDataList(getPlayer());
-        int start = (page - 1) * homeSize;
-        int maxEnd = page * homeSize;
-        int end = Math.min(homeList.size(), maxEnd);
+        List<String> playerList = Main.instance.getBungeeCordManager().getPlayerList();
+        int start = (page - 1) * playerSize;
+        int maxEnd = page * playerSize;
+        int end = Math.min(playerList.size(), maxEnd);
 
         for (String key : items.getKeys(false)) {
             ConfigurationSection item = items.getConfigurationSection(key);
@@ -72,16 +71,16 @@ public final class HomeMenu extends AbstractMenu {
             Integer customModelData = item.getInt("customModelData");
 
             switch (key) {
-                case "家" -> {
+                case "玩家" -> {
                     for (int i = start; i < end; i++) {
-                        HomeData homeData = homeList.get(i);
+                        String target = playerList.get(i);
 
                         ItemStack itemStack = ItemStackUtil.getItemStack(
                                 getPlayer(),
-                                applyHomeDataString(type, homeData),
-                                applyHomeDataString(name, homeData),
+                                applyTpaDataString(type, getPlayer().getName(), target),
+                                applyTpaDataString(name, getPlayer().getName(), target),
                                 lore.stream()
-                                        .map(s -> applyHomeDataString(s, homeData))
+                                        .map(s -> applyTpaDataString(s, getPlayer().getName(), target))
                                         .toList(),
                                 amount,
                                 customModelData
@@ -90,7 +89,7 @@ public final class HomeMenu extends AbstractMenu {
                         NBTItem nbtItem = new NBTItem(itemStack);
                         NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
                         nbtCompound.setString("key", key);
-                        nbtCompound.setString("home", homeData.getHome());
+                        nbtCompound.setString("target", target);
 
                         menu.addItem(nbtItem.getItem());
                     }
@@ -102,7 +101,7 @@ public final class HomeMenu extends AbstractMenu {
                     }
                 }
                 case "下一页" -> {
-                    if (homeList.size() <= maxEnd) {
+                    if (playerList.size() <= maxEnd) {
                         continue;
                     }
                 }
@@ -148,14 +147,12 @@ public final class HomeMenu extends AbstractMenu {
 
         String key = nbtCompound.getString("key");
         switch (key) {
-            case "家" -> {
-                String home = nbtCompound.getString("home");
-                HomeData homeData = HomeDataUtil.getHomeData(getPlayer(), home);
-
-                Main.instance.getBungeeCordManager().teleportLocation(getPlayer().getName(), homeData.toBungeeCordLocation());
+            case "玩家" -> {
+                String target = nbtCompound.getString("target");
+                TpaUtil.sendTpaRequest(getPlayer(), target);
             }
-            case "上一页" -> new HomeMenu(getPlayer(), getPage() - 1).openMenu();
-            case "下一页" -> new HomeMenu(getPlayer(), getPage() + 1).openMenu();
+            case "上一页" -> new TpaMenu(getPlayer(), getPage() - 1).openMenu();
+            case "下一页" -> new TpaMenu(getPlayer(), getPage() + 1).openMenu();
         }
 
         MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
@@ -169,23 +166,18 @@ public final class HomeMenu extends AbstractMenu {
     /**
      * 处理家数据实例文本
      *
-     * @param message  文本
-     * @param homeData 家数据实例
+     * @param message 文本
+     * @param player  玩家ID
+     * @param target  目标玩家ID
      * @return 处理后的文本
      */
-    private String applyHomeDataString(String message, HomeData homeData) {
+    private String applyTpaDataString(String message, String player, String target) {
         if (message == null) {
             return null;
         }
 
         return message
-                .replace("{name}", homeData.getHome())
-                .replace("{server}", homeData.getServer())
-                .replace("{world}", homeData.getWorld())
-                .replace("{x}", String.valueOf(homeData.getX()))
-                .replace("{y}", String.valueOf(homeData.getY()))
-                .replace("{z}", String.valueOf(homeData.getZ()))
-                .replace("{yaw}", String.valueOf(homeData.getYaw()))
-                .replace("{pitch}", String.valueOf(homeData.getPitch()));
+                .replace("{player}", player)
+                .replace("{target}", target);
     }
 }

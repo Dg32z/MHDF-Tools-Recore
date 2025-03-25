@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.text;
 
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.kyori.adventure.text.AbstractComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
@@ -96,6 +97,17 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
                 .build();
 
         return new TextComponent(replaceText(replacementConfig));
+    }
+
+    /**
+     * 替换miniMessage字符串中的字符串
+     *
+     * @param target      被替换的字符串
+     * @param replacement 替换后的文本实例
+     * @return 替换完成后的文本实例
+     */
+    public TextComponent replaceByMiniMessage(String target, String replacement) {
+        return ColorUtil.color(this.toMiniMessageString().replace(target, replacement));
     }
 
     /**

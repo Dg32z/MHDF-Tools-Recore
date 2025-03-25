@@ -60,6 +60,11 @@ public final class PluginMessage implements PluginMessageListener {
                                 return;
                             }
 
+                            if (playerName.equals("console")) {
+                                ActionUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                                return;
+                            }
+
                             Player player = Bukkit.getPlayer(playerName);
                             if (player == null) {
                                 return;

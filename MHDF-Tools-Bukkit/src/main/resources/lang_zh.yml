@@ -16,7 +16,7 @@ menu:
 
 chat:
   delay: "{prefix} &c冷却中,你还需要等待{delay}秒,才可以聊天!"
-  spam: "{prefix} &c请不要刷屏！"
+  spam: "{prefix} &c请不要刷屏!"
 
 gamemode:
   SURVIVAL: "生存模式"
@@ -229,6 +229,7 @@ commands:
   suicide:
     usage: "/{command}"
     description: "自杀"
+    confirm: "你确定要自杀吗? <click:run_command:suicide confirm><hover:show_text:\"&6点击确认自杀\">&a[确认自杀]</hover></click>"
     message: "{prefix} &6你自杀了!"
   warp:
     usage: "/{command} <传送点> [玩家]"
@@ -285,3 +286,39 @@ commands:
     blackWorld: "{prefix} &c目标世界不允许传送!"
     noWorld: "{prefix} &c找不到目标世界!"
     message: "{prefix} &6传送成功!"
+  ignore:
+    subCommands:
+      help:
+        usage: "/{command} help"
+        description: "命令帮助"
+        commandFormat: "&e{usage} &7| &b{description}"
+        message: |-
+          &e-------------=&6梦之工具&6=&e-------------
+          {helpList}
+          &e-------------=&6梦之工具&6=&e-------------
+      list:
+        usage: "/{command} list"
+        description: "屏蔽玩家列表"
+        message: |-
+          &e-------------=&6梦之工具&6=&e-------------
+          &e你屏蔽了:
+          &e{list}
+          &e-------------=&6梦之工具&6=&e-------------
+      add:
+        usage: "/{command} add <玩家ID>"
+        description: "增加屏蔽玩家"
+        haveIgnore: "{prefix} &c目标玩家已经被你屏蔽了!"
+        blacklist: "{prefix} &c小杂鱼,目标玩家是不能屏蔽的人噢~"
+        message: "{prefix} &a你屏蔽了{target}!"
+      remove:
+        usage: "/{command} remove <玩家ID>"
+        description: "移除屏蔽玩家"
+        noIgnore: "{prefix} &c目标玩家没有被你屏蔽!"
+        message: "{prefix} &a你取消屏蔽了{target}!"
+  msg:
+    usage: "/{command} <玩家ID> <消息>"
+    description: "发送私聊消息"
+    delay: "{prefix} &c冷却中,你还需要等待{delay}秒,才可以私聊!"
+    spam: "{prefix} &c请不要刷屏!"
+    receive: "{prefix} &7{player}悄悄向你说: {message}"
+    send: "{prefix} &7你向{target}悄悄说: {message}"

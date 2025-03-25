@@ -6,15 +6,17 @@ folia-supported: true
 authoendrs: [ BaiShenYao_Dog, Dg32z_, Araykal ]
 softdepend: [ Vault, PlaceholderAPI, MythicMobs, CraftEngine ]
 permissions:
-  mhdftools.bypass.delay:
+  mhdftools.bypass.chat.delay:
     default: op
-  mhdftools.bypass.spam:
+  mhdftools.bypass.chat.spam:
     default: op
-  mhdftools.bypass.replaceWord:
+  mhdftools.bypass.chat.replaceWord:
     default: op
-  mhdftools.bypass.color:
+  mhdftools.bypass.chat.color:
     default: op
-  mhdftools.bypass.minimessage:
+  mhdftools.bypass.chat.minimessage:
+    default: op
+  mhdftools.bypass.ignore.blacklist:
     default: op
   mhdftools.commands.back:
     default: true
@@ -86,3 +88,5 @@ permissions:
     default: true
   mhdftools.commands.warp.other:
     default: op
+  mhdftools.commands.ignore:
+    default: true

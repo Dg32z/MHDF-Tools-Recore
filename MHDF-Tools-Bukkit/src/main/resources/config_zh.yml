@@ -457,7 +457,29 @@ chatSettings:
     # 关键词
     word:
       - "[i]"
-  # 格式
+  # 屏蔽设置
+  ignore:
+    # 开关
+    enable: true
+    # 禁止屏蔽列表
+    # 绕过权限: mhdftools.bypass.ignore.blacklist
+    blacklist:
+      - "BaiShenYao_Dog"
+    # 命令
+    commands:
+      - "ignore"
+  # 私聊设置
+  msg:
+    # 开关
+    enable: true
+    # 命令
+    commands:
+      - "w"
+      - "msg"
+      - "tell"
+  # 格式设置
+  # 绕过颜色限制权限: mhdftools.bypass.chat.color
+  # miniMessage格式限制权限: mhdftools.bypass.chat.minimessage
   format:
     # 开关
     enable: true
