@@ -19,15 +19,10 @@ public final class ChatUtil {
     /**
      * 处理文本中的敏感词
      *
-     * @param player  玩家实例
      * @param message 文本
      * @return 处理后的文本
      */
-    public static String applyBlackWord(Player player, String message) {
-        if (player.hasPermission("mhdftools.bypass.replaceWord")) {
-            return message;
-        }
-
+    public static String applyBlackWord(String message) {
         ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.replaceWord");
         if (config == null) {
             return message;

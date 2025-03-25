@@ -45,12 +45,12 @@ public final class Chat extends AbstractListener {
         }
 
         // 限制使用颜色符号
-        if (!player.hasPermission("mhdftools.bypass.color")) {
+        if (!player.hasPermission("mhdftools.bypass.chat.color")) {
             message = ChatColor.stripColor(ColorUtil.legacyColor(message));
         }
 
         // 限制使用miniMessage
-        if (!player.hasPermission("mhdftools.bypass.minimessage")) {
+        if (!player.hasPermission("mhdftools.bypass.chat.minimessage")) {
             Pattern pattern = Pattern.compile("</?[a-zA-Z0-9_:-]+>");
             message = pattern.matcher(message).replaceAll("");
         }
@@ -71,7 +71,9 @@ public final class Chat extends AbstractListener {
         Main.instance.getCacheManager().put(player.getName() + "_delay", String.valueOf(delay));
         Main.instance.getCacheManager().put(player.getName() + "_spam", message);
 
-        message = ChatUtil.applyBlackWord(player, message);
+        if (!player.hasPermission("mhdftools.bypass.chat.replaceWord")) {
+            message = ChatUtil.applyBlackWord(message);
+        }
         message = ChatUtil.applyShowItem(player, message);
 
         event.setCancelled(true);

@@ -468,6 +468,8 @@ chatSettings:
     commands:
       - "ignore"
   # 格式设置
+  # 绕过颜色限制权限: mhdftools.bypass.chat.color
+  # miniMessage格式限制权限: mhdftools.bypass.chat.minimessage
   format:
     # 开关
     enable: true
