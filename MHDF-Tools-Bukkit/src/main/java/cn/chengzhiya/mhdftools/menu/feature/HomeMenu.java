@@ -79,18 +79,10 @@ public final class HomeMenu extends AbstractMenu {
 
                         ItemStack itemStack = ItemStackUtil.getItemStack(
                                 getPlayer(),
-                                type,
-                                name != null ? name.replace("{name}", homeData.getHome()) : null,
+                                applyHomeDataString(type, homeData),
+                                applyHomeDataString(name, homeData),
                                 lore.stream()
-                                        .map(s -> s
-                                                .replace("{server}", homeData.getServer())
-                                                .replace("{world}", homeData.getWorld())
-                                                .replace("{x}", String.valueOf(homeData.getX()))
-                                                .replace("{y}", String.valueOf(homeData.getY()))
-                                                .replace("{z}", String.valueOf(homeData.getZ()))
-                                                .replace("{yaw}", String.valueOf(homeData.getYaw()))
-                                                .replace("{pitch}", String.valueOf(homeData.getPitch()))
-                                        )
+                                        .map(s -> applyHomeDataString(s, homeData))
                                         .toList(),
                                 amount,
                                 customModelData
@@ -168,5 +160,28 @@ public final class HomeMenu extends AbstractMenu {
     @Override
     public void close(InventoryCloseEvent event) {
         ActionUtil.runActionList(getPlayer(), getConfig().getStringList("closeActions"));
+    }
+
+    /**
+     * 处理家数据实例文本
+     *
+     * @param message 文本
+     * @param homeData 家数据实例
+     * @return 处理后的文本
+     */
+    private String applyHomeDataString(String message, HomeData homeData) {
+        if (message == null) {
+            return null;
+        }
+
+        return message
+                .replace("{name}", homeData.getHome())
+                .replace("{server}", homeData.getServer())
+                .replace("{world}", homeData.getWorld())
+                .replace("{x}", String.valueOf(homeData.getX()))
+                .replace("{y}", String.valueOf(homeData.getY()))
+                .replace("{z}", String.valueOf(homeData.getZ()))
+                .replace("{yaw}", String.valueOf(homeData.getYaw()))
+                .replace("{pitch}", String.valueOf(homeData.getPitch()));
     }
 }
