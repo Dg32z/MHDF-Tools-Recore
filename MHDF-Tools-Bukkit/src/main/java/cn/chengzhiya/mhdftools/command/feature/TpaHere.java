@@ -37,7 +37,7 @@ public final class TpaHere extends AbstractCommand {
             }
 
             if (args[0].equals(sender.getName())) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.sendSelf"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.sendSelf"));
                 return;
             }
 
