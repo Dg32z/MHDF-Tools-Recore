@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
 
@@ -36,6 +37,18 @@ public final class TpLocation extends AbstractListener {
         }
 
         teleport(player, tpLocation.toLocation());
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+
+        String tpLocationBase64 = Main.instance.getCacheManager().get(player.getName() + "_tpLocation");
+        if (tpLocationBase64 == null) {
+            return;
+        }
+
+        Main.instance.getCacheManager().remove(player.getName() + "_tpLocation");
     }
 
     /**
