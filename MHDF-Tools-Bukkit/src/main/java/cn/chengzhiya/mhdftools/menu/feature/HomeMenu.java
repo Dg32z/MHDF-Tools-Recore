@@ -9,10 +9,10 @@ import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -21,6 +21,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -87,12 +90,15 @@ public final class HomeMenu extends AbstractMenu {
                                 customModelData
                         );
 
-                        NBTItem nbtItem = new NBTItem(itemStack);
-                        NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
-                        nbtCompound.setString("key", key);
-                        nbtCompound.setString("home", homeData.getHome());
+                        ItemMeta itemMeta = itemStack.getItemMeta();
 
-                        menu.addItem(nbtItem.getItem());
+                        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+                        container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
+                        container.set(new NamespacedKey(Main.instance, "home"), PersistentDataType.STRING, homeData.getHome());
+
+                        itemStack.setItemMeta(itemMeta);
+
+                        menu.addItem(itemStack);
                     }
                     continue;
                 }
@@ -113,13 +119,15 @@ public final class HomeMenu extends AbstractMenu {
                     item
             );
 
-            NBTItem nbtItem = new NBTItem(itemStack);
-            NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
-            nbtCompound.setString("key", key);
+            ItemMeta itemMeta = itemStack.getItemMeta();
 
+            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+            container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
+
+            itemStack.setItemMeta(itemMeta);
             List<Integer> slotList = MenuUtil.getSlotList(item);
             for (Integer slot : slotList) {
-                menu.setItem(slot, nbtItem.getItem());
+                menu.setItem(slot, itemStack);
             }
         }
 
@@ -140,16 +148,16 @@ public final class HomeMenu extends AbstractMenu {
 
         event.setCancelled(true);
 
-        NBTItem nbtItem = new NBTItem(itemStack);
-        NBTCompound nbtCompound = nbtItem.getCompound("MHDF-Tools");
-        if (nbtCompound == null) {
+        PersistentDataContainerView container = itemStack.getPersistentDataContainer();
+
+        String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
+        if (key == null) {
             return;
         }
 
-        String key = nbtCompound.getString("key");
         switch (key) {
             case "家" -> {
-                String home = nbtCompound.getString("home");
+                String home = container.get(new NamespacedKey(Main.instance, "home"), PersistentDataType.STRING);
                 HomeData homeData = HomeDataUtil.getHomeData(getPlayer(), home);
 
                 Main.instance.getBungeeCordManager().teleportLocation(getPlayer().getName(), homeData.toBungeeCordLocation());

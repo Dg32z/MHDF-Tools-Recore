@@ -80,15 +80,6 @@ public enum Dependency {
             true
     ),
 
-    // item-nbt-api
-    ITEM_NBT_API(
-            "de{}tr7zw",
-            "item-nbt-api",
-            "2.14.1",
-            Repository.CODE_MC,
-            true
-    ),
-
     // 数据库
     ORMLITE_CORE(
             "com{}j256{}ormlite",

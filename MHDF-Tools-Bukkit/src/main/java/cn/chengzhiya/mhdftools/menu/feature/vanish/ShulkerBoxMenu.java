@@ -32,7 +32,8 @@ public final class ShulkerBoxMenu extends AbstractMenu {
     }
 
     @Override
-    public void open(InventoryOpenEvent event) {}
+    public void open(InventoryOpenEvent event) {
+    }
 
     @Override
     public void click(InventoryClickEvent event) {

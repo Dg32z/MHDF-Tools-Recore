@@ -8,10 +8,10 @@ import cn.chengzhiya.mhdftools.util.feature.TpaUtil;
 import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -20,6 +20,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -86,12 +89,15 @@ public final class TpaMenu extends AbstractMenu {
                                 customModelData
                         );
 
-                        NBTItem nbtItem = new NBTItem(itemStack);
-                        NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
-                        nbtCompound.setString("key", key);
-                        nbtCompound.setString("target", target);
+                        ItemMeta itemMeta = itemStack.getItemMeta();
 
-                        menu.addItem(nbtItem.getItem());
+                        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+                        container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
+                        container.set(new NamespacedKey(Main.instance, "target"), PersistentDataType.STRING, target);
+
+                        itemStack.setItemMeta(itemMeta);
+
+                        menu.addItem(itemStack);
                     }
                     continue;
                 }
@@ -112,13 +118,15 @@ public final class TpaMenu extends AbstractMenu {
                     item
             );
 
-            NBTItem nbtItem = new NBTItem(itemStack);
-            NBTCompound nbtCompound = nbtItem.getOrCreateCompound("MHDF-Tools");
-            nbtCompound.setString("key", key);
+            ItemMeta itemMeta = itemStack.getItemMeta();
 
+            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+            container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
+
+            itemStack.setItemMeta(itemMeta);
             List<Integer> slotList = MenuUtil.getSlotList(item);
             for (Integer slot : slotList) {
-                menu.setItem(slot, nbtItem.getItem());
+                menu.setItem(slot, itemStack);
             }
         }
 
@@ -139,16 +147,20 @@ public final class TpaMenu extends AbstractMenu {
 
         event.setCancelled(true);
 
-        NBTItem nbtItem = new NBTItem(itemStack);
-        NBTCompound nbtCompound = nbtItem.getCompound("MHDF-Tools");
-        if (nbtCompound == null) {
+        PersistentDataContainerView container = itemStack.getPersistentDataContainer();
+
+        String key = container.get(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING);
+        if (key == null) {
             return;
         }
 
-        String key = nbtCompound.getString("key");
         switch (key) {
             case "玩家" -> {
-                String target = nbtCompound.getString("target");
+                String target = container.get(new NamespacedKey(Main.instance, "target"), PersistentDataType.STRING);
+                if (target == null) {
+                    return;
+                }
+
                 TpaUtil.sendTpaRequest(getPlayer(), target);
             }
             case "上一页" -> new TpaMenu(getPlayer(), getPage() - 1).openMenu();
