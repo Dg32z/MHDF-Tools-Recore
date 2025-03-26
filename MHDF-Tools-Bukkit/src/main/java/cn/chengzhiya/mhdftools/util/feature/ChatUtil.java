@@ -89,7 +89,7 @@ public final class ChatUtil {
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
-        @NotNull Material itemType = item.getType();
+        Material itemType = item.getType();
 
         if (itemType.isAir() || itemType.isEmpty()) {
             return message;
