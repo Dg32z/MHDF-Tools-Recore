@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.menu;
 
+import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,6 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MenuUtil {
+    /**
+     * 构建物品实例
+     *
+     * @param player 玩家实例
+     * @param config 配置实例
+     * @return 物品实例
+     */
+    public static ItemStack getItemStack(Player player, ConfigurationSection config) {
+        return new ItemStackBuilder(config.getString("type"))
+                .name(config.getString("name"))
+                .lore(config.getStringList("lore"))
+                .amount(config.getInt("amount"))
+                .customModelData(config.getInt("customModelData"))
+                .build(player);
+    }
+
     /**
      * 获取指定菜单点击事件中点击的物品实例
      *

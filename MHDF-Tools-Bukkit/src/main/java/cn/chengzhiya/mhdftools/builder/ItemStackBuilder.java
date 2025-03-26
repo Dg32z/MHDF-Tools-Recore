@@ -1,24 +1,55 @@
-package cn.chengzhiya.mhdftools.util.menu;
+package cn.chengzhiya.mhdftools.builder;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-public final class ItemStackUtil {
+public final class ItemStackBuilder {
+    private final String type;
+    private String name;
+    private List<String> lore;
+    private Integer amount;
+    private Integer customModelData;
+
+    public ItemStackBuilder(String type) {
+        this.type = type;
+    }
+
+    public ItemStackBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ItemStackBuilder lore(List<String> lore) {
+        this.lore = lore;
+        return this;
+    }
+
+    public ItemStackBuilder amount(Integer amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public ItemStackBuilder customModelData(Integer customModelData) {
+        this.customModelData = customModelData;
+        return this;
+    }
+
     /**
      * 获取随机床空间ID实例
      *
      * @return 空间ID实例
      */
-    public static Material getRandomBed() {
+    private Material getRandomBed() {
         List<Material> bedList = Arrays.asList(
                 Material.BLACK_BED,
                 Material.BLUE_BED,
@@ -42,15 +73,10 @@ public final class ItemStackUtil {
     /**
      * 构建物品实例
      *
-     * @param player          玩家实例
-     * @param type            类型
-     * @param name            名称
-     * @param lore            简介列表
-     * @param amount          数量
-     * @param customModelData 自定义模型数据
+     * @param player 玩家实例
      * @return 物品实例
      */
-    public static ItemStack getItemStack(Player player, String type, String name, List<String> lore, Integer amount, Integer customModelData) {
+    public ItemStack build(Player player) {
         if (type == null) {
             return new ItemStack(Material.AIR);
         }
@@ -76,7 +102,12 @@ public final class ItemStackUtil {
         } else if (type.equals("random_bed")) {
             item = new ItemStack(getRandomBed());
         } else {
-            item = new ItemStack(Objects.requireNonNull(Material.matchMaterial(type)));
+            Material material = Material.matchMaterial(type);
+            if (material == null) {
+                return new ItemStack(Material.AIR);
+            }
+
+            item = new ItemStack(material);
         }
 
         ItemMeta meta = item.getItemMeta();
@@ -103,73 +134,5 @@ public final class ItemStackUtil {
 
         item.setItemMeta(meta);
         return item;
-    }
-
-    /**
-     * 构建物品实例
-     *
-     * @param player 玩家实例
-     * @param type   类型
-     * @param name   名称
-     * @param lore   简介列表
-     * @param amount 数量
-     * @return 物品实例
-     */
-    public static ItemStack getItemStack(Player player, String type, String name, List<String> lore, Integer amount) {
-        return getItemStack(player, type, name, lore, amount, null);
-    }
-
-    /**
-     * 构建物品实例
-     *
-     * @param player 玩家实例
-     * @param type   类型
-     * @param name   名称
-     * @param lore   简介列表
-     * @return 物品实例
-     */
-    public static ItemStack getItemStack(Player player, String type, String name, List<String> lore) {
-        return getItemStack(player, type, name, lore, 1, null);
-    }
-
-    /**
-     * 构建物品实例
-     *
-     * @param player 玩家实例
-     * @param type   类型
-     * @param name   名称
-     * @return 物品实例
-     */
-    public static ItemStack getItemStack(Player player, String type, String name) {
-        return getItemStack(player, type, name, new ArrayList<>(), 1, null);
-    }
-
-    /**
-     * 构建物品实例
-     *
-     * @param player 玩家实例
-     * @param type   类型
-     * @return 物品实例
-     */
-    public static ItemStack getItemStack(Player player, String type) {
-        return getItemStack(player, type, null, new ArrayList<>(), 1, null);
-    }
-
-    /**
-     * 构建物品实例
-     *
-     * @param player 玩家实例
-     * @param config 配置实例
-     * @return 物品实例
-     */
-    public static ItemStack getItemStack(Player player, ConfigurationSection config) {
-        return getItemStack(
-                player,
-                config.getString("type"),
-                config.getString("name"),
-                config.getStringList("lore"),
-                config.getInt("amount"),
-                config.getInt("customModelData")
-        );
     }
 }

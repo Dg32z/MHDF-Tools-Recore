@@ -1,12 +1,12 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
-import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
@@ -79,16 +79,14 @@ public final class HomeMenu extends AbstractMenu {
                     for (int i = start; i < end; i++) {
                         HomeData homeData = homeList.get(i);
 
-                        ItemStack itemStack = ItemStackUtil.getItemStack(
-                                getPlayer(),
-                                applyHomeDataString(type, homeData),
-                                applyHomeDataString(name, homeData),
-                                lore.stream()
+                        ItemStack itemStack = new ItemStackBuilder(applyHomeDataString(type, homeData))
+                                .name(applyHomeDataString(name, homeData))
+                                .lore(lore.stream()
                                         .map(s -> applyHomeDataString(s, homeData))
-                                        .toList(),
-                                amount,
-                                customModelData
-                        );
+                                        .toList())
+                                .amount(amount)
+                                .customModelData(customModelData)
+                                .build(getPlayer());
 
                         ItemMeta itemMeta = itemStack.getItemMeta();
 
@@ -114,7 +112,7 @@ public final class HomeMenu extends AbstractMenu {
                 }
             }
 
-            ItemStack itemStack = ItemStackUtil.getItemStack(
+            ItemStack itemStack = MenuUtil.getItemStack(
                     getPlayer(),
                     item
             );

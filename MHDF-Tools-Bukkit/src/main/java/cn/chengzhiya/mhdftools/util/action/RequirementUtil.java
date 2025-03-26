@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
+import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -134,22 +134,18 @@ public final class RequirementUtil {
                     return requirement.getStringList("denyActions");
                 }
                 case "hasItem" -> {
-                    ConfigurationSection itemConfig = requirement.getConfigurationSection("item");
+                    ConfigurationSection item = requirement.getConfigurationSection("item");
 
-                    if (itemConfig == null) {
+                    if (item == null) {
                         continue;
                     }
 
-                    ItemStack item = ItemStackUtil.getItemStack(
+                    ItemStack itemStack = MenuUtil.getItemStack(
                             player,
-                            itemConfig.getString("type"),
-                            itemConfig.getString("name"),
-                            itemConfig.getStringList("lore"),
-                            itemConfig.getInt("amount"),
-                            itemConfig.getInt("customModelData")
+                            item
                     );
 
-                    if (player.getInventory().contains(item)) {
+                    if (player.getInventory().contains(itemStack)) {
                         continue;
                     }
 
