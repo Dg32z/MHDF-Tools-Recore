@@ -24,10 +24,13 @@
 # %mhdftools_money_name%              ——货币名称
 #########################################PAPI变量#########################################
 
+# 配置文件版本号(请勿修改)
+configVersion: "${project.version}"
+
 # 调试模式
 debug: false
 
-#bStats https://bstats.org/plugin/bukkit/MHDF-Tools/24887
+# bStats https://bstats.org/plugin/bukkit/MHDF-Tools/24887
 bStats: true
 
 # 群组设置
@@ -100,13 +103,13 @@ randomTeleportSettings:
     max: 1500
   # 拥有 mhdftools.group.randomteleport.<名字> 权限的提示
   # 例如 mhdftools.group.randomteleport.vip
-  vip:
+  # vip:
     # 权重
-    weight: 1
+    # weight: 1
     # 最小
-    min: 1000
+    # min: 1000
     # 最大
-    max: 1500
+    # max: 1500
 
 # 崩溃玩家客户端
 crashSettings:
@@ -491,11 +494,11 @@ chatSettings:
       format: "&f[玩家] {player}&f: {message}"
     # 拥有 mhdftools.group.chatformat.<名字> 权限的提示
     # 例如 mhdftools.group.chatformat.admin
-    admin:
+    # admin:
       # 权重
-      weight: 1
+      # weight: 1
       # 格式
-      format: "&c[管理] {player}&f: {message}"
+      # format: "&c[管理] {player}&f: {message}"
 
 # 经济系统
 economySettings:
@@ -534,11 +537,11 @@ joinMessageSettings:
     message: "&a[+] &e{player}"
   # 拥有 mhdftools.group.joinmessage.<名字> 权限的提示
   # 例如 mhdftools.group.joinmessage.admin
-  admin:
+  # admin:
     # 权重
-    weight: 1
+    # weight: 1
     # 提示消息
-    message: "&a[+] &c{player}"
+    # message: "&a[+] &c{player}"
 
 # 退服消息
 quitMessageSettings:
@@ -552,11 +555,11 @@ quitMessageSettings:
     message: "&c[-] &e{player}"
   # 拥有 mhdftools.group.quitmessage.<名字> 权限的提示
   # 例如 mhdftools.group.quitmessage.admin
-  admin:
+  # admin:
     # 权重
-    weight: 1
+    # weight: 1
     # 提示消息
-    message: "&c[-] &c{player}"
+    # message: "&c[-] &c{player}"
 
 # 事件操作
 eventActionSettings:

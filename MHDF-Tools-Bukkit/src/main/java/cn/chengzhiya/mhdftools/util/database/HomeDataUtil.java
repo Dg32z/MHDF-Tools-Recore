@@ -132,7 +132,7 @@ public final class HomeDataUtil {
      */
     public static void updateHomeData(HomeData homeData) {
         try {
-            homeDataDao.createIfNotExists(homeData);
+            homeDataDao.createOrUpdate(homeData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

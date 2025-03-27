@@ -11,10 +11,19 @@ public final class SoundUtil {
     private static YamlConfiguration data;
 
     /**
+     * 获取音效文件文件名称
+     *
+     * @return 音效文件文件名称
+     */
+    public static String getSoundFileName() {
+        return "sound_zh.yml";
+    }
+
+    /**
      * 保存初始音效文件
      */
     public static void saveDefaultSound() throws ResourceException {
-        FileUtil.saveResource("sound.yml", "sound_zh.yml", false);
+        FileUtil.saveResource("sound.yml", getSoundFileName(), false);
         reloadSound();
     }
 
@@ -22,6 +31,7 @@ public final class SoundUtil {
      * 加载音效文件
      */
     public static void reloadSound() {
+        YamlUtil.updateConfig(file, getSoundFileName());
         data = YamlConfiguration.loadConfiguration(file);
     }
 

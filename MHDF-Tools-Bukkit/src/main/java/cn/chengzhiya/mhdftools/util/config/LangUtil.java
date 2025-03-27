@@ -18,16 +18,26 @@ public final class LangUtil {
     private static YamlConfiguration data;
 
     /**
+     * 获取语言文件文件名称
+     *
+     * @return 语言文件文件名称
+     */
+    public static String getLangFileName() {
+        return "lang_zh.yml";
+    }
+
+    /**
      * 保存初始语言文件
      */
     public static void saveDefaultLang() throws ResourceException {
-        FileUtil.saveResource("lang.yml", "lang_zh.yml", false);
+        FileUtil.saveResource("lang.yml", getLangFileName(), false);
     }
 
     /**
      * 加载语言文件
      */
     public static void reloadLang() {
+        YamlUtil.updateConfig(file, getLangFileName());
         data = YamlConfiguration.loadConfiguration(file);
     }
 
