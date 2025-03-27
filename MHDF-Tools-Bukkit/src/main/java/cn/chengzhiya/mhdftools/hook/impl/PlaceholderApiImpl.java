@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
-import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.placeholder.AbstractPlaceholder;
+import cn.chengzhiya.mhdftools.util.PluginUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class PlaceholderApiImpl extends PlaceholderExpansion {
-    private static final List<AbstractPlaceholder> placeholderList = new ArrayList<>();
+    private final List<AbstractPlaceholder> placeholderList = new ArrayList<>();
 
     public PlaceholderApiImpl() {
         try {
@@ -61,7 +61,7 @@ public final class PlaceholderApiImpl extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return Main.instance.getDescription().getVersion();
+        return PluginUtil.getVersion();
     }
 
     @Override

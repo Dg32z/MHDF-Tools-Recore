@@ -35,6 +35,7 @@ public final class ConfigUtil {
      */
     public static void reloadConfig() {
         Main.instance.reloadConfig();
+        System.out.println(getConfig().getKeys(true));
     }
 
     /**
