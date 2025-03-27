@@ -11,7 +11,6 @@ import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
