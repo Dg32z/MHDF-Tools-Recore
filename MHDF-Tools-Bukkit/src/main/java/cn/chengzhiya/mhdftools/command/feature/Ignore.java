@@ -66,6 +66,11 @@ public final class Ignore extends AbstractCommand {
                     return;
                 }
 
+                if (ignorePlayer.getUniqueId().equals(sender.getUniqueId())) {
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.sendSelf"));
+                    return;
+                }
+
                 ChatIgnoreData chatIgnoreData = new ChatIgnoreData();
                 chatIgnoreData.setPlayer(sender.getUniqueId());
                 chatIgnoreData.setIgnore(ignorePlayer.getUniqueId());
