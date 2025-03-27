@@ -58,6 +58,8 @@ public final class NickUtil {
      * @param name   匿名昵称
      */
     public static void setNickName(Player player, String name) {
+        setNickDisplay(player, name);
+
         NickData nickData = NickDataUtil.getNickData(player);
         nickData.setNick(name);
         NickDataUtil.updateNickData(nickData);

@@ -81,7 +81,7 @@ public final class WarpDataUtil {
      */
     public static void updateWarpData(WarpData warpData) {
         try {
-            warpDataDao.createIfNotExists(warpData);
+            warpDataDao.createOrUpdate(warpData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

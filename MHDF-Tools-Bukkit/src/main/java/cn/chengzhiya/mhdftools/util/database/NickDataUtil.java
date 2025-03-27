@@ -57,7 +57,7 @@ public final class NickDataUtil {
      */
     public static void updateNickData(NickData nickData) {
         try {
-            nickDataDao.createIfNotExists(nickData);
+            nickDataDao.createOrUpdate(nickData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
