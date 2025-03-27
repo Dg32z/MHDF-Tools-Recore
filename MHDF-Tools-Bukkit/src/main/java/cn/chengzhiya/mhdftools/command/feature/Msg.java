@@ -96,8 +96,16 @@ public final class Msg extends AbstractCommand {
             message = ChatUtil.applyBlackWord(message);
         }
 
-        ActionUtil.sendMessage(sender, message);
-        Main.instance.getBungeeCordManager().sendMessage(args[0], message);
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.msg.send")
+                .replace("{player}", sender.getName())
+                .replace("{target}", args[0])
+                .replace("{message}", message)
+        );
+        Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.msg.receive")
+                .replace("{player}", sender.getName())
+                .replace("{target}", args[0])
+                .replace("{message}", message)
+        );
     }
 
     @Override

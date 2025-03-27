@@ -72,7 +72,15 @@ public abstract class AbstractCommand implements TabExecutor, Command {
 
     @Override
     public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, String @NotNull [] args) {
-        List<String> tabComplete = tabCompleter(sender, label, args);
+        List<String> tabComplete = new ArrayList<>();
+        if (onlyPlayer) {
+            if (sender instanceof Player player) {
+                tabComplete = tabCompleter(player, label, args);
+            }
+        } else {
+            tabComplete = tabCompleter(sender, label, args);
+        }
+
         if (tabComplete == null) {
             tabComplete = Main.instance.getBungeeCordManager().getBukkitPlayerList();
         }
@@ -93,6 +101,11 @@ public abstract class AbstractCommand implements TabExecutor, Command {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         return new ArrayList<>();
     }
 }

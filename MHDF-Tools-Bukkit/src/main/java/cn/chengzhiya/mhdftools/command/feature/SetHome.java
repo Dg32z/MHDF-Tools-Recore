@@ -9,7 +9,6 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.HomeUtil;
 import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -69,12 +68,9 @@ public final class SetHome extends AbstractCommand {
     }
 
     @Override
-    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            return new ArrayList<>();
-        }
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return HomeDataUtil.getHomeDataList(player).stream()
+            return HomeDataUtil.getHomeDataList(sender).stream()
                     .map(HomeData::getHome)
                     .toList();
         }

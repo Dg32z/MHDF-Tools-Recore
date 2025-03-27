@@ -12,4 +12,6 @@ public interface Command {
     void execute(@NotNull Player sender, @NotNull String label, @NotNull String[] args);
 
     List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
+
+    List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args);
 }

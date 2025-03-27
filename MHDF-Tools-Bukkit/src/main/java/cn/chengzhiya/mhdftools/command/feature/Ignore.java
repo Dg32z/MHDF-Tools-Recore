@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.ChatIgnoreData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -8,7 +9,6 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +44,7 @@ public final class Ignore extends AbstractCommand {
                 }
 
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.list.message")
-                        .replace("{list}", listStringBuilder.toString())
+                        .replace("{list}", !listStringBuilder.isEmpty() ? listStringBuilder.toString() : "空")
                 );
                 return;
             }
@@ -74,6 +74,7 @@ public final class Ignore extends AbstractCommand {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.message")
                         .replace("{target}", ignorePlayer.getName())
                 );
+                return;
             }
 
             // 移除屏蔽玩家
@@ -90,6 +91,7 @@ public final class Ignore extends AbstractCommand {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.message")
                         .replace("{target}", ignorePlayer.getName())
                 );
+                return;
             }
         }
 
@@ -103,9 +105,20 @@ public final class Ignore extends AbstractCommand {
     }
 
     @Override
-    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             return new ArrayList<>(LangUtil.getKeys("commands.ignore.subCommands"));
+        }
+        if (args.length == 2) {
+            if (args[0].equals("add")) {
+                return Main.instance.getBungeeCordManager().getPlayerList();
+            }
+            if (args[0].equals("remove")) {
+                return ChatIgnoreDataUtil.getChatIgnoreDataList(sender).stream()
+                        .map(d -> Bukkit.getOfflinePlayer(d.getIgnore()))
+                        .map(OfflinePlayer::getName)
+                        .toList();
+            }
         }
         return new ArrayList<>();
     }
