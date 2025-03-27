@@ -231,7 +231,7 @@ commands:
   suicide:
     usage: "/{command}"
     description: "自杀"
-    confirm: "你确定要自杀吗? <click:run_command:suicide confirm><hover:show_text:\"&6点击确认自杀\">&a[确认自杀]</hover></click>"
+    confirm: "你确定要自杀吗? <click:run_command:/suicide confirm><hover:show_text:\"&6点击确认自杀\">&a[确认自杀]</hover></click>"
     message: "{prefix} &6你自杀了!"
   warp:
     usage: "/{command} <传送点> [玩家]"
@@ -312,6 +312,7 @@ commands:
         haveIgnore: "{prefix} &c目标玩家已经被你屏蔽了!"
         blacklist: "{prefix} &c小杂鱼,目标玩家是不能屏蔽的人噢~"
         message: "{prefix} &a你屏蔽了{target}!"
+        sendSelf: "{prefix} &c您不能向忽略自己的消息!"
       remove:
         usage: "/{command} remove <玩家ID>"
         description: "移除屏蔽玩家"
@@ -324,3 +325,5 @@ commands:
     spam: "{prefix} &c请不要刷屏!"
     receive: "{prefix} &7{player}悄悄向你说: {message}"
     send: "{prefix} &7你向{target}悄悄说: {message}"
+
+configVersion: "${project.version}"
