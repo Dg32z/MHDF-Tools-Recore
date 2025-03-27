@@ -61,8 +61,6 @@ public final class NickUtil {
         NickData nickData = NickDataUtil.getNickData(player);
         nickData.setNick(name);
         NickDataUtil.updateNickData(nickData);
-
-        setNickName(player, name);
     }
 
     /**
