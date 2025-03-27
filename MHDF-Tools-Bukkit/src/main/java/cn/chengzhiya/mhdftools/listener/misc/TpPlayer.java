@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -51,29 +52,28 @@ public final class TpPlayer extends AbstractListener {
     }
 
     /**
-     * 传送玩家
+     * 传送玩家到目标玩家的位置
      *
      * @param player       被传送的玩家实例
-     * @param targetPlayer 传送到的玩家实例
+     * @param targetPlayer 目标玩家实例
      */
     private void teleport(Player player, Player targetPlayer) {
-        boolean result = player.teleport(targetPlayer);
-        if (result) {
-            autoTryHashMap.remove(player.getName());
-            return;
-        }
-
-        int times = autoTryHashMap.get(player.getName()) != null ? autoTryHashMap.get(player.getName()) : 0;
-        if (times >= ConfigUtil.getConfig().getInt("bungeeCordSettings.autoTry.maxTimes")) {
-            autoTryHashMap.remove(player.getName());
-            return;
-        }
-
-        autoTryHashMap.put(player.getName(), times + 1);
-
-        MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
-                        teleport(player, targetPlayer),
-                ConfigUtil.getConfig().getInt("bungeeCordSettings.autoTry.delay")
-        );
+        Location targetLocation = targetPlayer.getLocation();
+        player.teleportAsync(targetLocation).thenAccept(success -> {
+            if (success) {
+                autoTryHashMap.remove(player.getName());
+            } else {
+                int times = autoTryHashMap.getOrDefault(player.getName(), 0);
+                int maxTimes = ConfigUtil.getConfig().getInt("bungeecord.autoTry.maxTimes");
+                if (times >= maxTimes) {
+                    autoTryHashMap.remove(player.getName());
+                } else {
+                    autoTryHashMap.put(player.getName(), times + 1);
+                    int delay = ConfigUtil.getConfig().getInt("bungeecord.autoTry.delay");
+                    MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
+                            teleport(player, targetPlayer), delay);
+                }
+            }
+        });
     }
 }
