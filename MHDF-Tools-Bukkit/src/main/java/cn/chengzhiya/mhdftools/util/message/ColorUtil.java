@@ -36,7 +36,7 @@ public final class ColorUtil {
      */
     public static String legacyColorToMiniMessage(@NotNull String legacy) {
         legacy = legacy.replace("&#", "#");
-        return legacy.replaceAll("(?<!<)#([0-9a-fA-F]{6})(?!>)", "<#$1>");
+        return legacy.replaceAll("(?!:)(?<!<)#([0-9a-fA-F]{6})(?!>)(?!:)", "<#$1>");
     }
 
     /**
