@@ -69,12 +69,9 @@ public final class SetHome extends AbstractCommand {
     }
 
     @Override
-    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            return new ArrayList<>();
-        }
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return HomeDataUtil.getHomeDataList(player).stream()
+            return HomeDataUtil.getHomeDataList(sender).stream()
                     .map(HomeData::getHome)
                     .toList();
         }

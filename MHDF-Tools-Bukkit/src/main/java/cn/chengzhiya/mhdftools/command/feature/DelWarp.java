@@ -49,7 +49,7 @@ public final class DelWarp extends AbstractCommand {
     }
 
     @Override
-    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             return WarpDataUtil.getHomeDataList().stream()
                     .map(WarpData::getWarp)

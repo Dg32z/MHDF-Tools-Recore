@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.entity.data.ChatIgnoreData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -105,9 +106,20 @@ public final class Ignore extends AbstractCommand {
     }
 
     @Override
-    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             return new ArrayList<>(LangUtil.getKeys("commands.ignore.subCommands"));
+        }
+        if (args.length == 2) {
+            if (args[0].equals("add")) {
+                return Main.instance.getBungeeCordManager().getPlayerList();
+            }
+            if (args[0].equals("remove")) {
+                return ChatIgnoreDataUtil.getChatIgnoreDataList(sender).stream()
+                        .map(d -> Bukkit.getOfflinePlayer(d.getIgnore()))
+                        .map(OfflinePlayer::getName)
+                        .toList();
+            }
         }
         return new ArrayList<>();
     }
