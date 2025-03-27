@@ -44,7 +44,7 @@ public final class Ignore extends AbstractCommand {
                 }
 
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.list.message")
-                        .replace("{list}", listStringBuilder.toString())
+                        .replace("{list}", !listStringBuilder.isEmpty() ? listStringBuilder.toString() : "空")
                 );
                 return;
             }
