@@ -133,7 +133,7 @@ public final class BungeeCordManager implements Init {
         Player player = Bukkit.getPlayer(playerName);
         Player target = Bukkit.getPlayer(targetName);
         if (player != null && target != null) {
-            player.teleport(target);
+            player.teleportAsync(target.getLocation());
             return;
         }
 
@@ -192,7 +192,7 @@ public final class BungeeCordManager implements Init {
                 return;
             }
 
-            player.teleport(bungeeCordLocation.toLocation());
+            player.teleportAsync(bungeeCordLocation.toLocation());
             return;
         }
 

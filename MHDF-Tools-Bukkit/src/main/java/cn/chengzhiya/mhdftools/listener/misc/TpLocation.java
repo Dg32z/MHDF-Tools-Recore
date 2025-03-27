@@ -58,23 +58,21 @@ public final class TpLocation extends AbstractListener {
      * @param location 传送到的位置实例
      */
     private void teleport(Player player, Location location) {
-        boolean result = player.teleport(location);
-        if (result) {
-            autoTryHashMap.remove(player.getName());
-            return;
-        }
-
-        int times = autoTryHashMap.get(player.getName()) != null ? autoTryHashMap.get(player.getName()) : 0;
-        if (times >= ConfigUtil.getConfig().getInt("bungeeCordSettings.autoTry.maxTimes")) {
-            autoTryHashMap.remove(player.getName());
-            return;
-        }
-
-        autoTryHashMap.put(player.getName(), times + 1);
-
-        MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
-                        teleport(player, location),
-                ConfigUtil.getConfig().getInt("bungeeCordSettings.autoTry.delay")
-        );
+        player.teleportAsync(location).thenAccept(success -> {
+            if (success) {
+                autoTryHashMap.remove(player.getName());
+            } else {
+                int times = autoTryHashMap.getOrDefault(player.getName(), 0);
+                int maxTimes = ConfigUtil.getConfig().getInt("bungeecord.autoTry.maxTimes");
+                if (times >= maxTimes) {
+                    autoTryHashMap.remove(player.getName());
+                } else {
+                    autoTryHashMap.put(player.getName(), times + 1);
+                    int delay = ConfigUtil.getConfig().getInt("bungeecord.autoTry.delay");
+                    MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
+                            teleport(player, location), delay);
+                }
+            }
+        });
     }
 }
