@@ -74,6 +74,7 @@ public final class Ignore extends AbstractCommand {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.message")
                         .replace("{target}", ignorePlayer.getName())
                 );
+                return;
             }
 
             // 移除屏蔽玩家
@@ -90,6 +91,7 @@ public final class Ignore extends AbstractCommand {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.remove.message")
                         .replace("{target}", ignorePlayer.getName())
                 );
+                return;
             }
         }
 
