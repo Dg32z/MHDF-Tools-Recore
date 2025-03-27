@@ -24,10 +24,13 @@
 # %mhdftools_money_name%              ——货币名称
 #########################################PAPI变量#########################################
 
+# 配置文件版本号(请勿修改)
+configVersion: "${project.version}"
+
 # 调试模式
 debug: false
 
-#bStats https://bstats.org/plugin/bukkit/MHDF-Tools/24887
+# bStats https://bstats.org/plugin/bukkit/MHDF-Tools/24887
 bStats: true
 
 # 群组设置
