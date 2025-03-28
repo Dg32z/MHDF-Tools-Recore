@@ -1,13 +1,12 @@
 package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.Sound;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Locale;
 
 public final class SoundUtil {
@@ -27,13 +26,9 @@ public final class SoundUtil {
             );
         }
 
-        try {
-            Method method = Sound.class.getDeclaredMethod("valueOf", String.class);
-            method.setAccessible(true);
-            Object object = method.invoke(Sound.class, key.toUpperCase(Locale.ROOT));
-            return (Sound) object;
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        return ReflectionUtil.invokeMethod(
+                ReflectionUtil.getMethod(Sound.class, "valueOf", true, String.class),
+                Sound.class
+        );
     }
 }
