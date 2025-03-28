@@ -253,7 +253,7 @@ public final class ActionUtil {
                 if (sender instanceof Player player) {
                     playSound(
                             player,
-                            Sound.valueOf(args[1]),
+                            SoundUtil.getSound(args[1]),
                             Float.valueOf(args[2]),
                             Float.valueOf(args[3])
                     );
