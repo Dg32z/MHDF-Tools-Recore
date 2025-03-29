@@ -274,6 +274,12 @@ tpbackSettings:
 spawnSettings:
   # 开关
   enable: true
+  # 自动传送
+  autoTeleport:
+    # 复活
+    respawn: false
+    # 加入服务器
+    join: false
   # 位置
   location:
     # 服务器

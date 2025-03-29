@@ -2,11 +2,10 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import org.bukkit.configuration.ConfigurationSection;
+import cn.chengzhiya.mhdftools.util.feature.SpawnUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,22 +36,7 @@ public final class Spawn extends AbstractCommand {
             return;
         }
 
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("spawnSettings.location");
-        if (config == null) {
-            return;
-        }
-
-        BungeeCordLocation bungeeCordLocation = new BungeeCordLocation(
-                config.getString("server"),
-                config.getString("world"),
-                config.getDouble("x"),
-                config.getDouble("y"),
-                config.getDouble("z"),
-                (float) config.getDouble("yaw"),
-                (float) config.getDouble("pitch")
-        );
-
-        Main.instance.getBungeeCordManager().teleportLocation(sender, bungeeCordLocation);
+        SpawnUtil.teleportSpawn(sender);
         Main.instance.getBungeeCordManager().sendMessage(sender, LangUtil.i18n("commands.spawn.message"));
     }
 }
