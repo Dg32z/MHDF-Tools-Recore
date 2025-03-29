@@ -33,7 +33,7 @@ public abstract class URLClassLoaderAccess {
         static {
             Method method;
             try {
-                method = ReflectionUtil.getMethod(URLClassLoaderAccess.class, "addURL", true, URL.class);
+                method = ReflectionUtil.getMethod(URLClassLoader.class, "addURL", true, URL.class);
             } catch (Exception e) {
                 method = null;
             }
