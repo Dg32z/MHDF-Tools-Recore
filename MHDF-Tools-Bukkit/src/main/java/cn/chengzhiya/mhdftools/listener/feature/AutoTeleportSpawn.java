@@ -9,8 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-import java.util.AbstractList;
-
 public final class AutoTeleportSpawn extends AbstractListener {
     public AutoTeleportSpawn() {
         super(

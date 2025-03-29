@@ -7,13 +7,13 @@ public final class ReflectionUtil {
     /**
      * 通过反射指定类实例获取指定方法的方法实例
      *
-     * @param clazz 类实例
+     * @param clazz      类实例
      * @param methodName 方法名称
      * @param accessible 强制访问
-     * @param argsTypes 传参类型
+     * @param argsTypes  传参类型
      * @return 方法实例
      */
-    public static Method getMethod(Class<?> clazz, String methodName, boolean accessible,Class<?>... argsTypes) {
+    public static Method getMethod(Class<?> clazz, String methodName, boolean accessible, Class<?>... argsTypes) {
         try {
             Method method = clazz.getDeclaredMethod(methodName, argsTypes);
             method.setAccessible(accessible);
@@ -28,10 +28,10 @@ public final class ReflectionUtil {
      *
      * @param method 方法实例
      * @param object 对象实例
-     * @param args 传入参数
+     * @param args   传入参数
      * @return 返回值
      */
-    public static <T> T invokeMethod(Method method,Object object, Object... args) {
+    public static <T> T invokeMethod(Method method, Object object, Object... args) {
         try {
             Object invokeObject = method.invoke(object, args);
             if (invokeObject == null) {
