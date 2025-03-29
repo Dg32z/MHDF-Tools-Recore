@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.reflection;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -24,6 +25,24 @@ public final class ReflectionUtil {
     }
 
     /**
+     * 通过反射指定类实例获取指定方法的变量实例
+     *
+     * @param clazz      类实例
+     * @param fieldName  变量名称
+     * @param accessible 强制访问
+     * @return 变量实例
+     */
+    public static Field getField(Class<?> clazz, String fieldName, boolean accessible) {
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(accessible);
+            return field;
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * 通过反射指定方法实例获取返回值
      *
      * @param method 方法实例
@@ -39,6 +58,21 @@ public final class ReflectionUtil {
             }
             return (T) invokeObject;
         } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 通过反射指定变量实例获取返回值
+     *
+     * @param field  变量实例
+     * @param object 对象实例
+     * @param value  修改的值
+     */
+    public static void setField(Field field, Object object, Object value) {
+        try {
+            field.set(object, value);
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
