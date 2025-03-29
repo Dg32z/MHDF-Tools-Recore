@@ -535,6 +535,8 @@ economySettings:
 joinMessageSettings:
   # 开关
   enable: true
+  # 移除消息
+  removeMessage: false
   # 默认
   default:
     # 权重
@@ -553,6 +555,8 @@ joinMessageSettings:
 quitMessageSettings:
   # 开关
   enable: true
+  # 移除消息
+  removeMessage: false
   # 默认
   default:
     # 权重
