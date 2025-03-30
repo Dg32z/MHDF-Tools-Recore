@@ -40,7 +40,7 @@ public final class Reply extends AbstractCommand {
             return;
         }
 
-        if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
+        if (!Main.instance.getBungeeCordManager().ifPlayerOnline(replyTarget)) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
             return;
         }
