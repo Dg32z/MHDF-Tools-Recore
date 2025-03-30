@@ -88,5 +88,11 @@ permissions:
     default: true
   mhdftools.commands.warp.other:
     default: op
+  mhdftools.commands.randomteleport:
+    default: true
   mhdftools.commands.ignore:
+    default: true
+  mhdftools.commands.msg:
+    default: true
+  mhdftools.commands.reply:
     default: true

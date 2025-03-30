@@ -1,0 +1,73 @@
+package cn.chengzhiya.mhdftools.util.feature;
+
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.command.CommandSender;
+
+import java.util.regex.Pattern;
+
+public final class MsgUtil {
+    public static void sendMsg(CommandSender sender, String target, String message) {
+        // 聊天延迟
+        if (ConfigUtil.getConfig().getBoolean("chatSettings.delay.enable")) {
+            if (!sender.hasPermission("mhdftools.bypass.chat.delay")) {
+                String delayData = Main.instance.getCacheManager().get(sender.getName() + "_delay");
+                if (delayData != null) {
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("chat.delay")
+                            .replace("{delay}", delayData)
+                    );
+                    return;
+                }
+            }
+        }
+
+        // 限制使用颜色符号
+        if (!sender.hasPermission("mhdftools.bypass.chat.color")) {
+            message = ChatColor.stripColor(ColorUtil.legacyColor(message));
+        }
+
+        // 限制使用miniMessage
+        if (!sender.hasPermission("mhdftools.bypass.chat.minimessage")) {
+            Pattern pattern = Pattern.compile("</?[a-zA-Z0-9_:-]+>");
+            message = pattern.matcher(message).replaceAll("");
+        }
+
+        // 刷屏限制
+        if (ConfigUtil.getConfig().getBoolean("chatSettings.spam.enable")) {
+            if (!sender.hasPermission("mhdftools.bypass.chat.spam")) {
+                String spamData = Main.instance.getCacheManager().get(sender.getName() + "_spam");
+                if (spamData != null && spamData.equals(message)) {
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("chat.spam"));
+                    return;
+                }
+            }
+        }
+
+        int delay = ConfigUtil.getConfig().getInt("chatSettings.delay.delay");
+        Main.instance.getCacheManager().put(sender.getName() + "_delay", String.valueOf(delay));
+        Main.instance.getCacheManager().put(sender.getName() + "_spam", message);
+
+        // 替换词
+        if (!sender.hasPermission("mhdftools.bypass.chat.replaceWord")) {
+            message = ChatUtil.applyBlackWord(message);
+        }
+
+        Main.instance.getCacheManager().put(sender.getName() + "_reply", target);
+        Main.instance.getCacheManager().put(target + "_reply", sender.getName());
+
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.msg.send")
+                .replace("{player}", sender.getName())
+                .replace("{target}", target)
+                .replace("{message}", message)
+        );
+        Main.instance.getBungeeCordManager().sendMessage(target, LangUtil.i18n("commands.msg.receive")
+                .replace("{player}", sender.getName())
+                .replace("{target}", target)
+                .replace("{message}", message)
+        );
+    }
+}

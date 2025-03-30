@@ -40,6 +40,9 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
                             <relocations>
                                 <relocation>
                                     <pattern>com.alibaba</pattern>
@@ -58,10 +61,6 @@
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.io.github.retrooper</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>de.tr7zw</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.de.tr7zw</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>com.j256.ormlite</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.com.j256.ormlite</shadedPattern>
                                 </relocation>
@@ -74,8 +73,7 @@
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.io.lettuce</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <minimizeJar>true</minimizeJar>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>

@@ -325,5 +325,7 @@ commands:
     spam: "{prefix} &c请不要刷屏!"
     receive: "{prefix} &7{player}悄悄向你说: {message}"
     send: "{prefix} &7你向{target}悄悄说: {message}"
-
-configVersion: "${project.version}"
+  reply:
+    usage: "/{command} <消息>"
+    description: "回复私聊消息"
+    noTarget: "{prefix} &c找不到回复目标!"
