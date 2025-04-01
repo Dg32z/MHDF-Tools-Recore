@@ -3,12 +3,10 @@ package cn.chengzhiya.mhdftools;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -98,10 +96,7 @@ public final class Metrics {
 
     private int getPlayerAmount() {
         try {
-            Method onlinePlayersMethod = Class.forName("org.bukkit.Server").getMethod("getOnlinePlayers");
-            return onlinePlayersMethod.getReturnType().equals(Collection.class)
-                    ? ((Collection<?>) onlinePlayersMethod.invoke(Bukkit.getServer())).size()
-                    : ((Player[]) onlinePlayersMethod.invoke(Bukkit.getServer())).length;
+            return Bukkit.getOnlinePlayers().size();
         } catch (Exception e) {
             return Bukkit.getOnlinePlayers().size();
         }

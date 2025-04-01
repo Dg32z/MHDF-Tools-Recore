@@ -117,6 +117,7 @@ commands:
     usage: "/{command} <倒计时> [消息]"
     description: "更好的关服"
     defaultMessage: "&b服务器已关闭!"
+    timeFormatError: "{prefix} &c超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     countdownMessage: "{prefix} &6服务器还有&b{countdown}&6秒关闭,请做好准备!"
     kickMessage: |-
       &e-------------=&6梦之工具&6=&e-------------
@@ -325,5 +326,7 @@ commands:
     spam: "{prefix} &c请不要刷屏!"
     receive: "{prefix} &7{player}悄悄向你说: {message}"
     send: "{prefix} &7你向{target}悄悄说: {message}"
-
-configVersion: "${project.version}"
+  reply:
+    usage: "/{command} <消息>"
+    description: "回复私聊消息"
+    noTarget: "{prefix} &c找不到回复目标!"

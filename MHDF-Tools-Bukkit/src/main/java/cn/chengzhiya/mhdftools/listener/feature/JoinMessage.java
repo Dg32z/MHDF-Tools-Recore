@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,7 +22,18 @@ public final class JoinMessage extends AbstractListener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        String message = ConfigUtil.getConfig().getString("joinMessageSettings." + getGroup(player) + ".message");
+
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("joinMessageSettings");
+        if (config == null) {
+            return;
+        }
+
+        if (config.getBoolean("removeMessage")) {
+            event.joinMessage(null);
+            return;
+        }
+
+        String message = config.getString(getGroup(player) + ".message");
         if (message == null) {
             event.joinMessage(null);
             return;

@@ -36,8 +36,15 @@ public final class Stop extends AbstractCommand {
             return;
         }
 
-        int time = args.length >= 1 ? Integer.parseInt(args[0]) :
-                ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
+        int time;
+        try {
+            time = args.length >= 1 ? Integer.parseInt(args[0]) :
+                    ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
+        } catch (NumberFormatException e) {
+            sender.sendMessage(LangUtil.i18n("commands.stop.timeFormatError"));
+            return;
+        }
+
         TextComponent message = args.length == 2 ? ColorUtil.color(args[1]) :
                 LangUtil.i18n("commands.stop.defaultMessage");
 

@@ -10,45 +10,42 @@ import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public final class Msg extends AbstractCommand {
-    public Msg() {
+public final class Reply extends AbstractCommand {
+    public Reply() {
         super(
                 List.of("chatSettings.enable", "chatSettings.msg.enable"),
-                "私聊",
-                "mhdftools.commands.msg",
+                "回复私聊",
+                "mhdftools.commands.reply",
                 false,
-                ConfigUtil.getConfig().getStringList("chatSettings.msg.commands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("chatSettings.msg.replyCommands").toArray(new String[0])
         );
     }
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         // 输出帮助信息
-        if (args.length < 2) {
+        if (args.length < 1) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.msg.usage"))
+                    .replace("{usage}", LangUtil.i18n("commands.reply.usage"))
                     .replace("{command}", label)
             );
             return;
         }
 
-        if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[0])) {
+        String replyTarget = Main.instance.getCacheManager().get(sender.getName() + "_reply");
+        if (replyTarget == null) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.reply.noTarget"));
+            return;
+        }
+
+        if (!Main.instance.getBungeeCordManager().ifPlayerOnline(replyTarget)) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));
             return;
         }
 
-        String message = MessageUtil.mergeString(args, 1);
-        MsgUtil.sendMsg(sender, args[0], message);
-    }
-
-    @Override
-    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            return Main.instance.getBungeeCordManager().getPlayerList();
-        }
-        return new ArrayList<>();
+        String message = MessageUtil.mergeString(args, 0);
+        MsgUtil.sendMsg(sender, replyTarget, message);
     }
 }

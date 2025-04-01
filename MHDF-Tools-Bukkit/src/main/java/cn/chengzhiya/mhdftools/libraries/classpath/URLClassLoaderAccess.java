@@ -1,5 +1,7 @@
 package cn.chengzhiya.mhdftools.libraries.classpath;
 
+import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -31,8 +33,7 @@ public abstract class URLClassLoaderAccess {
         static {
             Method method;
             try {
-                method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-                method.setAccessible(true);
+                method = ReflectionUtil.getMethod(URLClassLoader.class, "addURL", true, URL.class);
             } catch (Exception e) {
                 method = null;
             }

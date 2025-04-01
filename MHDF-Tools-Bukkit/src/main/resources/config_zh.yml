@@ -274,6 +274,12 @@ tpbackSettings:
 spawnSettings:
   # 开关
   enable: true
+  # 自动传送
+  autoTeleport:
+    # 复活
+    respawn: false
+    # 加入服务器
+    join: false
   # 位置
   location:
     # 服务器
@@ -480,6 +486,10 @@ chatSettings:
       - "w"
       - "msg"
       - "tell"
+    # 回复
+    replyCommands:
+      - "r"
+      - "reply"
   # 格式设置
   # 绕过颜色限制权限: mhdftools.bypass.chat.color
   # miniMessage格式限制权限: mhdftools.bypass.chat.minimessage
@@ -529,6 +539,8 @@ economySettings:
 joinMessageSettings:
   # 开关
   enable: true
+  # 移除消息
+  removeMessage: false
   # 默认
   default:
     # 权重
@@ -547,6 +559,8 @@ joinMessageSettings:
 quitMessageSettings:
   # 开关
   enable: true
+  # 移除消息
+  removeMessage: false
   # 默认
   default:
     # 权重

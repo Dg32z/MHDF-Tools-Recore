@@ -2,8 +2,11 @@ package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.PluginUtil;
+import cn.chengzhiya.mhdftools.util.reflection.ReflectionUtil;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.YamlConfigurationOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -68,6 +71,15 @@ public final class YamlUtil {
             }
 
             config.set("configVersion", PluginUtil.getVersion());
+
+            YamlConfigurationOptions newOptions = config.options();
+            newOptions.width(32767);
+            ReflectionUtil.setField(
+                    ReflectionUtil.getField(MemoryConfiguration.class, "options", true),
+                    jarConfig,
+                    newOptions
+            );
+
             config.save(configFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
