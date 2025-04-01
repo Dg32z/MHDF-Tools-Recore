@@ -28,7 +28,7 @@ public final class ActionUtil {
             return;
         }
 
-        Main.adventure.sender(sender).sendMessage(message);
+        sender.sendMessage(message);
     }
 
     /**
