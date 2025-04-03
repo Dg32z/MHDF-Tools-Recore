@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools;
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
-import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -47,11 +46,6 @@ public final class Main extends JavaPlugin {
 
         this.pluginHookManager = new PluginHookManager();
         this.pluginHookManager.hook();
-
-        ServerVersion version = pluginHookManager.getPacketEventsHook().getServerVersion();
-        if (version.isOlderThan(ServerVersion.V_1_17)) {
-            LogUtil.log("&c您的服务器是不被支持的版本 &7(&c" + version.getReleaseName() + "&7) &c可能会遇到很多问题!");
-        }
 
         MinecraftLangUtil.saveDefaultMinecraftLang();
         MinecraftLangUtil.reloadMinecraftLang();
