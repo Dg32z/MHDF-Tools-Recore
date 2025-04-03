@@ -5,13 +5,13 @@ import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import lombok.Getter;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 public final class Main extends JavaPlugin {
     public static Main instance;
-    public static BukkitAudiences adventure;
+
+    private AdventureManager adventureManager;
     private ConfigManager configManager;
     private LibrariesManager librariesManager;
     private DatabaseManager databaseManager;
@@ -36,7 +36,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        adventure = BukkitAudiences.create(this);
+        this.adventureManager = new AdventureManager();
+        this.adventureManager.init();
 
         this.databaseManager = new DatabaseManager();
         this.databaseManager.init();
@@ -77,8 +78,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (adventure != null) {
-            adventure.close();
+        if (this.adventureManager != null) {
+            this.adventureManager.close();
         }
 
         if (this.bungeeCordManager != null) {
@@ -108,6 +109,7 @@ public final class Main extends JavaPlugin {
         this.databaseManager = null;
         this.librariesManager = null;
         this.configManager = null;
+        this.adventureManager = null;
 
         instance = null;
     }

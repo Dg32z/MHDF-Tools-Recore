@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import java.time.Duration;
 import java.util.List;
 
-@SuppressWarnings({"unused", "deprecation"})
+@SuppressWarnings({"unused"})
 public final class ActionUtil {
     /**
      * 发送全服消息
@@ -28,7 +28,8 @@ public final class ActionUtil {
             return;
         }
 
-        Main.adventure.sender(sender).sendMessage(message);
+        Main.instance.getAdventureManager().getAdventure()
+                .sender(sender).sendMessage(message);
     }
 
     /**
@@ -97,9 +98,12 @@ public final class ActionUtil {
      */
     public static void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
         MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task -> {
-            Main.adventure.player(player).sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
-            Main.adventure.player(player).sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
-            Main.adventure.player(player).sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
+            Main.instance.getAdventureManager().getAdventure()
+                    .player(player).sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
+            Main.instance.getAdventureManager().getAdventure()
+                    .player(player).sendTitlePart(TitlePart.SUBTITLE, ColorUtil.color(subTitle));
+            Main.instance.getAdventureManager().getAdventure()
+                    .player(player).sendTitlePart(TitlePart.TITLE, ColorUtil.color(title));
         });
     }
 
@@ -132,7 +136,8 @@ public final class ActionUtil {
      */
     public static void sendActionBar(Player player, String message) {
         MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task ->
-                Main.adventure.player(player).sendActionBar(ColorUtil.color(message)));
+                Main.instance.getAdventureManager().getAdventure()
+                        .player(player).sendActionBar(ColorUtil.color(message)));
     }
 
     /**
@@ -143,7 +148,8 @@ public final class ActionUtil {
      */
     public static void sendBossbar(Player player, BossBar bossBar) {
         MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task ->
-                Main.adventure.player(player).showBossBar(bossBar));
+                Main.instance.getAdventureManager().getAdventure()
+                        .player(player).showBossBar(bossBar));
     }
 
     /**
@@ -154,7 +160,8 @@ public final class ActionUtil {
      */
     public static void hideBossbar(Player player, BossBar bossBar) {
         MHDFScheduler.getAsyncScheduler().runNow(Main.instance, task ->
-                Main.adventure.player(player).hideBossBar(bossBar));
+                Main.instance.getAdventureManager().getAdventure()
+                        .player(player).hideBossBar(bossBar));
     }
 
     /**
