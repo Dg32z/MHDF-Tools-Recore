@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,7 +37,7 @@ public final class TpLocation extends AbstractListener {
             return;
         }
 
-        teleport(player, tpLocation.toLocation());
+        TeleportUtil.teleport(player, tpLocation.toLocation(), autoTryHashMap);
     }
 
     @EventHandler
@@ -49,30 +50,5 @@ public final class TpLocation extends AbstractListener {
         }
 
         Main.instance.getCacheManager().remove(player.getName() + "_tpLocation");
-    }
-
-    /**
-     * 传送玩家
-     *
-     * @param player   被传送的玩家实例
-     * @param location 传送到的位置实例
-     */
-    private void teleport(Player player, Location location) {
-        player.teleportAsync(location).thenAccept(success -> {
-            if (success) {
-                autoTryHashMap.remove(player.getName());
-            } else {
-                int times = autoTryHashMap.getOrDefault(player.getName(), 0);
-                int maxTimes = ConfigUtil.getConfig().getInt("bungeecord.autoTry.maxTimes");
-                if (times >= maxTimes) {
-                    autoTryHashMap.remove(player.getName());
-                } else {
-                    autoTryHashMap.put(player.getName(), times + 1);
-                    int delay = ConfigUtil.getConfig().getInt("bungeecord.autoTry.delay");
-                    MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
-                            teleport(player, location), delay);
-                }
-            }
-        });
     }
 }
