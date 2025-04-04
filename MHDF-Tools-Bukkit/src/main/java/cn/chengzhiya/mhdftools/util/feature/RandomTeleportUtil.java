@@ -20,7 +20,7 @@ public final class RandomTeleportUtil {
      *
      * @param player 玩家实例
      * @param world  世界实例
-     * @param biome  群戏实例
+     * @param biome  群系实例
      */
     public static void randomTeleport(Player player, World world, Biome biome) {
         String group = getGroup(player);
@@ -59,7 +59,7 @@ public final class RandomTeleportUtil {
                 return;
             }
             location.setY(location.getY() + 1);
-            player.teleport(location);
+            player.teleportAsync(location);
             return;
         }
     }
