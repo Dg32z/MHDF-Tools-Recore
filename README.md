@@ -42,7 +42,7 @@ _✨轻量 便携 快捷 即装即用 可无前置运行✨_
 ## 贡献者
 
 <a href="https://github.com/MHDFCraft/MHDF-Tools/graphs/contributors">
-  <img src="https://stg.contrib.rocks/image?repo=MHDFCraft/MHDF-Tools" />
+  <img src="https://stg.contrib.rocks/image?repo=MHDFCraft/MHDF-Tools" alt="contributors"/>
 </a>
 
 ## 特别感谢

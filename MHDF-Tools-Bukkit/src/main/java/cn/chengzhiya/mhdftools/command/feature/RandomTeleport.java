@@ -8,7 +8,6 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -92,7 +91,7 @@ public final class RandomTeleport extends AbstractCommand {
     }
 
     @Override
-    public @NotNull List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             return Bukkit.getWorlds().stream()
                     .map(World::getName)
