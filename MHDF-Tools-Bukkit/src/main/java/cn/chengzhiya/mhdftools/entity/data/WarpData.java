@@ -28,6 +28,16 @@ public final class WarpData extends AbstractDao {
     @DatabaseField(canBeNull = false)
     private Float pitch;
 
+    public void setLocation(BungeeCordLocation bungeeCordLocation) {
+        setServer(bungeeCordLocation.getServer());
+        setWorld(bungeeCordLocation.getWorld());
+        setX(bungeeCordLocation.getX());
+        setY(bungeeCordLocation.getY());
+        setZ(bungeeCordLocation.getZ());
+        setYaw(bungeeCordLocation.getYaw());
+        setPitch(bungeeCordLocation.getPitch());
+    }
+
     /**
      * 转换为群组位置实例
      *

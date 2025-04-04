@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
-import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.entity.data.HomeData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -53,13 +53,7 @@ public final class SetHome extends AbstractCommand {
         Location location = sender.getLocation();
 
         HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
-        homeData.setServer(Main.instance.getBungeeCordManager().getServerName());
-        homeData.setWorld(location.getWorld().getName());
-        homeData.setX(location.getX());
-        homeData.setY(location.getY());
-        homeData.setZ(location.getZ());
-        homeData.setYaw(location.getYaw());
-        homeData.setPitch(location.getPitch());
+        homeData.setLocation(new BungeeCordLocation(location));
 
         HomeDataUtil.updateHomeData(homeData);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.sethome.message")

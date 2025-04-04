@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.entity;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.Base64Util;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,18 @@ public final class BungeeCordLocation {
     public BungeeCordLocation(String server, Location location) {
         this(
                 server,
+                location.getWorld().getName(),
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch()
+        );
+    }
+
+    public BungeeCordLocation(Location location) {
+        this(
+                Main.instance.getBungeeCordManager().getServerName(),
                 location.getWorld().getName(),
                 location.getX(),
                 location.getY(),

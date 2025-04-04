@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
-import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
 import cn.chengzhiya.mhdftools.entity.data.WarpData;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -39,13 +39,7 @@ public final class SetWarp extends AbstractCommand {
         Location location = sender.getLocation();
 
         WarpData warpData = WarpDataUtil.getWarpData(args[0]);
-        warpData.setServer(Main.instance.getBungeeCordManager().getServerName());
-        warpData.setWorld(location.getWorld().getName());
-        warpData.setX(location.getX());
-        warpData.setY(location.getY());
-        warpData.setZ(location.getZ());
-        warpData.setYaw(location.getYaw());
-        warpData.setPitch(location.getPitch());
+        warpData.setLocation(new BungeeCordLocation(location));
 
         WarpDataUtil.updateWarpData(warpData);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.setwarp.message")
