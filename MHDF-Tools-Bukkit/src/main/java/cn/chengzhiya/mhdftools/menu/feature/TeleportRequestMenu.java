@@ -2,9 +2,11 @@ package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
+import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
+import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -20,8 +22,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,16 +29,18 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-public final class TpaMenu extends AbstractMenu {
+public final class TeleportRequestMenu extends AbstractMenu {
+    private final TeleportRequestType requestType;
     private final YamlConfiguration config;
     private final int page;
 
-    public TpaMenu(Player player, int page) {
+    public TeleportRequestMenu(Player player, TeleportRequestType requestType, int page) {
         super(
-                "tpaSettings.enable",
+                "tpahereSettings.enable",
                 player
         );
-        this.config = MenuConfigUtil.getMenuConfig("tpa.yml");
+        this.requestType = requestType;
+        this.config = MenuConfigUtil.getMenuConfig(requestType.getMenu());
         this.page = page;
     }
 
@@ -62,7 +64,6 @@ public final class TpaMenu extends AbstractMenu {
 
         for (String key : items.getKeys(false)) {
             ConfigurationSection item = items.getConfigurationSection(key);
-
             if (item == null) {
                 continue;
             }
@@ -78,22 +79,16 @@ public final class TpaMenu extends AbstractMenu {
                     for (int i = start; i < end; i++) {
                         String target = playerList.get(i);
 
-                        ItemStack itemStack = new ItemStackBuilder(applyTpaDataString(type, getPlayer().getName(), target))
+                        ItemStack itemStack = new ItemStackBuilder(getPlayer(), applyTpaDataString(type, getPlayer().getName(), target))
                                 .name(applyTpaDataString(name, getPlayer().getName(), target))
                                 .lore(lore.stream()
                                         .map(s -> applyTpaDataString(s, getPlayer().getName(), target))
                                         .toList())
                                 .amount(amount)
                                 .customModelData(customModelData)
-                                .build(getPlayer());
-
-                        ItemMeta itemMeta = itemStack.getItemMeta();
-
-                        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-                        container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
-                        container.set(new NamespacedKey(Main.instance, "target"), PersistentDataType.STRING, target);
-
-                        itemStack.setItemMeta(itemMeta);
+                                .persistentDataContainer("key", PersistentDataType.STRING, key)
+                                .persistentDataContainer("target", PersistentDataType.STRING, target)
+                                .build();
 
                         menu.addItem(itemStack);
                     }
@@ -111,21 +106,7 @@ public final class TpaMenu extends AbstractMenu {
                 }
             }
 
-            ItemStack itemStack = MenuUtil.getItemStack(
-                    getPlayer(),
-                    item
-            );
-
-            ItemMeta itemMeta = itemStack.getItemMeta();
-
-            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-            container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
-
-            itemStack.setItemMeta(itemMeta);
-            List<Integer> slotList = MenuUtil.getSlotList(item);
-            for (Integer slot : slotList) {
-                menu.setItem(slot, itemStack);
-            }
+            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
         }
 
         return menu;
@@ -159,10 +140,15 @@ public final class TpaMenu extends AbstractMenu {
                     return;
                 }
 
-                TpaUtil.sendTpaRequest(getPlayer(), target);
+                if (getRequestType() == TeleportRequestType.TPAHERE) {
+                    TpaHereUtil.sendTpaHereRequest(getPlayer(), target);
+                }
+                if (getRequestType() == TeleportRequestType.TPA) {
+                    TpaUtil.sendTpaRequest(getPlayer(), target);
+                }
             }
-            case "上一页" -> new TpaMenu(getPlayer(), getPage() - 1).openMenu();
-            case "下一页" -> new TpaMenu(getPlayer(), getPage() + 1).openMenu();
+            case "上一页" -> new TeleportRequestMenu(getPlayer(), getRequestType(), getPage() - 1).openMenu();
+            case "下一页" -> new TeleportRequestMenu(getPlayer(), getRequestType(), getPage() + 1).openMenu();
         }
 
         MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);

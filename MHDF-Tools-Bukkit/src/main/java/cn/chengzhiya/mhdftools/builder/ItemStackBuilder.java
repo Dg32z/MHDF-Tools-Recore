@@ -2,45 +2,104 @@ package cn.chengzhiya.mhdftools.builder;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public final class ItemStackBuilder {
-    private final String type;
-    private String name;
-    private List<String> lore;
-    private Integer amount;
-    private Integer customModelData;
+    @Getter
+    private final Player player;
+    private ItemStack item;
 
-    public ItemStackBuilder(String type) {
-        this.type = type;
+    public ItemStackBuilder(Player player, String type) {
+        this.player = player;
+
+        ItemStack item = null;
+        if (type != null) {
+            if (type.startsWith("craftEngine-")) {
+                item = Main.instance.getPluginHookManager().getCraftEngineHook().getItem(
+                        type.replace("craftEngine-", ""),
+                        player
+                );
+            } else if (type.startsWith("mythicMobs-")) {
+                item = Main.instance.getPluginHookManager().getMythicMobsHook().getItem(
+                        type.replace("mythicMobs-", "")
+                );
+            } else if (type.startsWith("head-")) {
+                item = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta meta = (SkullMeta) this.item.getItemMeta();
+
+                String playerName = type.replace("head-", "");
+                meta.setOwningPlayer(Bukkit.getOfflinePlayer(playerName));
+
+                item.setItemMeta(meta);
+            } else if (type.equals("random_bed")) {
+                item = new ItemStack(getRandomBed());
+            } else {
+                Material material = Material.matchMaterial(type);
+                if (material != null) {
+                    item = new ItemStack(material);
+                }
+            }
+        }
+
+        this.item = Objects.requireNonNullElseGet(item, () -> new ItemStack(Material.AIR));
     }
 
     public ItemStackBuilder name(String name) {
-        this.name = name;
+        ItemMeta meta = this.item.getItemMeta();
+        if (name != null) {
+            meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), name)));
+        }
         return this;
     }
 
     public ItemStackBuilder lore(List<String> lore) {
-        this.lore = lore;
+        ItemMeta meta = this.item.getItemMeta();
+        if (lore != null && !lore.isEmpty()) {
+            meta.lore(lore.stream()
+                    .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), s))
+                    .map(ColorUtil::color)
+                    .toList()
+            );
+        }
         return this;
     }
 
     public ItemStackBuilder amount(Integer amount) {
-        this.amount = amount;
+        ItemMeta meta = this.item.getItemMeta();
+        if (amount != null && amount > 0) {
+            this.item.setAmount(amount);
+        }
         return this;
     }
 
     public ItemStackBuilder customModelData(Integer customModelData) {
-        this.customModelData = customModelData;
+        ItemMeta meta = this.item.getItemMeta();
+        if (customModelData != null && customModelData > 0) {
+            meta.setCustomModelData(customModelData);
+        }
+        return this;
+    }
+
+    public <P, C> ItemStackBuilder persistentDataContainer(String key, PersistentDataType<P, C> type, C value) {
+        ItemMeta itemMeta = this.item.getItemMeta();
+        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+        container.set(new NamespacedKey(Main.instance, key), type, value);
+        this.item.setItemMeta(itemMeta);
+
         return this;
     }
 
@@ -73,66 +132,9 @@ public final class ItemStackBuilder {
     /**
      * 构建物品实例
      *
-     * @param player 玩家实例
      * @return 物品实例
      */
-    public ItemStack build(Player player) {
-        if (type == null) {
-            return new ItemStack(Material.AIR);
-        }
-
-        ItemStack item;
-        if (type.startsWith("craftEngine-")) {
-            item = Main.instance.getPluginHookManager().getCraftEngineHook().getItem(
-                    type.replace("craftEngine-", ""),
-                    player
-            );
-        } else if (type.startsWith("mythicMobs-")) {
-            item = Main.instance.getPluginHookManager().getMythicMobsHook().getItem(
-                    type.replace("mythicMobs-", "")
-            );
-        } else if (type.startsWith("head-")) {
-            item = new ItemStack(Material.PLAYER_HEAD);
-            SkullMeta meta = (SkullMeta) item.getItemMeta();
-
-            String playerName = type.replace("head-", "");
-            meta.setOwningPlayer(Bukkit.getOfflinePlayer(playerName));
-
-            item.setItemMeta(meta);
-        } else if (type.equals("random_bed")) {
-            item = new ItemStack(getRandomBed());
-        } else {
-            Material material = Material.matchMaterial(type);
-            if (material == null) {
-                return new ItemStack(Material.AIR);
-            }
-
-            item = new ItemStack(material);
-        }
-
-        ItemMeta meta = item.getItemMeta();
-
-        if (name != null) {
-            meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, name)));
-        }
-
-        if (lore != null && !lore.isEmpty()) {
-            meta.lore(lore.stream()
-                    .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, s))
-                    .map(ColorUtil::color)
-                    .toList()
-            );
-        }
-
-        if (amount != null && amount > 0) {
-            item.setAmount(amount);
-        }
-
-        if (customModelData != null && customModelData > 0) {
-            meta.setCustomModelData(customModelData);
-        }
-
-        item.setItemMeta(meta);
-        return item;
+    public ItemStack build() {
+        return this.item;
     }
 }

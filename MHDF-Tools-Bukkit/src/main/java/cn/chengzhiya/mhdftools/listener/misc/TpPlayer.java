@@ -2,11 +2,8 @@ package cn.chengzhiya.mhdftools.listener.misc;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;

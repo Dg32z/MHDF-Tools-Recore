@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.action;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
+import cn.chengzhiya.mhdftools.util.menu.ItemStackUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -135,16 +135,11 @@ public final class RequirementUtil {
                 }
                 case "hasItem" -> {
                     ConfigurationSection item = requirement.getConfigurationSection("item");
-
                     if (item == null) {
                         continue;
                     }
 
-                    ItemStack itemStack = MenuUtil.getItemStack(
-                            player,
-                            item
-                    );
-
+                    ItemStack itemStack = ItemStackUtil.getItemStackBuilder(player, item).build();
                     if (player.getInventory().contains(itemStack)) {
                         continue;
                     }

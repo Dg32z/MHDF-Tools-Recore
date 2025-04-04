@@ -2,7 +2,8 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.menu.feature.TpaMenu;
+import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
+import cn.chengzhiya.mhdftools.menu.feature.TeleportRequestMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -32,7 +33,7 @@ public final class Tpa extends AbstractCommand {
         }
 
         if (args.length == 0) {
-            new TpaMenu(sender, 1).openMenu();
+            new TeleportRequestMenu(sender, TeleportRequestType.TPA, 1).openMenu();
             return;
         }
         if (args.length == 1) {

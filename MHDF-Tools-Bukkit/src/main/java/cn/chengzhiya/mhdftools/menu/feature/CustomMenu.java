@@ -18,12 +18,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -54,26 +51,11 @@ public final class CustomMenu extends AbstractMenu {
 
         for (String key : items.getKeys(false)) {
             ConfigurationSection item = items.getConfigurationSection(key);
-
             if (item == null) {
                 continue;
             }
 
-            ItemStack itemStack = MenuUtil.getItemStack(
-                    getPlayer(),
-                    item
-            );
-
-            ItemMeta itemMeta = itemStack.getItemMeta();
-
-            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-            container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
-
-            itemStack.setItemMeta(itemMeta);
-            List<Integer> slotList = MenuUtil.getSlotList(item);
-            for (Integer slot : slotList) {
-                menu.setItem(slot, itemStack);
-            }
+            MenuUtil.setMenuItem(getPlayer(), menu, getConfig(), key);
         }
 
         return menu;

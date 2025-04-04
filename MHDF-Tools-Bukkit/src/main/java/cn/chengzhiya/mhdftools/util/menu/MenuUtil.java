@@ -7,28 +7,14 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class MenuUtil {
-    /**
-     * 构建物品实例
-     *
-     * @param player 玩家实例
-     * @param config 配置实例
-     * @return 物品实例
-     */
-    public static ItemStack getItemStack(Player player, ConfigurationSection config) {
-        return new ItemStackBuilder(config.getString("type"))
-                .name(config.getString("name"))
-                .lore(config.getStringList("lore"))
-                .amount(config.getInt("amount"))
-                .customModelData(config.getInt("customModelData"))
-                .build(player);
-    }
-
     /**
      * 获取指定菜单点击事件中点击的物品实例
      *
@@ -157,5 +143,35 @@ public final class MenuUtil {
         }
 
         runItemClickAction(player, items.getConfigurationSection(key));
+    }
+
+    /**
+     * 获取指定物品配置实例的菜单物品构建实例
+     *
+     * @param player 玩家实例
+     * @param item   物品配置实例
+     * @param key    物品ID
+     * @return 菜单物品构建实例
+     */
+    public static ItemStackBuilder getMenuItemStackBuilder(Player player, ConfigurationSection item, String key) {
+        return ItemStackUtil.getItemStackBuilder(player, item)
+                .persistentDataContainer("key", PersistentDataType.STRING, key);
+    }
+
+    /**
+     * 设置指定菜单实例的指定物品配置实例
+     *
+     * @param player 玩家实例r
+     * @param menu   菜单实例
+     * @param item   物品配置实例
+     * @param key    物品ID
+     */
+    public static void setMenuItem(Player player, Inventory menu, ConfigurationSection item, String key) {
+        ItemStack itemStack = getMenuItemStackBuilder(player, item, key).build();
+
+        List<Integer> slotList = MenuUtil.getSlotList(item);
+        for (Integer slot : slotList) {
+            menu.setItem(slot, itemStack);
+        }
     }
 }

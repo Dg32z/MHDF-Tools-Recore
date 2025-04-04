@@ -21,8 +21,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
@@ -63,7 +61,6 @@ public final class HomeMenu extends AbstractMenu {
 
         for (String key : items.getKeys(false)) {
             ConfigurationSection item = items.getConfigurationSection(key);
-
             if (item == null) {
                 continue;
             }
@@ -79,22 +76,16 @@ public final class HomeMenu extends AbstractMenu {
                     for (int i = start; i < end; i++) {
                         HomeData homeData = homeList.get(i);
 
-                        ItemStack itemStack = new ItemStackBuilder(applyHomeDataString(type, homeData))
+                        ItemStack itemStack = new ItemStackBuilder(getPlayer(), applyHomeDataString(type, homeData))
                                 .name(applyHomeDataString(name, homeData))
                                 .lore(lore.stream()
                                         .map(s -> applyHomeDataString(s, homeData))
                                         .toList())
                                 .amount(amount)
                                 .customModelData(customModelData)
-                                .build(getPlayer());
-
-                        ItemMeta itemMeta = itemStack.getItemMeta();
-
-                        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-                        container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
-                        container.set(new NamespacedKey(Main.instance, "home"), PersistentDataType.STRING, homeData.getHome());
-
-                        itemStack.setItemMeta(itemMeta);
+                                .persistentDataContainer("key", PersistentDataType.STRING, key)
+                                .persistentDataContainer("home", PersistentDataType.STRING, homeData.getHome())
+                                .build();
 
                         menu.addItem(itemStack);
                     }
@@ -112,21 +103,7 @@ public final class HomeMenu extends AbstractMenu {
                 }
             }
 
-            ItemStack itemStack = MenuUtil.getItemStack(
-                    getPlayer(),
-                    item
-            );
-
-            ItemMeta itemMeta = itemStack.getItemMeta();
-
-            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-            container.set(new NamespacedKey(Main.instance, "key"), PersistentDataType.STRING, key);
-
-            itemStack.setItemMeta(itemMeta);
-            List<Integer> slotList = MenuUtil.getSlotList(item);
-            for (Integer slot : slotList) {
-                menu.setItem(slot, itemStack);
-            }
+            MenuUtil.setMenuItem(getPlayer(), menu, item, key);
         }
 
         return menu;

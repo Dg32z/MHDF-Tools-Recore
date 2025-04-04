@@ -11,9 +11,9 @@ public final class RandomUtil {
      * @param max 最大值（不包含）
      * @return [min, max) 区间内的随机整数
      * @throws IllegalArgumentException 如果最小值大于等于最大值
-     * <p>
-     * int dice = RandomUtil.randomInt(1, 7); // 生成1-6的随机数
-     * }
+     *                                  <p>
+     *                                  int dice = RandomUtil.randomInt(1, 7); // 生成1-6的随机数
+     *                                  }
      */
     public static int randomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max);
