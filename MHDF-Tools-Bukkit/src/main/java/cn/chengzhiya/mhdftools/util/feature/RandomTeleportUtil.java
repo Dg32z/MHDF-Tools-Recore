@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.random.RandomUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -11,8 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.util.BiomeSearchResult;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public final class RandomTeleportUtil {
     /**
@@ -33,8 +34,9 @@ public final class RandomTeleportUtil {
         int max = groupConfig.getInt("max");
 
         List<String> blackBlock = groupConfig.getStringList("blackBlock");
-        int centerX = new Random().nextInt(min, max);
-        int centerZ = new Random().nextInt(min, max);
+        // 这并不会导致性能问题,只有特别频繁的调用才有可能出问题,不要杞人忧天 ):
+        int centerX = RandomUtil.randomInt(min, max);
+        int centerZ = RandomUtil.randomInt(min, max);
 
         Location centerLocation = new Location(world, centerX, 60, centerZ);
 
@@ -63,7 +65,6 @@ public final class RandomTeleportUtil {
             return;
         }
     }
-
     /**
      * 将指定玩家在指定世界实例随机传送
      *
@@ -90,11 +91,14 @@ public final class RandomTeleportUtil {
      * @return 组名称
      */
     private static String getGroup(Player player) {
-        List<String> groupList = player.getEffectivePermissions().stream()
-                .map(PermissionAttachmentInfo::getPermission)
-                .filter(permission -> permission.startsWith("mhdftools.group.randomteleport."))
-                .map(permission -> permission.replace("mhdftools.group.randomteleport.", ""))
-                .toList();
+        List<String> groupList = new ArrayList<>();
+        for (PermissionAttachmentInfo permissionAttachmentInfo : player.getEffectivePermissions()) {
+            String permission = permissionAttachmentInfo.getPermission();
+            if (permission.startsWith("mhdftools.group.randomteleport.")) {
+                String replace = permission.replace("mhdftools.group.randomteleport.", "");
+                groupList.add(replace);
+            }
+        }
 
         int maxWeight = 0;
         String maxWeightGroup = "default";
