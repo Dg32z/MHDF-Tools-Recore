@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools;
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
+import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -72,10 +73,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (this.adventureManager != null) {
-            this.adventureManager.close();
-        }
-
         if (this.bungeeCordManager != null) {
             this.bungeeCordManager.close();
         }
@@ -103,6 +100,10 @@ public final class Main extends JavaPlugin {
         this.databaseManager = null;
         this.librariesManager = null;
         this.configManager = null;
+
+        if (this.adventureManager != null) {
+            this.adventureManager.close();
+        }
         this.adventureManager = null;
 
         instance = null;
