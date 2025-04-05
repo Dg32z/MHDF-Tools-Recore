@@ -19,20 +19,25 @@ public final class TeleportUtil {
      */
     public static void teleport(Player player, Location location, HashMap<String, Integer> map) {
         player.teleportAsync(location).thenAccept(success -> {
+            int times = map.getOrDefault(player.getName(), 0);
+            int maxTimes = ConfigUtil.getConfig().getInt("bungeecord.autoTry.maxTimes");
+
             if (success) {
-                map.remove(player.getName());
-            } else {
-                int times = map.getOrDefault(player.getName(), 0);
-                int maxTimes = ConfigUtil.getConfig().getInt("bungeecord.autoTry.maxTimes");
-                if (times >= maxTimes) {
+                if (player.getLocation().distance(location) < 5.0) {
                     map.remove(player.getName());
-                } else {
-                    map.put(player.getName(), times + 1);
-                    int delay = ConfigUtil.getConfig().getInt("bungeecord.autoTry.delay");
-                    MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
-                            teleport(player, location, map), delay);
+                    return;
                 }
             }
+
+            if (times >= maxTimes) {
+                map.remove(player.getName());
+                return;
+            }
+
+            map.put(player.getName(), times + 1);
+            int delay = ConfigUtil.getConfig().getInt("bungeecord.autoTry.delay");
+            MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
+                    teleport(player, location, map), delay);
         });
     }
 }
