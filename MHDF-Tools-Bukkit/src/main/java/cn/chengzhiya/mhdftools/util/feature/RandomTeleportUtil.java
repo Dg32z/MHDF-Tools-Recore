@@ -92,14 +92,11 @@ public final class RandomTeleportUtil {
      * @return 组名称
      */
     private static String getGroup(Player player) {
-        List<String> groupList = new ArrayList<>();
-        for (PermissionAttachmentInfo permissionAttachmentInfo : player.getEffectivePermissions()) {
-            String permission = permissionAttachmentInfo.getPermission();
-            if (permission.startsWith("mhdftools.group.randomteleport.")) {
-                String replace = permission.replace("mhdftools.group.randomteleport.", "");
-                groupList.add(replace);
-            }
-        }
+        List<String> groupList = player.getEffectivePermissions().stream()
+                .map(PermissionAttachmentInfo::getPermission)
+                .filter(permission -> permission.startsWith("mhdftools.group.randomteleport."))
+                .map(permission -> permission.replace("mhdftools.group.randomteleport.", ""))
+                .toList();
 
         int maxWeight = 0;
         String maxWeightGroup = "default";
