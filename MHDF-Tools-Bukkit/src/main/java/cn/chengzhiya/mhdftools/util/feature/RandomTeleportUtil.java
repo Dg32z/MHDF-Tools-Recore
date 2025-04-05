@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.random.RandomUtil;
+import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.util.BiomeSearchResult;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class RandomTeleportUtil {
@@ -34,7 +35,6 @@ public final class RandomTeleportUtil {
         int max = groupConfig.getInt("max");
 
         List<String> blackBlock = groupConfig.getStringList("blackBlock");
-        // 这并不会导致性能问题,只有特别频繁的调用才有可能出问题,不要杞人忧天 ):
         int centerX = RandomUtil.randomInt(min, max);
         int centerZ = RandomUtil.randomInt(min, max);
 
@@ -57,13 +57,15 @@ public final class RandomTeleportUtil {
                 continue;
             }
             if (blackBlock.contains(block.getType().toString())) {
-                randomTeleport(player, world, biome);
-                return;
+                continue;
             }
             location.setY(location.getY() + 1);
-            player.teleportAsync(location);
+
+            TeleportUtil.teleport(player, location, new HashMap<>());
             return;
         }
+
+        randomTeleport(player, world, biome);
     }
 
     /**
