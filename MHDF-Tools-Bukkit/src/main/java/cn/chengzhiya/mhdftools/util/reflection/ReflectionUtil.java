@@ -6,6 +6,22 @@ import java.lang.reflect.Method;
 
 public final class ReflectionUtil {
     /**
+     * 新建指定类实例的类对象
+     *
+     * @param clazz 类实例
+     * @param args  传入参数
+     * @return 类对象
+     */
+    public static <T> T newClass(Class<?> clazz, Object... args) {
+        try {
+            return (T) clazz.getConstructor().newInstance(args);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * 通过反射指定类实例获取指定方法的方法实例
      *
      * @param clazz      类实例
