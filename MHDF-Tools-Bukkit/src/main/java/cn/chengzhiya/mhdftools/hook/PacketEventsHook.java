@@ -43,6 +43,7 @@ public final class PacketEventsHook extends AbstractHook {
      */
     @Override
     public void unhook() {
+        PacketEvents.getAPI().getEventManager().unregisterAllListeners();
         PacketEvents.getAPI().terminate();
         super.enable = false;
     }
@@ -54,7 +55,7 @@ public final class PacketEventsHook extends AbstractHook {
      * @param packet 发送的数据包
      */
     public void sendPacket(User user, PacketWrapper<?> packet) {
-        if (super.enable) {
+        if (isEnable()) {
             PacketEvents.getAPI().getPlayerManager().sendPacket(user, packet);
         }
     }
@@ -66,7 +67,7 @@ public final class PacketEventsHook extends AbstractHook {
      * @param packet 发送的数据包
      */
     public void sendPacket(Player player, PacketWrapper<?> packet) {
-        if (super.enable) {
+        if (isEnable()) {
             PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
         }
     }
@@ -78,6 +79,8 @@ public final class PacketEventsHook extends AbstractHook {
      * @param priority       监听器权重
      */
     public void registerListener(AbstractPacketListener packetListener, PacketListenerPriority priority) {
-        PacketEvents.getAPI().getEventManager().registerListener(packetListener, priority);
+        if (isEnable()) {
+            PacketEvents.getAPI().getEventManager().registerListener(packetListener, priority);
+        }
     }
 }
