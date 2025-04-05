@@ -24,6 +24,14 @@ public final class TpaHereUtil {
             return;
         }
 
+        String delay = Main.instance.getCacheManager().get(player.getName() + "_tpahereDelay");
+        if (delay != null) {
+            ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.inDelay")
+                    .replace("{delay}", delay)
+            );
+            return;
+        }
+
         Main.instance.getCacheManager().put(player.getName() + "_tpaherePlayer", targetName);
         Main.instance.getCacheManager().put(player.getName() + "_tpahereDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpahereSettings.delay")));
 

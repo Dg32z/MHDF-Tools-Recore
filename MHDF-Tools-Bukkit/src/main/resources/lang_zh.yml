@@ -135,6 +135,7 @@ commands:
     delay:
       message: "{prefix} &6你向{player}发送的传送请求超时了!"
       timeOut: "{prefix} &6{player}向你发送的传送请求超时了!"
+    inDelay: "{prefix} &6传送冷却中,你还要{delay}秒后才能发送传送请求!"
     noRequest: "{prefix} &c目标没有向你发送传送请求!"
     sendSelf: "{prefix} &c你不可以给自己发送传送请求!"
     requestMessage: |-
@@ -155,6 +156,7 @@ commands:
     delay:
       message: "{prefix} &6你向{player}发送的传送请求超时了!"
       timeOut: "{prefix} &6{player}向你发送的传送请求超时了!"
+    inDelay: "{prefix} &6传送冷却中,你还要{delay}秒后才能发送传送请求!"
     noRequest: "{prefix} &c目标没有向你发送传送请求!"
     sendSelf: "{prefix} &c你不可以给自己发送传送请求!"
     requestMessage: |-
