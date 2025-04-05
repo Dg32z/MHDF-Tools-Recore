@@ -8,6 +8,7 @@ import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
+import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -20,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getServer;
@@ -128,14 +130,13 @@ public final class BungeeCordManager implements Init {
      * @param targetName 传送到的玩家ID
      */
     public void teleportPlayer(String playerName, String targetName) {
-        Main.instance.getCacheManager().put(playerName + "_tpPlayer", targetName);
-
         Player player = Bukkit.getPlayer(playerName);
         Player target = Bukkit.getPlayer(targetName);
         if (player != null && target != null) {
-            player.teleportAsync(target.getLocation());
+            TeleportUtil.teleport(player, target.getLocation(), new HashMap<>());
             return;
         }
+        Main.instance.getCacheManager().put(playerName + "_tpPlayer", targetName);
 
         JSONObject data = new JSONObject();
         data.put("action", "teleportPlayer");
@@ -195,7 +196,6 @@ public final class BungeeCordManager implements Init {
             player.teleportAsync(bungeeCordLocation.toLocation());
             return;
         }
-
         Main.instance.getCacheManager().put(playerName + "_tpLocation", bungeeCordLocation.toBase64());
 
         connectServer(playerName, bungeeCordLocation.getServer());
