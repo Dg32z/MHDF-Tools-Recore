@@ -13,10 +13,9 @@ public final class TeleportUtil {
     /**
      * 传送玩家
      *
-     * @param player   需要传送的玩家实例，不可为null
-     * @param location 目标位置坐标，不可为null
-     * @param map      用于记录玩家传送尝试次数的映射表，当传送成功或超过最大重试次数时移除对应条目。
-     *                 键为玩家名称，值为当前已尝试次数。
+     * @param player   玩家实例
+     * @param location 位置实例
+     * @param map      用于记录玩家传送尝试次数的映射表。
      */
     public static void teleport(Player player, Location location, HashMap<String, Integer> map) {
         player.teleportAsync(location).thenAccept(success -> {
