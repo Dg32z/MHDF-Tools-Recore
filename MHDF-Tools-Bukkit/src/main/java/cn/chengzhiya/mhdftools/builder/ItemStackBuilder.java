@@ -79,7 +79,6 @@ public final class ItemStackBuilder {
     }
 
     public ItemStackBuilder amount(Integer amount) {
-        ItemMeta meta = this.item.getItemMeta();
         if (amount != null && amount > 0) {
             this.item.setAmount(amount);
         }

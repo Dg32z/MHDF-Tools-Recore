@@ -74,7 +74,7 @@ public final class YamlUtil {
 
             YamlConfigurationOptions newOptions = config.options();
             newOptions.width(32767);
-            ReflectionUtil.setField(
+            ReflectionUtil.setFieldValue(
                     ReflectionUtil.getField(MemoryConfiguration.class, "options", true),
                     jarConfig,
                     newOptions

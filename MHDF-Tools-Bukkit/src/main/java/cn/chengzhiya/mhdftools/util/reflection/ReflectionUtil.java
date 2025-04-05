@@ -63,13 +63,27 @@ public final class ReflectionUtil {
     }
 
     /**
-     * 通过反射指定变量实例获取返回值
+     * 获取反射指定变量实例的返回值
+     *
+     * @param field  变量实例
+     * @param object 对象实例
+     */
+    public static <T> T getFieldValue(Field field, Object object) {
+        try {
+            return (T) field.get(object);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 通过反射指定变量实例的返回值
      *
      * @param field  变量实例
      * @param object 对象实例
      * @param value  修改的值
      */
-    public static void setField(Field field, Object object, Object value) {
+    public static void setFieldValue(Field field, Object object, Object value) {
         try {
             field.set(object, value);
         } catch (IllegalAccessException e) {
