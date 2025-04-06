@@ -121,7 +121,7 @@ public enum Dependency {
     LETTUCE_CORE(
             "io{}lettuce",
             "lettuce-core",
-            "6.5.3.RELEASE",
+            "6.5.5.RELEASE",
             Repository.MAVEN_CENTRAL_MIRROR,
             true
     ),
