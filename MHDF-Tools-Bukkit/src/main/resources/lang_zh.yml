@@ -142,7 +142,7 @@ commands:
         usage: "/{command} [倒计时] [消息]"
         description: "关服"
         inStop: "{prefix} &6服务器已经在倒计时关闭了! <click:run_command:/stop cancel><hover:show_text:\"&6点击确认取消\">&a[确认取消]</hover></click>"
-        message: "{prefix} &6你确认要在&b{time}&6秒后关闭服务器吗?(原因: {message}) <click:run_command:/stop confirm {time} {message}><hover:show_text:\"&6点击确认关闭\">&a[确认关闭]</hover></click>"
+        message: "{prefix} &6你确认要在&b{time}&6秒后关闭服务器吗?(原因: {message}) <click:run_command:/stop confirm><hover:show_text:\"&6点击确认关闭\">&a[确认关闭]</hover></click>"
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"
