@@ -20,11 +20,13 @@ public final class TeleportUtil {
      */
     public static void teleport(Player player, Location location, HashMap<String, Integer> map) {
         player.teleportAsync(location).thenAccept(success -> {
+            location.setPitch(Math.max(-90f, Math.min(90f, location.getPitch())));
+
             int times = map.getOrDefault(player.getName(), 0);
             int maxTimes = ConfigUtil.getConfig().getInt("bungeecord.autoTry.maxTimes");
 
             if (success) {
-                if (player.getLocation().distance(location) < 5.0) {
+                if (player.getLocation().getWorld() != location.getWorld() || player.getLocation().distance(location) < 5.0) {
                     map.remove(player.getName());
                     return;
                 }
