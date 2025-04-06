@@ -72,6 +72,10 @@
                                     <pattern>io.lettuce</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.io.lettuce</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>net.objecthunter</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.net.objecthunter</shadedPattern>
+                                </relocation>
                             </relocations>
 
                             <filters>
@@ -172,6 +176,13 @@
             <groupId>com.github.retrooper</groupId>
             <artifactId>packetevents-spigot</artifactId>
             <version>2.7.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.objecthunter</groupId>
+            <artifactId>exp4j</artifactId>
+            <version>0.4.8</version>
             <scope>provided</scope>
         </dependency>
 

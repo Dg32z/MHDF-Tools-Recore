@@ -631,6 +631,8 @@ timeActionSettings:
         - "[broadcast]|&e主人喵,中午该吃饭咯~"
 
 # motd设置
+# {online}  ——当前在线
+# {max}     ——最大在线
 motdSettings:
   # 开关
   enable: true
@@ -645,8 +647,25 @@ motdSettings:
   players:
     # 开关
     enable: true
-    # 最大
-    max: 5835
+    # 假玩家数量
+    fakePlayers:
+      # 开关
+      enable: true
+      # 数量(数学表达式)
+      amount: "{online}*2"
+    # 假最大数量
+    fakeMax:
+      # 开关
+      enable: true
+      # 数量(数学表达式)
+      amount: "5835"
+    # 假玩家列表
+    fakeSample:
+      # 开关
+      enable: true
+      # 文本列表(不支持RGB)
+      text:
+        - "&b其实还可以送你一个可爱小猫娘噢~"
   # 简介
   description:
     - # 第一行

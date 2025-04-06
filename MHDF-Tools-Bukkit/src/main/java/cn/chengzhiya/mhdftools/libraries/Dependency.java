@@ -141,6 +141,14 @@ public enum Dependency {
             true
     ),
 
+    EXP4J(
+            "net{}objecthunter",
+            "exp4j",
+            "0.4.8",
+            Repository.MAVEN_CENTRAL_MIRROR,
+            true
+    ),
+
     // adventure-api
     ADVENTURE_API(
             "net{}kyori",
