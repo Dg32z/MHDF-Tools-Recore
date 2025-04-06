@@ -11,20 +11,17 @@ public final class LogUtil {
     /**
      * 日志消息
      *
-     * @param message 内容
+     * @param message 文本
      * @param args    参数
      */
     public static void log(String message, String... args) {
-        for (Object var : args) {
-            message = message.replaceFirst("\\{}", var.toString());
-        }
-        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(CONSOLE_PREFIX + message));
+        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(CONSOLE_PREFIX + MessageUtil.formatString(message, args)));
     }
 
     /**
      * 调试消息
      *
-     * @param message 内容
+     * @param message 文本实例
      * @param args    参数
      */
     public static void debug(String message, String... args) {
@@ -32,6 +29,6 @@ public final class LogUtil {
             return;
         }
 
-        log(DEBUG_PREFIX + message, args);
+        ActionUtil.sendMessage(Bukkit.getConsoleSender(), ColorUtil.color(DEBUG_PREFIX + MessageUtil.formatString(message, args)));
     }
 }

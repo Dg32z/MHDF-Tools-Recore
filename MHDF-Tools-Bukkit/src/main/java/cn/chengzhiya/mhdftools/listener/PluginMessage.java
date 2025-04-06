@@ -61,7 +61,7 @@ public final class PluginMessage implements PluginMessageListener {
                             }
 
                             if (playerName.equals("console")) {
-                                ActionUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                                LogUtil.log(message);
                                 return;
                             }
 

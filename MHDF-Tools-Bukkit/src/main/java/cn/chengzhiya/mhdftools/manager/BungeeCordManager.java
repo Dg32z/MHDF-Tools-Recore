@@ -224,7 +224,7 @@ public final class BungeeCordManager implements Init {
         }
 
         if (!isBungeeCordMode() && playerName.equals("console")) {
-            ActionUtil.sendMessage(Bukkit.getConsoleSender(), message);
+            LogUtil.log(message);
             return;
         }
 
