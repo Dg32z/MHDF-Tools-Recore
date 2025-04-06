@@ -53,7 +53,7 @@ public final class RandomTeleportUtil {
             location.setY(y);
 
             Block block = location.getBlock();
-            if (block.getType() == Material.AIR) {
+            if (block.getType() == Material.AIR || block.getType() == Material.CAVE_AIR || block.getType() == Material.VOID_AIR) {
                 continue;
             }
             if (blackBlock.contains(block.getType().toString())) {
