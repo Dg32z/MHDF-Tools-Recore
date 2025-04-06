@@ -21,6 +21,7 @@ import java.util.TimeZone;
 public final class DatabaseManager implements Init {
     private String type = "none";
     private String databaseUrl = "";
+    private HikariDataSource hikariDataSource;
     private DataSourceConnectionSource connectionSource;
 
     /**
@@ -53,7 +54,7 @@ public final class DatabaseManager implements Init {
                 config.setUsername(ConfigUtil.getConfig().getString("databaseSettings.mysql.user"));
                 config.setPassword(ConfigUtil.getConfig().getString("databaseSettings.mysql.password"));
 
-                this.connectionSource = initDataSource(config);
+                initDataSource(config);
                 initTable();
             }
             // 初始化H2数据库的连接
@@ -70,7 +71,7 @@ public final class DatabaseManager implements Init {
                 File file = new File(ConfigUtil.getDataFolder(), Objects.requireNonNull(fileName));
                 databaseUrl = "jdbc:h2:" + file.getAbsolutePath();
 
-                this.connectionSource = initDataSource(getHikariConfig(this.databaseUrl));
+                initDataSource(getHikariConfig(this.databaseUrl));
                 initTable();
             }
             default -> throw new RuntimeException("不支持的数据库类型: " + type);
@@ -83,6 +84,7 @@ public final class DatabaseManager implements Init {
     public void close() {
         try {
             this.connectionSource.close();
+            this.hikariDataSource.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -107,15 +109,14 @@ public final class DatabaseManager implements Init {
     }
 
     /**
-     * 根据数据库配置实例生成数据源
+     * 根据数据库配置实例初始化数据源
      *
      * @param config 数据库配置实例
-     * @return 数据源
      */
-    public DataSourceConnectionSource initDataSource(HikariConfig config) {
-        HikariDataSource dataSource = new HikariDataSource(config);
+    public void initDataSource(HikariConfig config) {
         try {
-            return new DataSourceConnectionSource(dataSource, this.databaseUrl);
+            this.hikariDataSource = new HikariDataSource(config);
+            this.connectionSource = new DataSourceConnectionSource(this.hikariDataSource, this.databaseUrl);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
