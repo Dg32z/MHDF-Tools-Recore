@@ -114,14 +114,35 @@ commands:
         description: "减少玩家的飞行时间"
         message: "{prefix} &6{player}的飞行时间已减少为{take}秒,现在他可以飞行{time}秒"
   stop:
-    usage: "/{command} <倒计时> [消息]"
-    description: "更好的关服"
     defaultMessage: "&b服务器已关闭!"
     timeFormatError: "{prefix} &c超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     countdownMessage: "{prefix} &6服务器还有&b{countdown}&6秒关闭,请做好准备!"
     kickMessage: |-
       &e-------------=&6梦之工具&6=&e-------------
       {message}
+    subCommands:
+      help:
+        usage: "/{command} help"
+        description: "命令帮助"
+        commandFormat: "&e{usage} &7| &b{description}"
+        message: |-
+          &e-------------=&6梦之工具&6=&e-------------
+          {helpList}
+          &e-------------=&6梦之工具&6=&e-------------
+      cancel:
+        usage: "/{command} cancel"
+        description: "取消关服"
+        noStop: "{prefix} &6没有可以取消的关服操作!"
+        message: "{prefix} &6已取消关服操作!"
+      confirm:
+        usage: "/{command} confirm"
+        description: "确认关服"
+        noStop: "{prefix} &6没有可以确认的关服操作!"
+      default:
+        usage: "/{command} [倒计时] [消息]"
+        description: "关服"
+        inStop: "{prefix} &6服务器已经在倒计时关闭了! <click:run_command:/stop cancel><hover:show_text:\"&6点击确认取消\">&a[确认取消]</hover></click>"
+        message: "{prefix} &6你确认要在&b{time}&6秒后关闭服务器吗?(原因: {message}) <click:run_command:/stop confirm {time} {message}><hover:show_text:\"&6点击确认关闭\">&a[确认关闭]</hover></click>"
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"

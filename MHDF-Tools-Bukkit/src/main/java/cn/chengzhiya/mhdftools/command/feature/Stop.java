@@ -9,12 +9,23 @@ import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import cn.chengzhiya.mhdftools.util.runnable.MHDFRunnable;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
 public final class Stop extends AbstractCommand {
+    private boolean stop = false;
+    private Integer time = null;
+    private TextComponent message = null;
+
     public Stop() {
         super(
                 "stopSettings.enable",
@@ -27,48 +38,118 @@ public final class Stop extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        // 输出帮助信息
-        if (args.length >= 3) {
-            ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
-                    .replace("{usage}", LangUtil.i18n("commands.stop.usage"))
-                    .replace("{command}", label)
-            );
+        if (args.length >= 1) {
+            switch (args[0]) {
+                case "help" -> {
+                    if (args.length != 1) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
+                                .replace("{usage}", LangUtil.i18n("commands.stop.subCommands.help.usage"))
+                                .replace("{command}", label)
+                        );
+                        return;
+                    }
+
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.help.message")
+                            .replace("{helpList}", LangUtil.getHelpList("stop"))
+                            .replace("{command}", label)
+                    );
+                    return;
+                }
+                case "confirm" -> {
+                    if (args.length != 1) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
+                                .replace("{usage}", LangUtil.i18n("commands.stop.subCommands.confirm.usage"))
+                                .replace("{command}", label)
+                        );
+                        return;
+                    }
+
+                    if (getTime() == null || getMessage() == null) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.confirm.noStop"));
+                        return;
+                    }
+
+                    setStop(true);
+                    startStopRunnable(getTime(), getMessage());
+
+                    setTime(null);
+                    setMessage(null);
+                    return;
+                }
+                case "cancel" -> {
+                    if (args.length != 1) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
+                                .replace("{usage}", LangUtil.i18n("commands.stop.subCommands.cancel.usage"))
+                                .replace("{command}", label)
+                        );
+                        return;
+                    }
+
+                    if (!isStop()) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.cancel.noStop"));
+                        return;
+                    }
+
+                    setStop(false);
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.cancel.message"));
+                    return;
+                }
+            }
+        }
+
+        if (isStop()) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.default.inStop"));
             return;
         }
 
-        int time;
         try {
-            time = args.length >= 1 ? Integer.parseInt(args[0]) :
-                    ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
+            int defaultTime = ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
+            setTime(args.length >= 2 ? Integer.parseInt(args[1]) : defaultTime);
         } catch (NumberFormatException e) {
             sender.sendMessage(LangUtil.i18n("commands.stop.timeFormatError"));
             return;
         }
 
-        TextComponent message = args.length == 2 ? ColorUtil.color(args[1]) :
-                LangUtil.i18n("commands.stop.defaultMessage");
+        TextComponent defaultMessage = LangUtil.i18n("commands.stop.defaultMessage");
+        setMessage(args.length == 3 ? ColorUtil.color(args[2]) : defaultMessage);
 
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.default.message")
+                .replace("{time}", String.valueOf(getTime()))
+                .replace("{message}", getMessage())
+        );
+    }
+
+    @Override
+    public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 1) {
+            return new ArrayList<>(LangUtil.getKeys("commands.stop.subCommands"));
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * 开始倒计时关闭服务器
+     *
+     * @param time    倒计时
+     * @param message 消息
+     */
+    private void startStopRunnable(int time, TextComponent message) {
         new MHDFRunnable() {
             private int countdown = time;
 
             @Override
             public void run() {
-                if (countdown <= 0) {
+                if (!isStop()) {
                     this.cancel();
-                    MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) -> Bukkit.savePlayers());
-
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
-                                player.kick(LangUtil.i18n("commands.stop.kickMessage")
-                                        .replace("{message}", message)
-                                )
-                        );
-                    }
-
-                    Bukkit.shutdown();
                     return;
                 }
 
+                if (countdown <= 0) {
+                    setStop(false);
+                    stopServer(message);
+                    this.cancel();
+                    return;
+                }
 
                 ActionUtil.broadcastMessage(LangUtil.i18n("commands.stop.countdownMessage")
                         .replace("{countdown}", String.valueOf(countdown))
@@ -76,5 +157,24 @@ public final class Stop extends AbstractCommand {
                 countdown--;
             }
         }.runTaskTimerAsynchronously(Main.instance, 0L, 20L);
+    }
+
+    /**
+     * 关闭服务器
+     *
+     * @param message 消息
+     */
+    private void stopServer(TextComponent message) {
+        MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) -> {
+            Bukkit.savePlayers();
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.kick(LangUtil.i18n("commands.stop.kickMessage")
+                        .replace("{message}", message)
+                );
+            }
+
+            Bukkit.shutdown();
+        });
     }
 }
