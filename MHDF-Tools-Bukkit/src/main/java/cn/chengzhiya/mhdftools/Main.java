@@ -3,7 +3,6 @@ package cn.chengzhiya.mhdftools;
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 

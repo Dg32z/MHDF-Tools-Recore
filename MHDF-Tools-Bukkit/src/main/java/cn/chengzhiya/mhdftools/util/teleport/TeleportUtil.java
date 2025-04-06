@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.util.teleport;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
