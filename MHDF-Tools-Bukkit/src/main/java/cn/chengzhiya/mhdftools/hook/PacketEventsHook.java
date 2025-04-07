@@ -55,7 +55,7 @@ public final class PacketEventsHook extends AbstractHook {
      */
     public void sendPacket(User user, PacketWrapper<?> packet) {
         if (isEnable()) {
-            PacketEvents.getAPI().getPlayerManager().sendPacket(user, packet);
+            user.sendPacket(packet);
         }
     }
 
