@@ -69,11 +69,7 @@ public final class Stop extends AbstractCommand {
                         return;
                     }
 
-                    setStop(true);
-                    startStopRunnable(getTime(), getMessage());
-
-                    setTime(null);
-                    setMessage(null);
+                    confirmStop();
                     return;
                 }
                 case "cancel" -> {
@@ -113,10 +109,14 @@ public final class Stop extends AbstractCommand {
         TextComponent defaultMessage = LangUtil.i18n("commands.stop.defaultMessage");
         setMessage(args.length == 3 ? ColorUtil.color(args[2]) : defaultMessage);
 
-        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.default.message")
-                .replace("{time}", String.valueOf(getTime()))
-                .replace("{message}", getMessage())
-        );
+        if (ConfigUtil.getConfig().getBoolean("stopSettings.confirm")) {
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.default.message")
+                    .replace("{time}", String.valueOf(getTime()))
+                    .replace("{message}", getMessage())
+            );
+            return;
+        }
+        confirmStop();
     }
 
     @Override
@@ -125,6 +125,17 @@ public final class Stop extends AbstractCommand {
             return new ArrayList<>(LangUtil.getKeys("commands.stop.subCommands"));
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * 确认关服
+     */
+    private void confirmStop() {
+        setStop(true);
+        startStopRunnable(getTime(), getMessage());
+
+        setTime(null);
+        setMessage(null);
     }
 
     /**

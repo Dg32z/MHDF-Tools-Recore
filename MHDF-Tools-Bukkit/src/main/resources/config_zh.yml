@@ -186,6 +186,8 @@ vanishSettings:
 stopSettings:
   # 开关
   enable: true
+  # 确认关服
+  confirm: true
   # 关闭服务器的时候保存存档
   autoSave: true
   # 默认倒计时(-1关闭)
