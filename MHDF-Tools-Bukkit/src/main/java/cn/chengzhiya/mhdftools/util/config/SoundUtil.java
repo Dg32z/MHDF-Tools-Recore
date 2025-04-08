@@ -24,7 +24,6 @@ public final class SoundUtil {
      */
     public static void saveDefaultSound() throws ResourceException {
         FileUtil.saveResource("sound.yml", getSoundFileName(), false);
-        reloadSound();
     }
 
     /**
