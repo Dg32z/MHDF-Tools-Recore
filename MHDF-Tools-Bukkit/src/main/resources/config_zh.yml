@@ -79,7 +79,7 @@ cacheSettings:
     # 密码
     password: ""
 
-# 随机传送设置
+# 随机传送
 randomTeleportSettings:
   # 开关
   enable: true
@@ -422,7 +422,16 @@ tridentDupeFixSettings:
   # 开关
   enable: true
 
-# 聊天设置
+# 背包查看
+invseeSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "inv"
+    - "invsee"
+
+# 聊天
 chatSettings:
   # 开关
   enable: true
