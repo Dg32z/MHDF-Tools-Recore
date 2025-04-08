@@ -57,13 +57,14 @@ public final class AtUtil {
      *
      * @param player 玩家实例
      */
-    public static void at(Player player) {
+    public static void at(Player player, String by) {
         if (player == null) {
             return;
         }
 
         // 发送AT提示
-        String title = LangUtil.getString("chat.at.title");
+        String title = LangUtil.getString("chat.at.title")
+                .replace("{by}", by);
         if (!title.isEmpty()) {
             String[] args = title.split("\\|");
             ActionUtil.sendTitle(player, args[0], args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
@@ -82,13 +83,13 @@ public final class AtUtil {
      *
      * @param atList 玩家列表
      */
-    public static void atList(Set<String> atList) {
+    public static void atList(Set<String> atList, String by) {
         for (String at : atList) {
             if (at.equals(atAll)) {
-                Bukkit.getOnlinePlayers().forEach(AtUtil::at);
+                Bukkit.getOnlinePlayers().forEach(p -> at(p, by));
                 continue;
             }
-            at(Bukkit.getPlayer(at));
+            at(Bukkit.getPlayer(at), by);
         }
     }
 }

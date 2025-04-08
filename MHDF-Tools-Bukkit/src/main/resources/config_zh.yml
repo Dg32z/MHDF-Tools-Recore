@@ -503,6 +503,8 @@ chatSettings:
   at:
     # 开关
     enable: true
+    # 匹配正则 @{
+    patternFormat: "@?{at}"
     # 全体消息的关键词
     # 全体消息权限: mhdftools.chat.all
     allMessage:

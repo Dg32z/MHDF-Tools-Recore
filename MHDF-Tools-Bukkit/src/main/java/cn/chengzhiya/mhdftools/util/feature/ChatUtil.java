@@ -19,6 +19,8 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class ChatUtil {
     /**
@@ -133,17 +135,32 @@ public final class ChatUtil {
             return message;
         }
 
+        String patternFormat = config.getString("patternFormat");
+        if (patternFormat == null) {
+            return message;
+        }
+
         TextComponent messageComponent = MiniMessageUtil.miniMessage(message);
         TextComponent format = LangUtil.i18n("chat.at.format");
         for (String at : atList) {
-            messageComponent = messageComponent
-                    .replace(at, format.replace("{name}", at));
+            Pattern pattern = Pattern.compile(patternFormat.replace("{at}", at));
+            Matcher matcher = pattern.matcher(message);
+
+            if (matcher.find()) {
+                messageComponent = messageComponent
+                        .replace(matcher.group(), format.replace("{name}", at));
+            }
         }
 
         if (atList.contains(AtUtil.getAtAll())) {
             for (String at : config.getStringList("allMessage")) {
-                messageComponent = messageComponent
-                        .replace(at, format.replace("{name}", LangUtil.i18n("chat.at.all")));
+                Pattern pattern = Pattern.compile(patternFormat.replace("{at}", at));
+                Matcher matcher = pattern.matcher(message);
+
+                if (matcher.find()) {
+                    messageComponent = messageComponent
+                            .replace(matcher.group(), format.replace("{name}", LangUtil.i18n("chat.at.all")));
+                }
             }
         }
 

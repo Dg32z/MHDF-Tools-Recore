@@ -91,7 +91,8 @@ public final class PluginMessage implements PluginMessageListener {
                         }
                         case "atList" -> {
                             Set<String> atList = new HashSet<>(params.getList("atList", String.class));
-                            AtUtil.atList(atList);
+                            String by = params.getString("by");
+                            AtUtil.atList(atList, by);
                         }
                     }
                 }

@@ -90,7 +90,7 @@ public final class Chat extends AbstractListener {
         // AT玩家
         Set<String> atList = AtUtil.getAtList(player, message);
         message = ChatUtil.applyAt(message, atList);
-        Main.instance.getBungeeCordManager().atList(atList);
+        Main.instance.getBungeeCordManager().atList(atList, player.getName());
 
         // 发送消息
         Main.instance.getBungeeCordManager().sendMessage(

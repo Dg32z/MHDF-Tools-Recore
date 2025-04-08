@@ -319,9 +319,9 @@ public final class BungeeCordManager implements Init {
      *
      * @param atList 玩家列表
      */
-    public void atList(Set<String> atList) {
+    public void atList(Set<String> atList, String by) {
         if (!isBungeeCordMode()) {
-            AtUtil.atList(atList);
+            AtUtil.atList(atList, by);
             return;
         }
 
@@ -331,6 +331,7 @@ public final class BungeeCordManager implements Init {
 
         JSONObject params = new JSONObject();
         params.put("atList", atList);
+        params.put("by", by);
 
         data.put("params", params);
 

@@ -22,7 +22,7 @@ chat:
   at:
     format: " &a@{name} "
     all: "所有人"
-    title: "&a喵?|&f你被AT了|20|70|10"
+    title: "&a喵?|&f你被 &a{by} &fAT了!|20|70|10"
 
 gamemode:
   SURVIVAL: "生存模式"
