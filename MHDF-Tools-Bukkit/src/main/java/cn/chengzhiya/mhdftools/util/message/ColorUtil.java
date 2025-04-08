@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.util.message;
 
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
@@ -139,6 +138,6 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static TextComponent color(@NotNull String message) {
-        return new TextComponent(MiniMessage.miniMessage().deserialize(miniMessage(message)));
+        return new TextComponent(MiniMessageUtil.miniMessage(miniMessage(message)));
     }
 }
