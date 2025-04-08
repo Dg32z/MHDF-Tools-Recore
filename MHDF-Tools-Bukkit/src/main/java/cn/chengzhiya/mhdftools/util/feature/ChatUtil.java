@@ -142,7 +142,6 @@ public final class ChatUtil {
 
         if (atList.contains(AtUtil.getAtAll())) {
             for (String at : config.getStringList("allMessage")) {
-                System.out.println(LangUtil.i18n("chat.at.all"));
                 messageComponent = messageComponent
                         .replace(at, format.replace("{name}", LangUtil.i18n("chat.at.all")));
             }
