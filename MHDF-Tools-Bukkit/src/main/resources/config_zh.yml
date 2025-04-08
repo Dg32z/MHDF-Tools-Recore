@@ -490,6 +490,14 @@ chatSettings:
     replyCommands:
       - "r"
       - "reply"
+  # at设置
+  at:
+    # 开关
+    enable: true
+    # 全体消息的关键词
+    # 全体消息权限: mhdftools.chat.all
+    allMessage:
+      - "all"
   # 格式设置
   # 绕过颜色限制权限: mhdftools.bypass.chat.color
   # miniMessage格式限制权限: mhdftools.bypass.chat.minimessage

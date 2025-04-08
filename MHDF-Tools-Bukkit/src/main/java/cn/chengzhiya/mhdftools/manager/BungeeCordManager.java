@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdftools.listener.PluginMessage;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import com.alibaba.fastjson2.JSONObject;
@@ -23,6 +24,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -187,7 +189,7 @@ public final class BungeeCordManager implements Init {
      * @param bungeeCordLocation 群组位置实例
      */
     public void teleportLocation(String playerName, BungeeCordLocation bungeeCordLocation) {
-        if (bungeeCordLocation.getServer().equals(getServerName())) {
+        if (!isBungeeCordMode() || bungeeCordLocation.getServer().equals(getServerName())) {
             Player player = Bukkit.getPlayer(playerName);
             if (player == null) {
                 return;
@@ -306,6 +308,29 @@ public final class BungeeCordManager implements Init {
         JSONObject params = new JSONObject();
         params.put("playerName", playerName);
         params.put("gameMode", gameMode.name());
+
+        data.put("params", params);
+
+        sendMhdfToolsPluginMessage(data);
+    }
+
+    /**
+     * at玩家列表
+     *
+     * @param atList 玩家列表
+     */
+    public void atList(Set<String> atList) {
+        if (!isBungeeCordMode()) {
+            AtUtil.atList(atList);
+            return;
+        }
+
+        JSONObject data = new JSONObject();
+        data.put("action", "atList");
+        data.put("to", "all");
+
+        JSONObject params = new JSONObject();
+        params.put("atList", atList);
 
         data.put("params", params);
 

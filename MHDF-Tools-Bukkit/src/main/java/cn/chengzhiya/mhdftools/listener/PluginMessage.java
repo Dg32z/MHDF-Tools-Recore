@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
 import org.bukkit.Bukkit;
@@ -13,7 +14,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class PluginMessage implements PluginMessageListener {
     @Override
@@ -85,6 +88,10 @@ public final class PluginMessage implements PluginMessageListener {
                                     gamemode
                             );
                             player.setGameMode(GameMode.valueOf(gamemode));
+                        }
+                        case "atList" -> {
+                            Set<String> atList = new HashSet<>(params.getList("atList", String.class));
+                            AtUtil.atList(atList);
                         }
                     }
                 }

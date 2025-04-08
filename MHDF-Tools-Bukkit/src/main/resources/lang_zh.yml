@@ -19,6 +19,10 @@ menu:
 chat:
   delay: "{prefix} &c冷却中,你还需要等待{delay}秒,才可以聊天!"
   spam: "{prefix} &c请不要刷屏!"
+  at:
+    format: "&a@{name}"
+    all: "所有人"
+    title: "&a喵?|&f你被AT了|20|70|10"
 
 gamemode:
   SURVIVAL: "生存模式"

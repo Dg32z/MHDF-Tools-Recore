@@ -6,16 +6,19 @@ import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
+import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public final class Chat extends AbstractListener {
@@ -30,8 +33,13 @@ public final class Chat extends AbstractListener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings");
+        if (config == null) {
+            return;
+        }
+
         // 聊天延迟
-        if (ConfigUtil.getConfig().getBoolean("chatSettings.delay.enable")) {
+        if (config.getBoolean("delay.enable")) {
             if (!player.hasPermission("mhdftools.bypass.chat.delay")) {
                 String delayData = Main.instance.getCacheManager().get(player.getName() + "_delay");
                 if (delayData != null) {
@@ -56,7 +64,7 @@ public final class Chat extends AbstractListener {
         }
 
         // 刷屏限制
-        if (ConfigUtil.getConfig().getBoolean("chatSettings.spam.enable")) {
+        if (config.getBoolean("spam.enable")) {
             if (!player.hasPermission("mhdftools.bypass.chat.spam")) {
                 String spamData = Main.instance.getCacheManager().get(player.getName() + "_spam");
                 if (spamData != null && spamData.equals(message)) {
@@ -67,7 +75,7 @@ public final class Chat extends AbstractListener {
             }
         }
 
-        int delay = ConfigUtil.getConfig().getInt("chatSettings.delay.delay");
+        int delay = config.getInt("delay.delay");
         Main.instance.getCacheManager().put(player.getName() + "_delay", String.valueOf(delay));
         Main.instance.getCacheManager().put(player.getName() + "_spam", message);
 
@@ -79,14 +87,18 @@ public final class Chat extends AbstractListener {
         // 展示物品
         message = ChatUtil.applyShowItem(player, message);
 
-        event.setCancelled(true);
+        // AT玩家
+        Set<String> atList = AtUtil.getAtList(player, message);
+        message = ChatUtil.applyAt(message, atList);
+        Main.instance.getBungeeCordManager().atList(atList);
 
+        // 发送消息
         Main.instance.getBungeeCordManager().sendMessage(
                 "console",
                 ChatUtil.getFormatMessage(player, message)
         );
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
-            if (ConfigUtil.getConfig().getBoolean("chatSettings.ignore.enable")) {
+            if (config.getBoolean("ignore.enable")) {
                 OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
                 if (ChatIgnoreDataUtil.isChatIgnore(targetPlayer, player)) {
                     continue;
@@ -98,5 +110,7 @@ public final class Chat extends AbstractListener {
                     ChatUtil.getFormatMessage(player, message)
             );
         }
+
+        event.setCancelled(true);
     }
 }
