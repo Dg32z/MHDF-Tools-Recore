@@ -46,6 +46,7 @@ public final class Invsee extends AbstractCommand {
         if (InvseeUtil.invsee(sender, target, inventoryType)) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.invsee.message")
                     .replace("{type}", LangUtil.i18n("commands.invsee.types." + inventoryType))
+                    .replace("{player}", target.getName())
             );
         } else {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.invsee.typeNotExists"));
