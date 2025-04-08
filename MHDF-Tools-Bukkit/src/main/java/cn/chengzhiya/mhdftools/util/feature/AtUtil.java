@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -30,12 +31,12 @@ public final class AtUtil {
 
         Set<String> playerList = new HashSet<>();
 
-        for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-            if (!message.contains(onlinePlayers.getName())) {
+        for (String playerName : Main.instance.getBungeeCordManager().getPlayerList()) {
+            if (!message.contains(playerName)) {
                 continue;
             }
 
-            playerList.add(onlinePlayers.getName());
+            playerList.add(playerName);
         }
 
         if (player.hasPermission("mhdftools.chat.all")) {
