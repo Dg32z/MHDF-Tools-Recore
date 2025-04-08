@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.feature.CustomMenuUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
-import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;

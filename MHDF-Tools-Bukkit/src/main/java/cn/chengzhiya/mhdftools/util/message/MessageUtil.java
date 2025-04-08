@@ -1,7 +1,5 @@
 package cn.chengzhiya.mhdftools.util.message;
 
-import cn.chengzhiya.mhdftools.text.TextComponent;
-
 public final class MessageUtil {
     /**
      * 拼接数组文本
@@ -60,7 +58,7 @@ public final class MessageUtil {
      * 格式化文本
      *
      * @param string 文本
-     * @param args 参数
+     * @param args   参数
      * @return 格式化后的文本
      */
     public static String formatString(String string, String[] args) {
