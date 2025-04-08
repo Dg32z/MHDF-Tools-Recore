@@ -136,13 +136,14 @@ public final class ChatUtil {
         TextComponent messageComponent = MiniMessageUtil.miniMessage(message);
         TextComponent format = LangUtil.i18n("chat.at.format");
         for (String at : atList) {
-            messageComponent
+            messageComponent = messageComponent
                     .replace(at, format.replace("{name}", at));
         }
 
-        if (atList.contains("all")) {
+        if (atList.contains(AtUtil.getAtAll())) {
             for (String at : config.getStringList("allMessage")) {
-                messageComponent
+                System.out.println(LangUtil.i18n("chat.at.all"));
+                messageComponent = messageComponent
                         .replace(at, format.replace("{name}", LangUtil.i18n("chat.at.all")));
             }
         }

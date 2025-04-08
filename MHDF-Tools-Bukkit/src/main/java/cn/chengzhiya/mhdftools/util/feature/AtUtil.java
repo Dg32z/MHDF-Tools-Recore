@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.SoundUtil;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class AtUtil {
+    @Getter
     private static final String atAll = "all❤";
 
     /**
