@@ -7,6 +7,7 @@ import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 public final class VanishStatusUtil {
@@ -15,6 +16,19 @@ public final class VanishStatusUtil {
     static {
         try {
             vanishStatusDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), VanishStatus.class);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获取隐身状态实例列表
+     *
+     * @return 隐身状态实例列表
+     */
+    public static List<VanishStatus> getVanishStatusList() {
+        try {
+            return vanishStatusDao.queryForAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

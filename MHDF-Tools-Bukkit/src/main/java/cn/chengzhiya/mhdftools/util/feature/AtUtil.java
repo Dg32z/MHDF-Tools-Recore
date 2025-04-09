@@ -1,17 +1,24 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.data.ChatIgnoreData;
+import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.SoundUtil;
+import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
+import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public final class AtUtil {
     @Getter
@@ -31,7 +38,15 @@ public final class AtUtil {
 
         Set<String> playerList = new HashSet<>();
 
-        for (String playerName : Main.instance.getBungeeCordManager().getPlayerList()) {
+        // 禁止AT隐身玩家
+        List<String> onlinePlayerList = Main.instance.getBungeeCordManager().getPlayerList();
+        for(VanishStatus vanishStatus : VanishStatusUtil.getVanishStatusList()) {
+            UUID vanishPlayerUuid = vanishStatus.getPlayer();
+            OfflinePlayer vanishPlayer = Bukkit.getOfflinePlayer(vanishPlayerUuid);
+            onlinePlayerList.remove(vanishPlayer.getName());
+        }
+
+        for (String playerName : onlinePlayerList) {
             if (!message.contains(playerName)) {
                 continue;
             }
@@ -60,6 +75,13 @@ public final class AtUtil {
      */
     public static void at(Player player, String by) {
         if (player == null) {
+            return;
+        }
+
+        // 屏蔽黑名单列表中的AT
+        OfflinePlayer byPlayer = Bukkit.getOfflinePlayer(by);
+        ChatIgnoreData chatIgnoreData = ChatIgnoreDataUtil.getChatIgnoreData(player, byPlayer);
+        if (chatIgnoreData != null) {
             return;
         }
 
