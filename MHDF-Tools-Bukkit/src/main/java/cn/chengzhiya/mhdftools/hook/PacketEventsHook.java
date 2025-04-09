@@ -5,11 +5,14 @@ import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import com.github.retrooper.packetevents.protocol.ConnectionState;
 import com.github.retrooper.packetevents.protocol.player.User;
+import com.github.retrooper.packetevents.protocol.player.UserProfile;
 import com.github.retrooper.packetevents.util.TimeStampMode;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 @Getter
@@ -32,9 +35,22 @@ public final class PacketEventsHook extends AbstractHook {
                 .debug(false)
                 .timeStampMode(TimeStampMode.NANO);
         PacketEvents.getAPI().load();
+        this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
+
+        if (!Bukkit.getOnlinePlayers().isEmpty()) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                Object channel = PacketEvents.getAPI().getPlayerManager().getChannel(player);
+                User user = new User(
+                        channel,
+                        ConnectionState.PLAY,
+                        getServerVersion().toClientVersion(),
+                        new UserProfile(player.getUniqueId(), player.getName())
+                );
+                PacketEvents.getAPI().getProtocolManager().setUser(channel, user);
+            }
+        }
 
         PacketEvents.getAPI().init();
-        this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
         super.enable = true;
     }
 
