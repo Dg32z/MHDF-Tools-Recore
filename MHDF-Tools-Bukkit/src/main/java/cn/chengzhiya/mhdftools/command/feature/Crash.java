@@ -62,7 +62,7 @@ public final class Crash extends AbstractCommand {
             return Main.instance.getBungeeCordManager().getPlayerList();
         }
         if (args.length == 2) {
-            return Arrays.asList("explosion", "changeHoldItem", "posAndLook", "invalidParticle");
+            return Arrays.asList("explosion", "posAndLook", "invalidParticle");
         }
         return new ArrayList<>();
     }

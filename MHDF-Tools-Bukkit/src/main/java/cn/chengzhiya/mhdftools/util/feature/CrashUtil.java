@@ -36,9 +36,6 @@ public final class CrashUtil {
                                 false)
                 );
             }
-            case "changeHoldItem" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                    new WrapperPlayServerHeldItemChange(-1)
-            );
             case "posAndLook" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
                     new WrapperPlayServerPlayerPositionAndLook(
                             generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition(),
@@ -83,15 +80,6 @@ public final class CrashUtil {
         return baseValue * (float) (randomFactor * (Math.sqrt(randomFactor) * 564.0 % 1.0 * 0.75 - Math.pow(randomFactor, 2.0) % 1.0 * 0.5) + 0.5);
     }
 
-    /**
-     * 构建无效的向量实例
-     *
-     * @return 向量实例
-     */
-    private static Vector3f generateInvalidLookVector() {
-        float invalidLook = generateInvalidLook();
-        return new Vector3f(invalidLook, invalidLook, invalidLook);
-    }
 
     /**
      * 构建标签
