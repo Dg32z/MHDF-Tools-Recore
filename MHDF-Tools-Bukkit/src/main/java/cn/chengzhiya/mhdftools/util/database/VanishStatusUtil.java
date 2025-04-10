@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.database;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
+import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;

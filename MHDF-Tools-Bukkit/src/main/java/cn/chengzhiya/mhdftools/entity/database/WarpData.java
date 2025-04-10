@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.entity.data;
+package cn.chengzhiya.mhdftools.entity.database;
 
 import cn.chengzhiya.mhdftools.entity.AbstractDao;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
