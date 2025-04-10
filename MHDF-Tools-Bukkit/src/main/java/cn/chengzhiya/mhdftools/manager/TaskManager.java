@@ -1,18 +1,16 @@
 package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;
 
 @SuppressWarnings("unused")
-public final class TaskManager implements Init {
+public final class TaskManager {
     /**
      * 注册所有启用的计划任务
      */
-    @Override
     public void init() {
         try {
             Reflections reflections = new Reflections(AbstractTask.class.getPackageName());

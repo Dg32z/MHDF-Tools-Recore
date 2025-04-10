@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.entity.data;
+package cn.chengzhiya.mhdftools.entity.database;
 
 import cn.chengzhiya.mhdftools.entity.AbstractDao;
 import com.j256.ormlite.field.DatabaseField;
@@ -10,10 +10,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@DatabaseTable(tableName = "mhdftools_nick")
-public final class NickData extends AbstractDao {
+@DatabaseTable(tableName = "mhdftools_vanish")
+public final class VanishStatus extends AbstractDao {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
-    @DatabaseField
-    private String nick;
+    @DatabaseField(canBeNull = false)
+    private boolean isEnable;
 }

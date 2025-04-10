@@ -52,6 +52,16 @@ commands:
           &f插件版本: &6{version}
           &f服务器版本: &6{serverVersion}
           &e-------------=&6梦之工具&6=&e-------------
+      import:
+        usage: "/{command} import <插件名称>"
+        description: "导入其他插件的数据"
+        pluginNotSupport: "{prefix} &c目标插件不支持导入!"
+        import:
+          start: "{prefix} 开始导入{plugin}的{name}数据!"
+          done: "{prefix} 导入{plugin}的{name}数据完成(耗时: {time}ms)!"
+        message:
+          start: "{prefix} 开始导入{plugin}的数据!"
+          done: "{prefix} 导入{plugin}的数据完成!"
       reload:
         usage: "/{command} reload"
         description: "重载插件"

@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
+import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.BarrelMenu;
 import cn.chengzhiya.mhdftools.menu.feature.vanish.ChestMenu;

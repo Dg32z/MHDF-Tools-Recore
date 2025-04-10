@@ -1,24 +1,21 @@
-package cn.chengzhiya.mhdftools.manager;
+package cn.chengzhiya.mhdftools.manager.database;
 
-import cn.chengzhiya.mhdftools.entity.AbstractDao;
-import cn.chengzhiya.mhdftools.interfaces.Init;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.entity.DatabaseConfig;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
-import com.j256.ormlite.table.TableUtils;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
-import org.reflections.Reflections;
+import lombok.Setter;
 
 import java.io.File;
-import java.lang.reflect.Modifier;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.TimeZone;
 
 @Getter
 @SuppressWarnings("unused")
-public final class DatabaseManager implements Init {
+public abstract class AbstractDatabaseManager {
+    @Setter
+    private DatabaseConfig config;
     private String type = "none";
     private String databaseUrl = "";
     private HikariDataSource hikariDataSource;
@@ -27,17 +24,16 @@ public final class DatabaseManager implements Init {
     /**
      * 连接并初始化数据库
      */
-    @Override
-    public void init() {
-        String type = ConfigUtil.getConfig().getString("databaseSettings.type");
+    public void connect() {
+        String type = getConfig().getType();
 
         if (type == null) {
             throw new RuntimeException("数据库类型未设置");
         }
 
         switch (type) {
-            // 初始化MySQL数据库的连接
-            case "mysql" -> {
+            // 初始化MariaDB/MySQL数据库的连接
+            case "mariadb", "mysql" -> {
                 this.type = "mysql";
 
                 try {
@@ -46,19 +42,16 @@ public final class DatabaseManager implements Init {
                     throw new RuntimeException("数据库驱动加载失败");
                 }
 
-                databaseUrl = "jdbc:mysql://" +
-                        ConfigUtil.getConfig().getString("databaseSettings.mysql.host") + "/" +
-                        ConfigUtil.getConfig().getString("databaseSettings.mysql.database");
+                databaseUrl = "jdbc:mysql://" + getConfig().getHost() + "/" + getConfig().getDatabase();
                 HikariConfig config = getHikariConfig(this.databaseUrl);
 
-                config.setUsername(ConfigUtil.getConfig().getString("databaseSettings.mysql.user"));
-                config.setPassword(ConfigUtil.getConfig().getString("databaseSettings.mysql.password"));
+                config.setUsername(getConfig().getUser());
+                config.setPassword(getConfig().getPassword());
 
                 initDataSource(config);
-                initTable();
             }
-            // 初始化H2数据库的连接
-            case "h2" -> {
+            // 初始化Sqlite/H2数据库的连接
+            case "sqlite", "h2" -> {
                 this.type = "h2";
 
                 try {
@@ -67,12 +60,10 @@ public final class DatabaseManager implements Init {
                     throw new RuntimeException("数据库驱动加载失败");
                 }
 
-                String fileName = ConfigUtil.getConfig().getString("databaseSettings.h2.file");
-                File file = new File(ConfigUtil.getDataFolder(), Objects.requireNonNull(fileName));
+                File file = getConfig().getFile();
                 databaseUrl = "jdbc:h2:" + file.getAbsolutePath();
 
                 initDataSource(getHikariConfig(this.databaseUrl));
-                initTable();
             }
             default -> throw new RuntimeException("不支持的数据库类型: " + type);
         }
@@ -118,24 +109,6 @@ public final class DatabaseManager implements Init {
             this.hikariDataSource = new HikariDataSource(config);
             this.connectionSource = new DataSourceConnectionSource(this.hikariDataSource, this.databaseUrl);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 初始化表
-     */
-    private void initTable() {
-        try {
-            Reflections reflections = new Reflections(AbstractDao.class.getPackageName());
-
-            for (Class<? extends AbstractDao> clazz : reflections.getSubTypesOf(AbstractDao.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractDao abstractDao = clazz.getDeclaredConstructor().newInstance();
-                    TableUtils.createTableIfNotExists(this.connectionSource, abstractDao.getClass());
-                }
-            }
-        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

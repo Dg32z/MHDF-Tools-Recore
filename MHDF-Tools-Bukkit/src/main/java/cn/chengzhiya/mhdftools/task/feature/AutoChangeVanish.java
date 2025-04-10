@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.task.feature;
 
-import cn.chengzhiya.mhdftools.entity.data.VanishStatus;
+import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import cn.chengzhiya.mhdftools.task.AbstractTask;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import cn.chengzhiya.mhdftools.util.feature.VanishUtil;

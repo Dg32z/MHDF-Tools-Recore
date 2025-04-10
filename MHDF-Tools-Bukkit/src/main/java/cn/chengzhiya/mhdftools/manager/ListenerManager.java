@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
 import org.bukkit.Bukkit;
@@ -10,11 +9,10 @@ import org.reflections.Reflections;
 import java.lang.reflect.Modifier;
 
 @SuppressWarnings("unused")
-public final class ListenerManager implements Init {
+public final class ListenerManager {
     /**
      * 注册所有启用的监听器
      */
-    @Override
     public void init() {
         try {
             Reflections reflections = new Reflections(AbstractListener.class.getPackageName());

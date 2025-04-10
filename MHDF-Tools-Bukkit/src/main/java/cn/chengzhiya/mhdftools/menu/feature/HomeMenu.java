@@ -2,7 +2,7 @@ package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
-import cn.chengzhiya.mhdftools.entity.data.HomeData;
+import cn.chengzhiya.mhdftools.entity.database.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;

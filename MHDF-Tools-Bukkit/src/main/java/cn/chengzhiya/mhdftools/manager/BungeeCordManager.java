@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.BungeeCordLocation;
-import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.listener.PluginMessage;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -29,7 +28,7 @@ import java.util.Set;
 import static org.bukkit.Bukkit.getServer;
 
 @Getter
-public final class BungeeCordManager implements Init {
+public final class BungeeCordManager {
     private final PluginMessageListener messageListener = new PluginMessage();
     private final List<String> bungeeCordPlayerList = new ArrayList<>();
     @Setter
@@ -38,7 +37,6 @@ public final class BungeeCordManager implements Init {
     /**
      * 初始化群组模式
      */
-    @Override
     public void init() {
         if (isBungeeCordMode()) {
             getServer().getMessenger().registerOutgoingPluginChannel(Main.instance, "BungeeCord");

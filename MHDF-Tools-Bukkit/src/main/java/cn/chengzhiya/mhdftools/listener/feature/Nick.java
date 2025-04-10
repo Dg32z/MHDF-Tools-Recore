@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools.listener.feature;
 
-import cn.chengzhiya.mhdftools.entity.data.NickData;
+import cn.chengzhiya.mhdftools.entity.database.NickData;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.database.NickDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.NickUtil;

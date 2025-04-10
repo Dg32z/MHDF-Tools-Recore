@@ -1,12 +1,11 @@
 package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.hook.*;
-import cn.chengzhiya.mhdftools.interfaces.Hook;
 import lombok.Getter;
 
 @Getter
 @SuppressWarnings("unused")
-public final class PluginHookManager implements Hook {
+public final class PluginHookManager {
     private final PacketEventsHook packetEventsHook = new PacketEventsHook();
     private final PlaceholderApiHook placeholderAPIHook = new PlaceholderApiHook();
     private final CraftEngineHook craftEngineHook = new CraftEngineHook();
@@ -16,7 +15,6 @@ public final class PluginHookManager implements Hook {
     /**
      * 初始化所有对接的API
      */
-    @Override
     public void hook() {
         packetEventsHook.hook();
 
@@ -29,7 +27,6 @@ public final class PluginHookManager implements Hook {
     /**
      * 卸载所有对接的API
      */
-    @Override
     public void unhook() {
         packetEventsHook.unhook();
 

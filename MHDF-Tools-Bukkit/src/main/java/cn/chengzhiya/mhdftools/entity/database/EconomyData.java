@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.entity.data;
+package cn.chengzhiya.mhdftools.entity.database;
 
 import cn.chengzhiya.mhdftools.entity.AbstractDao;
 import com.j256.ormlite.field.DatabaseField;
@@ -6,16 +6,15 @@ import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
 @Setter
-@DatabaseTable(tableName = "mhdftools_fly")
-public final class FlyStatus extends AbstractDao {
+@DatabaseTable(tableName = "mhdftools_economy")
+public final class EconomyData extends AbstractDao {
     @DatabaseField(id = true, canBeNull = false)
     private UUID player;
-    @DatabaseField(canBeNull = false)
-    private boolean isEnable;
-    @DatabaseField(canBeNull = false)
-    private long time;
+    @DatabaseField(format = "20,2", canBeNull = false)
+    private BigDecimal bigDecimal;
 }
