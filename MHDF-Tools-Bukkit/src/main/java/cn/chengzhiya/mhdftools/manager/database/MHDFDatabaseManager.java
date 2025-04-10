@@ -7,7 +7,9 @@ import com.j256.ormlite.table.TableUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.reflections.Reflections;
 
+import java.io.File;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 public final class MHDFDatabaseManager extends AbstractDatabaseManager {
     public MHDFDatabaseManager() {
@@ -24,7 +26,9 @@ public final class MHDFDatabaseManager extends AbstractDatabaseManager {
         databaseConfig.setUser(database.getString("mysql.user"));
         databaseConfig.setPassword(database.getString("mysql.password"));
 
-        databaseConfig.setFilePath(database.getString("h2.file"));
+        databaseConfig.setFile(
+                new File(ConfigUtil.getDataFolder(), Objects.requireNonNull(database.getString("h2.file")))
+        );
 
         setConfig(databaseConfig);
     }

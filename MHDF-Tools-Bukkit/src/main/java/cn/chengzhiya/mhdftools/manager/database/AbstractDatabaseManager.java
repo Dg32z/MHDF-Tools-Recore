@@ -1,8 +1,6 @@
 package cn.chengzhiya.mhdftools.manager.database;
 
 import cn.chengzhiya.mhdftools.entity.DatabaseConfig;
-import cn.chengzhiya.mhdftools.interfaces.Init;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -11,12 +9,11 @@ import lombok.Setter;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.TimeZone;
 
 @Getter
 @SuppressWarnings("unused")
-public abstract class AbstractDatabaseManager implements Init {
+public abstract class AbstractDatabaseManager {
     @Setter
     private DatabaseConfig config;
     private String type = "none";
@@ -27,8 +24,7 @@ public abstract class AbstractDatabaseManager implements Init {
     /**
      * 连接并初始化数据库
      */
-    @Override
-    public void init() {
+    public void connect() {
         String type = getConfig().getType();
 
         if (type == null) {
@@ -36,8 +32,8 @@ public abstract class AbstractDatabaseManager implements Init {
         }
 
         switch (type) {
-            // 初始化MySQL数据库的连接
-            case "mysql" -> {
+            // 初始化MariaDB/MySQL数据库的连接
+            case "mariadb", "mysql" -> {
                 this.type = "mysql";
 
                 try {
@@ -54,8 +50,8 @@ public abstract class AbstractDatabaseManager implements Init {
 
                 initDataSource(config);
             }
-            // 初始化H2数据库的连接
-            case "h2" -> {
+            // 初始化Sqlite/H2数据库的连接
+            case "sqlite", "h2" -> {
                 this.type = "h2";
 
                 try {
@@ -64,8 +60,7 @@ public abstract class AbstractDatabaseManager implements Init {
                     throw new RuntimeException("数据库驱动加载失败");
                 }
 
-                String fileName = getConfig().getFilePath();
-                File file = new File(ConfigUtil.getDataFolder(), Objects.requireNonNull(fileName));
+                File file = getConfig().getFile();
                 databaseUrl = "jdbc:h2:" + file.getAbsolutePath();
 
                 initDataSource(getHikariConfig(this.databaseUrl));

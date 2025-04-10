@@ -2,15 +2,13 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
-import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.util.config.*;
 
 @SuppressWarnings("unused")
-public final class ConfigManager implements Init {
+public final class ConfigManager {
     /**
      * 初始化默认配置文件
      */
-    @Override
     public void init() {
         try {
             FileUtil.createFolder(ConfigUtil.getDataFolder());

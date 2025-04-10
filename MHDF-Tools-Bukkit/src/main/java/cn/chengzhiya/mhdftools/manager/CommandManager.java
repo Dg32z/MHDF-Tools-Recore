@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools.manager;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
-import cn.chengzhiya.mhdftools.interfaces.Init;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import org.bukkit.command.PluginCommand;
@@ -14,11 +13,10 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 @SuppressWarnings({"deprecation", "unused"})
-public final class CommandManager implements Init {
+public final class CommandManager {
     /**
      * 注册所有启用的命令
      */
-    @Override
     public void init() {
         try {
             Reflections reflections = new Reflections(AbstractCommand.class.getPackageName());
