@@ -7,6 +7,7 @@ import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.SoundUtil;
+import cn.chengzhiya.mhdftools.util.imports.HuskHomesUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,25 +26,39 @@ public final class MHDFTools extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            // 查看插件信息
-            if (args[0].equalsIgnoreCase("about")) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.about.message")
-                        .replace("{version}", PluginUtil.getVersion())
-                        .replace("{serverVersion}", Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion().getReleaseName())
-                );
-                return;
-            }
+        switch (args.length) {
+            case 1 -> {
+                switch (args[0]) {
+                    // 查看插件信息
+                    case "about" -> {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.about.message")
+                                .replace("{version}", PluginUtil.getVersion())
+                                .replace("{serverVersion}", Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion().getReleaseName())
+                        );
+                        return;
+                    }
+                    // 重载插件配置
+                    case "reload" -> {
+                        ConfigUtil.reloadConfig();
+                        LangUtil.reloadLang();
+                        SoundUtil.reloadSound();
 
-            // 重载插件配置
-            if (args[0].equalsIgnoreCase("reload")) {
-                ConfigUtil.reloadConfig();
-                LangUtil.reloadLang();
-                SoundUtil.reloadSound();
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
-                        .replace("{command}", label)
-                );
-                return;
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
+                                .replace("{command}", label)
+                        );
+                        return;
+                    }
+                }
+            }
+            case 2 -> {
+                if (args[0].equals("import")) {
+                    switch (args[1]) {
+                        case "huskhomes" -> HuskHomesUtil.importHuskHomesData(sender);
+                        default ->
+                                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.pluginNotSupport"));
+                    }
+                    return;
+                }
             }
         }
 
@@ -60,6 +75,11 @@ public final class MHDFTools extends AbstractCommand {
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             return new ArrayList<>(LangUtil.getKeys("commands.mhdftools.subCommands"));
+        }
+        if (args.length == 2) {
+            if (args[0].equals("import")) {
+                return List.of("huskhomes");
+            }
         }
         return new ArrayList<>();
     }

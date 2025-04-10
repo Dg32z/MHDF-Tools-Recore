@@ -1,0 +1,162 @@
+package cn.chengzhiya.mhdftools.manager.database;
+
+import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.DatabaseConfig;
+import cn.chengzhiya.mhdftools.entity.database.huskhomes.HuskHomesHomeData;
+import cn.chengzhiya.mhdftools.entity.database.huskhomes.HuskHomesPositionData;
+import cn.chengzhiya.mhdftools.entity.database.huskhomes.HuskHomesPositionInfoData;
+import cn.chengzhiya.mhdftools.entity.database.huskhomes.HuskHomesWarpData;
+import cn.chengzhiya.mhdftools.util.config.plugin.HuskHomesConfigUtil;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.table.DatabaseTableConfig;
+import org.bukkit.configuration.ConfigurationSection;
+
+import java.io.File;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.UUID;
+
+public final class HuskHomesManager extends AbstractDatabaseManager {
+    private static Dao<HuskHomesHomeData, UUID> huskHomesHomeDataDao;
+    private static Dao<HuskHomesWarpData, UUID> huskHomesWarpDataDao;
+    private static Dao<HuskHomesPositionInfoData, Integer> huskHomesSavePositionDataDao;
+    private static Dao<HuskHomesPositionData, Integer> huskHomesPositionDataDao;
+
+    public HuskHomesManager() {
+        DatabaseConfig databaseConfig = new DatabaseConfig();
+        databaseConfig.setType(getDatabaseConfig().getString("type"));
+
+        databaseConfig.setHost(
+                getDatabaseConfig().getString("credentials.host") + ":" + getDatabaseConfig().getInt("mysql.port")
+        );
+        databaseConfig.setDatabase(getDatabaseConfig().getString("credentials.database"));
+        databaseConfig.setUser(getDatabaseConfig().getString("credentials.username"));
+        databaseConfig.setPassword(getDatabaseConfig().getString("credentials.password"));
+
+        databaseConfig.setFile(
+                new File(HuskHomesConfigUtil.getDataFolder(), "HuskHomesData.db")
+        );
+
+        setConfig(databaseConfig);
+    }
+
+    /**
+     * 获取数据库配置项实例
+     *
+     * @return 数据库配置项实例
+     */
+    private ConfigurationSection getDatabaseConfig() {
+        return HuskHomesConfigUtil.getConfig().getConfigurationSection("databaseSettings");
+    }
+
+    /**
+     * 获取指定key的表名称
+     *
+     * @param key key
+     * @return 表名称
+     */
+    private String getTableName(String key) {
+        return getDatabaseConfig().getString("table_names." + key);
+    }
+
+    /**
+     * 初始化数据库数据实例
+     */
+    public void initDao() {
+        try {
+            {
+                DatabaseTableConfig<HuskHomesHomeData> tableConfig = DatabaseTableConfig.fromClass(
+                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                        HuskHomesHomeData.class
+                );
+                tableConfig.setTableName(getTableName("HOME_DATA"));
+
+                huskHomesHomeDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+            }
+            {
+                DatabaseTableConfig<HuskHomesWarpData> tableConfig = DatabaseTableConfig.fromClass(
+                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                        HuskHomesWarpData.class
+                );
+                tableConfig.setTableName(getTableName("WARP_DATA"));
+
+                huskHomesWarpDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+            }
+            {
+                DatabaseTableConfig<HuskHomesPositionInfoData> tableConfig = DatabaseTableConfig.fromClass(
+                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                        HuskHomesPositionInfoData.class
+                );
+                tableConfig.setTableName(getTableName("SAVED_POSITION_DATA"));
+
+                huskHomesSavePositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+            }
+            {
+                DatabaseTableConfig<HuskHomesPositionData> tableConfig = DatabaseTableConfig.fromClass(
+                        Main.instance.getDatabaseManager().getConnectionSource().getDatabaseType(),
+                        HuskHomesPositionData.class
+                );
+                tableConfig.setTableName(getTableName("HOME_DATA"));
+
+                huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获取HuskHomes家数据实例列表
+     *
+     * @return HuskHomes家数据实例列表
+     */
+    public List<HuskHomesHomeData> getHuskHomesHomeDataList() {
+        try {
+            return huskHomesHomeDataDao.queryForAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获取HuskHomes传送点数据实例列表
+     *
+     * @return HuskHomes传送点数据实例列表
+     */
+    public List<HuskHomesWarpData> getHuskHomesWarpDataList() {
+        try {
+            return huskHomesWarpDataDao.queryForAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获取指定位置信息数据ID的位置信息数据实例
+     *
+     * @param id 位置信息数据ID
+     * @return 位置信息数据实例
+     */
+    public HuskHomesPositionInfoData getHuskHomesPositionInfoData(int id) {
+        try {
+            return huskHomesSavePositionDataDao.queryForId(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 获取指定位置数据ID的位置数据实例
+     *
+     * @param id 位置数据ID
+     * @return 位置数据实例
+     */
+    public HuskHomesPositionData getHuskHomesPositionData(int id) {
+        try {
+            return huskHomesPositionDataDao.queryForId(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
