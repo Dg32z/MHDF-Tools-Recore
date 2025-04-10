@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools;
 
 import cn.chengzhiya.mhdftools.manager.*;
+import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;
 import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
@@ -13,7 +14,7 @@ public final class Main extends JavaPlugin {
     private AdventureManager adventureManager;
     private ConfigManager configManager;
     private LibrariesManager librariesManager;
-    private DatabaseManager databaseManager;
+    private MHDFDatabaseManager databaseManager;
     private CacheManager cacheManager;
     private BStatsManager bStatsManager;
     private CommandManager commandManager;
@@ -38,8 +39,9 @@ public final class Main extends JavaPlugin {
         this.adventureManager = new AdventureManager();
         this.adventureManager.init();
 
-        this.databaseManager = new DatabaseManager();
+        this.databaseManager = new MHDFDatabaseManager();
         this.databaseManager.init();
+        this.databaseManager.initTable();
 
         this.cacheManager = new CacheManager();
         this.cacheManager.init();
