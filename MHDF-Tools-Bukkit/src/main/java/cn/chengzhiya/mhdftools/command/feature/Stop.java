@@ -1,5 +1,7 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdfscheduler.runnable.MHDFRunnable;
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.text.TextComponent;
@@ -7,8 +9,6 @@ import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
-import cn.chengzhiya.mhdftools.util.runnable.MHDFRunnable;
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -176,7 +176,7 @@ public final class Stop extends AbstractCommand {
      * @param message 消息
      */
     private void stopServer(TextComponent message) {
-        MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) -> {
+        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) -> {
             Bukkit.savePlayers();
 
             for (Player player : Bukkit.getOnlinePlayers()) {

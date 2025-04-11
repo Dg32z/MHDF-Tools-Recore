@@ -30,6 +30,21 @@ public enum Dependency {
             false
     ),
 
+    MHDF_SCHEDULER(
+            "cn{}chengzhiya",
+            "MHDF-Scheduler",
+            "1.0.0",
+            Repository.CHENGZHIMEOW,
+            true
+    ),
+    MHDF_LANGUTIL(
+            "cn{}chengzhiya",
+            "MHDF-LangUtil",
+            "1.1.0",
+            Repository.CHENGZHIMEOW,
+            true
+    ),
+
     // JSON处理
     FAST_JSON(
             "com{}alibaba{}fastjson2",

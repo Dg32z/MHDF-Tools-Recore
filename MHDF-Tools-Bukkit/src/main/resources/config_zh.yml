@@ -79,6 +79,20 @@ cacheSettings:
     # 密码
     password: ""
 
+# 网络请求设置
+httpSettings:
+  # 代理
+  proxy:
+    # 开关
+    enable: false
+    # 类型
+    # HTTP SOCKS
+    type: "HTTP"
+    # 地址
+    host: "127.0.0.1"
+    # 端口
+    port: 7890
+
 # 随机传送
 randomTeleportSettings:
   # 开关

@@ -1,14 +1,19 @@
 package cn.chengzhiya.mhdftools.util.network;
 
 import cn.chengzhiya.mhdftools.exception.DownloadException;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import com.google.common.io.ByteStreams;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public final class HttpUtil {
@@ -20,7 +25,20 @@ public final class HttpUtil {
      */
     public static URLConnection openConnection(String urlString) throws IOException {
         URL url = new URL(urlString);
-        URLConnection connection = url.openConnection();
+
+        Proxy proxy = Proxy.NO_PROXY;
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("httpSettings");
+        if (config != null) {
+            if (config.getBoolean("proxy.enable")) {
+                String type = config.getString("proxy.type");
+                String host = config.getString("proxy.host");
+                int port = config.getInt("proxy.port");
+
+                proxy = new Proxy(Proxy.Type.valueOf(type), new InetSocketAddress(Objects.requireNonNull(host), port));
+            }
+        }
+
+        URLConnection connection = url.openConnection(proxy);
         connection.setConnectTimeout((int) TimeUnit.SECONDS.toMillis(20));
         connection.setReadTimeout((int) TimeUnit.SECONDS.toMillis(20));
         return connection;

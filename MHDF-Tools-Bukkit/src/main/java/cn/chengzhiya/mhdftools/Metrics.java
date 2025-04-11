@@ -1,6 +1,6 @@
 package cn.chengzhiya.mhdftools;
 
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -61,7 +61,7 @@ public final class Metrics {
                 enabled,
                 this::appendPlatformData,
                 this::appendServiceData,
-                submitDataTask -> MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) -> submitDataTask.run()),
+                submitDataTask -> MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) -> submitDataTask.run()),
                 plugin::isEnabled,
                 (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
                 (message) -> this.plugin.getLogger().log(Level.INFO, message),

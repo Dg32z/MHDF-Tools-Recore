@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.task;
 
+import cn.chengzhiya.mhdfscheduler.runnable.MHDFRunnable;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.runnable.MHDFRunnable;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 

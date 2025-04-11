@@ -1,11 +1,11 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -43,10 +43,10 @@ public final class VanishUtil {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
                         onlinePlayer.hidePlayer(Main.instance, player));
             } else {
-                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
                         onlinePlayer.hidePlayer(player));
             }
         }
@@ -66,10 +66,10 @@ public final class VanishUtil {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
                         onlinePlayer.showPlayer(Main.instance, player));
             } else {
-                MHDFScheduler.getGlobalRegionScheduler().run(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
                         onlinePlayer.showPlayer(player));
             }
         }

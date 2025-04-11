@@ -1,8 +1,8 @@
 package cn.chengzhiya.mhdftools.util.teleport;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -38,7 +38,7 @@ public final class TeleportUtil {
 
             map.put(player.getName(), times + 1);
             int delay = ConfigUtil.getConfig().getInt("bungeecord.autoTry.delay");
-            MHDFScheduler.getGlobalRegionScheduler().runDelayed(Main.instance, (task) ->
+            MHDFScheduler.getGlobalRegionScheduler().runTaskLater(Main.instance, (task) ->
                     teleport(player, location, map), delay);
         });
     }

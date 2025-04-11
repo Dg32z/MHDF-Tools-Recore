@@ -2,7 +2,6 @@ package cn.chengzhiya.mhdftools;
 
 import cn.chengzhiya.mhdftools.manager.*;
 import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;
-import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +12,7 @@ public final class Main extends JavaPlugin {
 
     private AdventureManager adventureManager;
     private ConfigManager configManager;
+    private MinecraftLangManager minecraftLangManager;
     private LibrariesManager librariesManager;
     private MHDFDatabaseManager databaseManager;
     private CacheManager cacheManager;
@@ -30,6 +30,9 @@ public final class Main extends JavaPlugin {
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
 
+        this.minecraftLangManager = new MinecraftLangManager();
+        this.minecraftLangManager.init();
+
         this.configManager = new ConfigManager();
         this.configManager.init();
     }
@@ -40,7 +43,7 @@ public final class Main extends JavaPlugin {
         this.adventureManager.init();
 
         this.databaseManager = new MHDFDatabaseManager();
-        this.databaseManager.init();
+        this.databaseManager.connect();
         this.databaseManager.initTable();
 
         this.cacheManager = new CacheManager();
@@ -48,9 +51,6 @@ public final class Main extends JavaPlugin {
 
         this.pluginHookManager = new PluginHookManager();
         this.pluginHookManager.hook();
-
-        MinecraftLangUtil.saveDefaultMinecraftLang();
-        MinecraftLangUtil.reloadMinecraftLang();
 
         this.commandManager = new CommandManager();
         this.commandManager.init();

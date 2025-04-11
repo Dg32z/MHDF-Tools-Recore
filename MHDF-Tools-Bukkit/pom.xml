@@ -76,6 +76,14 @@
                                     <pattern>net.objecthunter</pattern>
                                     <shadedPattern>cn.chengzhiya.mhdftools.libs.net.objecthunter</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>cn.chengzhiya.mhdfscheduler</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>cn.chengzhiya.langutil</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.langutil</shadedPattern>
+                                </relocation>
                             </relocations>
 
                             <filters>
@@ -110,6 +118,10 @@
             <id>momirealms</id>
             <url>https://repo.momirealms.net/releases/</url>
         </repository>
+        <repository>
+            <id>chengzhimeow-maven-repo</id>
+            <url>https://maven.chengzhimeow.cn/releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -130,6 +142,19 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-Scheduler</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.chengzhiya</groupId>
+            <artifactId>MHDF-LangUtil</artifactId>
+            <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
 

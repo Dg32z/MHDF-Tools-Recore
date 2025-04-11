@@ -4,7 +4,6 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.config.MinecraftLangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.message.MiniMessageUtil;
 import net.kyori.adventure.text.Component;
@@ -104,7 +103,7 @@ public final class ChatUtil {
             return message;
         }
         format = format
-                .replace("{name}", MinecraftLangUtil.getItemName(item))
+                .replace("{name}", Main.instance.getMinecraftLangManager().getItemName(item))
                 .replace("{amount}", String.valueOf(item.getAmount()));
 
         for (String s : config.getStringList("word")) {

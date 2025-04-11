@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.imports;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.HomeData;
 import cn.chengzhiya.mhdftools.entity.database.WarpData;
@@ -10,7 +11,6 @@ import cn.chengzhiya.mhdftools.entity.database.huskhomes.HuskHomesWarpData;
 import cn.chengzhiya.mhdftools.manager.database.HuskHomesManager;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.scheduler.MHDFScheduler;
 import org.bukkit.command.CommandSender;
 
 public final class HuskHomesUtil {
@@ -20,7 +20,7 @@ public final class HuskHomesUtil {
      * @param sender 命令执行者
      */
     public static void importHuskHomesData(CommandSender sender) {
-        MHDFScheduler.getAsyncScheduler().runNow(Main.instance, (task) -> {
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, (task) -> {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "HuskHomes")
             );
