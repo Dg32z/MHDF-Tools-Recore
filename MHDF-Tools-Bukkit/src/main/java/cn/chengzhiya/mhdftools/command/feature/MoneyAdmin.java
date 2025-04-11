@@ -36,7 +36,7 @@ public final class MoneyAdmin extends AbstractCommand {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                     BigDecimal change;
                     try {
-                        change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[1]));
+                        change = BigDecimalUtil.toBigDecimal(Double.parseDouble(args[2]));
                     } catch (NumberFormatException e) {
                         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.moneyFormatError"));
                         return;
