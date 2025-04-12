@@ -437,4 +437,4 @@ commands:
       inventory: "背包"
       enderchest: "末影箱"
     typeNotExists: "{prefix} <#FFB8B8>目标背包类型不存在!"
-    message: "{prefix} 你打开了{player}的{type}!"
+    message: "{prefix} <#FFB8B8>你打开了{player}的{type}!"
