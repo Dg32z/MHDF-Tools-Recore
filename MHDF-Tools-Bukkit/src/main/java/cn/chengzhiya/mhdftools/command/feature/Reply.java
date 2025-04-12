@@ -34,7 +34,7 @@ public final class Reply extends AbstractCommand {
             return;
         }
 
-        String replyTarget = Main.instance.getCacheManager().get(sender.getName() + "_reply");
+        String replyTarget = Main.instance.getCacheManager().get("reply", sender.getName());
         if (replyTarget == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.reply.noTarget"));
             return;

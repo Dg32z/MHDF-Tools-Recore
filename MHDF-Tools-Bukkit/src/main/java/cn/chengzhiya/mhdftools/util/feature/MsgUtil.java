@@ -15,7 +15,7 @@ public final class MsgUtil {
         // 聊天延迟
         if (ConfigUtil.getConfig().getBoolean("chatSettings.delay.enable")) {
             if (!sender.hasPermission("mhdftools.bypass.chat.delay")) {
-                String delayData = Main.instance.getCacheManager().get(sender.getName() + "_delay");
+                String delayData = Main.instance.getCacheManager().get("chatDelay", sender.getName());
                 if (delayData != null) {
                     ActionUtil.sendMessage(sender, LangUtil.i18n("chat.delay")
                             .replace("{delay}", delayData)
@@ -39,7 +39,7 @@ public final class MsgUtil {
         // 刷屏限制
         if (ConfigUtil.getConfig().getBoolean("chatSettings.spam.enable")) {
             if (!sender.hasPermission("mhdftools.bypass.chat.spam")) {
-                String spamData = Main.instance.getCacheManager().get(sender.getName() + "_spam");
+                String spamData = Main.instance.getCacheManager().get("lastChat", sender.getName());
                 if (spamData != null && spamData.equals(message)) {
                     ActionUtil.sendMessage(sender, LangUtil.i18n("chat.spam"));
                     return;
@@ -48,16 +48,16 @@ public final class MsgUtil {
         }
 
         int delay = ConfigUtil.getConfig().getInt("chatSettings.delay.delay");
-        Main.instance.getCacheManager().put(sender.getName() + "_delay", String.valueOf(delay));
-        Main.instance.getCacheManager().put(sender.getName() + "_spam", message);
+        Main.instance.getCacheManager().put("chatDelay", sender.getName(), String.valueOf(delay));
+        Main.instance.getCacheManager().put("lastChat", sender.getName(), message);
 
         // 替换词
         if (!sender.hasPermission("mhdftools.bypass.chat.replaceWord")) {
             message = ChatUtil.applyBlackWord(message);
         }
 
-        Main.instance.getCacheManager().put(sender.getName() + "_reply", target);
-        Main.instance.getCacheManager().put(target + "_reply", sender.getName());
+        Main.instance.getCacheManager().put("reply", sender.getName(), target);
+        Main.instance.getCacheManager().put("reply", sender.getName(), sender.getName());
 
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.msg.send")
                 .replace("{player}", sender.getName())

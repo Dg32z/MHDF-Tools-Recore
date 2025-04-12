@@ -17,7 +17,7 @@ public final class Tpa extends AbstractListener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        Main.instance.getCacheManager().remove(player.getName() + "_tpaPlayer");
-        Main.instance.getCacheManager().remove(player.getName() + "_tpaDelay");
+        Main.instance.getCacheManager().remove("tpaPlayer", player.getName());
+        Main.instance.getCacheManager().remove("tpaDelay", player.getName());
     }
 }

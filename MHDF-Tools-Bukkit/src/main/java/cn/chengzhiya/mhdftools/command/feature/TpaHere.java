@@ -41,7 +41,7 @@ public final class TpaHere extends AbstractCommand {
             return;
         }
         if (args.length == 2) {
-            String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpaherePlayer");
+            String targetPlayerName = Main.instance.getCacheManager().get("tpaherePlayer", args[1]);
             if (targetPlayerName == null) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.noRequest"));
                 return;
@@ -52,8 +52,8 @@ public final class TpaHere extends AbstractCommand {
                 return;
             }
 
-            Main.instance.getCacheManager().remove(args[1] + "_tpaherePlayer");
-            Main.instance.getCacheManager().remove(args[1] + "_tpahereDelay");
+            Main.instance.getCacheManager().remove("tpaherePlayer", args[1]);
+            Main.instance.getCacheManager().remove("tpahereDelay", args[1]);
 
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));

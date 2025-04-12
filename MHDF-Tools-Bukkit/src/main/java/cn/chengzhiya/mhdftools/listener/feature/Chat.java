@@ -41,7 +41,7 @@ public final class Chat extends AbstractListener {
         // 聊天延迟
         if (config.getBoolean("delay.enable")) {
             if (!player.hasPermission("mhdftools.bypass.chat.delay")) {
-                String delayData = Main.instance.getCacheManager().get(player.getName() + "_chatDelay");
+                String delayData = Main.instance.getCacheManager().get("chatDelay", player.getName());
                 if (delayData != null) {
                     ActionUtil.sendMessage(player, LangUtil.i18n("chat.delay")
                             .replace("{delay}", delayData)
@@ -66,7 +66,7 @@ public final class Chat extends AbstractListener {
         // 刷屏限制
         if (config.getBoolean("spam.enable")) {
             if (!player.hasPermission("mhdftools.bypass.chat.spam")) {
-                String spamData = Main.instance.getCacheManager().get(player.getName() + "_lastChat");
+                String spamData = Main.instance.getCacheManager().get("lastChat", player.getName());
                 if (spamData != null && spamData.equals(message)) {
                     ActionUtil.sendMessage(player, LangUtil.i18n("chat.spam"));
                     event.setCancelled(true);
@@ -76,8 +76,8 @@ public final class Chat extends AbstractListener {
         }
 
         int delay = config.getInt("delay.delay");
-        Main.instance.getCacheManager().put(player.getName() + "_chatDelay", String.valueOf(delay));
-        Main.instance.getCacheManager().put(player.getName() + "_lastChat", message);
+        Main.instance.getCacheManager().put("chatDelay", player.getName(), String.valueOf(delay));
+        Main.instance.getCacheManager().put("lastChat", player.getName(), message);
 
         // 替换词
         if (!player.hasPermission("mhdftools.bypass.chat.replaceWord")) {

@@ -87,10 +87,8 @@ public final class RandomTeleport extends AbstractCommand {
             }
 
             if (config.getBoolean("delay.enable")) {
-                String key = player.getName() + "_randomTeleportDelay";
-
                 if (!player.hasPermission("mhdftools.bypass.randomteleport.delay")) {
-                    String delayData = Main.instance.getCacheManager().get(key);
+                    String delayData = Main.instance.getCacheManager().get("randomTeleportDelay", player.getName());
                     if (delayData != null) {
                         ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.delay")
                                 .replace("{delay}", delayData)
@@ -99,7 +97,7 @@ public final class RandomTeleport extends AbstractCommand {
                     }
                 }
 
-                Main.instance.getCacheManager().put(key, String.valueOf(config.getInt("delay.time")));
+                Main.instance.getCacheManager().put("randomTeleportDelay", player.getName(), String.valueOf(config.getInt("delay.time")));
             }
 
             RandomTeleportUtil.randomTeleport(player, world);
@@ -108,7 +106,7 @@ public final class RandomTeleport extends AbstractCommand {
             return;
         }
 
-        Main.instance.getCacheManager().put(player.getName() + "_rtpWorld", worldName);
+        Main.instance.getCacheManager().put("randomTeleportWorld", player.getName(), worldName);
         Main.instance.getBungeeCordManager().connectServer(player.getName(), server);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.message"));
     }

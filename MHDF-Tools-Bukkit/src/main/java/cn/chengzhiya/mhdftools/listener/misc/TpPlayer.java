@@ -19,12 +19,12 @@ public final class TpPlayer extends AbstractListener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        String targetPlayerName = Main.instance.getCacheManager().get(player.getName() + "_tpPlayer");
+        String targetPlayerName = Main.instance.getCacheManager().get("tpPlayer", player.getName());
         if (targetPlayerName == null) {
             return;
         }
 
-        Main.instance.getCacheManager().remove(player.getName() + "_tpPlayer");
+        Main.instance.getCacheManager().remove("tpPlayer", player.getName());
 
         Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
         if (targetPlayer == null) {

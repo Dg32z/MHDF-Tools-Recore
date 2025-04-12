@@ -70,6 +70,9 @@ cacheSettings:
   # 存储类型
   # (map redis)
   type: "map"
+  # 服务池ID
+  # 只有相同 服务池ID 服务器才会互相同步缓存
+  server: ""
   # Redis数据库设置
   redis:
     # 地址

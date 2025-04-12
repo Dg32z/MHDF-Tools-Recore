@@ -17,7 +17,7 @@ public final class TpaHere extends AbstractListener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        Main.instance.getCacheManager().remove(player.getName() + "_tpaherePlayer");
-        Main.instance.getCacheManager().remove(player.getName() + "_tpahereDelay");
+        Main.instance.getCacheManager().remove("tpaherePlayer", player.getName());
+        Main.instance.getCacheManager().remove("tpahereDelay", player.getName());
     }
 }

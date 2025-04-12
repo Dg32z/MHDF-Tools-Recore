@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("unused")
 public final class CacheManager {
-    private HashMap<String, String> map = null;
+    private HashMap<String, HashMap<String, String>> map = null;
     private RedisClient redisClient = null;
     private StatefulRedisConnection<String, String> redisConnection = null;
 
@@ -73,50 +73,73 @@ public final class CacheManager {
     }
 
     /**
-     * 写入数据至缓存
+     * 获取服务器ID
      *
+     * @return 服务器ID
+     */
+    public String getServerId() {
+        return ConfigUtil.getConfig().getString("cacheSettings.server");
+    }
+
+    /**
+     * 修改指定表id的表下指定key的缓存数据
+     *
+     * @param table 表id
      * @param key   写入的key
      * @param value 写入的值
      */
-    public void put(String key, String value) {
+    public void put(String table, String key, String value) {
+        String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            this.map.put(key, value);
+            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            map.put(key, value);
+
+            this.map.put(prefix, map);
         }
         if (this.redisConnection != null) {
             RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-            sync.set("mhdf-tools:" + key, value);
+            sync.set(prefix + ":" + key, value);
         }
     }
 
     /**
-     * 从缓存中删除数据
+     * 删除指定表id的表下指定key的缓存数据
      *
-     * @param key 删除的key
+     * @param table 表id
+     * @param key   删除的key
      */
-    public void remove(String key) {
+    public void remove(String table, String key) {
+        String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            this.map.remove(key);
+            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            map.remove(key);
+
+            this.map.put(prefix, map);
         }
         if (this.redisConnection != null) {
             RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-            sync.del("mhdf-tools:" + key);
+            sync.del(prefix + ":" + key);
         }
     }
 
     /**
-     * 读取指定key的缓存数据
+     * 读取指定表id的表下指定key的缓存数据
      *
-     * @param key key
+     * @param table 表id
+     * @param key   key
      * @return 缓存数据
      */
-    public String get(String key) {
+    public String get(String table, String key) {
+        String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            return this.map.get(key);
+            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+
+            return map.get(key);
         }
         if (this.redisClient != null) {
             try {
                 RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-                return sync.get("mhdf-tools:" + key).get();
+                return sync.get(prefix + ":" + key).get();
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }
@@ -125,18 +148,22 @@ public final class CacheManager {
     }
 
     /**
-     * 读取缓存key列表
+     * 读取指定表id的表 的缓存key列表
      *
+     * @param table 表id
      * @return 缓存key列表
      */
-    public Set<String> keys() {
+    public Set<String> keys(String table) {
+        String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            return this.map.keySet();
+            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+
+            return map.keySet();
         }
         if (this.redisClient != null) {
             try {
                 RedisAsyncCommands<String, String> sync = this.redisConnection.async();
-                return new HashSet<>(sync.keys("mhdf-tools:*").get());
+                return new HashSet<>(sync.keys(prefix + ":*").get());
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }

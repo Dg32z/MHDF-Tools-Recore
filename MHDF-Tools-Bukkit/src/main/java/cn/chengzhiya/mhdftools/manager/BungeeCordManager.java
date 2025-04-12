@@ -136,7 +136,7 @@ public final class BungeeCordManager {
             TeleportUtil.teleport(player, target.getLocation(), new HashMap<>());
             return;
         }
-        Main.instance.getCacheManager().put(playerName + "_tpPlayer", targetName);
+        Main.instance.getCacheManager().put("tpPlayer", playerName, targetName);
 
         JSONObject data = new JSONObject();
         data.put("action", "teleportPlayer");
@@ -196,7 +196,7 @@ public final class BungeeCordManager {
             player.teleportAsync(bungeeCordLocation.toLocation());
             return;
         }
-        Main.instance.getCacheManager().put(playerName + "_tpLocation", bungeeCordLocation.toBase64());
+        Main.instance.getCacheManager().put("tpLocation", playerName, bungeeCordLocation.toBase64());
 
         connectServer(playerName, bungeeCordLocation.getServer());
     }

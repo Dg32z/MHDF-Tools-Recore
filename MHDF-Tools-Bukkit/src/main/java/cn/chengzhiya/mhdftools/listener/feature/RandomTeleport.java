@@ -22,12 +22,12 @@ public final class RandomTeleport extends AbstractListener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        String rtpWorld = Main.instance.getCacheManager().get(player.getName() + "_rtpWorld");
+        String rtpWorld = Main.instance.getCacheManager().get("randomTeleportWorld", player.getName());
         if (rtpWorld == null) {
             return;
         }
 
-        Main.instance.getCacheManager().remove(player.getName() + "_rtpWorld");
+        Main.instance.getCacheManager().remove("randomTeleportWorld", player.getName());
 
         World world = Bukkit.getWorld(rtpWorld);
         if (world == null) {

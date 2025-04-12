@@ -19,12 +19,12 @@ public final class TpLocation extends AbstractListener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        String tpLocationBase64 = Main.instance.getCacheManager().get(player.getName() + "_tpLocation");
+        String tpLocationBase64 = Main.instance.getCacheManager().get("tpLocation", player.getName());
         if (tpLocationBase64 == null) {
             return;
         }
 
-        Main.instance.getCacheManager().remove(player.getName() + "_tpLocation");
+        Main.instance.getCacheManager().remove("tpLocation", player.getName());
 
         BungeeCordLocation tpLocation = new BungeeCordLocation(tpLocationBase64);
         if (!tpLocation.getServer().equals(Main.instance.getBungeeCordManager().getServerName())) {

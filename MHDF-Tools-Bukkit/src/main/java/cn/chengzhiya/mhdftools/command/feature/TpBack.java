@@ -36,7 +36,7 @@ public final class TpBack extends AbstractCommand {
             return;
         }
 
-        String backLocationBase64 = Main.instance.getCacheManager().get(sender.getName() + "_tpback");
+        String backLocationBase64 = Main.instance.getCacheManager().get("tpback", sender.getName());
         if (backLocationBase64 == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpback.noLocation"));
             return;

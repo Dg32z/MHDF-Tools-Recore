@@ -24,7 +24,7 @@ public final class TpaUtil {
             return;
         }
 
-        String delay = Main.instance.getCacheManager().get(player.getName() + "_tpaDelay");
+        String delay = Main.instance.getCacheManager().get("tpaDelay", player.getName());
         if (delay != null) {
             ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.inDelay")
                     .replace("{delay}", delay)
@@ -32,8 +32,8 @@ public final class TpaUtil {
             return;
         }
 
-        Main.instance.getCacheManager().put(player.getName() + "_tpaPlayer", targetName);
-        Main.instance.getCacheManager().put(player.getName() + "_tpaDelay", String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
+        Main.instance.getCacheManager().put("tpaPlayer", player.getName(), targetName);
+        Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
                 .replaceByMiniMessage("{player}", player.getName())

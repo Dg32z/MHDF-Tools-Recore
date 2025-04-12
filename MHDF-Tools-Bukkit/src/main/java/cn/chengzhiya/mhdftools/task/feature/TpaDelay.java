@@ -17,20 +17,20 @@ public final class TpaDelay extends AbstractTask {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            String delayString = Main.instance.getCacheManager().get(player.getName() + "_tpaDelay");
+            String delayString = Main.instance.getCacheManager().get("tpaDelay", player.getName());
             if (delayString == null) {
                 continue;
             }
 
             int delay = Integer.parseInt(delayString);
             if (delay <= 0) {
-                Main.instance.getCacheManager().remove(player.getName() + "_tpaDelay");
-                Main.instance.getCacheManager().remove(player.getName() + "_tpaPlayer");
+                Main.instance.getCacheManager().remove("tpaDelay", player.getName());
+                Main.instance.getCacheManager().remove("tpaPlayer", player.getName());
                 return;
             }
 
             delay--;
-            Main.instance.getCacheManager().put(player.getName() + "_tpaDelay", String.valueOf(delay));
+            Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(delay));
         }
     }
 }

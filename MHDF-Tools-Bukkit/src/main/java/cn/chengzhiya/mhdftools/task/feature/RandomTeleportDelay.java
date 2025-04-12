@@ -13,24 +13,20 @@ public final class RandomTeleportDelay extends AbstractTask {
 
     @Override
     public void run() {
-        for (String key : Main.instance.getCacheManager().keys()) {
-            if (!key.endsWith("_randomTeleportDelay")) {
-                continue;
-            }
-
-            String delayData = Main.instance.getCacheManager().get(key);
+        for (String key : Main.instance.getCacheManager().keys("randomTeleportDelay")) {
+            String delayData = Main.instance.getCacheManager().get("randomTeleportDelay", key);
             if (delayData == null) {
                 continue;
             }
 
             int delay = Integer.parseInt(delayData);
             if (delay <= 0) {
-                Main.instance.getCacheManager().remove(key);
+                Main.instance.getCacheManager().remove("randomTeleportDelay", key);
                 continue;
             }
 
             delay--;
-            Main.instance.getCacheManager().put(key, String.valueOf(delay));
+            Main.instance.getCacheManager().put("randomTeleportDelay", key, String.valueOf(delay));
         }
     }
 }

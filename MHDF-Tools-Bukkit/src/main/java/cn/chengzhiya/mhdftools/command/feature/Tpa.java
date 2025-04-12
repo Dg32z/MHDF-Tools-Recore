@@ -41,7 +41,7 @@ public final class Tpa extends AbstractCommand {
             return;
         }
         if (args.length == 2) {
-            String targetPlayerName = Main.instance.getCacheManager().get(args[1] + "_tpaPlayer");
+            String targetPlayerName = Main.instance.getCacheManager().get("tpaPlayer", args[1]);
             if (targetPlayerName == null) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpa.noRequest"));
                 return;
@@ -52,8 +52,8 @@ public final class Tpa extends AbstractCommand {
                 return;
             }
 
-            Main.instance.getCacheManager().remove(args[1] + "_tpaPlayer");
-            Main.instance.getCacheManager().remove(args[1] + "_tpaDelay");
+            Main.instance.getCacheManager().remove("tpaPlayer", args[1]);
+            Main.instance.getCacheManager().remove("tpaDelay", args[1]);
 
             if (!Main.instance.getBungeeCordManager().ifPlayerOnline(args[1])) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("playerOffline"));

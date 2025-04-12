@@ -36,7 +36,7 @@ public final class Back extends AbstractCommand {
             return;
         }
 
-        String backLocationBase64 = Main.instance.getCacheManager().get(sender.getName() + "_back");
+        String backLocationBase64 = Main.instance.getCacheManager().get("back", sender.getName());
         if (backLocationBase64 == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.back.noLocation"));
             return;
