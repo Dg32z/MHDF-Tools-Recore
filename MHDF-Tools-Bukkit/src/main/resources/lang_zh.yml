@@ -48,7 +48,7 @@ commands:
           &f
           {helpList}
           &f
-          &7⌞     <click:run_command:"/{command} feature {lastPage}"><hover:show_text:"<#EAE4FF>点击返回上一页">&f[上一页]</hover></click>     <0/15>     <click:run_command:"/{command} feature {nextPage}"><hover:show_text:"<#EAE4FF>点击返回下一页">&f[下一页]</hover></click>&7     ⌟
+          &7⌞     <click:run_command:"/{command} feature {lastPage}"><hover:show_text:"<#EAE4FF>点击返回上一页">&f[上一页]</hover></click>     <{page}/{maxPage}>     <click:run_command:"/{command} feature {nextPage}"><hover:show_text:"<#EAE4FF>点击返回下一页">&f[下一页]</hover></click>&7     ⌟
           &f
       help:
         usage: "/{command} help"
