@@ -413,7 +413,7 @@ commands:
         haveIgnore: "{prefix} <#FFB8B8>目标玩家已经被你屏蔽了!"
         blacklist: "{prefix} <#FFB8B8>小杂鱼,目标玩家是不能屏蔽的人噢~"
         message: "{prefix} &a你屏蔽了{target}!"
-        sendSelf: "{prefix} <#FFB8B8>您不能向忽略自己的消息!"
+        sendSelf: "{prefix} <#FFB8B8>您不能忽略自己的消息!"
       remove:
         usage: "/{command} remove <玩家>"
         description: "移除屏蔽玩家"
