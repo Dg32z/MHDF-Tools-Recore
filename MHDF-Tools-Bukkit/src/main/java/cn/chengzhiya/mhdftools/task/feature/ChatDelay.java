@@ -17,19 +17,19 @@ public final class ChatDelay extends AbstractTask {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            String delayData = Main.instance.getCacheManager().get(player.getName() + "_delay");
+            String delayData = Main.instance.getCacheManager().get(player.getName() + "_chatDelay");
             if (delayData == null) {
                 continue;
             }
 
             int delay = Integer.parseInt(delayData);
             if (delay <= 0) {
-                Main.instance.getCacheManager().remove(player.getName() + "_delay");
+                Main.instance.getCacheManager().remove(player.getName() + "_chatDelay");
                 continue;
             }
 
             delay--;
-            Main.instance.getCacheManager().put(player.getName() + "_delay", String.valueOf(delay));
+            Main.instance.getCacheManager().put(player.getName() + "_chatDelay", String.valueOf(delay));
         }
     }
 }
