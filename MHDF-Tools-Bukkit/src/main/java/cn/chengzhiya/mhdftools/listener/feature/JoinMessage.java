@@ -3,6 +3,7 @@ package cn.chengzhiya.mhdftools.listener.feature;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -40,7 +41,7 @@ public final class JoinMessage extends AbstractListener {
         }
 
         event.joinMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
-                .replace("{player}", player.getName())
+                .replace("{player}", NickUtil.getName(player))
         );
     }
 

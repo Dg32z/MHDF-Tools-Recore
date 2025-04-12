@@ -9,6 +9,7 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
+import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -75,12 +76,12 @@ public final class Pay extends AbstractCommand {
         EconomyUtil.addMoney(player, amount.subtract(tax));
 
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.pay.message")
-                .replace("{player}", args[0])
+                .replace("{player}", NickUtil.getName(player))
                 .replace("{amount}", String.valueOf(amount))
         );
 
         ActionUtil.sendMessage(player.getPlayer(), LangUtil.i18n("commands.pay.receivedMessage")
-                .replace("{player}", sender.getName())
+                .replace("{player}", NickUtil.getName(sender))
                 .replace("{amount}", String.valueOf(amount))
         );
     }

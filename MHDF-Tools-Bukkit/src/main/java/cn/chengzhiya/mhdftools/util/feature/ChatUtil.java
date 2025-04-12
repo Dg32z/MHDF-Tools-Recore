@@ -187,7 +187,7 @@ public final class ChatUtil {
 
         return Main.instance.getPluginHookManager().getPlaceholderAPIHook()
                 .placeholder(player, format)
-                .replace("{player}", player.getName())
+                .replace("{player}", NickUtil.getName(player))
                 .replace("{message}", message);
     }
 

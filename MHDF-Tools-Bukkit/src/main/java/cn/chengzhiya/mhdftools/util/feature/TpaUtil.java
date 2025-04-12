@@ -4,6 +4,8 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public final class TpaUtil {
@@ -36,11 +38,12 @@ public final class TpaUtil {
         Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
         Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
-                .replaceByMiniMessage("{player}", player.getName())
+                .replaceByMiniMessage("{player}", NickUtil.getName(player))
         );
 
+        OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.message")
-                .replace("{player}", targetName)
+                .replace("{player}", NickUtil.getName(target))
         );
     }
 }

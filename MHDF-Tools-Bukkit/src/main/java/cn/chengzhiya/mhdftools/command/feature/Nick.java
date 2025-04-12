@@ -59,7 +59,7 @@ public final class Nick extends AbstractCommand {
 
         NickUtil.setNickName(player, ColorUtil.miniMessage(args[0]));
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.nick.message")
-                .replace("{player}", player.getName())
+                .replace("{player}", NickUtil.getName(player))
                 .replace("{name}", ColorUtil.color(args[0]))
         );
     }

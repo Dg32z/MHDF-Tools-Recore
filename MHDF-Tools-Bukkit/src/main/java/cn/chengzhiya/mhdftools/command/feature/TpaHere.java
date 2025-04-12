@@ -7,7 +7,10 @@ import cn.chengzhiya.mhdftools.menu.feature.TeleportRequestMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -60,25 +63,26 @@ public final class TpaHere extends AbstractCommand {
                 return;
             }
 
+            OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
             switch (args[0]) {
                 case "accept" -> {
                     Main.instance.getBungeeCordManager().teleportPlayer(sender.getName(), args[1]);
-                    Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpahere.accept.accepted")
-                            .replace("{player}", args[1])
+                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.accept.accepted")
+                            .replace("{player}", NickUtil.getName(sender))
                     );
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.accept.message")
-                            .replace("{player}", args[1])
+                            .replace("{player}", NickUtil.getName(target))
                     );
                     return;
                 }
                 case "reject" -> {
-                    Main.instance.getBungeeCordManager().sendMessage(args[0], LangUtil.i18n("commands.tpahere.reject.rejected")
-                            .replace("{player}", args[1])
+                    Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.reject.rejected")
+                            .replace("{player}", NickUtil.getName(sender))
                     );
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.tpahere.reject.message")
-                            .replace("{player}", args[1])
+                            .replace("{player}", NickUtil.getName(target))
                     );
                     return;
                 }

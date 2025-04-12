@@ -7,7 +7,9 @@ import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
+import cn.chengzhiya.mhdftools.util.feature.NickUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -54,9 +56,10 @@ public final class Money extends AbstractCommand {
             return;
         }
 
-        EconomyData economyData = EconomyDataUtil.getEconomyData(Bukkit.getOfflinePlayer(name));
+        OfflinePlayer player = Bukkit.getOfflinePlayer(name);
+        EconomyData economyData = EconomyDataUtil.getEconomyData(player);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.money.message")
-                .replace("{player}", name)
+                .replace("{player}", NickUtil.getName(player))
                 .replace("{amount}", economyData.getBigDecimal().toString())
         );
     }
