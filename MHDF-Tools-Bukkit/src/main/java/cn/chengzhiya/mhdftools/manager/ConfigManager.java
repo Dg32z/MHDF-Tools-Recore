@@ -23,7 +23,9 @@ public final class ConfigManager {
             SoundUtil.reloadSound();
 
             CustomMenuConfigUtil.saveDefaultCustomMenu();
+            CustomMenuConfigUtil.saveDefaultCustomMenu();
 
+            MenuConfigUtil.saveDefaultMenu();
             MenuConfigUtil.saveDefaultMenu();
         } catch (ResourceException | FileException e) {
             throw new RuntimeException(e);

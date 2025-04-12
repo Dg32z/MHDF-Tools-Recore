@@ -2,13 +2,20 @@ package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
+import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.HashMap;
 
 public final class MenuConfigUtil {
+    @Getter
+    private static final File menuFolder = new File(ConfigUtil.getDataFolder(), "menu");
+    @Getter
+    private static final HashMap<String, YamlConfiguration> menuHashMap = new HashMap<>();
+
     /**
-     * 保存初始自定义菜单
+     * 保存初始菜单
      */
     public static void saveDefaultMenu() throws ResourceException, FileException {
         FileUtil.createFolder(getMenuFolder());
@@ -24,31 +31,28 @@ public final class MenuConfigUtil {
     }
 
     /**
-     * 获取菜单目录实例
-     *
-     * @return 目录实例
+     * 加载菜单
      */
-    public static File getMenuFolder() {
-        return new File(ConfigUtil.getDataFolder(), "menu");
-    }
+    public static void reloadMenu() {
+        getMenuHashMap().clear();
+        for (File file : FileUtil.listFiles(getMenuFolder())) {
+            String path = file.getPath();
+            if (!path.endsWith(".yml")) {
+                return;
+            }
 
-    /**
-     * 获取菜单文件实例
-     *
-     * @param file 文件名称
-     * @return 菜单文件实例
-     */
-    public static File getMenuFile(String file) {
-        return new File(getMenuFolder(), file);
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+            getMenuHashMap().put(path, config);
+        }
     }
 
     /**
      * 获取菜单配置文件实例
      *
-     * @param file 文件名称
+     * @param id 菜单ID
      * @return 配置文件实例
      */
-    public static YamlConfiguration getMenuConfig(String file) {
-        return YamlConfiguration.loadConfiguration(getMenuFile(file));
+    public static YamlConfiguration getMenuConfig(String id) {
+        return getMenuHashMap().get(id);
     }
 }

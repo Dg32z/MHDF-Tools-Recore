@@ -37,7 +37,7 @@ public final class HomeMenu extends AbstractMenu {
                 "homeSettings.enable",
                 player
         );
-        this.config = MenuConfigUtil.getMenuConfig("home.yml");
+        this.config = MenuConfigUtil.getMenuConfig("home");
         this.page = page;
     }
 

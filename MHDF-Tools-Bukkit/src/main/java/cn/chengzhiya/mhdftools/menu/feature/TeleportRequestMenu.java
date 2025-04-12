@@ -26,6 +26,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Getter
@@ -40,7 +41,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
                 player
         );
         this.requestType = requestType;
-        this.config = MenuConfigUtil.getMenuConfig(requestType.getMenu());
+        this.config = MenuConfigUtil.getMenuConfig(requestType.name().toLowerCase(Locale.ROOT));
         this.page = page;
     }
 

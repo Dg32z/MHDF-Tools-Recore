@@ -47,7 +47,7 @@ public final class CustomMenu extends AbstractCommand {
     @Override
     public List<String> tabCompleter(@NotNull Player sender, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return CustomMenuConfigUtil.getCustomMenuList();
+            return new ArrayList<>(CustomMenuConfigUtil.getCustomMenuList());
         }
         return new ArrayList<>();
     }

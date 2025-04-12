@@ -34,7 +34,7 @@ public final class CustomMenu extends AbstractMenu {
                 player
         );
         this.menu = menu;
-        this.config = CustomMenuConfigUtil.getCustomMenuConfig(menu + ".yml");
+        this.config = CustomMenuConfigUtil.getCustomMenuConfig(menu);
     }
 
     @Override
