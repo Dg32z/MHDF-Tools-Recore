@@ -58,8 +58,8 @@ public final class FlyTime extends AbstractCommand {
 
                     FlyStatusUtil.updateFlyStatus(flyStatus);
 
-                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
-                            .replace("{player}", args[0])
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.flytime.subCommands." + args[0] + ".message")
+                            .replace("{player}", args[1])
                             .replace("{change}", String.valueOf(inputTime))
                             .replace("{amount}", String.valueOf(flyStatus.getTime()))
                     );

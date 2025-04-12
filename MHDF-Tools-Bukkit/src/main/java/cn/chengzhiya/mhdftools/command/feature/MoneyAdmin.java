@@ -59,7 +59,7 @@ public final class MoneyAdmin extends AbstractCommand {
                     EconomyDataUtil.updateEconomyData(economyData);
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands." + args[0] + ".message")
-                            .replace("{player}", args[0])
+                            .replace("{player}", args[1])
                             .replace("{change}", change.toString())
                             .replace("{amount}", economyData.getBigDecimal().toString())
                     );
