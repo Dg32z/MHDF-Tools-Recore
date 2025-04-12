@@ -58,7 +58,6 @@ public final class MHDFTools extends AbstractCommand {
         {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.help.message")
                     .replace("{helpList}", LangUtil.getHelpList("mhdftools"))
-                    .replace("{version}", PluginUtil.getVersion())
                     .replace("{command}", label)
             );
         }

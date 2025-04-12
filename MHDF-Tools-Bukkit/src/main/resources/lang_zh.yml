@@ -76,13 +76,13 @@ commands:
     usage: "/{command}"
     description: "查看在线列表"
     message: |-
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
       &fTPS: &6{tps}
       &f内存占用: &6{memory}MB/{maxMemory}MB
       &f玩家人数: &6{playerCount}/{maxPlayerCount}
       &f玩家列表: 
       &6{playerList}
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
   fly:
     usage: "/{command} [玩家]"
     description: "飞行"
@@ -104,9 +104,9 @@ commands:
         description: "命令帮助"
         commandFormat: "&e{usage} &7| &b{description}"
         message: |-
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
       set:
         usage: "/{command} set <玩家> <时间>"
         description: "设置玩家的飞行时间"
@@ -124,7 +124,7 @@ commands:
     timeFormatError: "{prefix} &c超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     countdownMessage: "{prefix} &6服务器还有&b{countdown}&6秒关闭,请做好准备!"
     kickMessage: |-
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
       {message}
     subCommands:
       help:
@@ -132,9 +132,9 @@ commands:
         description: "命令帮助"
         commandFormat: "&e{usage} &7| &b{description}"
         message: |-
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
       cancel:
         usage: "/{command} cancel"
         description: "取消关服"
@@ -166,10 +166,10 @@ commands:
     noRequest: "{prefix} &c目标没有向你发送传送请求!"
     sendSelf: "{prefix} &c你不可以给自己发送传送请求!"
     requestMessage: |-
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
       玩家{player}想来你这里看看!
       <click:run_command:"/tpa accept {player}"><hover:show_text:"&6点击接受{player}的传送请求">&a[接受]</hover></click>   <click:run_command:"/tpa reject {player}"><hover:show_text:"&6点击拒绝{player}的传送请求">&c[拒绝]</hover></click>
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
   tpahere:
     usage: "/{command} <目标玩家>"
     description: "请求指定玩家传送到你这"
@@ -187,10 +187,10 @@ commands:
     noRequest: "{prefix} &c目标没有向你发送传送请求!"
     sendSelf: "{prefix} &c你不可以给自己发送传送请求!"
     requestMessage: |-
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
       玩家{player}想你到他那里看看!
       <click:run_command:tpahere accept {player}><hover:show_text:"&6点击接受{player}的传送请求">&a[接受]</hover></click>   <click:run_command:tpahere reject {player}><hover:show_text:"&6点击拒绝{player}的传送请求">&c[拒绝]</hover></click>
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
   custommenu:
     usage: "/{command} <菜单>"
     description: "打开指定菜单"
@@ -238,11 +238,11 @@ commands:
     usage: "/{command} <玩家>"
     description: "查询一个玩家的IP信息"
     message: |-
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
       &e玩家: &6{player}
       &eIP: &6{ip}
       &e归属地: &6{location}
-      &e-------------&6=梦之工具&6=&e-------------
+      &e-------------&6=梦之工具-{version}&6=&e-------------
   gamemode:
     usage: "/{command} <游戏模式> [玩家]"
     description: "修改玩家游戏模式"
@@ -297,9 +297,9 @@ commands:
         description: "命令帮助"
         commandFormat: "&e{usage} &7| &b{description}"
         message: |-
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
       set:
         usage: "/{command} set <玩家> <金额>"
         description: "设置经济"
@@ -325,17 +325,17 @@ commands:
         description: "命令帮助"
         commandFormat: "&e{usage} &7| &b{description}"
         message: |-
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
       list:
         usage: "/{command} list"
         description: "屏蔽玩家列表"
         message: |-
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
           &e你屏蔽了:
           &e{list}
-          &e-------------&6=梦之工具&6=&e-------------
+          &e-------------&6=梦之工具-{version}&6=&e-------------
       add:
         usage: "/{command} add <玩家>"
         description: "增加屏蔽玩家"
