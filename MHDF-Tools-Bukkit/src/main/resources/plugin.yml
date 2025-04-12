@@ -18,6 +18,8 @@ permissions:
     default: op
   mhdftools.bypass.ignore.blacklist:
     default: op
+  mhdftools.bypass.randomteleport.delay:
+    default: op
   mhdftools.commands.back:
     default: true
   mhdftools.commands.bed:

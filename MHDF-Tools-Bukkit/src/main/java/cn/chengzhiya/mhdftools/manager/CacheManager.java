@@ -7,6 +7,8 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("unused")
@@ -120,5 +122,25 @@ public final class CacheManager {
             }
         }
         return null;
+    }
+
+    /**
+     * 读取缓存key列表
+     *
+     * @return 缓存key列表
+     */
+    public Set<String> keys() {
+        if (this.map != null) {
+            return this.map.keySet();
+        }
+        if (this.redisClient != null) {
+            try {
+                RedisAsyncCommands<String, String> sync = this.redisConnection.async();
+                return new HashSet<>(sync.keys("mhdf-tools:*").get());
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return new HashSet<>();
     }
 }

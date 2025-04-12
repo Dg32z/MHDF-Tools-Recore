@@ -9,6 +9,7 @@ import cn.chengzhiya.mhdftools.util.feature.RandomTeleportUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,6 +78,28 @@ public final class RandomTeleport extends AbstractCommand {
             if (world == null) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
                 return;
+            }
+
+            String group = RandomTeleportUtil.getGroup(player);
+            ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings." + group);
+            if (config == null) {
+                return;
+            }
+
+            if (config.getBoolean("delay.enable")) {
+                String key = player.getName() + "_randomTeleportDelay";
+
+                if (!player.hasPermission("mhdftools.bypass.randomteleport.delay")) {
+                    String delayData = Main.instance.getCacheManager().get(key);
+                    if (delayData != null) {
+                        ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.delay")
+                                .replace("{delay}", delayData)
+                        );
+                        return;
+                    }
+                }
+
+                Main.instance.getCacheManager().put(key, String.valueOf(config.getInt("delay.time")));
             }
 
             RandomTeleportUtil.randomTeleport(player, world);

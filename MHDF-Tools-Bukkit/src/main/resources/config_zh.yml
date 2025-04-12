@@ -115,6 +115,12 @@ randomTeleportSettings:
     min: 1000
     # 最大
     max: 1500
+    # 延迟
+    delay:
+      # 开关
+      enable: true
+      # 时间(单位: 秒)
+      time: 60
   # 拥有 mhdftools.group.randomteleport.<名字> 权限的提示
   # 例如 mhdftools.group.randomteleport.vip
   # vip:
@@ -124,6 +130,12 @@ randomTeleportSettings:
     # min: 1000
     # 最大
     # max: 1500
+    # 延迟
+    # delay:
+    #   # 开关
+    #   enable: true
+    #   # 时间(单位: 秒)
+    #   time: 60
 
 # 崩溃玩家客户端
 crashSettings:

@@ -378,6 +378,7 @@ commands:
   randomteleport:
     usage: "/{command} <世界> [玩家] [服务器]"
     description: "随机传送到指定世界"
+    delay: "{prefix} <#FFB8B8>冷却中,你还需要等待{delay}秒,才可以传送!"
     blackWorld: "{prefix} <#FFB8B8>目标世界不允许传送!"
     noWorld: "{prefix} <#FFB8B8>找不到目标世界!"
     message: "{prefix} <#EAE4FF>传送成功!"

@@ -26,15 +26,15 @@ public final class RandomTeleportUtil {
      */
     public static void randomTeleport(Player player, World world, Biome biome) {
         String group = getGroup(player);
-        ConfigurationSection groupConfig = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings." + group);
-        if (groupConfig == null) {
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings." + group);
+        if (config == null) {
             return;
         }
 
-        int min = groupConfig.getInt("min");
-        int max = groupConfig.getInt("max");
+        int min = config.getInt("min");
+        int max = config.getInt("max");
 
-        List<String> blackBlock = groupConfig.getStringList("blackBlock");
+        List<String> blackBlock = config.getStringList("blackBlock");
         int centerX = RandomUtil.randomInt(min, max);
         int centerZ = RandomUtil.randomInt(min, max);
 
@@ -93,7 +93,7 @@ public final class RandomTeleportUtil {
      * @param player 玩家实例
      * @return 组名称
      */
-    private static String getGroup(Player player) {
+    public static String getGroup(Player player) {
         List<String> groupList = player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
                 .filter(permission -> permission.startsWith("mhdftools.group.randomteleport."))
