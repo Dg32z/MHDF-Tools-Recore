@@ -100,14 +100,14 @@ public final class Stop extends AbstractCommand {
 
         try {
             int defaultTime = ConfigUtil.getConfig().getInt("stopSettings.defaultCountdown");
-            setTime(args.length >= 1 ? Integer.parseInt(args[1]) : defaultTime);
+            setTime(args.length >= 1 ? Integer.parseInt(args[0]) : defaultTime);
         } catch (NumberFormatException e) {
             sender.sendMessage(LangUtil.i18n("commands.stop.timeFormatError"));
             return;
         }
 
         TextComponent defaultMessage = LangUtil.i18n("commands.stop.defaultMessage");
-        setMessage(args.length >= 2 ? ColorUtil.color(args[2]) : defaultMessage);
+        setMessage(args.length >= 2 ? ColorUtil.color(args[1]) : defaultMessage);
 
         if (ConfigUtil.getConfig().getBoolean("stopSettings.confirm")) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.default.message")
