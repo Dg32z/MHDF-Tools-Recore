@@ -29,14 +29,6 @@ public final class MHDFTools extends AbstractCommand {
         switch (args.length) {
             case 1 -> {
                 switch (args[0]) {
-                    // 查看插件信息
-                    case "about" -> {
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.about.message")
-                                .replace("{version}", PluginUtil.getVersion())
-                                .replace("{serverVersion}", Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion().getReleaseName())
-                        );
-                        return;
-                    }
                     // 重载插件配置
                     case "reload" -> {
                         ConfigUtil.reloadConfig();
@@ -66,6 +58,7 @@ public final class MHDFTools extends AbstractCommand {
         {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.help.message")
                     .replace("{helpList}", LangUtil.getHelpList("mhdftools"))
+                    .replace("{version}", PluginUtil.getVersion())
                     .replace("{command}", label)
             );
         }
