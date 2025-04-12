@@ -318,7 +318,7 @@ commands:
       &f
       <#EAE4FF>你确定要自杀吗?
       &f
-      <click:run_command:"/suicide confirm"><hover:show_text:"<#EAE4FF>点击确认关闭"><#CAFFB8>/suicide confirm - [确认自杀]</hover></click>
+      <click:run_command:"/suicide confirm"><hover:show_text:"<#EAE4FF>点击确认自杀"><#CAFFB8>/suicide confirm - [确认自杀]</hover></click>
       &f
       &7⌞                                         ⌟
     message: "{prefix} <#EAE4FF>你自杀了!"
