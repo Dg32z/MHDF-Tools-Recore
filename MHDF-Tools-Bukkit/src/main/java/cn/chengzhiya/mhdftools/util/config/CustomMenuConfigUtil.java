@@ -33,7 +33,7 @@ public final class CustomMenuConfigUtil {
     /**
      * 加载自定义菜单
      */
-    public static void reloadMenu() {
+    public static void reloadCustomMenu() {
         getCustomMenuHashMap().clear();
         for (File file : FileUtil.listFiles(getCustomMenuFolder())) {
             String path = file.getPath();

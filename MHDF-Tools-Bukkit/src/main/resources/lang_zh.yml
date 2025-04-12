@@ -6,6 +6,7 @@ noPermission: "{prefix} &c你没有权限怎么做"
 usageError: "{prefix} &c用法错误,正确用法: {usage}"
 playerOffline: "{prefix} &c你指定的玩家并没有在线!"
 blackWorld: "{prefix} &c当前世界无法使用这个功能!"
+commandInfoFormat: "&e{usage} &7| &b{description}"
 enable: "&a开启"
 disable: "&c关闭"
 
@@ -35,11 +36,20 @@ economy:
 
 commands:
   mhdftools:
+    usage: "/{command} <参数>"
+    description: "主命令"
     subCommands:
+      feature:
+        usage: "/{command} feature"
+        description: "功能帮助"
+        message: |-
+          &e-------------&6=梦之工具-{version}({page}/{maxPage})&6=&e-------------
+          {helpList}
+          <click:run_command:/{command} feature {lastPage}><hover:show_text:"&6点击返回上一页">&a[上一页]</hover></click>   <click:run_command:/{command} feature {nextPage}><hover:show_text:"&6点击返回下一页">&a[下一页]</hover></click>
+          &e----------&6=梦之工具-{version}({page}/{maxPage})&6=&e-------------
       help:
         usage: "/{command} help"
         description: "命令帮助"
-        commandFormat: "&e{usage} &7| &b{description}"
         message: |-
           &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
@@ -97,12 +107,13 @@ commands:
     description: "隐身"
     message: "{prefix} &6{player}的隐身模式已{change}"
   flytime:
+    usage: "/{command} <参数>"
+    description: "限时飞行"
     timeFormatError: "{prefix} &c超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     subCommands:
       help:
         usage: "/{command} help"
         description: "命令帮助"
-        commandFormat: "&e{usage} &7| &b{description}"
         message: |-
           &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
@@ -120,6 +131,8 @@ commands:
         description: "减少玩家的飞行时间"
         message: "{prefix} &6{player}的飞行时间已减少为{take}秒,现在他可以飞行{time}秒"
   stop:
+    usage: "/{command} <参数>"
+    description: "更好的关服"
     defaultMessage: "&b服务器已关闭!"
     timeFormatError: "{prefix} &c超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     countdownMessage: "{prefix} &6服务器还有&b{countdown}&6秒关闭,请做好准备!"
@@ -130,7 +143,6 @@ commands:
       help:
         usage: "/{command} help"
         description: "命令帮助"
-        commandFormat: "&e{usage} &7| &b{description}"
         message: |-
           &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
@@ -147,8 +159,8 @@ commands:
       default:
         usage: "/{command} [倒计时] [消息]"
         description: "关服"
-        inStop: "{prefix} &6服务器已经在倒计时关闭了! <click:run_command:/stop cancel><hover:show_text:\"&6点击确认取消\">&a[确认取消](/stop cancel)</hover></click>"
-        message: "{prefix} &6你确认要在&b{time}&6秒后关闭服务器吗?(原因: {message}) <click:run_command:/stop confirm><hover:show_text:\"&6点击确认关闭\">&a[确认关闭](/stop confirm)</hover></click>"
+        inStop: "{prefix} &6服务器已经在倒计时关闭了! <click:run_command:\"/stop cancel\"><hover:show_text:\"&6点击确认取消\">&a[确认取消](/stop cancel)</hover></click>"
+        message: "{prefix} &6你确认要在&b{time}&6秒后关闭服务器吗?(原因: {message}) <click:run_command:\"/stop confirm\"><hover:show_text:\"&6点击确认关闭\">&a[确认关闭](/stop confirm)</hover></click>"
   tpa:
     usage: "/{command} <目标玩家>"
     description: "请求传送至指定玩家"
@@ -189,7 +201,7 @@ commands:
     requestMessage: |-
       &e-------------&6=梦之工具-{version}&6=&e-------------
       玩家{player}想你到他那里看看!
-      <click:run_command:tpahere accept {player}><hover:show_text:"&6点击接受{player}的传送请求">&a[接受]</hover></click>   <click:run_command:tpahere reject {player}><hover:show_text:"&6点击拒绝{player}的传送请求">&c[拒绝]</hover></click>
+      <click:run_command:"/tpahere accept {player}"><hover:show_text:"&6点击接受{player}的传送请求">&a[接受]</hover></click>   <click:run_command:"/tpahere reject {player}"><hover:show_text:"&6点击拒绝{player}的传送请求">&c[拒绝]</hover></click>
       &e-------------&6=梦之工具-{version}&6=&e-------------
   custommenu:
     usage: "/{command} <菜单>"
@@ -261,7 +273,7 @@ commands:
   suicide:
     usage: "/{command}"
     description: "自杀"
-    confirm: "你确定要自杀吗? <click:run_command:/suicide confirm><hover:show_text:\"&6点击确认自杀\">&a[确认自杀]</hover></click>"
+    confirm: "你确定要自杀吗? <click:run_command:\"/suicide confirm\"><hover:show_text:\"&6点击确认自杀\">&a[确认自杀]</hover></click>"
     message: "{prefix} &6你自杀了!"
   warp:
     usage: "/{command} <传送点> [玩家]"
@@ -290,12 +302,13 @@ commands:
     message: "{prefix} &6你向{player}转了{amount}!"
     receivedMessage: "{prefix} &6{player}向你转了{amount}"
   moneyadmin:
+    usage: "/{command} <参数>"
+    description: "经济管理"
     moneyFormatError: "{prefix} &c超级大笨蛋,金额怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     subCommands:
       help:
         usage: "/{command} help"
         description: "命令帮助"
-        commandFormat: "&e{usage} &7| &b{description}"
         message: |-
           &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}
@@ -319,11 +332,12 @@ commands:
     noWorld: "{prefix} &c找不到目标世界!"
     message: "{prefix} &6传送成功!"
   ignore:
+    usage: "/{command} <参数>"
+    description: "屏蔽管理"
     subCommands:
       help:
         usage: "/{command} help"
         description: "命令帮助"
-        commandFormat: "&e{usage} &7| &b{description}"
         message: |-
           &e-------------&6=梦之工具-{version}&6=&e-------------
           {helpList}

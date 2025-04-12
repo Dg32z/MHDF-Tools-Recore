@@ -1,6 +1,9 @@
 package cn.chengzhiya.mhdftools.command.feature;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
+import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
@@ -24,24 +27,53 @@ public final class MHDFTools extends AbstractCommand {
 
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        switch (args.length) {
-            case 1 -> {
-                switch (args[0]) {
-                    // 重载插件配置
-                    case "reload" -> {
-                        ConfigUtil.reloadConfig();
-                        LangUtil.reloadLang();
-                        SoundUtil.reloadSound();
+        if (args.length >= 1) {
+            switch (args[0]) {
+                // 功能帮助
+                case "feature" -> {
+                    int page = args.length >= 2 ? Integer.parseInt(args[1]) : 1;
 
-                        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
+                    List<String> commandList = Main.instance.getCommandManager().getRegisterCommandIdList();
+                    int maxPage = (int) Math.ceil(commandList.size() / 4.0);
+
+                    if (page < 1) {
+                        page = 1;
+                    }
+                    if (page > maxPage) {
+                        page = maxPage;
+                    }
+
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.feature.message")
+                            .replace("{helpList}", getFeatureHelpMessage(page, commandList))
+                            .replace("{page}", String.valueOf(page))
+                            .replace("{maxPage}", String.valueOf(maxPage))
+                            .replaceByMiniMessage("{lastPage}", String.valueOf(page - 1))
+                            .replaceByMiniMessage("{nextPage}", String.valueOf(page + 1))
+                            .replaceByMiniMessage("{command}", label)
+                    );
+                    return;
+                }
+                // 重载插件配置
+                case "reload" -> {
+                    ConfigUtil.reloadConfig();
+                    LangUtil.reloadLang();
+                    SoundUtil.reloadSound();
+
+                    ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
+                            .replace("{command}", label)
+                    );
+                    return;
+                }
+                // 导入插件数据
+                case "import" -> {
+                    if (args.length != 2) {
+                        ActionUtil.sendMessage(sender, LangUtil.i18n("usageError")
+                                .replace("{usage}", LangUtil.i18n("commands.mhdftools.subCommands.import.usage"))
                                 .replace("{command}", label)
                         );
                         return;
                     }
-                }
-            }
-            case 2 -> {
-                if (args[0].equals("import")) {
+
                     switch (args[1]) {
                         case "huskhomes" -> HuskHomesUtil.importHuskHomesData(sender);
                         default ->
@@ -55,7 +87,7 @@ public final class MHDFTools extends AbstractCommand {
         // 输出帮助信息
         {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("mhdftools"))
+                    .replace("{helpList}", LangUtil.getHelpList("commands.mhdftools.subCommands"))
                     .replace("{command}", label)
             );
         }
@@ -72,5 +104,31 @@ public final class MHDFTools extends AbstractCommand {
             }
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * 获取功能帮助文本实例
+     *
+     * @param page        页数
+     * @param commandList 命令列表
+     * @return 功能帮助文本实例
+     */
+    private TextComponent getFeatureHelpMessage(int page, List<String> commandList) {
+        int start = (page - 1) * 4;
+        int end = Math.min(commandList.size(), start + 4);
+
+        TextComponentBuilder textComponentBuilder = new TextComponentBuilder();
+        for (int i = start; i < end; i++) {
+            String command = commandList.get(i);
+
+            textComponentBuilder.append(LangUtil.getCommandInfo("commands." + command)
+                    .replace("{command}", command)
+            );
+            if (!command.equals(commandList.get(end - 1))) {
+                textComponentBuilder.appendNewline();
+            }
+        }
+
+        return textComponentBuilder.build();
     }
 }

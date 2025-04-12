@@ -50,7 +50,7 @@ public final class Stop extends AbstractCommand {
                     }
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.stop.subCommands.help.message")
-                            .replace("{helpList}", LangUtil.getHelpList("stop"))
+                            .replace("{helpList}", LangUtil.getHelpList("commands.stop.subCommands"))
                             .replace("{command}", label)
                     );
                     return;

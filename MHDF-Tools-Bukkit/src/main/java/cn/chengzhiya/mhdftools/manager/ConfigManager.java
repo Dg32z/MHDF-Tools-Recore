@@ -14,21 +14,23 @@ public final class ConfigManager {
             FileUtil.createFolder(ConfigUtil.getDataFolder());
 
             ConfigUtil.saveDefaultConfig();
-            ConfigUtil.reloadConfig();
-
             LangUtil.saveDefaultLang();
-            LangUtil.reloadLang();
-
             SoundUtil.saveDefaultSound();
-            SoundUtil.reloadSound();
-
             CustomMenuConfigUtil.saveDefaultCustomMenu();
-            CustomMenuConfigUtil.saveDefaultCustomMenu();
-
-            MenuConfigUtil.saveDefaultMenu();
             MenuConfigUtil.saveDefaultMenu();
         } catch (ResourceException | FileException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 重载所有配置文件
+     */
+    public void reloadAll() {
+        ConfigUtil.reloadConfig();
+        LangUtil.reloadLang();
+        SoundUtil.reloadSound();
+        CustomMenuConfigUtil.reloadCustomMenu();
+        MenuConfigUtil.reloadMenu();
     }
 }

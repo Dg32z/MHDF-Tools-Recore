@@ -71,7 +71,7 @@ public final class MoneyAdmin extends AbstractCommand {
         // 输出帮助信息
         {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.moneyadmin.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("moneyadmin"))
+                    .replace("{helpList}", LangUtil.getHelpList("commands.moneyadmin.subCommands"))
                     .replace("{command}", label)
             );
         }

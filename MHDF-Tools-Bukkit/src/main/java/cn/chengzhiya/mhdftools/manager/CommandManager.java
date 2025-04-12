@@ -4,16 +4,22 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
+import lombok.Getter;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings({"deprecation", "unused"})
 public final class CommandManager {
+    @Getter
+    private final List<String> registerCommandIdList = new ArrayList<>();
+
     /**
      * 注册所有启用的命令
      */
@@ -26,6 +32,9 @@ public final class CommandManager {
                     AbstractCommand abstractCommand = clazz.getDeclaredConstructor().newInstance();
                     if (abstractCommand.isEnable()) {
                         registerCommand(abstractCommand);
+                        getRegisterCommandIdList().add(abstractCommand.getPermission()
+                                .replace("mhdftools.commands.", "")
+                        );
                     }
                 }
             }

@@ -70,7 +70,7 @@ public final class FlyTime extends AbstractCommand {
 
         {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.flytime.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("flytime"))
+                    .replace("{helpList}", LangUtil.getHelpList("commands.flytime.subCommands"))
                     .replace("{command}", label)
             );
         }

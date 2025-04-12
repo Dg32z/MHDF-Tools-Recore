@@ -103,7 +103,7 @@ public final class Ignore extends AbstractCommand {
         // 输出帮助信息
         {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.help.message")
-                    .replace("{helpList}", LangUtil.getHelpList("ignore"))
+                    .replace("{helpList}", LangUtil.getHelpList("commands.ignore.subCommands"))
                     .replace("{command}", label)
             );
         }

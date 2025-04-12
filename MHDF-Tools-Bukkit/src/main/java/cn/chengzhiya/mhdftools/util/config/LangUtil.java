@@ -76,29 +76,44 @@ public final class LangUtil {
     }
 
     /**
-     * 获取所有命令帮助
+     * 获取指定命令key命令信息文本实例
      *
-     * @return 命令帮助文本
+     * @param command 命令key
+     * @return 文本实例
      */
-    public static @NotNull TextComponent getHelpList(String commandKey) {
+    public static @NotNull TextComponent getCommandInfo(String command) {
+        return LangUtil.i18n("commandInfoFormat")
+                .replace("{usage}", LangUtil.i18n(command + ".usage"))
+                .replace("{description}", LangUtil.i18n(command + ".description"));
+    }
+
+    /**
+     * 获取命令帮助
+     *
+     * @param prefix      前缀
+     * @param commandList 命令列表
+     * @return 命令帮助文本实例
+     */
+    public static @NotNull TextComponent getHelpList(String prefix, List<String> commandList) {
         TextComponentBuilder textComponentBuilder = new TextComponentBuilder();
 
-        List<String> keys = new ArrayList<>(LangUtil.getKeys("commands." + commandKey + ".subCommands"));
-        for (String key : keys) {
-            textComponentBuilder.append(
-                    LangUtil.i18n("commands." + commandKey + ".subCommands.help.commandFormat")
-                            .replace("{usage}",
-                                    LangUtil.i18n("commands." + commandKey + ".subCommands." + key + ".usage")
-                            )
-                            .replace("{description}",
-                                    LangUtil.i18n("commands." + commandKey + ".subCommands." + key + ".description")
-                            )
-            );
-            if (!key.equals(keys.get(keys.size() - 1))) {
+        for (String command : commandList) {
+            textComponentBuilder.append(getCommandInfo(prefix + "." + command));
+            if (!command.equals(commandList.get(commandList.size() - 1))) {
                 textComponentBuilder.appendNewline();
             }
         }
 
         return textComponentBuilder.build();
+    }
+
+    /**
+     * 获取命令帮助
+     *
+     * @param prefix 前缀
+     * @return 命令帮助文本实例
+     */
+    public static @NotNull TextComponent getHelpList(String prefix) {
+        return getHelpList(prefix, new ArrayList<>(getKeys(prefix)));
     }
 }
