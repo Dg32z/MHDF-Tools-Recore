@@ -102,7 +102,6 @@ public final class ItemStackBuilder {
             PersistentDataContainer container = meta.getPersistentDataContainer();
             container.set(new NamespacedKey(Main.instance, key), type, value);
             this.item.setItemMeta(meta);
-            this.item.setItemMeta(meta);
         }
         return this;
     }
