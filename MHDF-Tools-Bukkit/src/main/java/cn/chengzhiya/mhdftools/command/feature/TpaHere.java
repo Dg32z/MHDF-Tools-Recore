@@ -66,7 +66,7 @@ public final class TpaHere extends AbstractCommand {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
             switch (args[0]) {
                 case "accept" -> {
-                    Main.instance.getBungeeCordManager().teleportPlayer(sender.getName(), args[1]);
+                    Main.instance.getBungeeCordManager().teleportPlayer(sender, args[1]);
                     Main.instance.getBungeeCordManager().sendMessage(args[1], LangUtil.i18n("commands.tpahere.accept.accepted")
                             .replace("{player}", NickUtil.getName(sender))
                     );

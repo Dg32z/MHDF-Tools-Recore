@@ -73,8 +73,8 @@ public final class MessageUtil {
      * 分割文本
      *
      * @param string 文本
-     * @param split 从哪个文本开始分割
-     * @param end 分割结束位置
+     * @param split  从哪个文本开始分割
+     * @param end    分割结束位置
      * @return 分割后的文本
      */
     public static String subString(String string, String split, int end) {
@@ -82,14 +82,14 @@ public final class MessageUtil {
         if (index == -1) {
             return string;
         }
-        return string.substring(index+split.length(), end);
+        return string.substring(index + split.length(), end);
     }
 
     /**
      * 分割文本
      *
      * @param string 文本
-     * @param split 从哪个文本开始分割
+     * @param split  从哪个文本开始分割
      * @return 分割后的文本
      */
     public static String subString(String string, String split) {

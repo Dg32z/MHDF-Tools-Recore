@@ -57,7 +57,12 @@ public final class Nick extends AbstractCommand {
             return;
         }
 
-        NickUtil.setNickName(player, ColorUtil.miniMessage(args[0]));
+        if (args[0].equals("off")) {
+            NickUtil.resetNickName(player);
+        } else {
+            NickUtil.setNickName(player, ColorUtil.miniMessage(args[0]));
+        }
+
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.nick.message")
                 .replace("{player}", NickUtil.getName(player))
                 .replace("{name}", ColorUtil.color(args[0]))
@@ -66,6 +71,9 @@ public final class Nick extends AbstractCommand {
 
     @Override
     public List<String> tabCompleter(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 1) {
+            return List.of("off");
+        }
         if (args.length == 2) {
             return Main.instance.getBungeeCordManager().getBukkitPlayerList();
         }

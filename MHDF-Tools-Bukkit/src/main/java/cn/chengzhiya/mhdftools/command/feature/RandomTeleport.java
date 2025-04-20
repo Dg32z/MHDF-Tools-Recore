@@ -107,7 +107,7 @@ public final class RandomTeleport extends AbstractCommand {
         }
 
         Main.instance.getCacheManager().put("randomTeleportWorld", player.getName(), worldName);
-        Main.instance.getBungeeCordManager().connectServer(player.getName(), server);
+        Main.instance.getBungeeCordManager().connectServer(player, server);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.message"));
     }
 

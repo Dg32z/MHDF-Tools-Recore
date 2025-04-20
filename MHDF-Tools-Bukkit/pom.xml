@@ -78,7 +78,8 @@
                                 </relocation>
                                 <relocation>
                                     <pattern>cn.chengzhiya.mhdfscheduler</pattern>
-                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler</shadedPattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.cn.chengzhiya.mhdfscheduler
+                                    </shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>cn.chengzhiya.langutil</pattern>

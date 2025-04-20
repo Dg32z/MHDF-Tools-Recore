@@ -124,6 +124,16 @@ public final class BungeeCordManager {
     }
 
     /**
+     * 将指定玩家实例的玩家移动到指定服务器ID的服务器
+     *
+     * @param player     玩家实例
+     * @param serverName 服务器ID
+     */
+    public void connectServer(OfflinePlayer player, String serverName) {
+        connectServer(player.getName(), serverName);
+    }
+
+    /**
      * 传送指定玩家ID到指定玩家ID的服务器
      *
      * @param playerName 被传送的玩家ID
@@ -310,6 +320,16 @@ public final class BungeeCordManager {
         data.put("params", params);
 
         sendMhdfToolsPluginMessage(data);
+    }
+
+    /**
+     * 修改指定玩家实例的游戏模式为游戏模式实例
+     *
+     * @param player   玩家实例
+     * @param gameMode 游戏模式实例
+     */
+    public void setGameMode(OfflinePlayer player, GameMode gameMode) {
+        setGameMode(player.getName(), gameMode);
     }
 
     /**

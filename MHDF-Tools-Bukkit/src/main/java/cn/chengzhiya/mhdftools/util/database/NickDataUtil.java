@@ -51,6 +51,28 @@ public final class NickDataUtil {
     }
 
     /**
+     * 删除指定玩家UUID的匿名数据实例
+     *
+     * @param uuid 玩家UUID
+     */
+    public static void removeNickData(UUID uuid) {
+        try {
+            nickDataDao.deleteById(uuid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 删除指定玩家实例的匿名数据实例
+     *
+     * @param player 玩家实例
+     */
+    public static void removeNickData(OfflinePlayer player) {
+        removeNickData(player.getUniqueId());
+    }
+
+    /**
      * 更新指定匿名数据实例在数据库中的数据
      *
      * @param nickData 匿名数据实例

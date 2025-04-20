@@ -37,7 +37,7 @@ public final class MenuConfigUtil {
     public static void reloadMenu() {
         getMenuHashMap().clear();
         for (File file : FileUtil.listFiles(getMenuFolder())) {
-            String path = file.getPath().replace("/","\\");
+            String path = file.getPath().replace("/", "\\");
             if (!path.endsWith(".yml")) {
                 return;
             }

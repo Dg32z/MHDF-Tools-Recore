@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.entity.database.HomeData;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.database.HomeDataUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
@@ -135,7 +136,10 @@ public final class HomeMenu extends AbstractMenu {
                 String home = container.get(new NamespacedKey(Main.instance, "home"), PersistentDataType.STRING);
                 HomeData homeData = HomeDataUtil.getHomeData(getPlayer(), home);
 
-                Main.instance.getBungeeCordManager().teleportLocation(getPlayer().getName(), homeData.toBungeeCordLocation());
+                Main.instance.getBungeeCordManager().teleportLocation(getPlayer(), homeData.toBungeeCordLocation());
+                Main.instance.getBungeeCordManager().sendMessage(getPlayer(), LangUtil.i18n("commands.home.teleportMessage")
+                        .replace("{home}", homeData.getHome())
+                );
             }
             case "上一页" -> new HomeMenu(getPlayer(), getPage() - 1).openMenu();
             case "下一页" -> new HomeMenu(getPlayer(), getPage() + 1).openMenu();

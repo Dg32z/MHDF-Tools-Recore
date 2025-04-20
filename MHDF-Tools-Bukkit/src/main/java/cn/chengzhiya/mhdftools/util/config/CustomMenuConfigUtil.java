@@ -41,7 +41,7 @@ public final class CustomMenuConfigUtil {
 
         getCustomMenuHashMap().clear();
         for (File file : FileUtil.listFiles(getCustomMenuFolder())) {
-            String path = file.getPath().replace("/","\\");
+            String path = file.getPath().replace("/", "\\");
             if (!path.endsWith(".yml")) {
                 return;
             }

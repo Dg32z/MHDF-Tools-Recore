@@ -224,7 +224,7 @@ public final class ActionUtil {
         switch (args[0]) {
             case "[connect]" -> {
                 if (sender instanceof Player player) {
-                    Main.instance.getBungeeCordManager().connectServer(player.getName(), args[1]);
+                    Main.instance.getBungeeCordManager().connectServer(player, args[1]);
                 }
             }
             case "[player]" -> runCommand(sender, args[1]);

@@ -400,13 +400,13 @@ commands:
         usage: "/{command} list"
         description: "屏蔽玩家列表"
         message: |-
-            &f
-            &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
-            &f
-            &8▪ &7屏蔽列表:
-            &f{list}
-            &f
-            &7⌞                                         ⌟
+          &f
+          &7⌜       <#FF359F>MHDF-Tools &f{version} - <#CFC2FF>梦之工具 &7      ⌝
+          &f
+          &8▪ &7屏蔽列表:
+          &f{list}
+          &f
+          &7⌞                                         ⌟
       add:
         usage: "/{command} add <玩家>"
         description: "增加屏蔽玩家"
