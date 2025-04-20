@@ -103,7 +103,7 @@ public final class ChatUtil {
             return message;
         }
         format = format
-                .replace("{name}", Main.instance.getMinecraftLangManager().getItemName(item))
+                .replace("{name}", Main.instance.getMinecraftLangManager().getItemName(item).replace("§", "&"))
                 .replace("{amount}", String.valueOf(item.getAmount()));
 
         for (String s : config.getStringList("word")) {
