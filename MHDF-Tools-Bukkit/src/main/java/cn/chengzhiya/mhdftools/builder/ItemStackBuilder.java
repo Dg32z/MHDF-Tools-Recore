@@ -39,7 +39,7 @@ public final class ItemStackBuilder {
                 );
             } else if (type.startsWith("head-")) {
                 item = new ItemStack(Material.PLAYER_HEAD);
-                SkullMeta meta = (SkullMeta) this.item.getItemMeta();
+                SkullMeta meta = (SkullMeta) item.getItemMeta();
 
                 String playerName = type.replace("head-", "");
                 meta.setOwningPlayer(Bukkit.getOfflinePlayer(playerName));
