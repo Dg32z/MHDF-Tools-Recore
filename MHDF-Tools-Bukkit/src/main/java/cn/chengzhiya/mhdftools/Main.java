@@ -10,22 +10,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
 
-    private AdventureManager adventureManager;
-    private ConfigManager configManager;
-    private MinecraftLangManager minecraftLangManager;
+    private LogFilterManager logFilterManager;
     private LibrariesManager librariesManager;
+    private MinecraftLangManager minecraftLangManager;
+    private ConfigManager configManager;
+
+    private AdventureManager adventureManager;
     private MHDFDatabaseManager databaseManager;
     private CacheManager cacheManager;
-    private BStatsManager bStatsManager;
+    private PluginHookManager pluginHookManager;
     private CommandManager commandManager;
     private ListenerManager listenerManager;
     private TaskManager taskManager;
     private BungeeCordManager bungeeCordManager;
-    private PluginHookManager pluginHookManager;
+    private BStatsManager bStatsManager;
 
     @Override
     public void onLoad() {
         instance = this;
+
+        this.logFilterManager = new LogFilterManager();
+        this.logFilterManager.init();
 
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
@@ -91,6 +96,10 @@ public final class Main extends JavaPlugin {
         LogUtil.log("&a插件卸载成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
 
+        if (this.adventureManager != null) {
+            this.adventureManager.close();
+        }
+
         this.bStatsManager = null;
         this.bungeeCordManager = null;
         this.taskManager = null;
@@ -99,13 +108,11 @@ public final class Main extends JavaPlugin {
         this.pluginHookManager = null;
         this.cacheManager = null;
         this.databaseManager = null;
-        this.librariesManager = null;
-        this.configManager = null;
-
-        if (this.adventureManager != null) {
-            this.adventureManager.close();
-        }
         this.adventureManager = null;
+        this.configManager = null;
+        this.minecraftLangManager = null;
+        this.librariesManager = null;
+        this.logFilterManager = null;
 
         instance = null;
     }
