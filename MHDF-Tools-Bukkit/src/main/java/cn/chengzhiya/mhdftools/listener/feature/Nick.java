@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.entity.database.NickData;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.database.NickDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.NickUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,6 +25,6 @@ public final class Nick extends AbstractListener {
             return;
         }
 
-        NickUtil.setNickDisplay(player, nickData.getNick());
+        NickUtil.setNickDisplay(player, ColorUtil.color(nickData.getNick()), true);
     }
 }
