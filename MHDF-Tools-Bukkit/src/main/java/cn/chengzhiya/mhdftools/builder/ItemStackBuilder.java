@@ -21,7 +21,7 @@ import java.util.Random;
 public final class ItemStackBuilder {
     @Getter
     private final Player player;
-    private ItemStack item;
+    private final ItemStack item;
 
     public ItemStackBuilder(Player player, String type) {
         this.player = player;
@@ -62,6 +62,7 @@ public final class ItemStackBuilder {
         ItemMeta meta = this.item.getItemMeta();
         if (name != null) {
             meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), name)));
+            this.item.setItemMeta(meta);
         }
         return this;
     }
@@ -74,6 +75,7 @@ public final class ItemStackBuilder {
                     .map(ColorUtil::color)
                     .toList()
             );
+            this.item.setItemMeta(meta);
         }
         return this;
     }
@@ -89,16 +91,19 @@ public final class ItemStackBuilder {
         ItemMeta meta = this.item.getItemMeta();
         if (customModelData != null && customModelData > 0) {
             meta.setCustomModelData(customModelData);
+            this.item.setItemMeta(meta);
         }
         return this;
     }
 
     public <P, C> ItemStackBuilder persistentDataContainer(String key, PersistentDataType<P, C> type, C value) {
-        ItemMeta itemMeta = this.item.getItemMeta();
-        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-        container.set(new NamespacedKey(Main.instance, key), type, value);
-        this.item.setItemMeta(itemMeta);
-
+        ItemMeta meta = this.item.getItemMeta();
+        if (key != null && type != null && value != null) {
+            PersistentDataContainer container = meta.getPersistentDataContainer();
+            container.set(new NamespacedKey(Main.instance, key), type, value);
+            this.item.setItemMeta(meta);
+            this.item.setItemMeta(meta);
+        }
         return this;
     }
 
