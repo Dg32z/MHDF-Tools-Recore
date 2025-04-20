@@ -93,9 +93,11 @@ public final class Chat extends AbstractListener {
         Main.instance.getBungeeCordManager().atList(atList, player.getName());
 
         // 发送消息
+        String formatMessage = ChatUtil.getFormatMessage(player, message);
+
         Main.instance.getBungeeCordManager().sendMessage(
                 "console",
-                ChatUtil.getFormatMessage(player, message)
+                formatMessage
         );
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
             if (config.getBoolean("ignore.enable")) {
@@ -107,7 +109,7 @@ public final class Chat extends AbstractListener {
 
             Main.instance.getBungeeCordManager().sendMessage(
                     target,
-                    ChatUtil.getFormatMessage(player, message)
+                    formatMessage
             );
         }
 

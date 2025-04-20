@@ -41,6 +41,9 @@ public final class AtUtil {
         // 禁止AT隐身玩家
         List<String> onlinePlayerList = Main.instance.getBungeeCordManager().getPlayerList();
         for (VanishStatus vanishStatus : VanishStatusUtil.getVanishStatusList()) {
+            if (!vanishStatus.isEnable()) {
+                continue;
+            }
             UUID vanishPlayerUuid = vanishStatus.getPlayer();
             OfflinePlayer vanishPlayer = Bukkit.getOfflinePlayer(vanishPlayerUuid);
             onlinePlayerList.remove(vanishPlayer.getName());

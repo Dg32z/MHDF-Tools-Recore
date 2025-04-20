@@ -24,13 +24,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.bukkit.Bukkit.getServer;
 
 @Getter
 public final class BungeeCordManager {
     private final PluginMessageListener messageListener = new PluginMessage();
-    private final List<String> bungeeCordPlayerList = new ArrayList<>();
+    @Setter
+    private List<String> bungeeCordPlayerList = new CopyOnWriteArrayList<>();
     @Setter
     private String serverName = "无";
 
@@ -374,10 +376,10 @@ public final class BungeeCordManager {
      */
     public List<String> getPlayerList() {
         if (isBungeeCordMode()) {
-            return getBungeeCordPlayerList();
+            return new ArrayList<>(getBungeeCordPlayerList());
         }
 
-        return getBukkitPlayerList();
+        return new ArrayList<>(getBukkitPlayerList());
     }
 
     /**
@@ -386,12 +388,9 @@ public final class BungeeCordManager {
      * @return 子服在线玩家列表
      */
     public List<String> getBukkitPlayerList() {
-        List<String> list = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            String name = player.getName();
-            list.add(name);
-        }
-        return list;
+        return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .toList();
     }
 
     /**

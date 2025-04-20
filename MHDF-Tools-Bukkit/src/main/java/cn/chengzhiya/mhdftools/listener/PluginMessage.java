@@ -98,14 +98,14 @@ public final class PluginMessage implements PluginMessageListener {
                 }
                 case "PlayerList" -> {
                     in.readUTF();
-                    String playerList = in.readUTF();
+                    String playerListString = in.readUTF();
 
                     LogUtil.debug("更新在线玩家列表 | 在线列表: {}",
-                            playerList
+                            playerListString
                     );
 
-                    Main.instance.getBungeeCordManager().getPlayerList().clear();
-                    Main.instance.getBungeeCordManager().getPlayerList().addAll(List.of(playerList.split(", ")));
+                    List<String> playerList = List.of(playerListString.split(", "));
+                    Main.instance.getBungeeCordManager().setBungeeCordPlayerList(playerList);
                 }
             }
         } catch (IOException e) {
