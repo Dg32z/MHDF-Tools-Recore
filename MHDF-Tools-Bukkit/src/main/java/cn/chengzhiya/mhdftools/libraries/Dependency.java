@@ -40,7 +40,7 @@ public enum Dependency {
     MHDF_LANGUTIL(
             "cn{}chengzhiya",
             "MHDF-LangUtil",
-            "1.1.0",
+            "1.1.2",
             Repository.CHENGZHIMEOW,
             true
     ),

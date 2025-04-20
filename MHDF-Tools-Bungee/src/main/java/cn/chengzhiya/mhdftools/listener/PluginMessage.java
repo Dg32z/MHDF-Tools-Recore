@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import net.md_5.bungee.api.config.ServerInfo;
