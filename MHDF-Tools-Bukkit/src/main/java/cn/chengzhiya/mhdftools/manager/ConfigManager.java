@@ -7,9 +7,17 @@ import cn.chengzhiya.mhdftools.util.config.*;
 @SuppressWarnings("unused")
 public final class ConfigManager {
     /**
-     * 初始化默认配置文件
+     * 初始化配置文件
      */
     public void init() {
+        saveDefaultAll();
+        reloadAll();
+    }
+
+    /**
+     * 保存所有默认配置文件
+     */
+    public void saveDefaultAll() {
         try {
             FileUtil.createFolder(ConfigUtil.getDataFolder());
 

@@ -5,9 +5,7 @@ import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.config.SoundUtil;
 import cn.chengzhiya.mhdftools.util.imports.HuskHomesUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -55,9 +53,7 @@ public final class MHDFTools extends AbstractCommand {
                 }
                 // 重载插件配置
                 case "reload" -> {
-                    ConfigUtil.reloadConfig();
-                    LangUtil.reloadLang();
-                    SoundUtil.reloadSound();
+                    Main.instance.getConfigManager().reloadAll();
 
                     ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.reload.message")
                             .replace("{command}", label)
