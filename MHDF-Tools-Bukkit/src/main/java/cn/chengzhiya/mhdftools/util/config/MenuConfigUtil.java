@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
+import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -36,10 +37,12 @@ public final class MenuConfigUtil {
     public static void reloadMenu() {
         getMenuHashMap().clear();
         for (File file : FileUtil.listFiles(getMenuFolder())) {
-            String path = file.getPath();
+            String path = file.getPath().replace("/","\\");
             if (!path.endsWith(".yml")) {
                 return;
             }
+            path = path.replace(".yml", "");
+            path = MessageUtil.subString(path, "\\menu\\");
 
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             getMenuHashMap().put(path, config);

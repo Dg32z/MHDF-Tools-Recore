@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.util.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
+import cn.chengzhiya.mhdftools.util.message.MessageUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -34,12 +35,18 @@ public final class CustomMenuConfigUtil {
      * 加载自定义菜单
      */
     public static void reloadCustomMenu() {
+        if (!ConfigUtil.getConfig().getBoolean("customMenuSettings.enable")) {
+            return;
+        }
+
         getCustomMenuHashMap().clear();
         for (File file : FileUtil.listFiles(getCustomMenuFolder())) {
-            String path = file.getPath();
+            String path = file.getPath().replace("/","\\");
             if (!path.endsWith(".yml")) {
                 return;
             }
+            path = path.replace(".yml", "");
+            path = MessageUtil.subString(path, "\\customMenu\\");
 
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
             getCustomMenuHashMap().put(path, config);

@@ -20,7 +20,7 @@ public final class CustomMenu extends AbstractListener {
         Player player = event.getPlayer();
         String[] args = event.getMessage().substring(1).split(" ");
         for (String key : CustomMenuConfigUtil.getCustomMenuList()) {
-            YamlConfiguration config = CustomMenuConfigUtil.getCustomMenuConfig(key + ".yml");
+            YamlConfiguration config = CustomMenuConfigUtil.getCustomMenuConfig(key);
 
             if (!config.getStringList("commands").contains(config.getString(args[0]))) {
                 continue;
