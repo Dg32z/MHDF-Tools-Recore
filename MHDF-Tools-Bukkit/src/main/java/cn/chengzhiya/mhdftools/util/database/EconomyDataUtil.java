@@ -2,8 +2,8 @@ package cn.chengzhiya.mhdftools.util.database;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.EconomyData;
-import cn.chengzhiya.mhdftools.util.BigDecimalUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;

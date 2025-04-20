@@ -80,13 +80,12 @@ public final class RandomTeleport extends AbstractCommand {
                 return;
             }
 
-            String group = RandomTeleportUtil.getGroup(player);
-            ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings." + group);
-            if (config == null) {
+            ConfigurationSection group = RandomTeleportUtil.getGroupConfigurationSection(player);
+            if (group == null) {
                 return;
             }
 
-            if (config.getBoolean("delay.enable")) {
+            if (group.getBoolean("delay.enable")) {
                 if (!player.hasPermission("mhdftools.bypass.randomteleport.delay")) {
                     String delayData = Main.instance.getCacheManager().get("randomTeleportDelay", player.getName());
                     if (delayData != null) {
@@ -97,7 +96,7 @@ public final class RandomTeleport extends AbstractCommand {
                     }
                 }
 
-                Main.instance.getCacheManager().put("randomTeleportDelay", player.getName(), String.valueOf(config.getInt("delay.time")));
+                Main.instance.getCacheManager().put("randomTeleportDelay", player.getName(), String.valueOf(group.getInt("delay.time")));
             }
 
             RandomTeleportUtil.randomTeleport(player, world);

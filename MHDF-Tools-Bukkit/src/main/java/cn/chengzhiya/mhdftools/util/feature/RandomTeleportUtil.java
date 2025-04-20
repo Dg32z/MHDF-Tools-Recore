@@ -1,7 +1,8 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
-import cn.chengzhiya.mhdftools.util.random.RandomUtil;
+import cn.chengzhiya.mhdftools.util.math.RandomUtil;
 import cn.chengzhiya.mhdftools.util.teleport.TeleportUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,13 +11,29 @@ import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.util.BiomeSearchResult;
 
 import java.util.HashMap;
 import java.util.List;
 
 public final class RandomTeleportUtil {
+    /**
+     * 获取指定玩家实例的组配置实例
+     *
+     * @param player 玩家实例
+     * @return 组配置实例
+     */
+    public static ConfigurationSection getGroupConfigurationSection(Player player) {
+        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings");
+        if (config == null) {
+            return null;
+        }
+
+        String groupId = GroupUtil.getGroup(player, config, "mhdftools.group.randomteleport.");
+
+        return ConfigUtil.getConfig().getConfigurationSection(groupId);
+    }
+
     /**
      * 将指定玩家在指定世界实例随机传送
      *
@@ -25,16 +42,15 @@ public final class RandomTeleportUtil {
      * @param biome  群系实例
      */
     public static void randomTeleport(Player player, World world, Biome biome) {
-        String group = getGroup(player);
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("randomTeleportSettings." + group);
-        if (config == null) {
+        ConfigurationSection group = getGroupConfigurationSection(player);
+        if (group == null) {
             return;
         }
 
-        int min = config.getInt("min");
-        int max = config.getInt("max");
+        int min = group.getInt("min");
+        int max = group.getInt("max");
 
-        List<String> blackBlock = config.getStringList("blackBlock");
+        List<String> blackBlock = group.getStringList("blackBlock");
         int centerX = RandomUtil.randomInt(min, max);
         int centerZ = RandomUtil.randomInt(min, max);
 
@@ -85,33 +101,5 @@ public final class RandomTeleportUtil {
      */
     public static void randomTeleport(Player player) {
         randomTeleport(player, player.getWorld());
-    }
-
-    /**
-     * 获取指定玩家所在的组
-     *
-     * @param player 玩家实例
-     * @return 组名称
-     */
-    public static String getGroup(Player player) {
-        List<String> groupList = player.getEffectivePermissions().stream()
-                .map(PermissionAttachmentInfo::getPermission)
-                .filter(permission -> permission.startsWith("mhdftools.group.randomteleport."))
-                .map(permission -> permission.replace("mhdftools.group.randomteleport.", ""))
-                .toList();
-
-        int maxWeight = 0;
-        String maxWeightGroup = "default";
-
-        for (String group : groupList) {
-            int weight = ConfigUtil.getConfig().getInt("randomTeleportSettings." + group + ".weight");
-
-            if (weight > maxWeight) {
-                maxWeight = weight;
-                maxWeightGroup = group;
-            }
-        }
-
-        return maxWeightGroup;
     }
 }

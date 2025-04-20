@@ -631,7 +631,7 @@ eventActionSettings:
   enable: true
   # 操作列表
   actionList:
-    # 自定义命名
+    # 操作ID
     playerJoin:
       # 事件
       # =========================================
@@ -643,9 +643,22 @@ eventActionSettings:
       # 白名单世界
       # world:
       #  - "world"
-      # 操作
-      action:
-        - "[message]|&e主人早上好噢~"
+      group:
+        # 默认
+        default:
+          # 权重
+          weight: 0
+          # 操作
+          action:
+            - "[message]|&e主人早上好噢~"
+        # 拥有 mhdftools.group.eventaction.<操作ID>.<名字> 权限的提示
+        # 例如 mhdftools.group.eventaction.<操作ID>.admin
+        # admin:
+          # 权重
+          # weight: 1
+          # 操作
+          # action:
+          #   - "[message]|&e主人和我结婚吧~"
 
 # 时间操作
 timeActionSettings:

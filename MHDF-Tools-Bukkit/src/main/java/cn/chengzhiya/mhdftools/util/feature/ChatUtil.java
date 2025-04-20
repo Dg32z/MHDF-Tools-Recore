@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
@@ -13,7 +14,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.util.List;
 import java.util.Random;
@@ -174,9 +174,8 @@ public final class ChatUtil {
      * @return 处理后的文本
      */
     public static String getFormatMessage(Player player, String message) {
-        String group = getGroup(player);
-
         ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("chatSettings.format");
+        String group = GroupUtil.getGroup(player, config, "mhdftools.group.chatformat.");
 
         String format;
         if (config == null || !config.getBoolean("enable")) {
@@ -189,33 +188,5 @@ public final class ChatUtil {
                 .placeholder(player, format)
                 .replace("{player}", NickUtil.getName(player))
                 .replace("{message}", message);
-    }
-
-    /**
-     * 获取指定玩家所在的组
-     *
-     * @param player 玩家实例
-     * @return 组名称
-     */
-    private static String getGroup(Player player) {
-        List<String> groupList = player.getEffectivePermissions().stream()
-                .map(PermissionAttachmentInfo::getPermission)
-                .filter(permission -> permission.startsWith("mhdftools.group.chatformat."))
-                .map(permission -> permission.replace("mhdftools.group.chatformat.", ""))
-                .toList();
-
-        int maxWeight = 0;
-        String maxWeightGroup = "default";
-
-        for (String group : groupList) {
-            int weight = ConfigUtil.getConfig().getInt("chatSettings.format." + group + ".weight");
-
-            if (weight > maxWeight) {
-                maxWeight = weight;
-                maxWeightGroup = group;
-            }
-        }
-
-        return maxWeightGroup;
     }
 }

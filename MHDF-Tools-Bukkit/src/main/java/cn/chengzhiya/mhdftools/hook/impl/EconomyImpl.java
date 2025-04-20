@@ -1,12 +1,12 @@
 package cn.chengzhiya.mhdftools.hook.impl;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.BigDecimalUtil;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.database.EconomyDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.EconomyUtil;
+import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;

@@ -2,10 +2,10 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractPacketListener;
-import cn.chengzhiya.mhdftools.util.MathUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.feature.MotdUtil;
+import cn.chengzhiya.mhdftools.util.math.MathUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketSendEvent;

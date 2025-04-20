@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.util;
+package cn.chengzhiya.mhdftools.util.math;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

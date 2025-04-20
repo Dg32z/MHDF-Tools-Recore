@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.util.random;
+package cn.chengzhiya.mhdftools.util.math;
 
 import io.netty.util.internal.ThreadLocalRandom;
 

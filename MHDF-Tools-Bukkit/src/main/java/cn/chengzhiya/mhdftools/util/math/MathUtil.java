@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.util;
+package cn.chengzhiya.mhdftools.util.math;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
