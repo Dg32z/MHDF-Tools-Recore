@@ -72,7 +72,7 @@ public final class EventActionUtil {
                 continue;
             }
 
-            ConfigurationSection playerGroup = group.getConfigurationSection(GroupUtil.getGroup(player, group, "mhdftools.group.eventaction."));
+            ConfigurationSection playerGroup = group.getConfigurationSection(GroupUtil.getGroup(player, group, "mhdftools.group.eventaction." + key + "."));
             if (playerGroup == null) {
                 continue;
             }
