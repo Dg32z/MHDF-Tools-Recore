@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.util.List;
+import java.util.Locale;
 
 public final class GroupUtil {
     /**
@@ -20,10 +21,13 @@ public final class GroupUtil {
             return "default";
         }
 
+        permissionPrefix = permissionPrefix.toLowerCase(Locale.ROOT);
+        String finalPermissionPrefix = permissionPrefix;
+
         List<String> groupList = player.getEffectivePermissions().stream()
                 .map(PermissionAttachmentInfo::getPermission)
-                .filter(permission -> permission.startsWith(permissionPrefix))
-                .map(permission -> permission.replace(permissionPrefix, ""))
+                .filter(permission -> permission.startsWith(finalPermissionPrefix))
+                .map(permission -> permission.replace(finalPermissionPrefix, ""))
                 .toList();
 
         int maxWeight = 0;
