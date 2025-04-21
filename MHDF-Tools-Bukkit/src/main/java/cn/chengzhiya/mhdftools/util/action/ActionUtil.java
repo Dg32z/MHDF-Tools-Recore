@@ -192,26 +192,18 @@ public final class ActionUtil {
      *
      * @param sender  命令执行者实例
      * @param command 命令
+     * @param op 是否以op身份执行命令
      */
-    public static void runCommand(CommandSender sender, String command) {
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, task ->
-                Bukkit.dispatchCommand(sender, command));
-    }
-
-    /**
-     * 以op身份执行命令
-     *
-     * @param sender  命令执行者实例
-     * @param command 命令
-     */
-    public static void runOpCommand(CommandSender sender, String command) {
-        if (sender instanceof Player player) {
-            player.setOp(true);
-            runCommand(player, command);
-            player.setOp(false);
-            return;
-        }
-        runCommand(Bukkit.getConsoleSender(), command);
+    public static void runCommand(CommandSender sender, String command, boolean op) {
+        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, task -> {
+            if (sender instanceof Player player) {
+                player.setOp(true);
+                Bukkit.dispatchCommand(sender, command);
+                player.setOp(false);
+                return;
+            }
+            Bukkit.dispatchCommand(sender, command);
+        });
     }
 
     /**
@@ -227,9 +219,9 @@ public final class ActionUtil {
                     Main.instance.getBungeeCordManager().connectServer(player, args[1]);
                 }
             }
-            case "[player]" -> runCommand(sender, args[1]);
-            case "[player_op]" -> runOpCommand(sender, args[1]);
-            case "[console]" -> runCommand(Bukkit.getConsoleSender(), args[1]);
+            case "[player]" -> runCommand(sender, args[1], false);
+            case "[player_op]" -> runCommand(sender, args[1], true);
+            case "[console]" -> runCommand(Bukkit.getConsoleSender(), args[1], true);
             case "[broadcast]" -> Main.instance.getBungeeCordManager().broadcastMessage(args[1]);
             case "[message]" -> sendMessage(sender, args[1]);
             case "[actionbar]" -> {
