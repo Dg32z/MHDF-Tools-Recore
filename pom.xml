@@ -5,14 +5,47 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.chengzhiya</groupId>
-    <artifactId>MHDF-ToolsPlugins</artifactId>
-    <version>1.0.0</version>
+    <artifactId>MHDF-Tools</artifactId>
+    <version>${env.project.version}</version>
     <packaging>pom</packaging>
 
-    <name>MHDF-ToolsPlugins</name>
+    <properties>
+        <env.java.version>17</env.java.version>
+        <env.project.version>3.0.21</env.project.version>
+    </properties>
+
+    <name>MHDF-Tools</name>
 
     <modules>
-        <module>MHDF-Tools</module>
-        <module>MHDF-Tools-BungeecordHook</module>
+        <module>MHDF-Tools-Bukkit</module>
+        <module>MHDF-Tools-Bungee</module>
+        <module>MHDF-Tools-Velocity</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>huawei-maven</id>
+            <url>https://repo.huaweicloud.com/repository/maven</url>
+        </repository>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>codemc-releases</id>
+            <url>https://repo.codemc.io/repository/maven-releases</url>
+        </repository>
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>
