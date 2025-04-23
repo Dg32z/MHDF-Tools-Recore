@@ -13,8 +13,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BiomeSearchResult;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class RandomTeleportUtil {
     /**
@@ -77,7 +77,7 @@ public final class RandomTeleportUtil {
             }
             location.setY(location.getY() + 1);
 
-            TeleportUtil.teleport(player, location, new HashMap<>());
+            TeleportUtil.teleport(player, location, new ConcurrentHashMap<>());
             return;
         }
 

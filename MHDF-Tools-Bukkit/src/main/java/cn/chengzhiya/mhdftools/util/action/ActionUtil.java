@@ -192,7 +192,7 @@ public final class ActionUtil {
      *
      * @param sender  命令执行者实例
      * @param command 命令
-     * @param op 是否以op身份执行命令
+     * @param op      是否以op身份执行命令
      */
     public static void runCommand(CommandSender sender, String command, boolean op) {
         MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, task -> {

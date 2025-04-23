@@ -7,11 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.time.LocalTime;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
 public final class TimeAction extends AbstractTask {
-    private final HashMap<String, Integer> delayHashMap = new HashMap<>();
+    private final ConcurrentHashMap<String, Integer> delayHashMap = new ConcurrentHashMap<>();
 
     public TimeAction() {
         super(

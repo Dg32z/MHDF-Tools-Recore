@@ -21,9 +21,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.bukkit.Bukkit.getServer;
@@ -145,7 +145,7 @@ public final class BungeeCordManager {
         Player player = Bukkit.getPlayer(playerName);
         Player target = Bukkit.getPlayer(targetName);
         if (player != null && target != null) {
-            TeleportUtil.teleport(player, target.getLocation(), new HashMap<>());
+            TeleportUtil.teleport(player, target.getLocation(), new ConcurrentHashMap<>());
             return;
         }
         Main.instance.getCacheManager().put("tpPlayer", playerName, targetName);

@@ -6,14 +6,14 @@ import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("unused")
 public final class CacheManager {
-    private HashMap<String, HashMap<String, String>> map = null;
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, String>> map = null;
     private RedisClient redisClient = null;
     private StatefulRedisConnection<String, String> redisConnection = null;
 
@@ -28,7 +28,7 @@ public final class CacheManager {
         }
 
         switch (type) {
-            case "map" -> this.map = new HashMap<>();
+            case "map" -> this.map = new ConcurrentHashMap<>();
             case "redis" -> {
                 String host = ConfigUtil.getConfig().getString("cacheSettings.redis.host");
                 String user = ConfigUtil.getConfig().getString("cacheSettings.redis.user");
@@ -91,7 +91,7 @@ public final class CacheManager {
     public void put(String table, String key, String value) {
         String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
             map.put(key, value);
 
             this.map.put(prefix, map);
@@ -111,7 +111,7 @@ public final class CacheManager {
     public void remove(String table, String key) {
         String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
             map.remove(key);
 
             this.map.put(prefix, map);
@@ -132,7 +132,7 @@ public final class CacheManager {
     public String get(String table, String key) {
         String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
 
             return map.get(key);
         }
@@ -156,7 +156,7 @@ public final class CacheManager {
     public Set<String> keys(String table) {
         String prefix = getServerId() + "mhdf-tools" + "-" + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
 
             return map.keySet();
         }

@@ -7,14 +7,14 @@ import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class CustomMenuConfigUtil {
     @Getter
     private static final File customMenuFolder = new File(ConfigUtil.getDataFolder(), "customMenu");
     @Getter
-    private static final HashMap<String, YamlConfiguration> customMenuHashMap = new HashMap<>();
+    private static final ConcurrentHashMap<String, YamlConfiguration> customMenuHashMap = new ConcurrentHashMap<>();
 
     /**
      * 保存初始自定义菜单

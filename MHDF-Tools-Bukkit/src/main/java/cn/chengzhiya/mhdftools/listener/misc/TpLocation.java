@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class TpLocation extends AbstractListener {
     public TpLocation() {
@@ -31,6 +31,6 @@ public final class TpLocation extends AbstractListener {
             return;
         }
 
-        TeleportUtil.teleport(player, tpLocation.toLocation(), new HashMap<>());
+        TeleportUtil.teleport(player, tpLocation.toLocation(), new ConcurrentHashMap<>());
     }
 }

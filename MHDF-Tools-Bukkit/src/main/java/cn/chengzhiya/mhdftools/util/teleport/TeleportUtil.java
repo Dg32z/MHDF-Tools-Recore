@@ -6,7 +6,7 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class TeleportUtil {
 
@@ -17,7 +17,7 @@ public final class TeleportUtil {
      * @param location 位置实例
      * @param map      用于记录玩家传送尝试次数的映射表。
      */
-    public static void teleport(Player player, Location location, HashMap<String, Integer> map) {
+    public static void teleport(Player player, Location location, ConcurrentHashMap<String, Integer> map) {
         player.teleportAsync(location).thenAccept(success -> {
             location.setPitch(Math.max(-90f, Math.min(90f, location.getPitch())));
 
