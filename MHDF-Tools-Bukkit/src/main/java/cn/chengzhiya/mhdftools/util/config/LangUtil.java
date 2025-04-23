@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.config;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
@@ -60,7 +61,8 @@ public final class LangUtil {
      * @return 文本
      */
     public static @NotNull TextComponent i18n(String key) {
-        return ColorUtil.color(getString(key));
+        String message = Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(null, getString(key));
+        return ColorUtil.color(message);
     }
 
     /**

@@ -59,7 +59,7 @@ public final class Chat extends AbstractListener {
 
         // 限制使用miniMessage
         if (!player.hasPermission("mhdftools.bypass.chat.minimessage")) {
-            Pattern pattern = Pattern.compile("</?[a-zA-Z0-9_:-]+>");
+            Pattern pattern = Pattern.compile("%/?\\[\\^]+%");
             message = pattern.matcher(message).replaceAll("");
         }
 
