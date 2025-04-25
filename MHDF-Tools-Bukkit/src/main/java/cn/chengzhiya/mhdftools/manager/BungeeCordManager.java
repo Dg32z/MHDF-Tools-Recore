@@ -247,16 +247,10 @@ public final class BungeeCordManager {
         }
 
         JSONObject data = new JSONObject();
-        data.put("action", "sendMessage");
-        data.put("to", "all");
+        data.put("playerName", playerName);
+        data.put("message", message);
 
-        JSONObject params = new JSONObject();
-        params.put("playerName", playerName);
-        params.put("message", message);
-
-        data.put("params", params);
-
-        sendMhdfToolsPluginMessage(data);
+        Main.instance.getCacheManager().sendMessage("sendMessage", data.toJSONString());
     }
 
     /**
@@ -312,16 +306,10 @@ public final class BungeeCordManager {
         }
 
         JSONObject data = new JSONObject();
-        data.put("action", "setGameMode");
-        data.put("to", "all");
+        data.put("playerName", playerName);
+        data.put("gameMode", gameMode.name());
 
-        JSONObject params = new JSONObject();
-        params.put("playerName", playerName);
-        params.put("gameMode", gameMode.name());
-
-        data.put("params", params);
-
-        sendMhdfToolsPluginMessage(data);
+        Main.instance.getCacheManager().sendMessage("setGameMode", data.toJSONString());
     }
 
     /**
@@ -346,16 +334,10 @@ public final class BungeeCordManager {
         }
 
         JSONObject data = new JSONObject();
-        data.put("action", "atList");
-        data.put("to", "all");
+        data.put("atList", atList);
+        data.put("by", by);
 
-        JSONObject params = new JSONObject();
-        params.put("atList", atList);
-        params.put("by", by);
-
-        data.put("params", params);
-
-        sendMhdfToolsPluginMessage(data);
+        Main.instance.getCacheManager().sendMessage("atList", data.toJSONString());
     }
 
     /**
