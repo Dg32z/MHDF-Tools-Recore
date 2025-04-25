@@ -1,11 +1,16 @@
 package cn.chengzhiya.mhdftools.manager;
 
+import cn.chengzhiya.mhdftools.listener.AbstractRedisMessageListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
+import org.apache.logging.log4j.message.StringFormattedMessage;
+import org.reflections.Reflections;
 
+import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,6 +21,25 @@ public final class CacheManager {
     private ConcurrentHashMap<String, ConcurrentHashMap<String, String>> map = null;
     private RedisClient redisClient = null;
     private StatefulRedisConnection<String, String> redisConnection = null;
+    private StatefulRedisPubSubConnection<String, String> redisPubSubConnection;
+
+    /**
+     * 获取服务器ID
+     *
+     * @return 服务器ID
+     */
+    public String getServerId() {
+        return ConfigUtil.getConfig().getString("cacheSettings.server");
+    }
+
+    /**
+     * 获取缓存前缀
+     *
+     * @return 缓存前缀
+     */
+    public String getPrefix() {
+        return getServerId() + "mhdf-tools-";
+    }
 
     /**
      * 初始化缓存
@@ -49,8 +73,32 @@ public final class CacheManager {
 
                 this.redisClient = RedisClient.create(uriBuilder.build());
                 this.redisConnection = this.redisClient.connect();
+
+                this.redisPubSubConnection = this.redisClient.connectPubSub();
+                this.registerListener();
             }
             default -> throw new RuntimeException("不支持的数据库类型: " + type);
+        }
+    }
+
+    /**
+     * 注册监听器
+     */
+    private void registerListener() {
+        try {
+            Reflections reflections = new Reflections(AbstractRedisMessageListener.class.getPackageName());
+
+            for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
+                if (!Modifier.isAbstract(clazz.getModifiers())) {
+                    AbstractRedisMessageListener redisMessageListener = clazz.getDeclaredConstructor().newInstance();
+                    if (redisMessageListener.isEnable()) {
+                        this.redisPubSubConnection.async().subscribe(getPrefix() + redisMessageListener.getChanel());
+                        this.redisPubSubConnection.addListener(redisMessageListener);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -58,27 +106,32 @@ public final class CacheManager {
      * 关闭缓存
      */
     public void close() {
-        if (map != null) {
-            map.clear();
-            map = null;
+        if (this.map != null) {
+            this.map.clear();
+            this.map = null;
         }
-        if (redisConnection != null) {
-            redisConnection.close();
-            redisConnection = null;
+        if (this.redisPubSubConnection != null) {
+            this.redisPubSubConnection.close();
+            this.redisPubSubConnection = null;
         }
-        if (redisClient != null) {
-            redisClient.shutdown();
-            redisClient = null;
+        if (this.redisConnection != null) {
+            this.redisConnection.close();
+            this.redisConnection = null;
+        }
+        if (this.redisClient != null) {
+            this.redisClient.shutdown();
+            this.redisClient = null;
         }
     }
 
     /**
-     * 获取服务器ID
+     * 向指定频道发送指定消息
      *
-     * @return 服务器ID
+     * @param chanel 指定频道
+     * @param message 指定消息
      */
-    public String getServerId() {
-        return ConfigUtil.getConfig().getString("cacheSettings.server");
+    public void sendMessage(String chanel, String message) {
+        this.redisPubSubConnection.async().publish(getPrefix() + chanel, message);
     }
 
     /**
@@ -89,7 +142,7 @@ public final class CacheManager {
      * @param value 写入的值
      */
     public void put(String table, String key, String value) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
             ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
             map.put(key, value);
@@ -109,7 +162,7 @@ public final class CacheManager {
      * @param key   删除的key
      */
     public void remove(String table, String key) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
             ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
             map.remove(key);
@@ -130,7 +183,7 @@ public final class CacheManager {
      * @return 缓存数据
      */
     public String get(String table, String key) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
             ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
 
@@ -154,7 +207,7 @@ public final class CacheManager {
      * @return 缓存key列表
      */
     public Set<String> keys(String table) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
             ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
 
