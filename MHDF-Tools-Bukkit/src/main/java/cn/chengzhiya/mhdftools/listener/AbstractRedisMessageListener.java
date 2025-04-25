@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.interfaces.RedisMessageListener;
-import io.lettuce.core.pubsub.RedisPubSubAdapter;
 import io.lettuce.core.pubsub.RedisPubSubListener;
 import lombok.Getter;
 
@@ -18,9 +17,10 @@ public abstract class AbstractRedisMessageListener extends AbstractListener impl
 
     @Override
     public void message(String chanel, String message) {
-        if (Objects.equals(chanel, this.chanel)) {
-            this.onMessage(message);
+        if (!Objects.equals(chanel, this.chanel)) {
+            return;
         }
+        this.onMessage(message);
     }
 
     @Override
