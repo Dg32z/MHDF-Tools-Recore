@@ -1,6 +1,5 @@
 package cn.chengzhiya.mhdftools.entity.database.huskhomes;
 
-import cn.chengzhiya.mhdftools.entity.AbstractDao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @DatabaseTable
-public final class HuskHomesHomeData extends AbstractDao {
+public final class HuskHomesHomeData {
     @DatabaseField(canBeNull = false)
     private UUID uuid;
     @DatabaseField(canBeNull = false, columnName = "saved_position_id")

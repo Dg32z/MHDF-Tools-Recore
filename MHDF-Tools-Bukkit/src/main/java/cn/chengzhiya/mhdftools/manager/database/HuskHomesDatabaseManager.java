@@ -17,13 +17,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
-public final class HuskHomesManager extends AbstractDatabaseManager {
-    private static Dao<HuskHomesHomeData, UUID> huskHomesHomeDataDao;
-    private static Dao<HuskHomesWarpData, UUID> huskHomesWarpDataDao;
-    private static Dao<HuskHomesPositionInfoData, Integer> huskHomesSavePositionDataDao;
-    private static Dao<HuskHomesPositionData, Integer> huskHomesPositionDataDao;
+public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
+    private Dao<HuskHomesHomeData, UUID> huskHomesHomeDataDao;
+    private Dao<HuskHomesWarpData, UUID> huskHomesWarpDataDao;
+    private Dao<HuskHomesPositionInfoData, Integer> huskHomesSavePositionDataDao;
+    private Dao<HuskHomesPositionData, Integer> huskHomesPositionDataDao;
 
-    public HuskHomesManager() {
+    public HuskHomesDatabaseManager() {
         DatabaseConfig databaseConfig = new DatabaseConfig();
         databaseConfig.setType(getDatabaseConfig().getString("type"));
 
@@ -72,7 +72,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
                 );
                 tableConfig.setTableName(getTableName("HOME_DATA"));
 
-                huskHomesHomeDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+                this.huskHomesHomeDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
             {
                 DatabaseTableConfig<HuskHomesWarpData> tableConfig = DatabaseTableConfig.fromClass(
@@ -81,7 +81,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
                 );
                 tableConfig.setTableName(getTableName("WARP_DATA"));
 
-                huskHomesWarpDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+                this.huskHomesWarpDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
             {
                 DatabaseTableConfig<HuskHomesPositionInfoData> tableConfig = DatabaseTableConfig.fromClass(
@@ -90,7 +90,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
                 );
                 tableConfig.setTableName(getTableName("SAVED_POSITION_DATA"));
 
-                huskHomesSavePositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+                this.huskHomesSavePositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
             {
                 DatabaseTableConfig<HuskHomesPositionData> tableConfig = DatabaseTableConfig.fromClass(
@@ -99,7 +99,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
                 );
                 tableConfig.setTableName(getTableName("HOME_DATA"));
 
-                huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+               this.huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,7 +113,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
      */
     public List<HuskHomesHomeData> getHuskHomesHomeDataList() {
         try {
-            return huskHomesHomeDataDao.queryForAll();
+            return this.huskHomesHomeDataDao.queryForAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -126,7 +126,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
      */
     public List<HuskHomesWarpData> getHuskHomesWarpDataList() {
         try {
-            return huskHomesWarpDataDao.queryForAll();
+            return this.huskHomesWarpDataDao.queryForAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -140,7 +140,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
      */
     public HuskHomesPositionInfoData getHuskHomesPositionInfoData(int id) {
         try {
-            return huskHomesSavePositionDataDao.queryForId(id);
+            return this.huskHomesSavePositionDataDao.queryForId(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -154,7 +154,7 @@ public final class HuskHomesManager extends AbstractDatabaseManager {
      */
     public HuskHomesPositionData getHuskHomesPositionData(int id) {
         try {
-            return huskHomesPositionDataDao.queryForId(id);
+            return this.huskHomesPositionDataDao.queryForId(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

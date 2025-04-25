@@ -28,6 +28,18 @@ public final class BungeeCordLocation {
         this.pitch = pitch;
     }
 
+    public BungeeCordLocation(String world, Double x, Double y, Double z, Float yaw, Float pitch) {
+        this(
+                Main.instance.getBungeeCordManager().getServerName(),
+                world,
+                x,
+                y,
+                z,
+                yaw,
+                pitch
+        );
+    }
+
     public BungeeCordLocation(String server, Location location) {
         this(
                 server,
