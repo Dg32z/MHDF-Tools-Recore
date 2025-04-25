@@ -1,15 +1,12 @@
 package cn.chengzhiya.mhdftools.manager;
 
-import cn.chengzhiya.mhdftools.listener.AbstractRedisMessageListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
-import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
-import org.reflections.Reflections;
+import lombok.Getter;
 
-import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +17,8 @@ public final class CacheManager {
     private ConcurrentHashMap<String, ConcurrentHashMap<String, String>> map = null;
     private RedisClient redisClient = null;
     private StatefulRedisConnection<String, String> redisConnection = null;
-    private StatefulRedisPubSubConnection<String, String> redisPubSubConnection;
+    @Getter
+    private RedisMessageManager redisMessageManager = null;
 
     /**
      * 获取服务器ID
@@ -73,31 +71,9 @@ public final class CacheManager {
                 this.redisClient = RedisClient.create(uriBuilder.build());
                 this.redisConnection = this.redisClient.connect();
 
-                this.redisPubSubConnection = this.redisClient.connectPubSub();
-                this.registerListener();
+                this.redisMessageManager = new RedisMessageManager(getPrefix(), this.redisClient.connectPubSub());
             }
             default -> throw new RuntimeException("不支持的数据库类型: " + type);
-        }
-    }
-
-    /**
-     * 注册监听器
-     */
-    private void registerListener() {
-        try {
-            Reflections reflections = new Reflections(AbstractRedisMessageListener.class.getPackageName());
-
-            for (Class<? extends AbstractRedisMessageListener> clazz : reflections.getSubTypesOf(AbstractRedisMessageListener.class)) {
-                if (!Modifier.isAbstract(clazz.getModifiers())) {
-                    AbstractRedisMessageListener redisMessageListener = clazz.getDeclaredConstructor().newInstance();
-                    if (redisMessageListener.isEnable()) {
-                        this.redisPubSubConnection.async().subscribe(getPrefix() + redisMessageListener.getChanel());
-                        this.redisPubSubConnection.addListener(redisMessageListener);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -109,9 +85,9 @@ public final class CacheManager {
             this.map.clear();
             this.map = null;
         }
-        if (this.redisPubSubConnection != null) {
-            this.redisPubSubConnection.close();
-            this.redisPubSubConnection = null;
+        if (this.redisMessageManager != null) {
+            this.redisMessageManager.close();
+            this.redisMessageManager = null;
         }
         if (this.redisConnection != null) {
             this.redisConnection.close();
@@ -121,16 +97,6 @@ public final class CacheManager {
             this.redisClient.shutdown();
             this.redisClient = null;
         }
-    }
-
-    /**
-     * 向指定频道发送指定消息
-     *
-     * @param chanel 指定频道
-     * @param message 指定消息
-     */
-    public void sendMessage(String chanel, String message) {
-        this.redisPubSubConnection.async().publish(getPrefix() + chanel, message);
     }
 
     /**

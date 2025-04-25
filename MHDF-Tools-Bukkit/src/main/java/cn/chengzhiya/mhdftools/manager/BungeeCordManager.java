@@ -250,7 +250,7 @@ public final class BungeeCordManager {
         data.put("playerName", playerName);
         data.put("message", message);
 
-        Main.instance.getCacheManager().sendMessage("sendMessage", data.toJSONString());
+        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("sendMessage", data.toJSONString());
     }
 
     /**
@@ -309,7 +309,7 @@ public final class BungeeCordManager {
         data.put("playerName", playerName);
         data.put("gameMode", gameMode.name());
 
-        Main.instance.getCacheManager().sendMessage("setGameMode", data.toJSONString());
+        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("setGameMode", data.toJSONString());
     }
 
     /**
@@ -337,7 +337,7 @@ public final class BungeeCordManager {
         data.put("atList", atList);
         data.put("by", by);
 
-        Main.instance.getCacheManager().sendMessage("atList", data.toJSONString());
+        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("atList", data.toJSONString());
     }
 
     /**
