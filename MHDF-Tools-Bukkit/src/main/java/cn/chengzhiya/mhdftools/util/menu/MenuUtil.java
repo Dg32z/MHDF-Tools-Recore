@@ -56,7 +56,7 @@ public final class MenuUtil {
             String[] data = slot.split("-");
             int start = Integer.parseInt(data[0]);
             int end = Integer.parseInt(data[1]);
-            for (int i = start; i < end; i++) {
+            for (int i = start; i < (end + 1); i++) {
                 slotList.add(i);
             }
         } else {
