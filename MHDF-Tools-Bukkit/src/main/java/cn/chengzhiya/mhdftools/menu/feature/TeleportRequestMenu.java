@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Function;
 
 @Getter
 public final class TeleportRequestMenu extends AbstractMenu {
@@ -48,7 +49,6 @@ public final class TeleportRequestMenu extends AbstractMenu {
     @Override
     public @NotNull Inventory getInventory() {
         int size = getConfig().getInt("size");
-        int playerSize = getConfig().getInt("playerSize");
         String title = getConfig().getString("title");
 
         Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
@@ -59,8 +59,10 @@ public final class TeleportRequestMenu extends AbstractMenu {
         }
 
         List<String> playerList = Main.instance.getBungeeCordManager().getPlayerList();
-        int start = (page - 1) * playerSize;
-        int maxEnd = page * playerSize;
+        List<Integer> playerSlotList = MenuUtil.getSlotList(items.getConfigurationSection("家"));
+
+        int start = (page - 1) * playerSlotList.size();
+        int maxEnd = page * playerSlotList.size();
         int end = Math.min(playerList.size(), maxEnd);
 
         for (String key : items.getKeys(false)) {
@@ -69,14 +71,14 @@ public final class TeleportRequestMenu extends AbstractMenu {
                 continue;
             }
 
-            String type = item.getString("type");
-            String name = item.getString("name");
-            List<String> lore = item.getStringList("lore");
-            Integer amount = item.getInt("amount");
-            Integer customModelData = item.getInt("customModelData");
-
             switch (key) {
                 case "玩家" -> {
+                    String type = item.getString("type");
+                    String name = item.getString("name");
+                    List<String> lore = item.getStringList("lore");
+                    Integer amount = item.getInt("amount");
+                    Integer customModelData = item.getInt("customModelData");
+
                     for (int i = start; i < end; i++) {
                         String target = playerList.get(i);
 
@@ -91,7 +93,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
                                 .persistentDataContainer("target", PersistentDataType.STRING, target)
                                 .build();
 
-                        menu.addItem(itemStack);
+                        menu.setItem(playerSlotList.get(i), itemStack);
                     }
                     continue;
                 }

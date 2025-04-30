@@ -45,7 +45,6 @@ public final class HomeMenu extends AbstractMenu {
     @Override
     public @NotNull Inventory getInventory() {
         int size = getConfig().getInt("size");
-        int homeSize = getConfig().getInt("homeSize");
         String title = getConfig().getString("title");
 
         Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
@@ -56,8 +55,10 @@ public final class HomeMenu extends AbstractMenu {
         }
 
         List<HomeData> homeList = HomeDataUtil.getHomeDataList(getPlayer());
-        int start = (page - 1) * homeSize;
-        int maxEnd = page * homeSize;
+        List<Integer> homeSlotList = MenuUtil.getSlotList(items.getConfigurationSection("家"));
+
+        int start = (page - 1) * homeSlotList.size();
+        int maxEnd = page * homeSlotList.size();
         int end = Math.min(homeList.size(), maxEnd);
 
         for (String key : items.getKeys(false)) {
@@ -66,14 +67,14 @@ public final class HomeMenu extends AbstractMenu {
                 continue;
             }
 
-            String type = item.getString("type");
-            String name = item.getString("name");
-            List<String> lore = item.getStringList("lore");
-            Integer amount = item.getInt("amount");
-            Integer customModelData = item.getInt("customModelData");
-
             switch (key) {
                 case "家" -> {
+                    String type = item.getString("type");
+                    String name = item.getString("name");
+                    List<String> lore = item.getStringList("lore");
+                    Integer amount = item.getInt("amount");
+                    Integer customModelData = item.getInt("customModelData");
+
                     for (int i = start; i < end; i++) {
                         HomeData homeData = homeList.get(i);
 
@@ -88,7 +89,7 @@ public final class HomeMenu extends AbstractMenu {
                                 .persistentDataContainer("home", PersistentDataType.STRING, homeData.getHome())
                                 .build();
 
-                        menu.addItem(itemStack);
+                        menu.setItem(homeSlotList.get(i), itemStack);
                     }
                     continue;
                 }

@@ -89,6 +89,10 @@ public final class MenuUtil {
      * @return 格子列表
      */
     public static List<Integer> getSlotList(ConfigurationSection config) {
+        if (config == null) {
+            return new ArrayList<>();
+        }
+
         List<Integer> slotList = new ArrayList<>();
         if (!config.getStringList("slots").isEmpty()) {
             slotList.addAll(getSlotList(config.getStringList("slots")));
