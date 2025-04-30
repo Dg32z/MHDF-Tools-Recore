@@ -62,6 +62,7 @@ public final class HomeMenu extends AbstractMenu {
 
             switch (key) {
                 case "家" -> {
+                    int slot = 0;
                     for (int i = start; i < end; i++) {
                         HomeData homeData = homeList.get(i);
 
@@ -69,7 +70,8 @@ public final class HomeMenu extends AbstractMenu {
                                 .persistentDataContainer("home", PersistentDataType.STRING, homeData.getHome())
                                 .build();
 
-                        menu.setItem(homeSlotList.get(i), itemStack);
+                        menu.setItem(homeSlotList.get(slot), itemStack);
+                        slot++;
                     }
                     continue;
                 }

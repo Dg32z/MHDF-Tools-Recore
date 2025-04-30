@@ -1,6 +1,7 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
+import cn.chengzhiya.mhdftools.entity.database.HomeData;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -65,6 +66,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
 
             switch (key) {
                 case "玩家" -> {
+                    int slot = 0;
                     for (int i = start; i < end; i++) {
                         String target = playerList.get(i);
 
@@ -72,7 +74,8 @@ public final class TeleportRequestMenu extends AbstractMenu {
                                 .persistentDataContainer("target", PersistentDataType.STRING, target)
                                 .build();
 
-                        menu.setItem(playerSlotList.get(i), itemStack);
+                        menu.setItem(playerSlotList.get(slot), itemStack);
+                        slot++;
                     }
                     continue;
                 }
