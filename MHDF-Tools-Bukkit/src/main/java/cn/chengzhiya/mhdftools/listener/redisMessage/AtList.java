@@ -5,12 +5,13 @@ import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import com.alibaba.fastjson2.JSONObject;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class AtList extends AbstractRedisMessageListener {
     public AtList() {
         super(
-                "gamemodeSettings.enable",
+                List.of("chatSettings.enable", "chatSettings.at.enable"),
                 "setGameMode"
         );
     }

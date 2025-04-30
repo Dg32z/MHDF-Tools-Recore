@@ -13,6 +13,11 @@ public abstract class AbstractRedisMessageListener implements RedisPubSubListene
     private final boolean enable;
     private final String chanel;
 
+    public AbstractRedisMessageListener(String chanel) {
+        this.enable = true;
+        this.chanel = chanel;
+    }
+
     public AbstractRedisMessageListener(String enableKey, String chanel) {
         this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
         this.chanel = chanel;
