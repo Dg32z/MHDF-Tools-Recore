@@ -1,13 +1,13 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.ChatIgnoreData;
+import cn.chengzhiya.mhdftools.entity.database.IgnoreData;
 import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.SoundUtil;
-import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
+import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
 import cn.chengzhiya.mhdftools.util.database.VanishStatusUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -83,8 +83,8 @@ public final class AtUtil {
 
         // 屏蔽黑名单列表中的AT
         OfflinePlayer byPlayer = Bukkit.getOfflinePlayer(by);
-        ChatIgnoreData chatIgnoreData = ChatIgnoreDataUtil.getChatIgnoreData(player, byPlayer);
-        if (chatIgnoreData != null) {
+        IgnoreData ignoreData = IgnoreDataUtil.getIgnoreData(player, byPlayer);
+        if (ignoreData != null) {
             return;
         }
 

@@ -5,7 +5,7 @@ import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
+import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -102,7 +102,7 @@ public final class Chat extends AbstractListener {
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
             if (config.getBoolean("ignore.enable")) {
                 OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
-                if (ChatIgnoreDataUtil.isChatIgnore(targetPlayer, player)) {
+                if (IgnoreDataUtil.isIgnore(targetPlayer, player)) {
                     continue;
                 }
             }
