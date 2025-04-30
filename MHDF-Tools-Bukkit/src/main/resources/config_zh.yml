@@ -463,7 +463,7 @@ invseeSettings:
     - "invsee"
 
 # 屏蔽
-ignore:
+ignoreSettings:
   # 开关
   enable: true
   # 禁止屏蔽列表

@@ -22,7 +22,7 @@ public final class Ignore extends AbstractCommand {
                 "屏蔽",
                 "mhdftools.commands.ignore",
                 true,
-                ConfigUtil.getConfig().getStringList("chatSettings.ignore.commands").toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("ignoreSettings.commands").toArray(new String[0])
         );
     }
 
@@ -54,7 +54,7 @@ public final class Ignore extends AbstractCommand {
             // 增加屏蔽玩家
             if (args[0].equals("add")) {
                 if (!sender.hasPermission("mhdftools.bypass.ignore.blacklist")) {
-                    if (ConfigUtil.getConfig().getStringList("chatSettings.ignore.blacklist").contains(args[1])) {
+                    if (ConfigUtil.getConfig().getStringList("ignoreSettings.blacklist").contains(args[1])) {
                         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.ignore.subCommands.add.blacklist"));
                         return;
                     }
