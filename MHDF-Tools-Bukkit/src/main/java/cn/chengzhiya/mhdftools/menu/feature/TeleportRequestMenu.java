@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
@@ -9,10 +8,8 @@ import cn.chengzhiya.mhdftools.util.config.MenuConfigUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaHereUtil;
 import cn.chengzhiya.mhdftools.util.feature.TpaUtil;
 import cn.chengzhiya.mhdftools.util.menu.MenuUtil;
-import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import io.papermc.paper.persistence.PersistentDataContainerView;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,8 +24,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.function.Function;
 
 @Getter
 public final class TeleportRequestMenu extends AbstractMenu {
@@ -48,10 +43,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
 
     @Override
     public @NotNull Inventory getInventory() {
-        int size = getConfig().getInt("size");
-        String title = getConfig().getString("title");
-
-        Inventory menu = Bukkit.createInventory(this, size, ColorUtil.color(Objects.requireNonNull(title)));
+        Inventory menu = MenuUtil.createInventory(this, getConfig());
 
         ConfigurationSection items = getConfig().getConfigurationSection("items");
         if (items == null) {
@@ -59,7 +51,7 @@ public final class TeleportRequestMenu extends AbstractMenu {
         }
 
         List<String> playerList = Main.instance.getBungeeCordManager().getPlayerList();
-        List<Integer> playerSlotList = MenuUtil.getSlotList(items.getConfigurationSection("家"));
+        List<Integer> playerSlotList = MenuUtil.getSlotList(items.getConfigurationSection("玩家"));
 
         int start = (page - 1) * playerSlotList.size();
         int maxEnd = page * playerSlotList.size();
@@ -73,23 +65,10 @@ public final class TeleportRequestMenu extends AbstractMenu {
 
             switch (key) {
                 case "玩家" -> {
-                    String type = item.getString("type");
-                    String name = item.getString("name");
-                    List<String> lore = item.getStringList("lore");
-                    Integer amount = item.getInt("amount");
-                    Integer customModelData = item.getInt("customModelData");
-
                     for (int i = start; i < end; i++) {
                         String target = playerList.get(i);
 
-                        ItemStack itemStack = new ItemStackBuilder(getPlayer(), applyTpaDataString(type, getPlayer().getName(), target))
-                                .name(applyTpaDataString(name, getPlayer().getName(), target))
-                                .lore(lore.stream()
-                                        .map(s -> applyTpaDataString(s, getPlayer().getName(), target))
-                                        .toList())
-                                .amount(amount)
-                                .customModelData(customModelData)
-                                .persistentDataContainer("key", PersistentDataType.STRING, key)
+                        ItemStack itemStack = MenuUtil.getMenuItemStackBuilder(getPlayer(), item, s -> applyTpaDataString(s, getPlayer().getName(), target), key)
                                 .persistentDataContainer("target", PersistentDataType.STRING, target)
                                 .build();
 
@@ -136,6 +115,8 @@ public final class TeleportRequestMenu extends AbstractMenu {
             return;
         }
 
+        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
+
         switch (key) {
             case "玩家" -> {
                 String target = container.get(new NamespacedKey(Main.instance, "target"), PersistentDataType.STRING);
@@ -143,18 +124,14 @@ public final class TeleportRequestMenu extends AbstractMenu {
                     return;
                 }
 
-                if (getRequestType() == TeleportRequestType.TPAHERE) {
-                    TpaHereUtil.sendTpaHereRequest(getPlayer(), target);
-                }
-                if (getRequestType() == TeleportRequestType.TPA) {
-                    TpaUtil.sendTpaRequest(getPlayer(), target);
+                switch (getRequestType()) {
+                    case TPAHERE -> TpaHereUtil.sendTpaHereRequest(getPlayer(), target);
+                    case TPA -> TpaUtil.sendTpaRequest(getPlayer(), target);
                 }
             }
             case "上一页" -> new TeleportRequestMenu(getPlayer(), getRequestType(), getPage() - 1).openMenu();
             case "下一页" -> new TeleportRequestMenu(getPlayer(), getRequestType(), getPage() + 1).openMenu();
         }
-
-        MenuUtil.runItemClickAction(getPlayer(), getConfig(), key);
     }
 
     @Override

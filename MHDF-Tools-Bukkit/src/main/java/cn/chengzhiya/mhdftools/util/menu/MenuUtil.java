@@ -3,16 +3,22 @@ package cn.chengzhiya.mhdftools.util.menu;
 import cn.chengzhiya.mhdftools.builder.ItemStackBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.action.RequirementUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 
 public final class MenuUtil {
     /**
@@ -154,12 +160,25 @@ public final class MenuUtil {
      *
      * @param player 玩家实例
      * @param item   物品配置实例
+     * @param function 应用的lambda表达式
+     * @param key    物品ID
+     * @return 菜单物品构建实例
+     */
+    public static ItemStackBuilder getMenuItemStackBuilder(Player player, ConfigurationSection item, Function<String, String> function, String key) {
+        return ItemStackUtil.getItemStackBuilder(player, item, function)
+                .persistentDataContainer("key", PersistentDataType.STRING, key);
+    }
+
+    /**
+     * 获取指定物品配置实例的菜单物品构建实例
+     *
+     * @param player 玩家实例
+     * @param item   物品配置实例
      * @param key    物品ID
      * @return 菜单物品构建实例
      */
     public static ItemStackBuilder getMenuItemStackBuilder(Player player, ConfigurationSection item, String key) {
-        return ItemStackUtil.getItemStackBuilder(player, item)
-                .persistentDataContainer("key", PersistentDataType.STRING, key);
+        return getMenuItemStackBuilder(player, item, Function.identity(), key);
     }
 
     /**
@@ -177,5 +196,19 @@ public final class MenuUtil {
         for (Integer slot : slotList) {
             menu.setItem(slot, itemStack);
         }
+    }
+
+    /**
+     * 创建背包实例
+     *
+     * @param holder 背包持有者实例
+     * @param config 菜单配置实例
+     * @return 背包实例
+     */
+    public static Inventory createInventory(InventoryHolder holder, ConfigurationSection config) {
+        int size = config.getInt("size");
+        String title = config.getString("title");
+
+        return Bukkit.createInventory(holder, size, title != null ? ColorUtil.color(title) : Component.empty());
     }
 }
