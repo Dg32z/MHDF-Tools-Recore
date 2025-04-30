@@ -70,7 +70,8 @@ public final class ActionUtil {
      */
     public static void playSound(Player player, Sound sound, Float volume, Float pitch) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
-                player.playSound(player, sound, volume, pitch));
+                player.playSound(player, sound, volume, pitch)
+        );
     }
 
     /**
@@ -83,7 +84,8 @@ public final class ActionUtil {
      */
     public static void playSound(Player player, String sound, Float volume, Float pitch) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
-                player.playSound(player, sound, volume, pitch));
+                player.playSound(player, sound, volume, pitch)
+        );
     }
 
     /**
@@ -137,7 +139,8 @@ public final class ActionUtil {
     public static void sendActionBar(Player player, TextComponent message) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).sendActionBar(message));
+                        .player(player).sendActionBar(message)
+        );
     }
 
     /**
@@ -159,7 +162,8 @@ public final class ActionUtil {
     public static void sendBossbar(Player player, BossBar bossBar) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).showBossBar(bossBar));
+                        .player(player).showBossBar(bossBar)
+        );
     }
 
     /**
@@ -171,7 +175,8 @@ public final class ActionUtil {
     public static void hideBossbar(Player player, BossBar bossBar) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).hideBossBar(bossBar));
+                        .player(player).hideBossBar(bossBar)
+        );
     }
 
     /**
@@ -184,7 +189,8 @@ public final class ActionUtil {
     public static void sendTimeBossbar(Player player, BossBar bossBar, Long time) {
         sendBossbar(player, bossBar);
         MHDFScheduler.getAsyncScheduler().runTaskTimer(Main.instance, task ->
-                hideBossbar(player, bossBar), 0, time);
+                hideBossbar(player, bossBar), 0, time
+        );
     }
 
     /**
@@ -285,7 +291,9 @@ public final class ActionUtil {
             }
             case "[close]" -> {
                 if (sender instanceof Player player) {
-                    player.closeInventory();
+                    MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
+                            player.closeInventory()
+                    );
                 }
             }
         }
