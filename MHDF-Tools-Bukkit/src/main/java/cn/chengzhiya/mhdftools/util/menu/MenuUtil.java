@@ -129,7 +129,7 @@ public final class MenuUtil {
             }
         }
 
-        List<String> clickAction = item.getStringList("clickAction");
+        List<String> clickAction = item.getStringList("clickActions");
         if (!clickAction.isEmpty()) {
             ActionUtil.runActionList(player, clickAction);
         }
