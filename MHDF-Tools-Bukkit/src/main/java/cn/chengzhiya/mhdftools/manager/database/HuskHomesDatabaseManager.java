@@ -99,7 +99,7 @@ public final class HuskHomesDatabaseManager extends AbstractDatabaseManager {
                 );
                 tableConfig.setTableName(getTableName("HOME_DATA"));
 
-               this.huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
+                this.huskHomesPositionDataDao = DaoManager.createDao(getConnectionSource(), tableConfig);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

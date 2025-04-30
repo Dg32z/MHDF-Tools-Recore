@@ -17,7 +17,6 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
 public final class MenuUtil {
@@ -158,10 +157,10 @@ public final class MenuUtil {
     /**
      * 获取指定物品配置实例的菜单物品构建实例
      *
-     * @param player 玩家实例
-     * @param item   物品配置实例
+     * @param player   玩家实例
+     * @param item     物品配置实例
      * @param function 应用的lambda表达式
-     * @param key    物品ID
+     * @param key      物品ID
      * @return 菜单物品构建实例
      */
     public static ItemStackBuilder getMenuItemStackBuilder(Player player, ConfigurationSection item, Function<String, String> function, String key) {

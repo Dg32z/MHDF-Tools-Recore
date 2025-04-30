@@ -1,7 +1,6 @@
 package cn.chengzhiya.mhdftools.menu.feature;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.entity.database.HomeData;
 import cn.chengzhiya.mhdftools.enums.TeleportRequestType;
 import cn.chengzhiya.mhdftools.menu.AbstractMenu;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;

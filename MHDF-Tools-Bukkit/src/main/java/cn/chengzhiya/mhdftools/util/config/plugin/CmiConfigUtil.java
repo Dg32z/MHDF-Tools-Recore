@@ -12,13 +12,13 @@ public final class CmiConfigUtil {
     @Getter
     private static final File settingsFolder = new File(dataFolder, "Settings");
     @Getter
-    private static final File savesFolder = new File(dataFolder, "Saves");
-    @Getter
-    private static final File configFile = new File(dataFolder, "config.yml");
-    @Getter
     private static final File databaseInfoFile = new File(settingsFolder, "DataBaseInfo.yml");
     @Getter
+    private static final File savesFolder = new File(dataFolder, "Saves");
+    @Getter
     private static final File warpFile = new File(savesFolder, "Warps.yml");
+    @Getter
+    private static final File configFile = new File(dataFolder, "config.yml");
     private static YamlConfiguration config;
     private static YamlConfiguration databaseInfo;
     private static YamlConfiguration warp;
