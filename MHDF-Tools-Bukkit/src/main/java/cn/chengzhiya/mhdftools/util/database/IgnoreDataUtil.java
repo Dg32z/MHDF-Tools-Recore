@@ -7,18 +7,28 @@ import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public final class IgnoreDataUtil {
-    private static final Dao<IgnoreData, Integer> ignoreDataDao;
+    private static final ThreadLocal<Dao<IgnoreData, Integer>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), IgnoreData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            ignoreDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), IgnoreData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<IgnoreData, Integer> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -29,10 +39,12 @@ public final class IgnoreDataUtil {
      */
     public static List<IgnoreData> getIgnoreDataList(UUID uuid) {
         try {
-            return ignoreDataDao.queryBuilder()
+            List<IgnoreData> ignoreDataList = getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .query();
+
+            return Objects.requireNonNullElseGet(ignoreDataList, ArrayList::new);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -57,7 +69,7 @@ public final class IgnoreDataUtil {
      */
     public static IgnoreData getIgnoreData(UUID uuid, UUID ignoreUuid) {
         try {
-            return ignoreDataDao.queryBuilder()
+            return getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .and()
@@ -108,7 +120,7 @@ public final class IgnoreDataUtil {
      */
     public static void removeIgnoreData(IgnoreData ignoreData) {
         try {
-            ignoreDataDao.delete(ignoreData);
+            getDao().delete(ignoreData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -121,7 +133,7 @@ public final class IgnoreDataUtil {
      */
     public static void updateIgnoreData(IgnoreData ignoreData) {
         try {
-            ignoreDataDao.createOrUpdate(ignoreData);
+            getDao().createOrUpdate(ignoreData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

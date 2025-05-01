@@ -9,17 +9,26 @@ import org.bukkit.entity.Player;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public final class HomeDataUtil {
-    private static final Dao<HomeData, Integer> homeDataDao;
+    private static final ThreadLocal<Dao<HomeData, Integer>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), HomeData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            homeDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), HomeData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<HomeData, Integer> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -31,7 +40,7 @@ public final class HomeDataUtil {
      */
     public static boolean ifHomeDataExist(UUID uuid, String home) {
         try {
-            HomeData homeData = homeDataDao.queryBuilder()
+            HomeData homeData = getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .and()
@@ -64,7 +73,7 @@ public final class HomeDataUtil {
      */
     public static HomeData getHomeData(UUID uuid, String home) {
         try {
-            HomeData homeData = homeDataDao.queryBuilder()
+            HomeData homeData = getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .and()
@@ -101,15 +110,12 @@ public final class HomeDataUtil {
      */
     public static List<HomeData> getHomeDataList(UUID uuid) {
         try {
-            List<HomeData> homeDataList = homeDataDao.queryBuilder()
+            List<HomeData> homeDataList = getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .query();
-            if (homeDataList == null) {
-                homeDataList = new ArrayList<>();
-            }
 
-            return homeDataList;
+            return Objects.requireNonNullElseGet(homeDataList, ArrayList::new);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -132,7 +138,7 @@ public final class HomeDataUtil {
      */
     public static void updateHomeData(HomeData homeData) {
         try {
-            homeDataDao.createOrUpdate(homeData);
+            getDao().createOrUpdate(homeData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -145,7 +151,7 @@ public final class HomeDataUtil {
      */
     public static void removeHomeData(HomeData homeData) {
         try {
-            homeDataDao.delete(homeData);
+            getDao().delete(homeData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -8,16 +8,25 @@ import com.j256.ormlite.dao.DaoManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class WarpDataUtil {
-    private static final Dao<WarpData, String> warpDataDao;
+    private static final ThreadLocal<Dao<WarpData, String>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), WarpData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            warpDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), WarpData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<WarpData, String> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -28,9 +37,7 @@ public final class WarpDataUtil {
      */
     public static boolean ifWarpDataExist(String warp) {
         try {
-            WarpData warpData = warpDataDao.queryForId(warp);
-
-            return warpData != null;
+            return getDao().queryForId(warp) != null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -44,7 +51,7 @@ public final class WarpDataUtil {
      */
     public static WarpData getWarpData(String warp) {
         try {
-            WarpData warpData = warpDataDao.queryForId(warp);
+            WarpData warpData = getDao().queryForId(warp);
             if (warpData == null) {
                 warpData = new WarpData();
                 warpData.setWarp(warp);
@@ -63,12 +70,7 @@ public final class WarpDataUtil {
      */
     public static List<WarpData> getHomeDataList() {
         try {
-            List<WarpData> warpDataList = warpDataDao.queryForAll();
-            if (warpDataList == null) {
-                warpDataList = new ArrayList<>();
-            }
-
-            return warpDataList;
+            return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +83,7 @@ public final class WarpDataUtil {
      */
     public static void updateWarpData(WarpData warpData) {
         try {
-            warpDataDao.createOrUpdate(warpData);
+            getDao().createOrUpdate(warpData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -94,7 +96,7 @@ public final class WarpDataUtil {
      */
     public static void removeWarpData(WarpData warpData) {
         try {
-            warpDataDao.delete(warpData);
+            getDao().delete(warpData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

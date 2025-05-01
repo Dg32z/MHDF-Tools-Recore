@@ -12,14 +12,22 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public final class EconomyDataUtil {
-    private static final Dao<EconomyData, UUID> economyDataDao;
+    private static final ThreadLocal<Dao<EconomyData, UUID>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), EconomyData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            economyDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), EconomyData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<EconomyData, UUID> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -30,9 +38,7 @@ public final class EconomyDataUtil {
      */
     public static boolean ifEconomyDataExist(UUID uuid) {
         try {
-            EconomyData economyData = economyDataDao.queryForId(uuid);
-
-            return economyData != null;
+            return getDao().queryForId(uuid) != null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -80,7 +86,7 @@ public final class EconomyDataUtil {
      */
     public static EconomyData getEconomyData(UUID uuid) {
         try {
-            EconomyData economyData = economyDataDao.queryForId(uuid);
+            EconomyData economyData = getDao().queryForId(uuid);
             if (economyData == null) {
                 economyData = new EconomyData();
                 economyData.setPlayer(uuid);
@@ -110,7 +116,7 @@ public final class EconomyDataUtil {
      */
     public static void updateEconomyData(EconomyData economyData) {
         try {
-            economyDataDao.createOrUpdate(economyData);
+            getDao().createOrUpdate(economyData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

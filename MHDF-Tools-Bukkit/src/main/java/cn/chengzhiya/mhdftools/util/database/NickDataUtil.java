@@ -10,14 +10,22 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public final class NickDataUtil {
-    private static final Dao<NickData, UUID> nickDataDao;
+    private static final ThreadLocal<Dao<NickData, UUID>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), NickData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            nickDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), NickData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<NickData, UUID> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -28,7 +36,7 @@ public final class NickDataUtil {
      */
     public static NickData getNickData(UUID uuid) {
         try {
-            NickData nickData = nickDataDao.queryForId(uuid);
+            NickData nickData = getDao().queryForId(uuid);
             if (nickData == null) {
                 nickData = new NickData();
                 nickData.setPlayer(uuid);
@@ -57,7 +65,7 @@ public final class NickDataUtil {
      */
     public static void removeNickData(UUID uuid) {
         try {
-            nickDataDao.deleteById(uuid);
+            getDao().deleteById(uuid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -79,7 +87,7 @@ public final class NickDataUtil {
      */
     public static void updateNickData(NickData nickData) {
         try {
-            nickDataDao.createOrUpdate(nickData);
+            getDao().createOrUpdate(nickData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
