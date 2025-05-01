@@ -39,14 +39,13 @@ public final class Home extends AbstractCommand {
         }
 
         if (args.length == 1) {
-            if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
+            HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
+            if (homeData == null) {
                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.home.noHome"));
                 return;
             }
 
-            HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
             Main.instance.getBungeeCordManager().teleportLocation(sender, homeData.toBungeeCordLocation());
-
             Main.instance.getBungeeCordManager().sendMessage(sender, LangUtil.i18n("commands.home.teleportMessage")
                     .replace("{home}", homeData.getHome())
             );

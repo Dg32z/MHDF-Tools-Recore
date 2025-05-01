@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import com.j256.ormlite.dao.Dao;
@@ -80,10 +81,12 @@ public final class VanishStatusUtil {
      * @param vanishStatus 隐身状态实例
      */
     public static void updateVanishStatus(VanishStatus vanishStatus) {
-        try {
-            getDao().createOrUpdate(vanishStatus);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(vanishStatus);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

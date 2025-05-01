@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.FlyStatus;
 import com.j256.ormlite.dao.Dao;
@@ -64,10 +65,12 @@ public final class FlyStatusUtil {
      * @param flyStatus 飞行状态实例
      */
     public static void updateFlyStatus(FlyStatus flyStatus) {
-        try {
-            getDao().createOrUpdate(flyStatus);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(flyStatus);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

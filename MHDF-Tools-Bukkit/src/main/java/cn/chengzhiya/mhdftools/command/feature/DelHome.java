@@ -39,12 +39,12 @@ public final class DelHome extends AbstractCommand {
             return;
         }
 
-        if (!HomeDataUtil.ifHomeDataExist(sender, args[0])) {
+        HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
+        if (homeData == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delhome.noHome"));
             return;
         }
 
-        HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
         HomeDataUtil.removeHomeData(homeData);
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.delhome.message")
                 .replace("{home}", args[0])

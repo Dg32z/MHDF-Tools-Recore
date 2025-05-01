@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.IgnoreData;
 import com.j256.ormlite.dao.Dao;
@@ -114,28 +115,32 @@ public final class IgnoreDataUtil {
     }
 
     /**
-     * 移除指定屏蔽数据实例在数据库中的数据
-     *
-     * @param ignoreData 屏蔽数据实例
-     */
-    public static void removeIgnoreData(IgnoreData ignoreData) {
-        try {
-            getDao().delete(ignoreData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * 更新指定屏蔽数据实例在数据库中的数据
      *
      * @param ignoreData 屏蔽数据实例
      */
     public static void updateIgnoreData(IgnoreData ignoreData) {
-        try {
-            getDao().createOrUpdate(ignoreData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(ignoreData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    /**
+     * 移除指定屏蔽数据实例在数据库中的数据
+     *
+     * @param ignoreData 屏蔽数据实例
+     */
+    public static void removeIgnoreData(IgnoreData ignoreData) {
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().delete(ignoreData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.WarpData;
 import com.j256.ormlite.dao.Dao;
@@ -30,20 +31,6 @@ public final class WarpDataUtil {
     }
 
     /**
-     * 检测是否存在指定传送点名称的传送点
-     *
-     * @param warp 传送点名称
-     * @return 结果
-     */
-    public static boolean ifWarpDataExist(String warp) {
-        try {
-            return getDao().queryForId(warp) != null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * 获取指定传送点名称的传送点数据实例
      *
      * @param warp 传送点名称
@@ -51,13 +38,7 @@ public final class WarpDataUtil {
      */
     public static WarpData getWarpData(String warp) {
         try {
-            WarpData warpData = getDao().queryForId(warp);
-            if (warpData == null) {
-                warpData = new WarpData();
-                warpData.setWarp(warp);
-            }
-
-            return warpData;
+            return getDao().queryForId(warp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -82,11 +63,13 @@ public final class WarpDataUtil {
      * @param warpData 传送点数据实例
      */
     public static void updateWarpData(WarpData warpData) {
-        try {
-            getDao().createOrUpdate(warpData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(warpData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -95,10 +78,12 @@ public final class WarpDataUtil {
      * @param warpData 传送点数据实例
      */
     public static void removeWarpData(WarpData warpData) {
-        try {
-            getDao().delete(warpData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().delete(warpData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.NickData;
 import com.j256.ormlite.dao.Dao;
@@ -64,11 +65,13 @@ public final class NickDataUtil {
      * @param uuid 玩家UUID
      */
     public static void removeNickData(UUID uuid) {
-        try {
-            getDao().deleteById(uuid);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().deleteById(uuid);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -86,10 +89,12 @@ public final class NickDataUtil {
      * @param nickData 匿名数据实例
      */
     public static void updateNickData(NickData nickData) {
-        try {
-            getDao().createOrUpdate(nickData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(nickData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

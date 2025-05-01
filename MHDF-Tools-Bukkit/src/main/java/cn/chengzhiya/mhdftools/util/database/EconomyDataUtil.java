@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.EconomyData;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -31,42 +32,20 @@ public final class EconomyDataUtil {
     }
 
     /**
-     * 检测指定玩家UUID是否存在经济数据实例
-     *
-     * @param uuid 玩家UUID
-     * @return 结果
-     */
-    public static boolean ifEconomyDataExist(UUID uuid) {
-        try {
-            return getDao().queryForId(uuid) != null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 检测指定玩家实例是否存在经济数据实例
-     *
-     * @param player 玩家实例
-     * @return 结果
-     */
-    public static boolean ifEconomyDataExist(OfflinePlayer player) {
-        return ifEconomyDataExist(player.getUniqueId());
-    }
-
-    /**
      * 初始化指定玩家UUID经济数据实例
      *
      * @param uuid 玩家UUID
      */
     public static void initEconomyData(UUID uuid) {
-        EconomyData economyData = new EconomyData();
-        economyData.setPlayer(uuid);
-        economyData.setBigDecimal(
-                BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
-        );
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            EconomyData economyData = new EconomyData();
+            economyData.setPlayer(uuid);
+            economyData.setBigDecimal(
+                    BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
+            );
 
-        updateEconomyData(economyData);
+            updateEconomyData(economyData);
+        });
     }
 
     /**
@@ -75,7 +54,13 @@ public final class EconomyDataUtil {
      * @param player 玩家实例
      */
     public static void initEconomyData(OfflinePlayer player) {
-        initEconomyData(player.getUniqueId());
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            if (getEconomyData(player) != null) {
+                return;
+            }
+
+            initEconomyData(player.getUniqueId());
+        });
     }
 
     /**
@@ -86,14 +71,7 @@ public final class EconomyDataUtil {
      */
     public static EconomyData getEconomyData(UUID uuid) {
         try {
-            EconomyData economyData = getDao().queryForId(uuid);
-            if (economyData == null) {
-                economyData = new EconomyData();
-                economyData.setPlayer(uuid);
-                economyData.setBigDecimal(BigDecimalUtil.toBigDecimal(0.0));
-            }
-
-            return economyData;
+            return getDao().queryForId(uuid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -115,10 +93,12 @@ public final class EconomyDataUtil {
      * @param economyData 经济数据实例
      */
     public static void updateEconomyData(EconomyData economyData) {
-        try {
-            getDao().createOrUpdate(economyData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(economyData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

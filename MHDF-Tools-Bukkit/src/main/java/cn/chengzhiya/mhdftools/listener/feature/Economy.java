@@ -17,10 +17,6 @@ public final class Economy extends AbstractListener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if (EconomyDataUtil.ifEconomyDataExist(player)) {
-            return;
-        }
-
         EconomyDataUtil.initEconomyData(player);
     }
 }

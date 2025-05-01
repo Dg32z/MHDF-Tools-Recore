@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
 
-
 @SuppressWarnings("ALL")
 public final class Metrics {
     private final Plugin plugin = Main.instance;
