@@ -41,7 +41,7 @@ public final class CmiImportUtil {
      * @param sender 命令执行者
      */
     public static void importCmiData(CommandSender sender) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, (task) -> {
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "Cmi")
             );

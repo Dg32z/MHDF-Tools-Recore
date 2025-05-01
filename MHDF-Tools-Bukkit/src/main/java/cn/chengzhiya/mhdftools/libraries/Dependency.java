@@ -33,7 +33,7 @@ public enum Dependency {
     MHDF_SCHEDULER(
             "cn{}chengzhiya",
             "MHDF-Scheduler",
-            "1.0.0",
+            "1.0.1",
             Repository.CHENGZHIMEOW,
             true
     ),
