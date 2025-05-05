@@ -453,6 +453,11 @@ tridentDupeFixSettings:
   # 开关
   enable: true
 
+# 修复Paper崩溃漏洞 (https://github.com/PaperMC/Folia/issues/356)
+bundleFixSettings:
+  # 开关
+  enable: true
+
 # 背包查看
 invseeSettings:
   # 开关
