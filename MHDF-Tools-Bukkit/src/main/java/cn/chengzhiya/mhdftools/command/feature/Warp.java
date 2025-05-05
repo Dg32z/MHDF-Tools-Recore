@@ -62,14 +62,13 @@ public final class Warp extends AbstractCommand {
             return;
         }
 
-        if (!WarpDataUtil.ifWarpDataExist(args[0])) {
+        WarpData warpData = WarpDataUtil.getWarpData(args[0]);
+        if (warpData == null) {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.warp.noWarp"));
             return;
         }
 
-        WarpData warpData = WarpDataUtil.getWarpData(args[0]);
         Main.instance.getBungeeCordManager().teleportLocation(player, warpData.toBungeeCordLocation());
-
         Main.instance.getBungeeCordManager().sendMessage(player, LangUtil.i18n("commands.warp.message")
                 .replace("{warp}", args[0])
         );

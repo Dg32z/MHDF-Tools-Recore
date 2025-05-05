@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.FlyStatus;
 import com.j256.ormlite.dao.Dao;
@@ -10,14 +11,22 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public final class FlyStatusUtil {
-    private static final Dao<FlyStatus, UUID> flyStatusDao;
+    private static final ThreadLocal<Dao<FlyStatus, UUID>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), FlyStatus.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            flyStatusDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), FlyStatus.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<FlyStatus, UUID> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -28,7 +37,7 @@ public final class FlyStatusUtil {
      */
     public static FlyStatus getFlyStatus(UUID uuid) {
         try {
-            FlyStatus flyStatus = flyStatusDao.queryForId(uuid);
+            FlyStatus flyStatus = getDao().queryForId(uuid);
             if (flyStatus == null) {
                 flyStatus = new FlyStatus();
                 flyStatus.setPlayer(uuid);
@@ -56,10 +65,12 @@ public final class FlyStatusUtil {
      * @param flyStatus 飞行状态实例
      */
     public static void updateFlyStatus(FlyStatus flyStatus) {
-        try {
-            flyStatusDao.createOrUpdate(flyStatus);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(flyStatus);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

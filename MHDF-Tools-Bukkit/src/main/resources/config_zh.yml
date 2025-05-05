@@ -467,6 +467,18 @@ invseeSettings:
     - "inv"
     - "invsee"
 
+# 屏蔽
+ignoreSettings:
+  # 开关
+  enable: true
+  # 禁止屏蔽列表
+  # 绕过权限: mhdftools.bypass.ignore.blacklist
+  blacklist:
+    - "BaiShenYao_Dog"
+  # 命令
+  commands:
+    - "ignore"
+
 # 聊天
 chatSettings:
   # 开关
@@ -511,17 +523,6 @@ chatSettings:
     # 关键词
     word:
       - "[i]"
-  # 屏蔽设置
-  ignore:
-    # 开关
-    enable: true
-    # 禁止屏蔽列表
-    # 绕过权限: mhdftools.bypass.ignore.blacklist
-    blacklist:
-      - "BaiShenYao_Dog"
-    # 命令
-    commands:
-      - "ignore"
   # 私聊设置
   msg:
     # 开关

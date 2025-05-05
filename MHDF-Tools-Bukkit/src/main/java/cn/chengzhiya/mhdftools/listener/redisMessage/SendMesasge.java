@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 public final class SendMesasge extends AbstractRedisMessageListener {
     public SendMesasge() {
         super(
-                null,
                 "sendMessage"
         );
     }

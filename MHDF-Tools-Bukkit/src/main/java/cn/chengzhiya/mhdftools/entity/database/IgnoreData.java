@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@DatabaseTable(tableName = "mhdftools_chatignore")
-public final class ChatIgnoreData extends AbstractDao {
+@DatabaseTable(tableName = "mhdftools_ignore")
+public final class IgnoreData extends AbstractDao {
     @DatabaseField(generatedId = true, canBeNull = false)
     private Integer id;
     @DatabaseField(canBeNull = false)

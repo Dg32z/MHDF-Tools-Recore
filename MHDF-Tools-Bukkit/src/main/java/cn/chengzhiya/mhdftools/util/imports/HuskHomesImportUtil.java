@@ -23,7 +23,7 @@ public final class HuskHomesImportUtil {
      * @param sender 命令执行者
      */
     public static void importHuskHomesData(CommandSender sender) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, (task) -> {
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
             ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.message.start")
                     .replace("{plugin}", "HuskHomes")
             );

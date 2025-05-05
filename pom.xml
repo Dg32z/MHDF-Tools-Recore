@@ -11,7 +11,7 @@
 
     <properties>
         <env.java.version>17</env.java.version>
-        <env.project.version>3.0.21</env.project.version>
+        <env.project.version>3.0.24</env.project.version>
     </properties>
 
     <name>MHDF-Tools</name>

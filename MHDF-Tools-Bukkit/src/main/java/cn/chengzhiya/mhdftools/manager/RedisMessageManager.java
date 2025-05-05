@@ -43,7 +43,7 @@ public final class RedisMessageManager {
     /**
      * 向指定频道发送指定redis消息
      *
-     * @param chanel 指定频道
+     * @param chanel  指定频道
      * @param message 指定消息
      */
     public void sendRedisMessage(String chanel, String message) {

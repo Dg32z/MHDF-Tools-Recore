@@ -43,10 +43,10 @@ public final class VanishUtil {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
                         onlinePlayer.hidePlayer(Main.instance, player));
             } else {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
                         onlinePlayer.hidePlayer(player));
             }
         }
@@ -66,10 +66,10 @@ public final class VanishUtil {
             if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion()
                     .isNewerThanOrEquals(ServerVersion.V_1_12_2)
             ) {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
                         onlinePlayer.showPlayer(Main.instance, player));
             } else {
-                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) ->
+                MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
                         onlinePlayer.showPlayer(player));
             }
         }

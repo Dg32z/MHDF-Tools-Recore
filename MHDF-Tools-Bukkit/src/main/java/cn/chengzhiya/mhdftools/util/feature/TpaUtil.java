@@ -4,6 +4,7 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -37,13 +38,18 @@ public final class TpaUtil {
         Main.instance.getCacheManager().put("tpaPlayer", player.getName(), targetName);
         Main.instance.getCacheManager().put("tpaDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpaSettings.delay")));
 
-        Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
-                .replaceByMiniMessage("{player}", NickUtil.getName(player))
-        );
-
         OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
+
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpa.message")
                 .replace("{player}", NickUtil.getName(target))
+        );
+
+        if (IgnoreDataUtil.isIgnore(target, player)) {
+            return;
+        }
+
+        Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpa.requestMessage")
+                .replaceByMiniMessage("{player}", NickUtil.getName(player))
         );
     }
 }

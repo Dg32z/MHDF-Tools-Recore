@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
+
 @SuppressWarnings("ALL")
 public final class Metrics {
     private final Plugin plugin = Main.instance;
@@ -61,7 +62,7 @@ public final class Metrics {
                 enabled,
                 this::appendPlatformData,
                 this::appendServiceData,
-                submitDataTask -> MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) -> submitDataTask.run()),
+                submitDataTask -> MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> submitDataTask.run()),
                 plugin::isEnabled,
                 (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
                 (message) -> this.plugin.getLogger().log(Level.INFO, message),
@@ -107,7 +108,7 @@ public final class Metrics {
 
         private static final String REPORT_URL = "https://bStats.org/api/v2/data/%s";
 
-        private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1, task -> new Thread(task, "bStats-Metrics"));
+        private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1, (task) -> new Thread(task, "bStats-Metrics"));
 
         private final String platform;
 

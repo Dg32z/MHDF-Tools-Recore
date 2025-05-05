@@ -10,26 +10,26 @@ public final class CmiConfigUtil {
     @Getter
     private static final File dataFolder = new File(ConfigUtil.getDataFolder().getParent(), "CMI");
     @Getter
-    private static final File configFile = new File(dataFolder, "config.yml");
-    @Getter
     private static final File settingsFolder = new File(dataFolder, "Settings");
     @Getter
     private static final File databaseInfoFile = new File(settingsFolder, "DataBaseInfo.yml");
+    @Getter
+    private static final File savesFolder = new File(dataFolder, "Saves");
+    @Getter
+    private static final File warpFile = new File(savesFolder, "Warps.yml");
+    @Getter
+    private static final File configFile = new File(dataFolder, "config.yml");
     private static YamlConfiguration config;
     private static YamlConfiguration databaseInfo;
+    private static YamlConfiguration warp;
 
     /**
      * 重新加载配置文件
      */
     public static void reloadConfig() {
         config = YamlConfiguration.loadConfiguration(configFile);
-    }
-
-    /**
-     * 重新加载数据库配置文件
-     */
-    public static void reloadDatabaseInfo() {
         databaseInfo = YamlConfiguration.loadConfiguration(databaseInfoFile);
+        warp = YamlConfiguration.loadConfiguration(warpFile);
     }
 
     /**
@@ -52,9 +52,22 @@ public final class CmiConfigUtil {
      */
     public static YamlConfiguration getDatabaseInfoConfig() {
         if (config == null) {
-            reloadDatabaseInfo();
+            reloadConfig();
         }
 
         return databaseInfo;
+    }
+
+    /**
+     * 获取传送点数据文件实例
+     *
+     * @return 传送点数据文件实例
+     */
+    public static YamlConfiguration getWarpConfig() {
+        if (warp == null) {
+            reloadConfig();
+        }
+
+        return warp;
     }
 }

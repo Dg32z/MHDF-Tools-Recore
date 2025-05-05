@@ -69,8 +69,9 @@ public final class ActionUtil {
      * @param pitch  音调
      */
     public static void playSound(Player player, Sound sound, Float volume, Float pitch) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
-                player.playSound(player, sound, volume, pitch));
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+                player.playSound(player, sound, volume, pitch)
+        );
     }
 
     /**
@@ -82,8 +83,9 @@ public final class ActionUtil {
      * @param pitch  音调
      */
     public static void playSound(Player player, String sound, Float volume, Float pitch) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
-                player.playSound(player, sound, volume, pitch));
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
+                player.playSound(player, sound, volume, pitch)
+        );
     }
 
     /**
@@ -97,7 +99,7 @@ public final class ActionUtil {
      * @param fadeOut  淡出时间
      */
     public static void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task -> {
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
             Main.instance.getAdventureManager().getAdventure()
                     .player(player).sendTitlePart(TitlePart.TIMES, Title.Times.times(Duration.ofMillis(fadeIn * 50L), Duration.ofMillis(stay * 50L), Duration.ofMillis(fadeOut * 50L)));
             Main.instance.getAdventureManager().getAdventure()
@@ -135,9 +137,10 @@ public final class ActionUtil {
      * @param message 消息实例
      */
     public static void sendActionBar(Player player, TextComponent message) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).sendActionBar(message));
+                        .player(player).sendActionBar(message)
+        );
     }
 
     /**
@@ -157,9 +160,10 @@ public final class ActionUtil {
      * @param bossBar BOSS血条实例
      */
     public static void sendBossbar(Player player, BossBar bossBar) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).showBossBar(bossBar));
+                        .player(player).showBossBar(bossBar)
+        );
     }
 
     /**
@@ -169,9 +173,10 @@ public final class ActionUtil {
      * @param bossBar BOSS血条实例
      */
     public static void hideBossbar(Player player, BossBar bossBar) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, task ->
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () ->
                 Main.instance.getAdventureManager().getAdventure()
-                        .player(player).hideBossBar(bossBar));
+                        .player(player).hideBossBar(bossBar)
+        );
     }
 
     /**
@@ -183,8 +188,9 @@ public final class ActionUtil {
      */
     public static void sendTimeBossbar(Player player, BossBar bossBar, Long time) {
         sendBossbar(player, bossBar);
-        MHDFScheduler.getAsyncScheduler().runTaskTimer(Main.instance, task ->
-                hideBossbar(player, bossBar), 0, time);
+        MHDFScheduler.getAsyncScheduler().runTaskTimer(Main.instance, () ->
+                hideBossbar(player, bossBar), 0, time
+        );
     }
 
     /**
@@ -195,7 +201,7 @@ public final class ActionUtil {
      * @param op      是否以op身份执行命令
      */
     public static void runCommand(CommandSender sender, String command, boolean op) {
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, task -> {
+        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
             if (sender instanceof Player player) {
                 player.setOp(true);
                 Bukkit.dispatchCommand(sender, command);
@@ -285,7 +291,9 @@ public final class ActionUtil {
             }
             case "[close]" -> {
                 if (sender instanceof Player player) {
-                    player.closeInventory();
+                    MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () ->
+                            player.closeInventory()
+                    );
                 }
             }
         }
@@ -308,7 +316,7 @@ public final class ActionUtil {
             String[] args = action.split("<delay=");
             long delay = args.length > 1 ? Long.parseLong(args[1].replace(">", "")) : 0;
 
-            MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, (task) -> runAction(sender, args[0].split("\\|")), delay);
+            MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> runAction(sender, args[0].split("\\|")), delay);
         }
     }
 }
