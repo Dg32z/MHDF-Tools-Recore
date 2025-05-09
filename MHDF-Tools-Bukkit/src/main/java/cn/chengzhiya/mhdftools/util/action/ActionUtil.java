@@ -202,11 +202,10 @@ public final class ActionUtil {
      */
     public static void runCommand(CommandSender sender, String command, boolean op) {
         MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
-            if (sender instanceof Player player) {
-                player.setOp(true);
+            if (op && !sender.isOp()) {
+                sender.setOp(true);
                 Bukkit.dispatchCommand(sender, command);
-                player.setOp(false);
-                return;
+                sender.setOp(false);
             }
             Bukkit.dispatchCommand(sender, command);
         });
