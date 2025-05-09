@@ -448,12 +448,12 @@ fastUseSettings:
   # 工作台(权限: mhdftools.fastuse.craftingtable)
   craftingTable: true
 
-# 修复1.13+刷物品BUG
+# 修复1.13+三叉戟复制漏洞
 tridentDupeFixSettings:
   # 开关
   enable: true
 
-# 修复Paper崩溃漏洞 (https://github.com/PaperMC/Folia/issues/356)
+# 修复1.21+收纳袋崩服漏洞
 bundleFixSettings:
   # 开关
   enable: true
