@@ -9,6 +9,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -37,15 +38,13 @@ public final class EconomyDataUtil {
      * @param uuid 玩家UUID
      */
     public static void initEconomyData(UUID uuid) {
-        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            EconomyData economyData = new EconomyData();
-            economyData.setPlayer(uuid);
-            economyData.setBigDecimal(
-                    BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
-            );
+        EconomyData economyData = new EconomyData();
+        economyData.setPlayer(uuid);
+        economyData.setBigDecimal(
+                BigDecimalUtil.toBigDecimal(ConfigUtil.getConfig().getDouble("economySettings.default"))
+        );
 
-            updateEconomyData(economyData);
-        });
+        updateEconomyData(economyData);
     }
 
     /**
@@ -55,7 +54,7 @@ public final class EconomyDataUtil {
      */
     public static void initEconomyData(OfflinePlayer player) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (getEconomyData(player) != null) {
+            if (getEconomyData(player).isExist()) {
                 return;
             }
 
@@ -71,7 +70,15 @@ public final class EconomyDataUtil {
      */
     public static EconomyData getEconomyData(UUID uuid) {
         try {
-            return getDao().queryForId(uuid);
+            EconomyData economyData = getDao().queryForId(uuid);
+            if (economyData == null) {
+                economyData = new EconomyData();
+                economyData.setPlayer(uuid);
+                economyData.setBigDecimal(BigDecimal.ZERO);
+                economyData.setExist(false);
+            }
+
+            return economyData;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

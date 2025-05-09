@@ -10,9 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
 
+    private ConfigManager configManager;
     private LibrariesManager librariesManager;
     private MinecraftLangManager minecraftLangManager;
-    private ConfigManager configManager;
     private LogFilterManager logFilterManager;
 
     private AdventureManager adventureManager;
@@ -29,14 +29,14 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
+        this.configManager = new ConfigManager();
+        this.configManager.init();
+
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
 
         this.minecraftLangManager = new MinecraftLangManager();
         this.minecraftLangManager.init();
-
-        this.configManager = new ConfigManager();
-        this.configManager.init();
 
         this.logFilterManager = new LogFilterManager();
         this.logFilterManager.init();
@@ -110,9 +110,9 @@ public final class Main extends JavaPlugin {
         this.databaseManager = null;
         this.adventureManager = null;
         this.logFilterManager = null;
-        this.configManager = null;
         this.minecraftLangManager = null;
         this.librariesManager = null;
+        this.configManager = null;
 
         instance = null;
     }
