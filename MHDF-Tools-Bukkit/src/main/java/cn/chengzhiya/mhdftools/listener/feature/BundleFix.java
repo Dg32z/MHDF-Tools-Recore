@@ -8,8 +8,7 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSelectBundleItem;
 
-public class BundleFix extends AbstractPacketListener {
-
+public final class BundleFix extends AbstractPacketListener {
     public BundleFix() {
         super(
                 "bundleFixSettings.enable",
@@ -23,18 +22,17 @@ public class BundleFix extends AbstractPacketListener {
             return;
         }
 
-        if (Main.instance.getPluginHookManager().getPacketEventsHook().getServerVersion().isOlderThanOrEquals(ServerVersion.V_1_21)) {
+        if (Main.instance.getPluginHookManager().getPacketEventsHook()
+                .getServerVersion().isOlderThanOrEquals(ServerVersion.V_1_21)
+        ) {
             return;
         }
 
-        final WrapperPlayClientSelectBundleItem wrapper = new WrapperPlayClientSelectBundleItem(event);
-
-        final int selItem = wrapper.getSelectedItemIndex();
-
-        if (selItem < -1) { // patch for https://github.com/PaperMC/Folia/issues/356
+        WrapperPlayClientSelectBundleItem wrapper = new WrapperPlayClientSelectBundleItem(event);
+        if (wrapper.getSelectedItemIndex() >= 0) {
             return;
         }
 
-        event.setCancelled(true); // cancel the packet (:
+        event.setCancelled(true);
     }
 }
