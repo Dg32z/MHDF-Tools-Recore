@@ -21,8 +21,8 @@ public final class FastChangeWeather extends AbstractCommand {
         super(
                 "fastChangeWeatherSettings.enable",
                 "快速调节天气",
-                "mhdftools.commands.fastChangeWeather",
-                true,
+                "mhdftools.commands.fastchangeweather",
+                false,
                 FastChangeWeatherUtil.getCommandList().toArray(new String[0])
         );
 
@@ -38,7 +38,9 @@ public final class FastChangeWeather extends AbstractCommand {
                     continue;
                 }
 
-                getCommandConfigHashMap().put(key, weather);
+                for (String command : weather.getStringList("commands")) {
+                    getCommandConfigHashMap().put(command, weather);
+                }
             }
         }
     }
@@ -55,7 +57,7 @@ public final class FastChangeWeather extends AbstractCommand {
             world.setThundering(thunder);
         }
 
-        sender.sendMessage(LangUtil.i18n("commands.fastChangeWeather.message")
+        sender.sendMessage(LangUtil.i18n("commands.fastchangeweather.message")
                 .replace("{storm}", storm ? LangUtil.i18n("enable") : LangUtil.i18n("disable"))
                 .replace("{thunder}", thunder ? LangUtil.i18n("enable") : LangUtil.i18n("disable"))
         );

@@ -495,6 +495,14 @@ fastChangeWeatherSettings:
       commands:
         - "sun"
 
+# 虚假调节时间
+fakeChangeTimeSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "fakeChangeTime"
+
 # 背包查看
 invseeSettings:
   # 开关

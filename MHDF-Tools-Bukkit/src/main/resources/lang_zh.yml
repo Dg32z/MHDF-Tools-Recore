@@ -437,11 +437,16 @@ commands:
       enderchest: "末影箱"
     typeNotExists: "{prefix} <#FFB8B8>目标背包类型不存在!"
     message: "{prefix} <#EAE4FF>你打开了{player}的{type}!"
-  fastChangeTime:
+  fastchangetime:
     usage: "/{command}"
     description: "快速调节时间"
     message: "{prefix} <#EAE4FF>时间已调节为{time}!"
-  fastChangeWeather:
+  fastchangeweather:
     usage: "/{command}"
     description: "快速调节天气"
-    message: "{prefix} <#EAE4FF>雨天已设置为{storm},打雷一设置为{thunder}!"
+    message: "{prefix} <#EAE4FF>雨天已设置为{storm},打雷已设置为{thunder}!"
+  fakechangetime:
+    usage: "/{command} <时间> [玩家]"
+    description: "虚假调节时间"
+    timeFormatError: "{prefix} <#FFB8B8>超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
+    message: "{prefix} <#EAE4FF>玩家{player}的时间已虚假调节为{time}!"

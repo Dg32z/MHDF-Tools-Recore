@@ -21,8 +21,8 @@ public final class FastChangeTime extends AbstractCommand {
         super(
                 "fastChangeTimeSettings.enable",
                 "快速调节时间",
-                "mhdftools.commands.fastChangeTime",
-                true,
+                "mhdftools.commands.fastchangetime",
+                false,
                 FastChangeTimeUtil.getCommandList().toArray(new String[0])
         );
 
@@ -38,7 +38,9 @@ public final class FastChangeTime extends AbstractCommand {
                     continue;
                 }
 
-                getCommandConfigHashMap().put(key, time);
+                for (String command : time.getStringList("commands")) {
+                    getCommandConfigHashMap().put(command, time);
+                }
             }
         }
     }
@@ -52,7 +54,7 @@ public final class FastChangeTime extends AbstractCommand {
             world.setTime(time);
         }
 
-        sender.sendMessage(LangUtil.i18n("commands.fastChangeTime.message")
+        sender.sendMessage(LangUtil.i18n("commands.fastchangetime.message")
                 .replace("{time}", String.valueOf(time))
         );
     }
