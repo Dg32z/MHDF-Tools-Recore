@@ -81,8 +81,7 @@ commands:
     message: "{prefix} <#EAE4FF>崩端操作(类型: {type}),已开始!"
     types:
       explosion: "爆炸溢出"
-      changeHoldItem: "手持物品溢出"
-      serverWindowConfirmation: "延迟包溢出"
+      invalidTeleport: "无效传送"
       invalidParticle: "异常粒子"
   knockback:
     usage: "/{command} <玩家>"

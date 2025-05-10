@@ -88,14 +88,22 @@ public final class PacketEventsHook extends AbstractHook {
     }
 
     /**
+     * 获取指定玩家实例的数据包用户实例
+     *
+     * @param player 玩家实例
+     * @return 数据包用户实例
+     */
+    public User getUser(Player player) {
+        return PacketEvents.getAPI().getPlayerManager().getUser(player);
+    }
+
+    /**
      * 注册监听器
      *
      * @param packetListener 数据包监听器实例
      * @param priority       监听器权重
      */
     public void registerListener(AbstractPacketListener packetListener, PacketListenerPriority priority) {
-        if (isEnable()) {
-            PacketEvents.getAPI().getEventManager().registerListener(packetListener, priority);
-        }
+        PacketEvents.getAPI().getEventManager().registerListener(packetListener, priority);
     }
 }

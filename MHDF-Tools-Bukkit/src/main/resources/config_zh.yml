@@ -145,7 +145,7 @@ crashSettings:
   # 开关
   enable: true
   # 默认崩溃模式
-  # (explosion changeHoldItem posAndLook invalidParticle)
+  # (explosion invalidTeleport invalidParticle)
   defaultType: "explosion"
   # 命令
   commands:
