@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.listener;
 
+import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.interfaces.RedisMessageListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import io.lettuce.core.pubsub.RedisPubSubListener;
@@ -39,7 +40,7 @@ public abstract class AbstractRedisMessageListener implements RedisPubSubListene
 
     @Override
     public void message(String chanel, String message) {
-        if (!Objects.equals(chanel, this.chanel)) {
+        if (!Objects.equals(chanel, Main.instance.getCacheManager().getRedisMessageManager().getPrefix() + this.chanel)) {
             return;
         }
         this.onMessage(message);
