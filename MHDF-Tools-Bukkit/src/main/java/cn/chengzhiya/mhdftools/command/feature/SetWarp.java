@@ -38,7 +38,8 @@ public final class SetWarp extends AbstractCommand {
 
         Location location = sender.getLocation();
 
-        WarpData warpData = WarpDataUtil.getWarpData(args[0]);
+        WarpData warpData = new WarpData();
+        warpData.setWarp(args[0]);
         warpData.setLocation(new BungeeCordLocation(location));
 
         WarpDataUtil.updateWarpData(warpData);
