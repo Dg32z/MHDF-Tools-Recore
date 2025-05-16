@@ -64,8 +64,11 @@ public final class CacheManager {
                         .redis(hostSplit[0])
                         .withPort(Integer.parseInt(hostSplit[1]));
 
-                if (user != null && !user.isEmpty() && password != null && !password.isEmpty()) {
-                    uriBuilder.withAuthentication(user, password.toCharArray());
+                if (user != null && !user.isEmpty()) {
+                    uriBuilder.withAuthentication(user, "");
+                }
+                if (password != null && !password.isEmpty()) {
+                    uriBuilder.withPassword(password.toCharArray());
                 }
 
                 this.redisClient = RedisClient.create(uriBuilder.build());
