@@ -61,7 +61,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return true;
+        return EconomyDataUtil.getEconomyData(player) != null;
     }
 
     @Override

@@ -25,8 +25,11 @@ public final class EconomyUtil {
      * @return 经济实例
      */
     public static BigDecimal getMoney(UUID uuid) {
-        EconomyData data = EconomyDataUtil.getEconomyData(uuid);
-        return data.getBigDecimal();
+        EconomyData economyData = EconomyDataUtil.getEconomyData(uuid);
+        if (economyData == null) {
+            return BigDecimal.ZERO;
+        }
+        return economyData.getBigDecimal();
     }
 
     /**
@@ -47,6 +50,11 @@ public final class EconomyUtil {
      */
     public static void setMoney(UUID uuid, BigDecimal value) {
         EconomyData economyData = EconomyDataUtil.getEconomyData(uuid);
+        if (economyData == null) {
+            economyData = new EconomyData();
+            economyData.setPlayer(uuid);
+        }
+
         economyData.setBigDecimal(value);
         EconomyDataUtil.updateEconomyData(economyData);
     }

@@ -8,6 +8,7 @@ import cn.chengzhiya.mhdftools.util.math.BigDecimalUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -54,7 +55,7 @@ public final class EconomyDataUtil {
      */
     public static void initEconomyData(OfflinePlayer player) {
         MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
-            if (getEconomyData(player).isExist()) {
+            if (getEconomyData(player) != null) {
                 return;
             }
 
@@ -70,15 +71,7 @@ public final class EconomyDataUtil {
      */
     public static EconomyData getEconomyData(UUID uuid) {
         try {
-            EconomyData economyData = getDao().queryForId(uuid);
-            if (economyData == null) {
-                economyData = new EconomyData();
-                economyData.setPlayer(uuid);
-                economyData.setBigDecimal(BigDecimal.ZERO);
-                economyData.setExist(false);
-            }
-
-            return economyData;
+            return getDao().queryForId(uuid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
