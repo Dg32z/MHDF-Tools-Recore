@@ -7,7 +7,7 @@ import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
-import cn.chengzhiya.mhdftools.util.message.MiniMessageUtil;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
@@ -148,7 +148,7 @@ public final class ChatUtil {
             return message;
         }
 
-        TextComponent messageComponent = MiniMessageUtil.miniMessage(message);
+        TextComponent messageComponent = ColorUtil.color(message);
         TextComponent format = LangUtil.i18n("chat.at.format");
         for (String at : atList) {
             Pattern pattern = Pattern.compile(patternFormat.replace("{at}", at));
