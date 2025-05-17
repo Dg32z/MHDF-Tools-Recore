@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class TpPlayer extends AbstractListener {
     public TpPlayer() {
-        super(null);
+        super();
     }
 
     @EventHandler
