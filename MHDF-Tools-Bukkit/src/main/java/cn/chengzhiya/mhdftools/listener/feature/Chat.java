@@ -28,7 +28,7 @@ public final class Chat extends AbstractListener {
         );
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
