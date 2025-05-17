@@ -5,6 +5,7 @@ import cn.chengzhiya.mhdftools.interfaces.RedisMessageListener;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import io.lettuce.core.pubsub.RedisPubSubListener;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,17 +15,17 @@ public abstract class AbstractRedisMessageListener implements RedisPubSubListene
     private final boolean enable;
     private final String chanel;
 
-    public AbstractRedisMessageListener(String chanel) {
+    public AbstractRedisMessageListener(@NotNull String chanel) {
         this.enable = true;
         this.chanel = chanel;
     }
 
-    public AbstractRedisMessageListener(String enableKey, String chanel) {
+    public AbstractRedisMessageListener(@NotNull String enableKey, @NotNull String chanel) {
         this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
         this.chanel = chanel;
     }
 
-    public AbstractRedisMessageListener(List<String> enableKeyList, String chanel) {
+    public AbstractRedisMessageListener(List<String> enableKeyList, @NotNull String chanel) {
         boolean enable = true;
         for (String enableKey : enableKeyList) {
             if (enableKey == null || enableKey.isEmpty()) {

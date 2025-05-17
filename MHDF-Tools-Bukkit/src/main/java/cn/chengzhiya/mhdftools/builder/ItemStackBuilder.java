@@ -58,6 +58,11 @@ public final class ItemStackBuilder {
         this.item = Objects.requireNonNullElseGet(item, () -> new ItemStack(Material.AIR));
     }
 
+    public ItemStackBuilder(Player player, ItemStack item) {
+        this.player = player;
+        this.item = item;
+    }
+
     public ItemStackBuilder name(String name) {
         ItemMeta meta = this.item.getItemMeta();
         if (meta == null) {

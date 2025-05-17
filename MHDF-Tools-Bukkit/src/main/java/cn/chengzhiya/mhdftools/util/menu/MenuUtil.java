@@ -189,8 +189,17 @@ public final class MenuUtil {
      * @param key    物品ID
      */
     public static void setMenuItem(Player player, Inventory menu, ConfigurationSection item, String key) {
-        ItemStack itemStack = getMenuItemStackBuilder(player, item, key).build();
+        setMenuItem(menu, item, getMenuItemStackBuilder(player, item, key).build());
+    }
 
+    /**
+     * 设置指定菜单实例的指定物品实例
+     *
+     * @param menu      菜单实例
+     * @param item      物品配置实例
+     * @param itemStack 物品实例
+     */
+    public static void setMenuItem(Inventory menu, ConfigurationSection item, ItemStack itemStack) {
         List<Integer> slotList = MenuUtil.getSlotList(item);
         for (Integer slot : slotList) {
             menu.setItem(slot, itemStack);

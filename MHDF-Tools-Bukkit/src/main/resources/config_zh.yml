@@ -564,10 +564,15 @@ chatSettings:
     # 开关
     enable: true
     # 格式
-    format: "&b[&f{name} &ax{amount}&b]"
+    format: "<click:run_command:'/lookItem {uuid}'>&b[&f{name} &ax{amount}&b]</click>"
     # 关键词
     word:
       - "[i]"
+    # 移除展示物品缓存时间(单位: 秒)
+    removeCache: 60
+    # 命令
+    commands:
+      - "lookItem"
   # 私聊设置
   msg:
     # 开关

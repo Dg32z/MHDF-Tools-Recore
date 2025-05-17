@@ -450,3 +450,8 @@ commands:
     description: "虚假调节时间"
     timeFormatError: "{prefix} <#FFB8B8>超级大笨蛋,时间怎么可能会是非数字的内容啊,差点就坏掉了,生气!!!"
     message: "{prefix} <#EAE4FF>玩家{player}的时间已虚假调节为{time}!"
+  lookItem:
+    usage: "/{command} <物品ID>"
+    description: "查看物品"
+    noData: "{prefix} <#FFB8B8>找不到物品数据,可能数据已过期!"
+    message: "{prefix} <#EAE4FF>你打开了一个展示物品!"

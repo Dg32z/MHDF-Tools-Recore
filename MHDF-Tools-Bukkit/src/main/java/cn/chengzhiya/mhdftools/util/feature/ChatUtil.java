@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,11 +100,18 @@ public final class ChatUtil {
             return message;
         }
 
+        UUID uuid = UUID.randomUUID();
+        Main.instance.getCacheManager().put("showItem", uuid.toString(), new String(item.serializeAsBytes()));
+        MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> {
+            Main.instance.getCacheManager().remove("showItem", uuid.toString());
+        }, 20L * config.getInt("removeCache"));
+
         String format = config.getString("format");
         if (format == null) {
             return message;
         }
         format = format
+                .replace("{uuid}", uuid.toString())
                 .replace("{name}", Main.instance.getMinecraftLangManager().getItemName(item).replace("§", "&"))
                 .replace("{amount}", String.valueOf(item.getAmount()));
 

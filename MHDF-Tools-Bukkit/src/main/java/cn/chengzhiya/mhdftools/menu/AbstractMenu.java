@@ -12,17 +12,39 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
+import java.util.List;
+
 @Getter
 public abstract class AbstractMenu implements InventoryHolder, Menu {
     private final boolean enable;
     private final Player player;
 
+    public AbstractMenu(Player player) {
+        this.enable = true;
+        this.player = player;
+    }
+
     public AbstractMenu(String enableKey, Player player) {
-        if (enableKey != null && !enableKey.isEmpty()) {
-            this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        } else {
+        if (enableKey == null || enableKey.isEmpty()) {
             this.enable = true;
+        } else {
+            this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
         }
+
+        this.player = player;
+    }
+
+    public AbstractMenu(List<String> enableKeyList, Player player) {
+        boolean enable = true;
+        for (String enableKey : enableKeyList) {
+            if (enableKey == null || enableKey.isEmpty()) {
+                continue;
+            }
+
+            enable = ConfigUtil.getConfig().getBoolean(enableKey);
+        }
+
+        this.enable = enable;
         this.player = player;
     }
 

@@ -5,17 +5,34 @@ import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @Getter
 public abstract class AbstractTask extends MHDFRunnable {
     private final boolean enable;
     private final Long time;
 
-    public AbstractTask(String enableKey, @NotNull Long time) {
-        if (enableKey != null && !enableKey.isEmpty()) {
-            this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
-        } else {
-            this.enable = true;
+    public AbstractTask(@NotNull Long time) {
+        this.enable = true;
+        this.time = time;
+    }
+
+    public AbstractTask(@NotNull String enableKey, @NotNull Long time) {
+        this.enable = ConfigUtil.getConfig().getBoolean(enableKey);
+        this.time = time;
+    }
+
+    public AbstractTask(List<String> enableKeyList, @NotNull Long time) {
+        boolean enable = true;
+        for (String enableKey : enableKeyList) {
+            if (enableKey == null || enableKey.isEmpty()) {
+                continue;
+            }
+
+            enable = ConfigUtil.getConfig().getBoolean(enableKey);
         }
+
+        this.enable = enable;
         this.time = time;
     }
 }

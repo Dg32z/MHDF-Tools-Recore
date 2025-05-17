@@ -59,8 +59,8 @@ public final class PacketEventsHook extends AbstractHook {
      */
     @Override
     public void unhook() {
-        PacketEvents.getAPI().terminate();
         super.enable = false;
+        PacketEvents.getAPI().terminate();
     }
 
     /**
