@@ -6,6 +6,7 @@
     <parent>
         <groupId>cn.chengzhiya</groupId>
         <artifactId>MHDF-Tools</artifactId>
+        <!--suppress MavenPropertyInParent -->
         <version>${env.project.version}</version>
     </parent>
 
@@ -22,7 +23,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>${env.plugin.compiler.version}</version>
                 <configuration>
                     <source>${env.java.version}</source>
                     <target>${env.java.version}</target>
@@ -31,7 +32,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>${env.plugin.shade.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -41,9 +42,21 @@
                         <configuration>
                             <minimizeJar>true</minimizeJar>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.alibaba</pattern>
+                                    <shadedPattern>cn.chengzhiya.mhdftools.libs.com.alibaba</shadedPattern>
+                                </relocation>
+                            </relocations>
+
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/</exclude>
+                                        <exclude>schema/</exclude>
+                                    </excludes>
                                 </filter>
                             </filters>
                         </configuration>
@@ -64,21 +77,21 @@
         <dependency>
             <groupId>com.velocitypowered</groupId>
             <artifactId>velocity-api</artifactId>
-            <version>3.3.0-SNAPSHOT</version>
+            <version>${env.server.velocity.api.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>${env.lib.lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
-            <version>2.0.53</version>
+            <version>${env.lib.fastjson.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
