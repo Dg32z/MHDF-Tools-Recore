@@ -3,13 +3,12 @@ package cn.chengzhiya.mhdftools.util.feature;
 import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.util.Base64Util;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -101,7 +100,7 @@ public final class ChatUtil {
         }
 
         UUID uuid = UUID.randomUUID();
-        Main.instance.getCacheManager().put("showItem", uuid.toString(), new String(item.serializeAsBytes()));
+        Main.instance.getCacheManager().put("showItem", uuid.toString(), Base64Util.encode(item.serializeAsBytes()));
         MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> {
             Main.instance.getCacheManager().remove("showItem", uuid.toString());
         }, 20L * config.getInt("removeCache"));
@@ -116,11 +115,9 @@ public final class ChatUtil {
                 .replace("{amount}", String.valueOf(item.getAmount()));
 
         for (String s : config.getStringList("word")) {
-            message = message.replace(s,
-                    MiniMessage.miniMessage().serialize(
-                            Component.text(format).hoverEvent(item.asHoverEvent())
-                    ) + "</hover>"
-            );
+            message = ColorUtil.color(message).replace(s,
+                    ColorUtil.color(format).hoverEvent(item.asHoverEvent())
+            ).toMiniMessageString();
         }
 
         return message;

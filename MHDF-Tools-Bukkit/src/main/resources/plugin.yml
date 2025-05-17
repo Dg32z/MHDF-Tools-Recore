@@ -117,7 +117,7 @@ permissions:
   mhdftools.commands.list:
     description: 查看在线列表
     default: true
-  mhdftools.commands.lookItem:
+  mhdftools.commands.lookitem:
     description: 展示物品
     default: true
   mhdftools.commands.mhdftools:

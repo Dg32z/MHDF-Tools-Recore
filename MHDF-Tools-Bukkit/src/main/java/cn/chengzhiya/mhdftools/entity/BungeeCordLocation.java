@@ -65,7 +65,7 @@ public final class BungeeCordLocation {
     }
 
     public BungeeCordLocation(String base64) {
-        String[] data = Base64Util.decode(base64).split(":");
+        String[] data = new String(Base64Util.decode(base64)).split(":");
         this.server = data[0];
         this.world = data[1];
         this.x = Double.parseDouble(data[2]);

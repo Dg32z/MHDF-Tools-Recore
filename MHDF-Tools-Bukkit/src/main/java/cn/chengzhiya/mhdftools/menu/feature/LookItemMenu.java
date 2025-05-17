@@ -20,17 +20,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @Getter
-public final class LookItem extends AbstractMenu {
+public final class LookItemMenu extends AbstractMenu {
     private final YamlConfiguration config;
     private final byte[] data;
 
-    public LookItem(Player player, byte[] data) {
+    public LookItemMenu(Player player, byte[] data) {
         super(
-                "homeSettings.enable",
+                List.of("chatSettings.enable", "chatSettings.showItem.enable"),
                 player
         );
-        this.config = MenuConfigUtil.getMenuConfig("home");
+        this.config = MenuConfigUtil.getMenuConfig("lookItem");
         this.data = data;
     }
 

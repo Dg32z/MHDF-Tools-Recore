@@ -29,6 +29,9 @@ public final class MenuConfigUtil {
         if (ConfigUtil.getConfig().getBoolean("homeSettings.enable")) {
             FileUtil.saveResource("menu/home.yml", "menu/home.yml", false);
         }
+        if (ConfigUtil.getConfig().getBoolean("chatSettings.enable") && ConfigUtil.getConfig().getBoolean("chatSettings.showItem.enable")) {
+            FileUtil.saveResource("menu/lookItem.yml", "menu/lookItem.yml", false);
+        }
     }
 
     /**

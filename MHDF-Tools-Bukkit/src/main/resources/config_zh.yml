@@ -565,7 +565,7 @@ chatSettings:
     # 开关
     enable: true
     # 格式
-    format: "<click:run_command:'/lookItem {uuid}'>&b[&f{name} &ax{amount}&b]</click>"
+    format: "<click:run_command:'/lookItem {uuid}'>&b[&f{name} &ax{amount}&b]"
     # 关键词
     word:
       - "[i]"
@@ -573,7 +573,7 @@ chatSettings:
     removeCache: 60
     # 命令
     commands:
-      - "lookItem"
+      - "lookitem"
   # 私聊
   msg:
     # 开关
