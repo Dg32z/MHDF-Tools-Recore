@@ -26,12 +26,12 @@ public final class MsgUtil {
         }
 
         // 限制使用颜色符号
-        if (!sender.hasPermission("mhdftools.bypass.chat.color")) {
+        if (!sender.hasPermission("mhdftools.chat.color")) {
             message = ChatColor.stripColor(ColorUtil.legacyColor(message));
         }
 
         // 限制使用miniMessage
-        if (!sender.hasPermission("mhdftools.bypass.chat.minimessage")) {
+        if (!sender.hasPermission("mhdftools.chat.minimessage")) {
             Pattern pattern = Pattern.compile("</?[a-zA-Z0-9_:-]+>");
             message = pattern.matcher(message).replaceAll("");
         }

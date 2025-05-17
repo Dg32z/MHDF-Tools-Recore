@@ -53,12 +53,12 @@ public final class Chat extends AbstractListener {
         }
 
         // 限制使用颜色符号
-        if (!player.hasPermission("mhdftools.bypass.chat.color")) {
+        if (!player.hasPermission("mhdftools.chat.color")) {
             message = ChatColor.stripColor(ColorUtil.legacyColor(message));
         }
 
         // 限制使用miniMessage
-        if (!player.hasPermission("mhdftools.bypass.chat.minimessage")) {
+        if (!player.hasPermission("mhdftools.chat.minimessage")) {
             Pattern pattern = Pattern.compile("%/?\\[\\^]+%");
             message = pattern.matcher(message).replaceAll("");
         }

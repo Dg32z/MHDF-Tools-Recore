@@ -15,7 +15,7 @@ public final class LookItem extends AbstractCommand {
     public LookItem() {
         super(
                 List.of("chatSettings.enable", "chatSettings.showItem.enable"),
-                "返回死亡位置",
+                "展示物品",
                 "mhdftools.commands.lookItem",
                 true,
                 ConfigUtil.getConfig().getStringList("chatSettings.showItem.commands").toArray(new String[0])

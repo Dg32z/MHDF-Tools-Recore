@@ -57,7 +57,7 @@ public final class AtUtil {
             playerList.add(playerName);
         }
 
-        if (player.hasPermission("mhdftools.chat.all")) {
+        if (player.hasPermission("mhdftools.chat.at.all")) {
             for (String allMessage : config.getStringList("allMessage")) {
                 if (!message.contains(allMessage)) {
                     continue;

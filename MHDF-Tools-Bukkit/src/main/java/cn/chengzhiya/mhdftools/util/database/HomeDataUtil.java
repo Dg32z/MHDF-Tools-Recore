@@ -41,14 +41,12 @@ public final class HomeDataUtil {
      */
     public static HomeData getHomeData(UUID uuid, String home) {
         try {
-            HomeData homeData = getDao().queryBuilder()
+            return getDao().queryBuilder()
                     .where()
                     .eq("player", uuid)
                     .and()
                     .eq("home", home)
                     .queryForFirst();
-
-            return homeData;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
