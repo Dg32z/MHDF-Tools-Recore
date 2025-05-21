@@ -1,7 +1,7 @@
 package cn.chengzhiya.mhdftools.util.network;
 
 import cn.chengzhiya.mhdftools.exception.DownloadException;
-import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 import com.google.common.io.ByteStreams;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -27,12 +27,12 @@ public final class HttpUtil {
         URL url = new URL(urlString);
 
         Proxy proxy = Proxy.NO_PROXY;
-        ConfigurationSection config = ConfigUtil.getConfig().getConfigurationSection("httpSettings");
+        ConfigurationSection config = ProxyUtil.getProxyConfig().getConfigurationSection("proxySettings");
         if (config != null) {
-            if (config.getBoolean("proxy.enable")) {
-                String type = config.getString("proxy.type");
-                String host = config.getString("proxy.host");
-                int port = config.getInt("proxy.port");
+            if (config.getBoolean("enable")) {
+                String type = config.getString("type");
+                String host = config.getString("host");
+                int port = config.getInt("port");
 
                 proxy = new Proxy(Proxy.Type.valueOf(type), new InetSocketAddress(Objects.requireNonNull(host), port));
             }

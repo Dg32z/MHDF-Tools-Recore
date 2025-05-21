@@ -48,7 +48,14 @@ public final class ActionUtil {
      * @param message 文本实例
      */
     public static void broadcastMessage(TextComponent message) {
-        Bukkit.broadcast(message);
+        if (Main.instance.isNativeSupportAdventureApi()) {
+            Bukkit.broadcast(message);
+        } else {
+            ActionUtil.sendMessage(Bukkit.getConsoleSender(), message);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                ActionUtil.sendMessage(player, message);
+            }
+        }
     }
 
     /**
