@@ -31,7 +31,7 @@ public final class RandomTeleportUtil {
 
         String groupId = GroupUtil.getGroup(player, config, "mhdftools.group.randomteleport.");
 
-        return ConfigUtil.getConfig().getConfigurationSection(groupId);
+        return config.getConfigurationSection(groupId);
     }
 
     /**

@@ -59,7 +59,7 @@ public final class RandomTeleport extends AbstractCommand {
             player = Bukkit.getPlayer(args[1]);
         }
 
-        if (args.length >= 3) {
+        if (args.length >= 3 && !args[2].equals(Main.instance.getBungeeCordManager().getServerName())) {
             server = args[2];
         }
 
@@ -72,42 +72,41 @@ public final class RandomTeleport extends AbstractCommand {
             return;
         }
 
+        ConfigurationSection group = RandomTeleportUtil.getGroupConfigurationSection(player);
+        if (group == null) {
+            return;
+        }
+
+        if (group.getBoolean("delay.enable")) {
+            if (!player.hasPermission("mhdftools.bypass.randomteleport.delay")) {
+                String delayData = Main.instance.getCacheManager().get("randomTeleportDelay", player.getName());
+                if (delayData != null) {
+                    ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.delay")
+                            .replace("{delay}", delayData)
+                    );
+                    return;
+                }
+            }
+
+            Main.instance.getCacheManager().put("randomTeleportDelay", player.getName(), String.valueOf(group.getInt("delay.time")));
+        }
+
         // 不跨服
         if (server == null) {
             World world = Bukkit.getWorld(worldName);
             if (world == null) {
-                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.noWorld"));
+                ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.noWorld"));
                 return;
             }
 
-            ConfigurationSection group = RandomTeleportUtil.getGroupConfigurationSection(player);
-            if (group == null) {
-                return;
-            }
-
-            if (group.getBoolean("delay.enable")) {
-                if (!player.hasPermission("mhdftools.bypass.randomteleport.delay")) {
-                    String delayData = Main.instance.getCacheManager().get("randomTeleportDelay", player.getName());
-                    if (delayData != null) {
-                        ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.delay")
-                                .replace("{delay}", delayData)
-                        );
-                        return;
-                    }
-                }
-
-                Main.instance.getCacheManager().put("randomTeleportDelay", player.getName(), String.valueOf(group.getInt("delay.time")));
-            }
-
+            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.message"));
             RandomTeleportUtil.randomTeleport(player, world);
-            ActionUtil.sendMessage(player, LangUtil.i18n("commands.randomteleport.subCommands.message"));
-            ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.message"));
             return;
         }
 
+        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.message"));
         Main.instance.getCacheManager().put("randomTeleportWorld", player.getName(), worldName);
         Main.instance.getBungeeCordManager().connectServer(player, server);
-        ActionUtil.sendMessage(sender, LangUtil.i18n("commands.randomteleport.subCommands.message"));
     }
 
     @Override
