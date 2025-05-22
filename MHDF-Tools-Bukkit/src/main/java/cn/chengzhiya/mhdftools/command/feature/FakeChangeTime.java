@@ -2,9 +2,9 @@ package cn.chengzhiya.mhdftools.command.feature;
 
 import cn.chengzhiya.mhdftools.command.AbstractCommand;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.feature.FakeChangeTimeUtil;
-import cn.chengzhiya.mhdftools.util.feature.FastChangeTimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public final class FakeChangeTime extends AbstractCommand {
                 "虚假调节时间",
                 "mhdftools.commands.fakechangetime",
                 false,
-                FastChangeTimeUtil.getCommandList().toArray(new String[0])
+                ConfigUtil.getConfig().getStringList("fakeChangeTimeSettings.commands").toArray(new String[0])
         );
     }
 
