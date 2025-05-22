@@ -57,7 +57,7 @@ public final class MsgUtil {
         }
 
         Main.instance.getCacheManager().put("reply", sender.getName(), target);
-        Main.instance.getCacheManager().put("reply", sender.getName(), sender.getName());
+        Main.instance.getCacheManager().put("reply", target, sender.getName());
 
         ActionUtil.sendMessage(sender, LangUtil.i18n("commands.msg.send")
                 .replace("{player}", sender.getName())
