@@ -136,10 +136,6 @@ public final class ChatUtil {
             return message;
         }
 
-        if (!config.getBoolean("enable")) {
-            return message;
-        }
-
         String patternFormat = config.getString("patternFormat");
         if (patternFormat == null) {
             return message;
