@@ -28,8 +28,12 @@ public final class ActionUtil {
             return;
         }
 
-        Main.instance.getAdventureManager().getAdventure()
-                .sender(sender).sendMessage(message);
+        if (MHDFScheduler.isFolia()) {
+            sender.sendMessage(message);
+        } else {
+            Main.instance.getAdventureManager().getAdventure()
+                    .sender(sender).sendMessage(message);
+        }
     }
 
     /**
