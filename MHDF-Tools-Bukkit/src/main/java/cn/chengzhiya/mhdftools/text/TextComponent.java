@@ -90,27 +90,10 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
      * @param replacement 替换后的文本实例
      * @return 替换完成后的文本实例
      */
-    public TextComponent replace(String target, TextComponent replacement) {
+    public TextComponent replace(String target, Component replacement) {
         TextReplacementConfig replacementConfig = TextReplacementConfig.builder()
                 .matchLiteral(target)
                 .replacement(replacement)
-                .build();
-
-        return new TextComponent(replaceText(replacementConfig));
-    }
-
-    /**
-     * 替换文本实例中的第一个指定字符串
-     *
-     * @param target      被替换的字符串
-     * @param replacement 替换后的文本
-     * @return 替换完成后的文本实例
-     */
-    public TextComponent replaceFirst(String target, TextComponent replacement) {
-        TextReplacementConfig replacementConfig = TextReplacementConfig.builder()
-                .matchLiteral(target)
-                .replacement(replacement)
-                .times(1)
                 .build();
 
         return new TextComponent(replaceText(replacementConfig));
@@ -124,6 +107,23 @@ public final class TextComponent extends AbstractComponent implements net.kyori.
      * @return 替换完成后的文本实例
      */
     public TextComponent replaceFirst(String target, String replacement) {
+        TextReplacementConfig replacementConfig = TextReplacementConfig.builder()
+                .matchLiteral(target)
+                .replacement(replacement)
+                .times(1)
+                .build();
+
+        return new TextComponent(replaceText(replacementConfig));
+    }
+
+    /**
+     * 替换文本实例中的第一个指定字符串
+     *
+     * @param target      被替换的字符串
+     * @param replacement 替换后的文本
+     * @return 替换完成后的文本实例
+     */
+    public TextComponent replaceFirst(String target, Component replacement) {
         TextReplacementConfig replacementConfig = TextReplacementConfig.builder()
                 .matchLiteral(target)
                 .replacement(replacement)

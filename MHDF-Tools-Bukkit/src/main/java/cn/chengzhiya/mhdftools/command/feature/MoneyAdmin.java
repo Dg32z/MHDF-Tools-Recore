@@ -43,6 +43,11 @@ public final class MoneyAdmin extends AbstractCommand {
                     }
 
                     EconomyData economyData = EconomyDataUtil.getEconomyData(player);
+                    if (economyData == null) {
+                        economyData = new EconomyData();
+                        economyData.setPlayer(player.getUniqueId());
+                        economyData.setBigDecimal(BigDecimal.ZERO);
+                    }
 
                     if (args[0].equals("set")) {
                         economyData.setBigDecimal(change);

@@ -21,8 +21,8 @@ public final class CraftEngineHook extends AbstractHook {
 
     @Override
     public void unhook() {
-        this.api = null;
         super.enable = false;
+        this.api = null;
     }
 
     /**

@@ -18,8 +18,8 @@ public final class MinecraftLangManager {
      */
     public void init() {
         this.langAPI = new LangAPI(Main.instance, file);
-        this.langAPI.getLangManager().downloadLang();
-        this.langAPI.getLangManager().reloadLang();
+        this.langAPI.getLangManager("zh_cn").downloadLang();
+        this.langAPI.getLangManager("zh_cn").reloadLang();
     }
 
     /**

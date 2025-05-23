@@ -2,6 +2,7 @@ package cn.chengzhiya.mhdftools.listener.feature;
 
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.listener.AbstractListener;
+import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.feature.NickUtil;
@@ -28,18 +29,32 @@ public final class JoinMessage extends AbstractListener {
         }
 
         if (config.getBoolean("removeMessage")) {
-            event.joinMessage(null);
+            setJoinMessage(event, null);
             return;
         }
 
         String message = config.getString(GroupUtil.getGroup(player, config, "mhdftools.group.joinmessage.") + ".message");
         if (message == null) {
-            event.joinMessage(null);
+            setJoinMessage(event, null);
             return;
         }
 
-        event.joinMessage(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
+        setJoinMessage(event, ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(player, message))
                 .replace("{player}", NickUtil.getName(player))
         );
+    }
+
+    /**
+     * 设置进服提示
+     *
+     * @param event   进服事件实例
+     * @param message 文本实例
+     */
+    private void setJoinMessage(PlayerJoinEvent event, TextComponent message) {
+        if (Main.instance.isNativeSupportAdventureApi()) {
+            event.joinMessage(message);
+        } else {
+            event.setJoinMessage(message.toLegacyString());
+        }
     }
 }

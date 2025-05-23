@@ -21,9 +21,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.bukkit.Bukkit.getServer;
@@ -145,7 +145,7 @@ public final class BungeeCordManager {
         Player player = Bukkit.getPlayer(playerName);
         Player target = Bukkit.getPlayer(targetName);
         if (player != null && target != null) {
-            TeleportUtil.teleport(player, target.getLocation(), new HashMap<>());
+            TeleportUtil.teleport(player, target.getLocation(), new ConcurrentHashMap<>());
             return;
         }
         Main.instance.getCacheManager().put("tpPlayer", playerName, targetName);
@@ -247,16 +247,10 @@ public final class BungeeCordManager {
         }
 
         JSONObject data = new JSONObject();
-        data.put("action", "sendMessage");
-        data.put("to", "all");
+        data.put("playerName", playerName);
+        data.put("message", message);
 
-        JSONObject params = new JSONObject();
-        params.put("playerName", playerName);
-        params.put("message", message);
-
-        data.put("params", params);
-
-        sendMhdfToolsPluginMessage(data);
+        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("sendMessage", data.toJSONString());
     }
 
     /**
@@ -312,16 +306,10 @@ public final class BungeeCordManager {
         }
 
         JSONObject data = new JSONObject();
-        data.put("action", "setGameMode");
-        data.put("to", "all");
+        data.put("playerName", playerName);
+        data.put("gameMode", gameMode.name());
 
-        JSONObject params = new JSONObject();
-        params.put("playerName", playerName);
-        params.put("gameMode", gameMode.name());
-
-        data.put("params", params);
-
-        sendMhdfToolsPluginMessage(data);
+        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("setGameMode", data.toJSONString());
     }
 
     /**
@@ -346,16 +334,10 @@ public final class BungeeCordManager {
         }
 
         JSONObject data = new JSONObject();
-        data.put("action", "atList");
-        data.put("to", "all");
+        data.put("atList", atList);
+        data.put("by", by);
 
-        JSONObject params = new JSONObject();
-        params.put("atList", atList);
-        params.put("by", by);
-
-        data.put("params", params);
-
-        sendMhdfToolsPluginMessage(data);
+        Main.instance.getCacheManager().getRedisMessageManager().sendRedisMessage("atList", data.toJSONString());
     }
 
     /**

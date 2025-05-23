@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.WarpData;
 import com.j256.ormlite.dao.Dao;
@@ -8,32 +9,25 @@ import com.j256.ormlite.dao.DaoManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class WarpDataUtil {
-    private static final Dao<WarpData, String> warpDataDao;
-
-    static {
-        try {
-            warpDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), WarpData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final ThreadLocal<Dao<WarpData, String>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), WarpData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
     /**
-     * 检测是否存在指定传送点名称的传送点
+     * 获取dao实例
      *
-     * @param warp 传送点名称
-     * @return 结果
+     * @return dao实例
      */
-    public static boolean ifWarpDataExist(String warp) {
-        try {
-            WarpData warpData = warpDataDao.queryForId(warp);
-
-            return warpData != null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public static Dao<WarpData, String> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -44,13 +38,7 @@ public final class WarpDataUtil {
      */
     public static WarpData getWarpData(String warp) {
         try {
-            WarpData warpData = warpDataDao.queryForId(warp);
-            if (warpData == null) {
-                warpData = new WarpData();
-                warpData.setWarp(warp);
-            }
-
-            return warpData;
+            return getDao().queryForId(warp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -63,12 +51,7 @@ public final class WarpDataUtil {
      */
     public static List<WarpData> getHomeDataList() {
         try {
-            List<WarpData> warpDataList = warpDataDao.queryForAll();
-            if (warpDataList == null) {
-                warpDataList = new ArrayList<>();
-            }
-
-            return warpDataList;
+            return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -80,11 +63,13 @@ public final class WarpDataUtil {
      * @param warpData 传送点数据实例
      */
     public static void updateWarpData(WarpData warpData) {
-        try {
-            warpDataDao.createOrUpdate(warpData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(warpData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -93,10 +78,12 @@ public final class WarpDataUtil {
      * @param warpData 传送点数据实例
      */
     public static void removeWarpData(WarpData warpData) {
-        try {
-            warpDataDao.delete(warpData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().delete(warpData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

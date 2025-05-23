@@ -5,17 +5,38 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
+import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 
 @SuppressWarnings("unused")
 public final class CacheManager {
-    private HashMap<String, HashMap<String, String>> map = null;
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, String>> map = null;
     private RedisClient redisClient = null;
     private StatefulRedisConnection<String, String> redisConnection = null;
+    @Getter
+    private RedisMessageManager redisMessageManager = null;
+
+    /**
+     * 获取服务器ID
+     *
+     * @return 服务器ID
+     */
+    public String getServerId() {
+        return ConfigUtil.getConfig().getString("cacheSettings.server");
+    }
+
+    /**
+     * 获取缓存前缀
+     *
+     * @return 缓存前缀
+     */
+    public String getPrefix() {
+        return getServerId() + "mhdf-tools-";
+    }
 
     /**
      * 初始化缓存
@@ -28,7 +49,7 @@ public final class CacheManager {
         }
 
         switch (type) {
-            case "map" -> this.map = new HashMap<>();
+            case "map" -> this.map = new ConcurrentHashMap<>();
             case "redis" -> {
                 String host = ConfigUtil.getConfig().getString("cacheSettings.redis.host");
                 String user = ConfigUtil.getConfig().getString("cacheSettings.redis.user");
@@ -43,12 +64,17 @@ public final class CacheManager {
                         .redis(hostSplit[0])
                         .withPort(Integer.parseInt(hostSplit[1]));
 
-                if (user != null && !user.isEmpty() && password != null && !password.isEmpty()) {
-                    uriBuilder.withAuthentication(user, password.toCharArray());
+                if (user != null && !user.isEmpty()) {
+                    uriBuilder.withAuthentication(user, "");
+                }
+                if (password != null && !password.isEmpty()) {
+                    uriBuilder.withPassword(password.toCharArray());
                 }
 
                 this.redisClient = RedisClient.create(uriBuilder.build());
                 this.redisConnection = this.redisClient.connect();
+
+                this.redisMessageManager = new RedisMessageManager(getPrefix(), this.redisClient.connectPubSub());
             }
             default -> throw new RuntimeException("不支持的数据库类型: " + type);
         }
@@ -58,27 +84,22 @@ public final class CacheManager {
      * 关闭缓存
      */
     public void close() {
-        if (map != null) {
-            map.clear();
-            map = null;
+        if (this.map != null) {
+            this.map.clear();
+            this.map = null;
         }
-        if (redisConnection != null) {
-            redisConnection.close();
-            redisConnection = null;
+        if (this.redisMessageManager != null) {
+            this.redisMessageManager.close();
+            this.redisMessageManager = null;
         }
-        if (redisClient != null) {
-            redisClient.shutdown();
-            redisClient = null;
+        if (this.redisConnection != null) {
+            this.redisConnection.close();
+            this.redisConnection = null;
         }
-    }
-
-    /**
-     * 获取服务器ID
-     *
-     * @return 服务器ID
-     */
-    public String getServerId() {
-        return ConfigUtil.getConfig().getString("cacheSettings.server");
+        if (this.redisClient != null) {
+            this.redisClient.shutdown();
+            this.redisClient = null;
+        }
     }
 
     /**
@@ -89,9 +110,9 @@ public final class CacheManager {
      * @param value 写入的值
      */
     public void put(String table, String key, String value) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
             map.put(key, value);
 
             this.map.put(prefix, map);
@@ -109,9 +130,9 @@ public final class CacheManager {
      * @param key   删除的key
      */
     public void remove(String table, String key) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
             map.remove(key);
 
             this.map.put(prefix, map);
@@ -130,9 +151,9 @@ public final class CacheManager {
      * @return 缓存数据
      */
     public String get(String table, String key) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
 
             return map.get(key);
         }
@@ -154,9 +175,9 @@ public final class CacheManager {
      * @return 缓存key列表
      */
     public Set<String> keys(String table) {
-        String prefix = getServerId() + "mhdf-tools" + "-" + table;
+        String prefix = getPrefix() + table;
         if (this.map != null) {
-            HashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new HashMap<>();
+            ConcurrentHashMap<String, String> map = this.map.get(prefix) != null ? this.map.get(prefix) : new ConcurrentHashMap<>();
 
             return map.keySet();
         }

@@ -1,7 +1,13 @@
 package cn.chengzhiya.mhdftools;
 
+import cn.chengzhiya.mhdftools.exception.FileException;
+import cn.chengzhiya.mhdftools.exception.ResourceException;
 import cn.chengzhiya.mhdftools.manager.*;
+import cn.chengzhiya.mhdftools.manager.config.ConfigManager;
 import cn.chengzhiya.mhdftools.manager.database.MHDFDatabaseManager;
+import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
+import cn.chengzhiya.mhdftools.util.config.FileUtil;
+import cn.chengzhiya.mhdftools.util.config.ProxyUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,9 +16,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     public static Main instance;
 
+    private boolean nativeSupportAdventureApi;
+
+    private ConfigManager configManager;
     private LibrariesManager librariesManager;
     private MinecraftLangManager minecraftLangManager;
-    private ConfigManager configManager;
     private LogFilterManager logFilterManager;
 
     private AdventureManager adventureManager;
@@ -29,14 +37,30 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
+        try {
+            FileUtil.createFolder(ConfigUtil.getDataFolder());
+
+            ProxyUtil.saveDefaultProxy();
+            ProxyUtil.reloadProxy();
+        } catch (FileException | ResourceException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Class.forName("net.kyori.adventure.text.Component");
+            nativeSupportAdventureApi = true;
+        } catch (Exception e) {
+            nativeSupportAdventureApi = false;
+        }
+
         this.librariesManager = new LibrariesManager();
         this.librariesManager.init();
 
-        this.minecraftLangManager = new MinecraftLangManager();
-        this.minecraftLangManager.init();
-
         this.configManager = new ConfigManager();
         this.configManager.init();
+
+        this.minecraftLangManager = new MinecraftLangManager();
+        this.minecraftLangManager.init();
 
         this.logFilterManager = new LogFilterManager();
         this.logFilterManager.init();
@@ -73,6 +97,9 @@ public final class Main extends JavaPlugin {
         this.bStatsManager.init();
 
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
+        if (!isNativeSupportAdventureApi()) {
+            LogUtil.log("&c警告! 插件正在使用无服务端原生支持AdventureAPI兼容模式运行!");
+        }
         LogUtil.log("&a插件启动成功! 官方交流群: 129139830");
         LogUtil.log("&e-----------&6=&e梦之工具&6=&e-----------");
     }
@@ -110,9 +137,9 @@ public final class Main extends JavaPlugin {
         this.databaseManager = null;
         this.adventureManager = null;
         this.logFilterManager = null;
-        this.configManager = null;
         this.minecraftLangManager = null;
         this.librariesManager = null;
+        this.configManager = null;
 
         instance = null;
     }

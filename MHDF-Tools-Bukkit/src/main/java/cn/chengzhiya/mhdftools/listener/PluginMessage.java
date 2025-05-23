@@ -1,12 +1,8 @@
 package cn.chengzhiya.mhdftools.listener;
 
 import cn.chengzhiya.mhdftools.Main;
-import cn.chengzhiya.mhdftools.util.action.ActionUtil;
-import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.message.LogUtil;
 import com.alibaba.fastjson2.JSONObject;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
@@ -14,9 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public final class PluginMessage implements PluginMessageListener {
     @Override
@@ -48,51 +42,6 @@ public final class PluginMessage implements PluginMessageListener {
                                     from
                             );
                             Main.instance.getBungeeCordManager().setServerName(from);
-                        }
-                        case "sendMessage" -> {
-                            String playerName = params.getString("playerName");
-
-                            String message = params.getString("message");
-                            LogUtil.debug("发送跨服消息 | 目标玩家: {} | 消息: {}",
-                                    playerName,
-                                    message
-                            );
-
-                            if (playerName.equals("all")) {
-                                ActionUtil.broadcastMessage(message);
-                                return;
-                            }
-
-                            if (playerName.equals("console")) {
-                                LogUtil.log(message);
-                                return;
-                            }
-
-                            Player player = Bukkit.getPlayer(playerName);
-                            if (player == null) {
-                                return;
-                            }
-
-                            ActionUtil.sendMessage(player, message);
-                        }
-                        case "setGameMode" -> {
-                            String playerName = params.getString("playerName");
-                            Player player = Bukkit.getPlayer(playerName);
-                            if (player == null) {
-                                return;
-                            }
-
-                            String gamemode = params.getString("gameMode");
-                            LogUtil.debug("修改跨服游戏模式 | 目标玩家: {} | 游戏模式: {}",
-                                    playerName,
-                                    gamemode
-                            );
-                            player.setGameMode(GameMode.valueOf(gamemode));
-                        }
-                        case "atList" -> {
-                            Set<String> atList = new HashSet<>(params.getList("atList", String.class));
-                            String by = params.getString("by");
-                            AtUtil.atList(atList, by);
                         }
                     }
                 }

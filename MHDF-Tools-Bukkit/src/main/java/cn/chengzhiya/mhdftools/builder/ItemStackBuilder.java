@@ -58,51 +58,78 @@ public final class ItemStackBuilder {
         this.item = Objects.requireNonNullElseGet(item, () -> new ItemStack(Material.AIR));
     }
 
+    public ItemStackBuilder(Player player, ItemStack item) {
+        this.player = player;
+        this.item = item;
+    }
+
     public ItemStackBuilder name(String name) {
         ItemMeta meta = this.item.getItemMeta();
-        if (name != null) {
-            meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), name)));
-            this.item.setItemMeta(meta);
+        if (meta == null) {
+            return this;
         }
+        if (name == null) {
+            return this;
+        }
+
+        meta.displayName(ColorUtil.color(Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), name)));
+        this.item.setItemMeta(meta);
         return this;
     }
 
     public ItemStackBuilder lore(List<String> lore) {
         ItemMeta meta = this.item.getItemMeta();
-        if (lore != null && !lore.isEmpty()) {
-            meta.lore(lore.stream()
-                    .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), s))
-                    .map(ColorUtil::color)
-                    .toList()
-            );
-            this.item.setItemMeta(meta);
+        if (meta == null) {
+            return this;
         }
-        return this;
-    }
+        if (lore == null || lore.isEmpty()) {
+            return this;
+        }
 
-    public ItemStackBuilder amount(Integer amount) {
-        if (amount != null && amount > 0) {
-            this.item.setAmount(amount);
-        }
+        meta.lore(lore.stream()
+                .map(s -> Main.instance.getPluginHookManager().getPlaceholderAPIHook().placeholder(getPlayer(), s))
+                .map(ColorUtil::color)
+                .toList()
+        );
+        this.item.setItemMeta(meta);
         return this;
     }
 
     public ItemStackBuilder customModelData(Integer customModelData) {
         ItemMeta meta = this.item.getItemMeta();
-        if (customModelData != null && customModelData > 0) {
-            meta.setCustomModelData(customModelData);
-            this.item.setItemMeta(meta);
+        if (meta == null) {
+            return this;
         }
+        if (customModelData == null || customModelData <= 0) {
+            return this;
+        }
+
+        meta.setCustomModelData(customModelData);
+        this.item.setItemMeta(meta);
         return this;
     }
 
     public <P, C> ItemStackBuilder persistentDataContainer(String key, PersistentDataType<P, C> type, C value) {
         ItemMeta meta = this.item.getItemMeta();
-        if (key != null && type != null && value != null) {
-            PersistentDataContainer container = meta.getPersistentDataContainer();
-            container.set(new NamespacedKey(Main.instance, key), type, value);
-            this.item.setItemMeta(meta);
+        if (meta == null) {
+            return this;
         }
+        if (key == null || type == null || value == null) {
+            return this;
+        }
+
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+        container.set(new NamespacedKey(Main.instance, key), type, value);
+        this.item.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemStackBuilder amount(Integer amount) {
+        if (amount == null || amount <= 0) {
+            return this;
+        }
+
+        this.item.setAmount(amount);
         return this;
     }
 

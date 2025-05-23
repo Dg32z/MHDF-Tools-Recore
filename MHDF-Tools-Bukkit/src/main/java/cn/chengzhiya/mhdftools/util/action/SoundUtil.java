@@ -28,7 +28,8 @@ public final class SoundUtil {
 
         return ReflectionUtil.invokeMethod(
                 ReflectionUtil.getMethod(Sound.class, "valueOf", true, String.class),
-                Sound.class
+                Sound.class,
+                key
         );
     }
 }

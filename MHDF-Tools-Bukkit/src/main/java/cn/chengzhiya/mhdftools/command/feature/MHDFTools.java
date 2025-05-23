@@ -6,7 +6,8 @@ import cn.chengzhiya.mhdftools.text.TextComponent;
 import cn.chengzhiya.mhdftools.text.TextComponentBuilder;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.imports.HuskHomesUtil;
+import cn.chengzhiya.mhdftools.util.imports.CmiImportUtil;
+import cn.chengzhiya.mhdftools.util.imports.HuskHomesImportUtil;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,7 +72,8 @@ public final class MHDFTools extends AbstractCommand {
                     }
 
                     switch (args[1]) {
-                        case "huskhomes" -> HuskHomesUtil.importHuskHomesData(sender);
+                        case "huskhomes" -> HuskHomesImportUtil.importHuskHomesData(sender);
+                        case "cmi" -> CmiImportUtil.importCmiData(sender);
                         default ->
                                 ActionUtil.sendMessage(sender, LangUtil.i18n("commands.mhdftools.subCommands.import.pluginNotSupport"));
                     }
@@ -96,7 +98,7 @@ public final class MHDFTools extends AbstractCommand {
         }
         if (args.length == 2) {
             if (args[0].equals("import")) {
-                return List.of("huskhomes");
+                return List.of("huskhomes", "cmi");
             }
         }
         return new ArrayList<>();

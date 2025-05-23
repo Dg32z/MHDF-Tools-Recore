@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.EconomyData;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
@@ -12,40 +13,22 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public final class EconomyDataUtil {
-    private static final Dao<EconomyData, UUID> economyDataDao;
-
-    static {
-        try {
-            economyDataDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), EconomyData.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * 检测指定玩家UUID是否存在经济数据实例
-     *
-     * @param uuid 玩家UUID
-     * @return 结果
-     */
-    public static boolean ifEconomyDataExist(UUID uuid) {
-        try {
-            EconomyData economyData = economyDataDao.queryForId(uuid);
-
-            return economyData != null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final ThreadLocal<Dao<EconomyData, UUID>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), EconomyData.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
     /**
-     * 检测指定玩家实例是否存在经济数据实例
+     * 获取dao实例
      *
-     * @param player 玩家实例
-     * @return 结果
+     * @return dao实例
      */
-    public static boolean ifEconomyDataExist(OfflinePlayer player) {
-        return ifEconomyDataExist(player.getUniqueId());
+    public static Dao<EconomyData, UUID> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -69,7 +52,13 @@ public final class EconomyDataUtil {
      * @param player 玩家实例
      */
     public static void initEconomyData(OfflinePlayer player) {
-        initEconomyData(player.getUniqueId());
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            if (getEconomyData(player) != null) {
+                return;
+            }
+
+            initEconomyData(player.getUniqueId());
+        });
     }
 
     /**
@@ -80,14 +69,7 @@ public final class EconomyDataUtil {
      */
     public static EconomyData getEconomyData(UUID uuid) {
         try {
-            EconomyData economyData = economyDataDao.queryForId(uuid);
-            if (economyData == null) {
-                economyData = new EconomyData();
-                economyData.setPlayer(uuid);
-                economyData.setBigDecimal(BigDecimalUtil.toBigDecimal(0.0));
-            }
-
-            return economyData;
+            return getDao().queryForId(uuid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -109,10 +91,12 @@ public final class EconomyDataUtil {
      * @param economyData 经济数据实例
      */
     public static void updateEconomyData(EconomyData economyData) {
-        try {
-            economyDataDao.createOrUpdate(economyData);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(economyData);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

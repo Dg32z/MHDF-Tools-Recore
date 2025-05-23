@@ -61,7 +61,7 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return EconomyDataUtil.ifEconomyDataExist(player);
+        return EconomyDataUtil.getEconomyData(player) != null;
     }
 
     @Override
@@ -214,10 +214,6 @@ public final class EconomyImpl extends AbstractEconomy {
 
     @Override
     public boolean createPlayerAccount(OfflinePlayer player) {
-        if (EconomyDataUtil.ifEconomyDataExist(player)) {
-            return false;
-        }
-
         EconomyDataUtil.initEconomyData(player);
         return true;
     }

@@ -10,9 +10,7 @@ import org.bukkit.inventory.InventoryHolder;
 
 public final class Menu extends AbstractListener {
     public Menu() {
-        super(
-                null
-        );
+        super();
     }
 
     @EventHandler(ignoreCancelled = true)

@@ -176,7 +176,7 @@ public final class Stop extends AbstractCommand {
      * @param message 消息
      */
     private void stopServer(TextComponent message) {
-        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, (task) -> {
+        MHDFScheduler.getGlobalRegionScheduler().runTask(Main.instance, () -> {
             Bukkit.savePlayers();
 
             for (Player player : Bukkit.getOnlinePlayers()) {

@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdftools.util.database;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.entity.database.VanishStatus;
 import com.j256.ormlite.dao.Dao;
@@ -7,18 +8,28 @@ import com.j256.ormlite.dao.DaoManager;
 import org.bukkit.OfflinePlayer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public final class VanishStatusUtil {
-    private static final Dao<VanishStatus, UUID> vanishStatusDao;
+    private static final ThreadLocal<Dao<VanishStatus, UUID>> daoThread =
+            ThreadLocal.withInitial(() -> {
+                try {
+                    return DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), VanishStatus.class);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
-    static {
-        try {
-            vanishStatusDao = DaoManager.createDao(Main.instance.getDatabaseManager().getConnectionSource(), VanishStatus.class);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    /**
+     * 获取dao实例
+     *
+     * @return dao实例
+     */
+    public static Dao<VanishStatus, UUID> getDao() {
+        return daoThread.get();
     }
 
     /**
@@ -28,7 +39,7 @@ public final class VanishStatusUtil {
      */
     public static List<VanishStatus> getVanishStatusList() {
         try {
-            return vanishStatusDao.queryForAll();
+            return Objects.requireNonNullElseGet(getDao().queryForAll(), ArrayList::new);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -42,7 +53,7 @@ public final class VanishStatusUtil {
      */
     public static VanishStatus getVanishStatus(UUID uuid) {
         try {
-            VanishStatus vanishStatus = vanishStatusDao.queryForId(uuid);
+            VanishStatus vanishStatus = getDao().queryForId(uuid);
             if (vanishStatus == null) {
                 vanishStatus = new VanishStatus();
                 vanishStatus.setPlayer(uuid);
@@ -70,10 +81,12 @@ public final class VanishStatusUtil {
      * @param vanishStatus 隐身状态实例
      */
     public static void updateVanishStatus(VanishStatus vanishStatus) {
-        try {
-            vanishStatusDao.createOrUpdate(vanishStatus);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        MHDFScheduler.getAsyncScheduler().runTask(Main.instance, () -> {
+            try {
+                getDao().createOrUpdate(vanishStatus);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

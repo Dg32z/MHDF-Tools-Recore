@@ -33,7 +33,7 @@ debug: false
 # bStats https://bstats.org/plugin/bukkit/MHDF-Tools/24887
 bStats: true
 
-# 群组设置
+# 群组
 # 群组模式下必须使用redis缓存
 bungeeCordSettings:
   # 开关
@@ -45,12 +45,12 @@ bungeeCordSettings:
     # 最大重试次数
     maxTimes: 5
 
-# 数据库设置
+# 数据库
 databaseSettings:
   # 数据库类型
   # (mysql h2)
   type: "h2"
-  # MySQL数据库设置
+  # MySQL数据库
   mysql:
     # 地址
     host: "127.0.0.1:3306"
@@ -60,12 +60,12 @@ databaseSettings:
     user: "root"
     # 密码
     password: "root"
-  # H2数据库设置
+  # H2数据库
   h2:
     # 数据库文件
     file: "database.db"
 
-# 缓存设置
+# 缓存
 cacheSettings:
   # 存储类型
   # (map redis)
@@ -73,7 +73,7 @@ cacheSettings:
   # 服务池ID
   # 只有相同 服务池ID 服务器才会互相同步缓存
   server: ""
-  # Redis数据库设置
+  # Redis数据库
   redis:
     # 地址
     host: "localhost:6379"
@@ -81,20 +81,6 @@ cacheSettings:
     user: ""
     # 密码
     password: ""
-
-# 网络请求设置
-httpSettings:
-  # 代理
-  proxy:
-    # 开关
-    enable: false
-    # 类型
-    # HTTP SOCKS
-    type: "HTTP"
-    # 地址
-    host: "127.0.0.1"
-    # 端口
-    port: 7890
 
 # 随机传送
 randomTeleportSettings:
@@ -119,6 +105,7 @@ randomTeleportSettings:
     # 最大
     max: 1500
     # 延迟
+    # 绕过权限: mhdftools.bypass.randomteleport.delay
     delay:
       # 开关
       enable: true
@@ -145,7 +132,7 @@ crashSettings:
   # 开关
   enable: true
   # 默认崩溃模式
-  # (explosion changeHoldItem posAndLook invalidParticle)
+  # (explosion invalidTeleport invalidParticle)
   defaultType: "explosion"
   # 命令
   commands:
@@ -155,7 +142,7 @@ crashSettings:
 knockBackSettings:
   #开关
   enable: true
-  #击退的设置
+  #击退的
   vector:
     x: 0.75
     y: 0.5
@@ -269,7 +256,7 @@ homeSettings:
   # 命令
   commands:
     - "home"
-  # 设置家命令
+  # 家命令
   sethomeCommands:
     - "sethome"
   # 删除家命令
@@ -427,7 +414,7 @@ warpSettings:
   # 命令
   commands:
     - "warp"
-  # 设置传送点命令
+  # 传送点命令
   setwarpCommands:
     - "setwarp"
   # 删除传送点命令
@@ -448,10 +435,60 @@ fastUseSettings:
   # 工作台(权限: mhdftools.fastuse.craftingtable)
   craftingTable: true
 
-# 修复1.13+刷物品BUG
+# 修复1.13+三叉戟复制漏洞
 tridentDupeFixSettings:
   # 开关
   enable: true
+
+# 修复1.21+收纳袋崩服漏洞
+bundleFixSettings:
+  # 开关
+  enable: true
+
+# 快速调节时间
+fastChangeTimeSettings:
+  # 开关
+  enable: true
+  # 时间
+  time:
+    # 自定义命名
+    早上:
+      # 时间
+      time: 1000
+      # 命令
+      commands:
+        - "day"
+    # 自定义命名
+    晚上:
+      # 时间
+      time: 13000
+      # 命令
+      commands:
+        - "night"
+
+# 快速调节天气
+fastChangeWeatherSettings:
+  # 开关
+  enable: true
+  # 时间
+  weather:
+    # 自定义命名
+    晴天:
+      # 下雨
+      storm: false
+      # 打雷
+      thunder: false
+      # 命令
+      commands:
+        - "sun"
+
+# 虚假调节时间
+fakeChangeTimeSettings:
+  # 开关
+  enable: true
+  # 命令
+  commands:
+    - "fakeChangeTime"
 
 # 背包查看
 invseeSettings:
@@ -462,23 +499,35 @@ invseeSettings:
     - "inv"
     - "invsee"
 
+# 屏蔽
+ignoreSettings:
+  # 开关
+  enable: true
+  # 禁止屏蔽列表
+  # 绕过权限: mhdftools.bypass.ignore.blacklist
+  blacklist:
+    - "BaiShenYao_Dog"
+  # 命令
+  commands:
+    - "ignore"
+
 # 聊天
 chatSettings:
   # 开关
   enable: true
-  # 聊天延迟设置
+  # 聊天延迟
   # 绕过权限: mhdftools.bypass.chat.delay
   delay:
     # 开关
     enable: true
     # 延迟
     delay: 3
-  # 禁止刷屏设置
+  # 禁止刷屏
   # 绕过权限: mhdftools.bypass.chat.spam
   spam:
     # 开关
     enable: true
-  # 替换词设置
+  # 替换词
   # 绕过权限: mhdftools.bypass.chat.replaceWord
   replaceWord:
     # 开关
@@ -497,27 +546,21 @@ chatSettings:
         # 替换后的句子(随机选择)
         lineList:
           - "主人,我错惹喵~"
-  # 展示物品设置
+  # 展示物品
   showItem:
     # 开关
     enable: true
     # 格式
-    format: "&b[&f{name} &ax{amount}&b]"
+    format: "<click:run_command:'/lookItem {uuid}'>&b[&f{name} &ax{amount}&b]"
     # 关键词
     word:
       - "[i]"
-  # 屏蔽设置
-  ignore:
-    # 开关
-    enable: true
-    # 禁止屏蔽列表
-    # 绕过权限: mhdftools.bypass.ignore.blacklist
-    blacklist:
-      - "BaiShenYao_Dog"
+    # 移除展示物品缓存时间(单位: 秒)
+    removeCache: 60
     # 命令
     commands:
-      - "ignore"
-  # 私聊设置
+      - "lookitem"
+  # 私聊
   msg:
     # 开关
     enable: true
@@ -530,7 +573,7 @@ chatSettings:
     replyCommands:
       - "r"
       - "reply"
-  # at设置
+  # at
   at:
     # 开关
     enable: true
@@ -540,9 +583,9 @@ chatSettings:
     # 全体消息权限: mhdftools.chat.all
     allMessage:
       - "all"
-  # 格式设置
-  # 绕过颜色限制权限: mhdftools.bypass.chat.color
-  # miniMessage格式限制权限: mhdftools.bypass.chat.minimessage
+  # 格式
+  # 聊天颜色权限: mhdftools.chat.color
+  # 聊天miniMessage格式权限: mhdftools.chat.minimessage
   format:
     # 开关
     enable: true
@@ -693,7 +736,7 @@ timeActionSettings:
       action:
         - "[broadcast]|&e主人喵,中午该吃饭咯~"
 
-# motd设置
+# motd
 # {online}  ——当前在线
 # {max}     ——最大在线
 motdSettings:

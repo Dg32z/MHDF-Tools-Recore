@@ -31,8 +31,8 @@ public final class Base64Util {
      * @param bytes 被解码的数据
      * @return 原文本
      */
-    public static String decode(byte[] bytes) {
-        return new String(Base64.getDecoder().decode(bytes));
+    public static byte[] decode(byte[] bytes) {
+        return Base64.getDecoder().decode(bytes);
     }
 
     /**
@@ -41,7 +41,7 @@ public final class Base64Util {
      * @param string base64字符串
      * @return 原文本
      */
-    public static String decode(String string) {
+    public static byte[] decode(String string) {
         return decode(string.getBytes(StandardCharsets.UTF_8));
     }
 }

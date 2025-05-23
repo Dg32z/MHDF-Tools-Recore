@@ -5,7 +5,7 @@ import cn.chengzhiya.mhdftools.listener.AbstractListener;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
-import cn.chengzhiya.mhdftools.util.database.ChatIgnoreDataUtil;
+import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
 import cn.chengzhiya.mhdftools.util.feature.AtUtil;
 import cn.chengzhiya.mhdftools.util.feature.ChatUtil;
 import cn.chengzhiya.mhdftools.util.message.ColorUtil;
@@ -28,7 +28,7 @@ public final class Chat extends AbstractListener {
         );
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
@@ -53,13 +53,13 @@ public final class Chat extends AbstractListener {
         }
 
         // 限制使用颜色符号
-        if (!player.hasPermission("mhdftools.bypass.chat.color")) {
+        if (!player.hasPermission("mhdftools.chat.color")) {
             message = ChatColor.stripColor(ColorUtil.legacyColor(message));
         }
 
         // 限制使用miniMessage
-        if (!player.hasPermission("mhdftools.bypass.chat.minimessage")) {
-            Pattern pattern = Pattern.compile("</?[a-zA-Z0-9_:-]+>");
+        if (!player.hasPermission("mhdftools.chat.minimessage")) {
+            Pattern pattern = Pattern.compile("%/?\\[\\^]+%");
             message = pattern.matcher(message).replaceAll("");
         }
 
@@ -88,9 +88,11 @@ public final class Chat extends AbstractListener {
         message = ChatUtil.applyShowItem(player, message);
 
         // AT玩家
-        Set<String> atList = AtUtil.getAtList(player, message);
-        message = ChatUtil.applyAt(message, atList);
-        Main.instance.getBungeeCordManager().atList(atList, player.getName());
+        if (config.getBoolean("at.enable")) {
+            Set<String> atList = AtUtil.getAtList(player, message);
+            message = ChatUtil.applyAt(message, atList);
+            Main.instance.getBungeeCordManager().atList(atList, player.getName());
+        }
 
         // 发送消息
         String formatMessage = ChatUtil.getFormatMessage(player, message);
@@ -102,7 +104,7 @@ public final class Chat extends AbstractListener {
         for (String target : Main.instance.getBungeeCordManager().getPlayerList()) {
             if (config.getBoolean("ignore.enable")) {
                 OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
-                if (ChatIgnoreDataUtil.isChatIgnore(targetPlayer, player)) {
+                if (IgnoreDataUtil.isIgnore(targetPlayer, player)) {
                     continue;
                 }
             }

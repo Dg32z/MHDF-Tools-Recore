@@ -52,7 +52,9 @@ public final class SetHome extends AbstractCommand {
 
         Location location = sender.getLocation();
 
-        HomeData homeData = HomeDataUtil.getHomeData(sender, args[0]);
+        HomeData homeData = new HomeData();
+        homeData.setPlayer(sender.getUniqueId());
+        homeData.setHome(args[0]);
         homeData.setLocation(new BungeeCordLocation(location));
 
         HomeDataUtil.updateHomeData(homeData);

@@ -22,8 +22,6 @@
 title: "&b呜呜呜,你不要过来,我错惹,别蕨我"
 # 大小
 size: 54
-# 菜单中家格子数量
-homeSize: 45
 # 命令
 commands: [ ]
 # 打开菜单时执行的操作
@@ -53,6 +51,13 @@ items:
       - "&bPitch: {pitch}"
       - ""
       - "&a点击传送"
+    # 格子
+    slots:
+      - "0-8"
+      - "9-17"
+      - "18-26"
+      - "27-35"
+      - "36-44"
     # 数量
     # amount: 1
     # 自定义模型数据
@@ -60,7 +65,7 @@ items:
   边框:
     type: gray_stained_glass_pane
     name: "&f "
-    slot: "45-54"
+    slot: "45-53"
   上一页:
     type: red_stained_glass_pane
     name: "&e上一页"

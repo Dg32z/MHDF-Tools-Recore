@@ -1,14 +1,14 @@
 package cn.chengzhiya.mhdftools.util.feature;
 
+import cn.chengzhiya.mhdfscheduler.scheduler.MHDFScheduler;
 import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.text.TextComponent;
+import cn.chengzhiya.mhdftools.util.Base64Util;
 import cn.chengzhiya.mhdftools.util.GroupUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
 import cn.chengzhiya.mhdftools.util.config.YamlUtil;
-import cn.chengzhiya.mhdftools.util.message.MiniMessageUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import cn.chengzhiya.mhdftools.util.message.ColorUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,20 +99,25 @@ public final class ChatUtil {
             return message;
         }
 
+        UUID uuid = UUID.randomUUID();
+        Main.instance.getCacheManager().put("showItem", uuid.toString(), Base64Util.encode(item.serializeAsBytes()));
+        MHDFScheduler.getAsyncScheduler().runTaskLater(Main.instance, () -> {
+            Main.instance.getCacheManager().remove("showItem", uuid.toString());
+        }, 20L * config.getInt("removeCache"));
+
         String format = config.getString("format");
         if (format == null) {
             return message;
         }
         format = format
+                .replace("{uuid}", uuid.toString())
                 .replace("{name}", Main.instance.getMinecraftLangManager().getItemName(item).replace("§", "&"))
                 .replace("{amount}", String.valueOf(item.getAmount()));
 
         for (String s : config.getStringList("word")) {
-            message = message.replace(s,
-                    MiniMessage.miniMessage().serialize(
-                            Component.text(format).hoverEvent(item.asHoverEvent())
-                    ) + "</hover>"
-            );
+            message = ColorUtil.color(message).replace(s,
+                    ColorUtil.color(format).hoverEvent(item.asHoverEvent())
+            ).toMiniMessageString();
         }
 
         return message;
@@ -130,16 +136,12 @@ public final class ChatUtil {
             return message;
         }
 
-        if (!config.getBoolean("enable")) {
-            return message;
-        }
-
         String patternFormat = config.getString("patternFormat");
         if (patternFormat == null) {
             return message;
         }
 
-        TextComponent messageComponent = MiniMessageUtil.miniMessage(message);
+        TextComponent messageComponent = ColorUtil.color(message);
         TextComponent format = LangUtil.i18n("chat.at.format");
         for (String at : atList) {
             Pattern pattern = Pattern.compile(patternFormat.replace("{at}", at));

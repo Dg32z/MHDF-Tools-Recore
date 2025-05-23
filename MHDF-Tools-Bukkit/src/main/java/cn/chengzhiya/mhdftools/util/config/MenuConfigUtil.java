@@ -7,13 +7,13 @@ import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class MenuConfigUtil {
     @Getter
     private static final File menuFolder = new File(ConfigUtil.getDataFolder(), "menu");
     @Getter
-    private static final HashMap<String, YamlConfiguration> menuHashMap = new HashMap<>();
+    private static final ConcurrentHashMap<String, YamlConfiguration> menuHashMap = new ConcurrentHashMap<>();
 
     /**
      * 保存初始菜单
@@ -28,6 +28,9 @@ public final class MenuConfigUtil {
         }
         if (ConfigUtil.getConfig().getBoolean("homeSettings.enable")) {
             FileUtil.saveResource("menu/home.yml", "menu/home.yml", false);
+        }
+        if (ConfigUtil.getConfig().getBoolean("chatSettings.enable") && ConfigUtil.getConfig().getBoolean("chatSettings.showItem.enable")) {
+            FileUtil.saveResource("menu/lookItem.yml", "menu/lookItem.yml", false);
         }
     }
 

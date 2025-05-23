@@ -1,4 +1,4 @@
-package cn.chengzhiya.mhdftools.manager;
+package cn.chengzhiya.mhdftools.manager.config;
 
 import cn.chengzhiya.mhdftools.exception.FileException;
 import cn.chengzhiya.mhdftools.exception.ResourceException;
@@ -19,8 +19,6 @@ public final class ConfigManager {
      */
     public void saveDefaultAll() {
         try {
-            FileUtil.createFolder(ConfigUtil.getDataFolder());
-
             ConfigUtil.saveDefaultConfig();
             LangUtil.saveDefaultLang();
             SoundUtil.saveDefaultSound();

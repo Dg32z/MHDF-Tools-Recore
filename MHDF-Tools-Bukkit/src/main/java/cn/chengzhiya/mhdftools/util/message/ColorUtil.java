@@ -141,6 +141,6 @@ public final class ColorUtil {
      * @return 处理后的文本
      */
     public static TextComponent color(@NotNull String message) {
-        return new TextComponent(MiniMessageUtil.miniMessage(miniMessage(message)));
+        return new TextComponent(MiniMessageUtil.miniMessage("<!i>" + miniMessage(message)));
     }
 }

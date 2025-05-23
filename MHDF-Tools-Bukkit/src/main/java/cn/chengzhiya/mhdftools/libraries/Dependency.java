@@ -33,14 +33,14 @@ public enum Dependency {
     MHDF_SCHEDULER(
             "cn{}chengzhiya",
             "MHDF-Scheduler",
-            "1.0.0",
+            "1.0.1",
             Repository.CHENGZHIMEOW,
             true
     ),
     MHDF_LANGUTIL(
             "cn{}chengzhiya",
             "MHDF-LangUtil",
-            "1.1.2",
+            "1.2.5",
             Repository.CHENGZHIMEOW,
             true
     ),
@@ -75,7 +75,7 @@ public enum Dependency {
     PACKETEVENTS_API(
             "com{}github{}retrooper",
             "packetevents-api",
-            "2.7.0",
+            "2.8.0",
             Repository.CODE_MC,
             true,
             "io{}github{}retrooper"
@@ -83,14 +83,14 @@ public enum Dependency {
     PACKETEVENTS_NETTY_COMMON(
             "com{}github{}retrooper",
             "packetevents-netty-common",
-            "2.7.0",
+            "2.8.0",
             Repository.CODE_MC,
             true
     ),
     PACKETEVENTS_SPIGOT(
             "com{}github{}retrooper",
             "packetevents-spigot",
-            "2.7.0",
+            "2.8.0",
             Repository.CODE_MC,
             true
     ),
@@ -168,21 +168,21 @@ public enum Dependency {
     ADVENTURE_API(
             "net{}kyori",
             "adventure-api",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_KEY(
             "net{}kyori",
             "adventure-key",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_NBT(
             "net{}kyori",
             "adventure-nbt",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
@@ -196,91 +196,91 @@ public enum Dependency {
     ADVENTURE_PLATFORM_BUKKIT(
             "net{}kyori",
             "adventure-platform-bukkit",
-            "4.3.4",
+            "4.4.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_PLATFORM_FACET(
             "net{}kyori",
             "adventure-platform-facet",
-            "4.3.4",
+            "4.4.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_PLATFORM_VIAVERSION(
             "net{}kyori",
             "adventure-platform-viaversion",
-            "4.3.4",
+            "4.4.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_LOGGER_SLF4J(
             "net{}kyori",
             "adventure-text-logger-slf4j",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_MINIMESSAGE(
             "net{}kyori",
             "adventure-text-minimessage",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_ANSI(
             "net{}kyori",
             "adventure-text-serializer-ansi",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_BUNGEECORD(
             "net{}kyori",
             "adventure-text-serializer-bungeecord",
-            "4.3.4",
+            "4.4.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON(
             "net{}kyori",
             "adventure-text-serializer-gson",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_GSON_LEGACY_IMPL(
             "net{}kyori",
             "adventure-text-serializer-gson-legacy-impl",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_JSON(
             "net{}kyori",
             "adventure-text-serializer-json",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_JSON_LEGACY_IMPL(
             "net{}kyori",
             "adventure-text-serializer-json-legacy-impl",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_LEGACY(
             "net{}kyori",
             "adventure-text-serializer-legacy",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
     ADVENTURE_TEXT_SERIALIZER_PLAIN(
             "net{}kyori",
             "adventure-text-serializer-plain",
-            "4.18.0",
+            "4.21.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     ),
@@ -308,7 +308,7 @@ public enum Dependency {
     OPTION(
             "net{}kyori",
             "option",
-            "1.0.0",
+            "1.1.0",
             Repository.MAVEN_CENTRAL_MIRROR,
             false
     );

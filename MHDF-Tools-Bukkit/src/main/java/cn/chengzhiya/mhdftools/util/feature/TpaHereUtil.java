@@ -4,6 +4,9 @@ import cn.chengzhiya.mhdftools.Main;
 import cn.chengzhiya.mhdftools.util.action.ActionUtil;
 import cn.chengzhiya.mhdftools.util.config.ConfigUtil;
 import cn.chengzhiya.mhdftools.util.config.LangUtil;
+import cn.chengzhiya.mhdftools.util.database.IgnoreDataUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public final class TpaHereUtil {
@@ -35,12 +38,18 @@ public final class TpaHereUtil {
         Main.instance.getCacheManager().put("tpaherePlayer", player.getName(), targetName);
         Main.instance.getCacheManager().put("tpahereDelay", player.getName(), String.valueOf(ConfigUtil.getConfig().getInt("tpahereSettings.delay")));
 
-        Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpahere.requestMessage")
-                .replaceByMiniMessage("{player}", player.getName())
-        );
+        OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
 
         ActionUtil.sendMessage(player, LangUtil.i18n("commands.tpahere.message")
-                .replace("{player}", targetName)
+                .replace("{player}", NickUtil.getName(target))
+        );
+
+        if (IgnoreDataUtil.isIgnore(target, player)) {
+            return;
+        }
+
+        Main.instance.getBungeeCordManager().sendMessage(targetName, LangUtil.i18n("commands.tpahere.requestMessage")
+                .replaceByMiniMessage("{player}", NickUtil.getName(player))
         );
     }
 }
